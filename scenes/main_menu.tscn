@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=4 format=3 uid="uid://b2x2kfympqvum"]
 
+[ext_resource type="Script" uid="uid://c22qkje17kwli" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dkaiu2yust7e5" path="res://assets/sample_bg.png" id="1_l6cm7"]
+[ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bqqt6")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -27,3 +30,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.39215687)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 248.0
+offset_right = 752.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 64
+text = "KAIISA"
+
+[node name="BoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -158.0
+offset_top = 7.0
+offset_right = 158.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 32
+text = "START GAME"
+
+[node name="QuitButton" type="Button" parent="BoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 32
+text = "QUIT"
