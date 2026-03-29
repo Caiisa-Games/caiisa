@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://kovxmeios3jx"]
+
+[ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://card.gd" id="1_kikvd"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rjlel"]
+
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kikvd")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 489.0
+offset_top = 84.0
+offset_right = 700.0
+offset_bottom = 407.0
+texture = SubResource("CanvasTexture_rjlel")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 275.0
+offset_right = 693.0
+offset_bottom = 304.0
+
+[node name="ProgressBar2" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 324.0
+offset_right = 693.0
+offset_bottom = 353.0
+
+[node name="ProgressBar3" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 373.0
+offset_right = 693.0
+offset_bottom = 402.0
