@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://kovxmeios3jx"]
 
-[ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://card.gd" id="1_d81rb"]
+[ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjlel"]
 

@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dakmm2a3fd0qk"]
+
+[ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
+[ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="2_c8ih6"]
+
+[node name="PieceSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7e3yo")
+expand_mode = 1
+
+[node name="CardGrid" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -204.0
+offset_right = 64.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 0
+columns = 5
+
+[node name="TextureRect" type="TextureRect" parent="CardGrid"]
+layout_mode = 2
+texture = ExtResource("2_c8ih6")
+
+[node name="TextureRect2" type="TextureRect" parent="CardGrid"]
+layout_mode = 2
+texture = ExtResource("2_c8ih6")
+
+[node name="TextureRect3" type="TextureRect" parent="CardGrid"]
+layout_mode = 2
+texture = ExtResource("2_c8ih6")
+
+[node name="TextureRect4" type="TextureRect" parent="CardGrid"]
+layout_mode = 2
+texture = ExtResource("2_c8ih6")
+
+[node name="TextureRect5" type="TextureRect" parent="CardGrid"]
+layout_mode = 2
+texture = ExtResource("2_c8ih6")
+
+[node name="PreviewGrid" type="CanvasLayer" parent="."]
+
+[node name="Grid" type="Node2D" parent="PreviewGrid"]
