@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=6 format=3 uid="uid://dakmm2a3fd0qk"]
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="2_c8ih6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcp5b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1b5r"]
 
 [node name="PieceSelection" type="Control"]
 layout_mode = 3
@@ -21,44 +27,140 @@ grow_vertical = 2
 texture = ExtResource("1_7e3yo")
 expand_mode = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -556.0
-offset_top = -631.0
-offset_right = -392.0
-offset_bottom = -11.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+
+[node name="LeftPanel" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
 horizontal_scroll_mode = 0
 
-[node name="CardGrid" type="HFlowContainer" parent="ScrollContainer"]
+[node name="CardGrid" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/CardGrid"]
-layout_mode = 2
-texture = ExtResource("2_c8ih6")
-
-[node name="TextureRect2" type="TextureRect" parent="ScrollContainer/CardGrid"]
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect3" type="TextureRect" parent="ScrollContainer/CardGrid"]
+[node name="TextureRect2" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/CardGrid"]
+[node name="TextureRect3" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect5" type="TextureRect" parent="ScrollContainer/CardGrid"]
+[node name="TextureRect4" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="PreviewGrid" type="CanvasLayer" parent="."]
+[node name="TextureRect5" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
+layout_mode = 2
+texture = ExtResource("2_c8ih6")
 
-[node name="Grid" type="Node2D" parent="PreviewGrid"]
+[node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
+
+[node name="GridContainer" type="GridContainer" parent="HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 7
+
+[node name="Cell_0_0" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_0_1" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_0_2" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_0_3" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_0_4" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_0_5" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_0_6" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_0" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_1" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_2" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_3" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_4" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_5" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_1_6" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_0" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_1" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_2" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_3" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_4" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_5" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Cell_2_6" type="Button" parent="HSplitContainer/RightPanel/GridContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
