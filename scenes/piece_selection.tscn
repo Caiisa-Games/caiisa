@@ -21,38 +21,41 @@ grow_vertical = 2
 texture = ExtResource("1_7e3yo")
 expand_mode = 1
 
-[node name="CardGrid" type="GridContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -204.0
-offset_right = 64.0
-offset_bottom = -76.0
+offset_left = -556.0
+offset_top = -631.0
+offset_right = -392.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 0
-columns = 5
+horizontal_scroll_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="CardGrid"]
+[node name="CardGrid" type="HFlowContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect2" type="TextureRect" parent="CardGrid"]
+[node name="TextureRect2" type="TextureRect" parent="ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect3" type="TextureRect" parent="CardGrid"]
+[node name="TextureRect3" type="TextureRect" parent="ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect4" type="TextureRect" parent="CardGrid"]
+[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
-[node name="TextureRect5" type="TextureRect" parent="CardGrid"]
+[node name="TextureRect5" type="TextureRect" parent="ScrollContainer/CardGrid"]
 layout_mode = 2
 texture = ExtResource("2_c8ih6")
 
