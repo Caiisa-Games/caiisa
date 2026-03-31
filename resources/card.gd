@@ -12,20 +12,32 @@ extends Control
 @onready var coll: ColorRect = $ColorRect
 @onready var camer: Camera2D = $ColorRect/Camera2D
 @onready var coll_2: ColorRect = $ColorRect2
+@onready var label_3: Label = $ColorRect2/Label3
+@onready var label_4: Label = $ColorRect2/Label4
+@onready var label_5: Label = $ColorRect2/Label5
+@onready var label_9: Label = $ColorRect/Label9
+@onready var label_8: Label = $ColorRect2/Label8
+@onready var label_7: Label = $ColorRect2/Label7
+@onready var labelh: Label = $ColorRect/Labelh
 
-
-var sdf = 1
 func _ready() -> void:
 	randomize()
 	#hp.value = randi_range(11, 200)
-	hp.value = randi_range(0, 100)
+	hp.value = randi_range(1, 10)
 	hp_2.value = hp.value
-	#hp_2.value = hp_2.value / 10
+	label_3.text = str(hp_2.value)
 	
-	power.value = randi_range(0, 100)
+	power.value = randi_range(5, 150)
 	power_2.value = power.value
-	knock.value = randi_range(0, 100)
+	power_2.value = int(power_2.value / 2)
+	power.value = int(power.value / 2)
+	label_4.text = str(power_2.value)
+	
+	knock.value = randi_range(11, 200)
 	knock_3.value = knock.value
+	knock_3.value = int(knock_3.value / 2 - 10)
+	knock.value = int(knock.value / 3)
+	label_5.text = str(knock_3.value)
 	
 func _process(delta: float) -> void:
 	pass
@@ -60,3 +72,16 @@ func _on_button_4_pressed() -> void:
 func _on_button_3_pressed() -> void:
 	if coll_2.visible == true:
 		coll_2.visible = false
+
+
+func _on_button_6_pressed() -> void:
+	if label_9.visible == false:
+		label_9.visible = true
+		label_8.visible = true
+		label_7.visible = false
+		labelh.visible = false
+	else:
+		label_9.visible = false
+		label_8.visible = false
+		label_7.visible = true
+		labelh.visible = true
