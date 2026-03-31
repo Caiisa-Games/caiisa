@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://kovxmeios3jx"]
+[gd_scene load_steps=33 format=3 uid="uid://kovxmeios3jx"]
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://resources/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://c3jsdcipe0cb7" path="res://assets/ghj.jpg" id="2_6u4wf"]
@@ -16,6 +16,8 @@
 [sub_resource type="Resource" id="Resource_4wvaf"]
 script = ExtResource("2_we8pq")
 metadata/_custom_type_script = "uid://divct8m8b0k67"
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xuy1i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_we8pq"]
 bg_color = Color(1, 1, 1, 1)
@@ -100,6 +102,7 @@ offset_left = 24.0
 offset_top = 185.0
 offset_right = 152.0
 offset_bottom = 372.0
+icon = SubResource("CanvasTexture_xuy1i")
 
 [node name="TextureRect" type="TextureRect" parent="Button2"]
 layout_mode = 0
@@ -200,7 +203,7 @@ text = " Rook:
  Ability:
  it can strike
  anything it
- captures in bpth
+ captures in both
  vertical and
  horizontal
  directions."
@@ -421,6 +424,23 @@ text = "جان کارتی که برای مبارزه هست.
 نشان دهنده روحیه قدرت است.            
 قدرت هرچه زیاد باشد  احتمال              
  نابود کردن کارد مقابل زیاد میشود.       "
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 139.08809
+offset_top = 205.42668
+offset_right = 146.36067
+offset_bottom = 367.04196
+color = Color(1, 0.9529412, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect3"]
+layout_mode = 0
+offset_left = -110.90684
+offset_top = 156.74734
+offset_right = 7.2725906
+offset_bottom = 161.61526
+color = Color(1, 0.9529412, 0, 1)
 
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Button2/TextureRect/Button" to="." method="_on_button_pressed"]
