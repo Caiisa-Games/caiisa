@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://5aapoewew0nq"]
+
+[ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="1_3dk36"]
+[ext_resource type="Script" uid="uid://3onjfc1bkjh4" path="res://scenes/tile.gd" id="1_ywnoi"]
+
+[node name="Tile" type="Node2D"]
+script = ExtResource("1_ywnoi")
+
+[node name="HeightSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3dk36")
+
+[node name="BaseSprite" type="Sprite2D" parent="."]
+
+[node name="Occupant" type="Node2D" parent="."]
+
+[node name="HeightLabel" type="Label" parent="."]
+offset_right = 57.0
+offset_bottom = 51.0
