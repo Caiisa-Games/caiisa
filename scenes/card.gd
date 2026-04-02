@@ -9,6 +9,9 @@ extends Area2D
 @onready var power_2: ProgressBar = $ColorRect2/ProgressBar5
 @onready var knock_3: ProgressBar = $ColorRect2/ProgressBar6
 
+@onready var texture_sprite: Sprite2D = $Button2/TextureRect/TextureSprite
+@onready var title_label: Label = $Button2/TextureRect/TitleLabel
+
 @onready var coll: ColorRect = $ColorRect
 @onready var camer: Camera2D = $ColorRect/Camera2D
 @onready var coll_2: ColorRect = $ColorRect2
@@ -28,20 +31,23 @@ var is_dragging = false
 var drag_offset = Vector2.ZERO
 
 func _ready() -> void:
-	randomize()
+	if not data: return
 
-	hp.value = randi_range(1, 10)
+	hp.value = data.defense
 	hp_2.value = hp.value
 	label_3.text = str(hp_2.value)
 	
-	power.value = randi_range(0, 100)
+	power.value = data.power
 	power_2.value = power.value
 
 	label_4.text = str(power_2.value)
 	
-	knock.value = randi_range(1, 100)
+	knock.value = data.knockback
 	knock_3.value = knock.value
 	label_5.text = str((knock_3.value + 20) / 100)
+	
+	texture_sprite.texture = data.texture
+	title_label.text = data.name
 	
 func _on_button_2_pressed() -> void:
 	if coll_3.visible == false:
