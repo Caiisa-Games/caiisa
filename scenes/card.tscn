@@ -85,19 +85,12 @@ ProgressBar/colors/font_color = Color(0.99705297, 0.99705297, 0.99705297, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_le4ky")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_125j1")
 
-[node name="Card" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Card" type="Area2D"]
 scale = Vector2(1.1000222, 1.0271305)
 script = ExtResource("1_d81rb")
 data = SubResource("Resource_4wvaf")
 
 [node name="Button2" type="Button" parent="."]
-layout_mode = 0
 offset_left = 24.0
 offset_top = 185.0
 offset_right = 152.0
@@ -176,7 +169,6 @@ texture = ExtResource("5_6ligt")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 29.0
 offset_top = 190.0
 offset_right = 130.0
@@ -281,7 +273,6 @@ zoom = Vector2(3, 3)
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 29.090322
 offset_top = 189.8493
 offset_right = 130.90645
@@ -425,7 +416,6 @@ text = "جان کارتی که برای مبارزه هست.
 
 [node name="ColorRect3" type="ColorRect" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 139.08809
 offset_top = 205.42668
 offset_right = 146.36067

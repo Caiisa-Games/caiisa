@@ -1,4 +1,4 @@
-extends Control
+extends Area2D
 
 @export var data: PieceData
 
@@ -24,6 +24,9 @@ extends Control
 
 @onready var button_2: Button = $Button2
 
+var is_dragging = false
+var drag_offset = Vector2.ZERO
+
 func _ready() -> void:
 	randomize()
 
@@ -39,11 +42,7 @@ func _ready() -> void:
 	knock.value = randi_range(1, 100)
 	knock_3.value = knock.value
 	label_5.text = str((knock_3.value + 20) / 100)
-
 	
-func _process(delta: float) -> void:
-	pass
-
 func _on_button_2_pressed() -> void:
 	if coll_3.visible == false:
 		coll_3.visible = true
@@ -95,3 +94,18 @@ func _on_button_6_pressed() -> void:
 		label_8.visible = false
 		label_7.visible = true
 		labelh.visible = true
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				is_dragging = true
+				drag_offset = get_global_mouse_position() - global_position
+				get_viewport().set_input_as_handled()
+			else:
+				is_dragging = false
+				get_viewport().set_input_as_handled()
+	
+	elif event is InputEventMouseMotion and is_dragging:
+		global_position = get_global_mouse_position() - drag_offset
+		get_viewport().set_input_as_handled()
