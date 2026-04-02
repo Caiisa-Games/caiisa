@@ -1,6 +1,10 @@
 class_name PieceData
 extends Resource
 
+@export_group("Info")
+@export var name: String
+@export var description: String
+
 @export_group("Visuals")
 @export var texture: Texture2D
 @export var collision_shape: Shape2D
