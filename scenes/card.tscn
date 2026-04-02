@@ -139,7 +139,6 @@ offset_right = 114.0
 offset_bottom = 182.0
 scale = Vector2(0.79939646, 0.45240077)
 theme = SubResource("Theme_54seb")
-max_value = 200.0
 
 [node name="Button" type="Button" parent="Button2/TextureRect"]
 layout_mode = 0
@@ -343,7 +342,6 @@ offset_right = 112.02347
 offset_bottom = 186.6681
 scale = Vector2(0.79939646, 0.45240077)
 theme = SubResource("Theme_b834i")
-max_value = 200.0
 
 [node name="Label2" type="Label" parent="ColorRect2"]
 layout_mode = 0

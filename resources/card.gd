@@ -26,22 +26,19 @@ extends Control
 
 func _ready() -> void:
 	randomize()
-	#hp.value = randi_range(11, 200)
+
 	hp.value = randi_range(1, 10)
 	hp_2.value = hp.value
 	label_3.text = str(hp_2.value)
 	
 	power.value = randi_range(0, 100)
 	power_2.value = power.value
-	#power_2.value = int(power_2.value / 2 - 10)
-	#power.value = int(power.value / 2 - 10)
+
 	label_4.text = str(power_2.value)
 	
 	knock.value = randi_range(1, 100)
 	knock_3.value = knock.value
-	knock_3.value = float(knock_3.value)
-	knock.value = float(knock.value)
-	label_5.text = str(knock_3.value)
+	label_5.text = str((knock_3.value + 20) / 100)
 
 	
 func _process(delta: float) -> void:
