@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://3onjfc1bkjh4" path="res://scenes/tile.gd" id="1_ywnoi"]
 
 [node name="Tile" type="Node2D"]
+position = Vector2(351, 193)
 script = ExtResource("1_ywnoi")
 
 [node name="HeightSprite" type="Sprite2D" parent="."]
@@ -16,3 +17,4 @@ texture = ExtResource("1_3dk36")
 [node name="HeightLabel" type="Label" parent="."]
 offset_right = 57.0
 offset_bottom = 51.0
+metadata/_edit_use_anchors_ = true

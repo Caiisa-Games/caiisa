@@ -10,3 +10,4 @@ tile_scene = ExtResource("2_tx6nw")
 board_data = ExtResource("3_nglv8")
 
 [node name="TileContainer" type="Node2D" parent="."]
+position = Vector2(671, 307)
