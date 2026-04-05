@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://3onjfc1bkjh4" path="res://scenes/tile.gd" id="1_ywnoi"]
 
 [node name="Tile" type="Node2D"]
-position = Vector2(351, 193)
 script = ExtResource("1_ywnoi")
 
 [node name="HeightSprite" type="Sprite2D" parent="."]

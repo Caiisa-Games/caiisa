@@ -1,4 +1,4 @@
-extends Area2D
+extends Control
 
 @export var data: PieceData
 
