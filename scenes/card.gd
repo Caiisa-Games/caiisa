@@ -100,18 +100,3 @@ func _on_button_6_pressed() -> void:
 		label_8.visible = false
 		label_7.visible = true
 		labelh.visible = true
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				is_dragging = true
-				drag_offset = get_global_mouse_position() - global_position
-				get_viewport().set_input_as_handled()
-			else:
-				is_dragging = false
-				get_viewport().set_input_as_handled()
-	
-	elif event is InputEventMouseMotion and is_dragging:
-		global_position = get_global_mouse_position() - drag_offset
-		get_viewport().set_input_as_handled()
