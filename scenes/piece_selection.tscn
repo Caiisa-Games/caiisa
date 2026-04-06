@@ -92,5 +92,4 @@ horizontal_alignment = 1
 position = Vector2(469, 276)
 
 [node name="Card" parent="HSplitContainer/RightPanel" instance=ExtResource("5_wgbiy")]
-layout_mode = 2
 data = ExtResource("6_j66un")
