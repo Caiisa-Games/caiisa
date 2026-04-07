@@ -1,73 +1,120 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=13 format=3 uid="uid://b2x2kfympqvum"]
 
 [ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dkaiu2yust7e5" path="res://assets/sample_bg.png" id="1_l6cm7"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
 
 [sub_resource type="Theme" id="Theme_bqqt6"]
-BoxContainer/constants/separation = 20
+BoxContainer/constants/separation = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+shadow_color = Color(0, 1, 0, 0.5176471)
+shadow_size = 1
+shadow_offset = Vector2(2, -2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+shadow_color = Color(0, 0, 0, 0.5921569)
+shadow_size = 1
+shadow_offset = Vector2(2, -3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_color = Color(0.8882251, 0.81386375, 7.70092e-07, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 1
+shadow_offset = Vector2(2, -2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
-bg_color = Color(0, 0, 0, 0.58431375)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_color = Color(1, 0, 0, 1)
-expand_margin_bottom = 6.0
-shadow_color = Color(0, 0, 0, 0.38431373)
-shadow_size = 5
+[sub_resource type="Theme" id="Theme_8ln24"]
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_bqqt6")
+Button/styles/normal = SubResource("StyleBoxFlat_wu84c")
+Button/styles/pressed = SubResource("StyleBoxFlat_8ln24")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
-bg_color = Color(0, 0, 0, 0.69803923)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_color = Color(0.46240592, 0.93385094, 0, 1)
-
-[sub_resource type="Theme" id="Theme_tbmy8"]
-Button/styles/focus = SubResource("StyleBoxFlat_wu84c")
-Button/styles/hover = SubResource("StyleBoxFlat_8ln24")
-Button/styles/normal = SubResource("StyleBoxFlat_rtw2f")
-Button/styles/pressed = SubResource("StyleBoxFlat_oa1go")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_color = Color(1, 0, 0, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(2, -3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk1qb"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_size = 1
+shadow_offset = Vector2(2, -2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dd4i"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.48430544, 0, 0.08569295, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgwnu"]
-bg_color = Color(0, 0, 0, 0.6901961)
-border_width_left = 5
-border_width_right = 5
-border_width_bottom = 5
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(1, 0, 0, 1)
-expand_margin_top = 3.0
-shadow_color = Color(0, 0, 0, 0.3882353)
-shadow_size = 8
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+shadow_size = 1
+shadow_offset = Vector2(2, -2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Theme" id="Theme_rcqid"]
-Button/styles/focus = SubResource("StyleBoxFlat_jk1qb")
-Button/styles/hover = SubResource("StyleBoxFlat_5dd4i")
-Button/styles/normal = SubResource("StyleBoxFlat_lgwnu")
-Button/styles/pressed = SubResource("StyleBoxFlat_flqon")
+[sub_resource type="Theme" id="Theme_lgwnu"]
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_tbmy8")
+Button/styles/normal = SubResource("StyleBoxFlat_jk1qb")
+Button/styles/pressed = SubResource("StyleBoxFlat_5dd4i")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -101,7 +148,7 @@ offset_bottom = 312.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7254902)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 10
 theme_override_constants/outline_size = 12
@@ -117,24 +164,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -159.0
-offset_top = 35.0
-offset_right = 159.0
-offset_bottom = 125.0
+offset_left = -146.0
+offset_top = 18.5
+offset_right = 139.0
+offset_bottom = 120.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_bqqt6")
 
 [node name="StartButton" type="Button" parent="BoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_tbmy8")
+theme = SubResource("Theme_8ln24")
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 28
 text = "START GAME"
 
 [node name="QuitButton" type="Button" parent="BoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_rcqid")
+theme = SubResource("Theme_lgwnu")
 theme_override_fonts/font = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 30
-text = "QUIT"
+theme_override_font_sizes/font_size = 28
+text = "QUIT GAME
+"
