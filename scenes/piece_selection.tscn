@@ -88,9 +88,9 @@ theme_override_font_sizes/font_size = 32
 text = "Choose Your Pieces"
 horizontal_alignment = 1
 
-[node name="Board" parent="HSplitContainer/RightPanel" instance=ExtResource("3_mcp5b")]
-position = Vector2(469, 276)
-
 [node name="Card" parent="HSplitContainer/RightPanel" instance=ExtResource("5_wgbiy")]
 layout_mode = 2
 data = ExtResource("6_j66un")
+
+[node name="Board" parent="HSplitContainer/RightPanel" instance=ExtResource("3_mcp5b")]
+position = Vector2(469, 231)
