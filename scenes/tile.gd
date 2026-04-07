@@ -32,8 +32,7 @@ func set_height(level: int) -> void:
 		var edge = Sprite2D.new()
 		edge.texture = base_sprite.texture
 		
-		print(i)
-		edge.position.y = 8 -(i*8) # adjust 8 to match your sprite height
+		edge.position.y = 10 -(i*10)
 		edge.position.x = 0
 		edge.scale.x = 0.5
 		edge.scale.y = 0.5
@@ -42,11 +41,10 @@ func set_height(level: int) -> void:
 	_update_visuals()
 
 
-#func set_occupant(piece: PieceData, player: int) -> void:
-	#"""Place a piece on this tile."""
-	#occupant = piece
-	#occupant_player = player
-	##_update_occupant_visuals()
+func set_occupant(piece: PieceData, player: int) -> void:
+	occupant = piece
+	occupant_player = player
+	#_update_occupant_visuals()
 #
 #
 #func clear_occupant() -> void:
