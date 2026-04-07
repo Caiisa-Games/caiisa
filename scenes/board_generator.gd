@@ -2,7 +2,6 @@ extends Node2D
 
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
-
 func generate_and_save() -> void:
 	var container = $TileContainer
 	
@@ -11,12 +10,10 @@ func generate_and_save() -> void:
 			var tile = tile_scene.instantiate()
 			tile.name = "Tile_%d_%d" % [x, y]
 			tile.position = _get_iso_pos(x, y)
-			
 			var cell_index = y * 7 + x
 			var cell = board_data.cell_heights[cell_index]
 			tile.init()
 			tile.set_height(cell)
-			
 			container.add_child(tile)
 
 func _get_iso_pos(x: int, y: int) -> Vector2:
