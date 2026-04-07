@@ -3,7 +3,7 @@ extends Node2D
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
 
-func generate_and_save() -> void:
+func generate() -> void:
 	var container = $TileContainer
 	
 	for y in range(7):
@@ -26,4 +26,4 @@ func _get_iso_pos(x: int, y: int) -> Vector2:
 	)
 
 func _ready() -> void:
-	generate_and_save()
+	generate()
