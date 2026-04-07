@@ -1,19 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://5aapoewew0nq"]
+[gd_scene load_steps=4 format=3 uid="uid://5aapoewew0nq"]
 
-[ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="1_3dk36"]
 [ext_resource type="Script" uid="uid://3onjfc1bkjh4" path="res://scenes/tile.gd" id="1_ywnoi"]
+[ext_resource type="Texture2D" uid="uid://dkj2jp6eh0cns" path="res://assets/isometric.png" id="2_ywnoi"]
+[ext_resource type="Texture2D" uid="uid://btkjv5pg2urpj" path="res://assets/base.png" id="3_jy7pm"]
 
 [node name="Tile" type="Node2D"]
 script = ExtResource("1_ywnoi")
 
-[node name="HeightSprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_3dk36")
-
 [node name="BaseSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_jy7pm")
+
+[node name="HeightSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ywnoi")
+
+[node name="BaseContainer" type="Node2D" parent="."]
+position = Vector2(0, -4)
 
 [node name="Occupant" type="Node2D" parent="."]
 
+[node name="Sprite2D" type="Sprite2D" parent="Occupant"]
+position = Vector2(0, -7)
+scale = Vector2(0.20312499, 0.20312499)
+
 [node name="HeightLabel" type="Label" parent="."]
+visible = false
 offset_right = 57.0
 offset_bottom = 51.0
 metadata/_edit_use_anchors_ = true
