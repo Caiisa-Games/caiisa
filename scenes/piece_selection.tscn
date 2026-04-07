@@ -94,4 +94,3 @@ data = ExtResource("6_j66un")
 
 [node name="Board" parent="HSplitContainer/RightPanel" instance=ExtResource("3_mcp5b")]
 position = Vector2(469, 231)
-scale = Vector2(2, 2)

@@ -21,8 +21,8 @@ func generate_and_save() -> void:
 
 func _get_iso_pos(x: int, y: int) -> Vector2:
 	return Vector2(
-		(x - y) * 32,
-		(x + y) * 14
+		(x - y) * 64,
+		(x + y) * 29
 	)
 
 func _ready() -> void:

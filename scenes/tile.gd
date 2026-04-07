@@ -3,6 +3,7 @@ extends Node2D
 @export var grid_position: Vector2i = Vector2i.ZERO
 @export var height_level: int = 0
 
+var base_container: Node2D
 var base_sprite: Sprite2D
 var height_sprite: Sprite2D
 var height_label: Label
@@ -13,6 +14,7 @@ var occupant_player: int = 0
 var is_interactive: bool = false
 
 func init() -> void:
+	base_container = $BaseContainer
 	base_sprite = $BaseSprite
 	height_sprite = $HeightSprite
 	height_label = $HeightLabel
@@ -23,6 +25,20 @@ func init() -> void:
 func set_height(level: int) -> void:
 	"""0-3"""
 	height_level = level
+	for child in base_container.get_children():
+		child.queue_free()
+
+	for i in range(level):
+		var edge = Sprite2D.new()
+		edge.texture = base_sprite.texture
+		
+		print(i)
+		edge.position.y = 8 -(i*8) # adjust 8 to match your sprite height
+		edge.position.x = 0
+		edge.scale.x = 0.5
+		edge.scale.y = 0.5
+		base_container.add_child(edge)
+	
 	_update_visuals()
 
 
