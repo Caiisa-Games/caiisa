@@ -43,21 +43,18 @@ func set_height(level: int) -> void:
 
 func set_occupant(piece: PieceData, player: int) -> void:
 	occupant = piece
+	occupant_node.texture = piece.texture
 	occupant_player = player
 	#_update_occupant_visuals()
-#
-#
-#func clear_occupant() -> void:
-	#"""Remove the piece from this tile."""
-	#occupant = null
-	#occupant_player = 0
-	#
-	#for child in occupant_node.get_children():
-		#child.queue_free()
-
+	
+func clear_occupant() -> void:
+	occupant = null
+	occupant_player = 0
+	
+	for child in occupant_node.get_children():
+		child.queue_free()
 
 func set_interactive(enabled: bool) -> void:
-	"""Enable/disable click interaction."""
 	is_interactive = enabled
 
 func _update_visuals() -> void:
