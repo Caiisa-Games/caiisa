@@ -6,7 +6,7 @@ extends Node2D
 var base_sprite: Sprite2D
 var height_sprite: Sprite2D
 var height_label: Label
-var occupant_node: Node2D
+var occupant_node: Sprite2D
 
 var occupant: PieceData = null
 var occupant_player: int = 0
@@ -16,7 +16,7 @@ func init() -> void:
 	base_sprite = $BaseSprite
 	height_sprite = $HeightSprite
 	height_label = $HeightLabel
-	occupant_node = $Occupant
+	occupant_node = $Occupant/Sprite2D
 	
 	_update_visuals()
 
@@ -49,6 +49,7 @@ func set_interactive(enabled: bool) -> void:
 func _update_visuals() -> void:
 	var height_offset := height_level * 10
 	height_sprite.position.y = -height_offset
+	occupant_node.position.y = -height_offset
 	
 	height_label.text = str(height_level)
 	#height_label.visible = false
