@@ -29,3 +29,10 @@ visible = false
 offset_right = 57.0
 offset_bottom = 51.0
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -3,11 +3,14 @@ extends Node2D
 @export var grid_position: Vector2i = Vector2i.ZERO
 @export var height_level: int = 0
 
+signal tile_clicked(grid_pos: Vector2i)
+
 var base_container: Node2D
 var base_sprite: Sprite2D
 var height_sprite: Sprite2D
 var height_label: Label
 var occupant_node: Sprite2D
+var area_2d = Area2D
 
 var occupant: PieceData = null
 var occupant_player: int = 0
@@ -19,6 +22,7 @@ func init() -> void:
 	height_sprite = $HeightSprite
 	height_label = $HeightLabel
 	occupant_node = $Occupant/Sprite2D
+	area_2d = $Area2D
 	
 	_update_visuals()
 
@@ -59,6 +63,7 @@ func set_interactive(enabled: bool) -> void:
 func _update_visuals() -> void:
 	var height_offset := height_level * 10
 	height_sprite.position.y = -height_offset
+	area_2d.position.y = -height_offset
 	occupant_node.position.y = -height_offset - 44
 	
 	height_label.text = str(height_level)
@@ -66,3 +71,9 @@ func _update_visuals() -> void:
 
 #func _on_tile_clicked() -> void:
 	#print("Tile clicked: ", grid_position, " | Height: ", height_level)
+
+
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			tile_clicked.emit(grid_position)
