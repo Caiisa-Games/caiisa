@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://bvf6nhg8gs6m0" path="res://assets/Card-Baseform.png" id="2_6u4wf"]
-[ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="3_kg30u"]
 [ext_resource type="FontFile" uid="uid://b0q546sq5pqtw" path="res://assets/fonts/african.ttf" id="4_sy11y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kg30u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
 bg_color = Color(1, 1, 1, 1)
@@ -71,49 +72,64 @@ scale = Vector2(1.1000222, 1.0271305)
 script = ExtResource("1_d81rb")
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 31.817537
-offset_top = 46.732136
-offset_right = 149.99696
-offset_bottom = 258.9739
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.089714
+offset_top = -106.12089
+offset_right = 59.089714
+offset_bottom = 106.12089
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kg30u")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(90.9074, 152.85303)
-scale = Vector2(0.14708471, 0.1664137)
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.90643
+offset_top = -130.90643
+offset_right = 130.90643
+offset_bottom = 130.90643
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_6u4wf")
-region_enabled = true
-region_rect = Rect2(871.18665, 630.6887, 818.8247, 1278.7819)
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 58.18064
-offset_top = 74.96613
-offset_right = 139.0881
-offset_bottom = 155.77379
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.45373
+offset_top = -105.1473
+offset_right = 40.45373
+offset_bottom = 88.59634
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_ktuci")
+theme_override_constants/separation = 16
 
-[node name="Sprite2D" type="Sprite2D" parent="Label"]
-position = Vector2(40.45373, 40.954784)
-scale = Vector2(0.5184555, 0.51621497)
-texture = ExtResource("3_kg30u")
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="Label"]
-layout_mode = 0
-offset_left = 2.7272224
-offset_top = 89.56992
-offset_right = 76.72722
-offset_bottom = 115.56992
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
 theme = SubResource("Theme_8w5pg")
 theme_override_fonts/font = ExtResource("4_sy11y")
 theme_override_font_sizes/font_size = 20
 text = "NAME"
+horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Label"]
-layout_mode = 0
-offset_left = 2.727221
-offset_top = 123.64545
-offset_right = 76.3621
-offset_bottom = 150.64545
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+layout_mode = 2
 theme = SubResource("Theme_6ligt")
 max_value = 10.0
 value = 2.0

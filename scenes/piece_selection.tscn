@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=10 format=3 uid="uid://dakmm2a3fd0qk"]
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="2_c8ih6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
 [ext_resource type="PackedScene" uid="uid://kovxmeios3jx" path="res://scenes/card.tscn" id="5_wgbiy"]
+[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="6_j66un"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
@@ -88,7 +89,9 @@ text = "Choose Your Pieces"
 horizontal_alignment = 1
 
 [node name="Card" parent="HSplitContainer/RightPanel" instance=ExtResource("5_wgbiy")]
+visible = false
 layout_mode = 2
+data = ExtResource("6_j66un")
 
 [node name="Board" parent="HSplitContainer/RightPanel" instance=ExtResource("3_mcp5b")]
 position = Vector2(469, 231)
