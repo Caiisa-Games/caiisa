@@ -51,8 +51,7 @@ func clear_occupant() -> void:
 	occupant = null
 	occupant_player = 0
 	
-	for child in occupant_node.get_children():
-		child.queue_free()
+	occupant_node.texture = null
 
 func set_interactive(enabled: bool) -> void:
 	is_interactive = enabled
