@@ -59,7 +59,7 @@ func set_interactive(enabled: bool) -> void:
 func _update_visuals() -> void:
 	var height_offset := height_level * 10
 	height_sprite.position.y = -height_offset
-	occupant_node.position.y = -height_offset
+	occupant_node.position.y = -height_offset - 44
 	
 	height_label.text = str(height_level)
 	#height_label.visible = false
