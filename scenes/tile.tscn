@@ -22,8 +22,7 @@ position = Vector2(0, -4)
 [node name="Occupant" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Occupant"]
-position = Vector2(0, -7)
-scale = Vector2(0.20312499, 0.20312499)
+position = Vector2(0, -44)
 
 [node name="HeightLabel" type="Label" parent="."]
 visible = false
