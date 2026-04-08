@@ -1,11 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=20 format=3 uid="uid://b2x2kfympqvum"]
 
 [ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dkaiu2yust7e5" path="res://assets/sample_bg.png" id="1_l6cm7"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
+[ext_resource type="FontFile" uid="uid://ccnqlkr0170ey" path="res://assets/fonts/fr13631889_Plicata_PERSONAL_USE_ONLY.ttf" id="3_wu84c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
+bg_color = Color(1, 0.95, 0, 0.6784314)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+shadow_color = Color(0, 0, 0, 0.4862745)
+shadow_size = 1
+shadow_offset = Vector2(20, 20)
 
 [sub_resource type="Theme" id="Theme_bqqt6"]
-BoxContainer/constants/separation = 6
+BoxContainer/constants/separation = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
 bg_color = Color(0, 1, 0, 1)
@@ -36,7 +47,6 @@ corner_radius_top_right = 18
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 expand_margin_top = 4.0
-expand_margin_right = 4.0
 shadow_color = Color(0, 0, 0, 0.5921569)
 shadow_size = 1
 shadow_offset = Vector2(2, -3)
@@ -60,6 +70,50 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/styles/hover = SubResource("StyleBoxFlat_bqqt6")
 Button/styles/normal = SubResource("StyleBoxFlat_wu84c")
 Button/styles/pressed = SubResource("StyleBoxFlat_8ln24")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcqid"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.8, 0.8, 0, 1)
+expand_margin_top = 3.0
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+expand_margin_top = 3.0
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgwnu"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 0.7666667, 0, 1)
+expand_margin_top = 3.0
+shadow_color = Color(1, 1, 0, 1)
+shadow_size = 3
+
+[sub_resource type="Theme" id="Theme_tbmy8"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_rcqid")
+Button/styles/hover = SubResource("StyleBoxFlat_rtw2f")
+Button/styles/normal = SubResource("StyleBoxFlat_oa1go")
+Button/styles/pressed = SubResource("StyleBoxFlat_lgwnu")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
 bg_color = Color(1, 0, 0, 1)
@@ -89,7 +143,6 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
-expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 shadow_size = 1
 shadow_offset = Vector2(2, -2)
@@ -127,12 +180,45 @@ script = ExtResource("1_bqqt6")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1148.0
+offset_bottom = 648.0
 texture = ExtResource("1_l6cm7")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 375.0
+offset_top = 660.0
+offset_right = 766.0
+offset_bottom = 1482.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.9098039, 0.07058824, 0.14117648, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 20
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 15
+theme_override_fonts/font = ExtResource("3_wu84c")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_flqon")
+text = "
+Designer:
+Aria Ashouri
+
+Artist:
+Mohammad
+ Sadra Mousavi
+
+Programmers:
+Ario Najaf
+Shakery
+Esmail Afrang
+
+made with ❤"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -142,11 +228,9 @@ color = Color(0, 0, 0, 0.7764706)
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 400.0
-offset_top = 248.0
+offset_top = 171.0
 offset_right = 752.0
-offset_bottom = 312.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = 235.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7254902)
 theme_override_constants/shadow_offset_x = 0
@@ -164,10 +248,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -146.0
-offset_top = 18.5
-offset_right = 139.0
-offset_bottom = 120.5
+offset_left = -145.0
+offset_top = -25.25
+offset_right = 140.0
+offset_bottom = 117.75
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_bqqt6")
@@ -179,6 +263,14 @@ theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 28
 text = "START GAME"
 
+[node name="creditsButton" type="Button" parent="BoxContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme = SubResource("Theme_tbmy8")
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 28
+text = "CREDITS"
+
 [node name="QuitButton" type="Button" parent="BoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_lgwnu")
@@ -186,3 +278,5 @@ theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 28
 text = "QUIT GAME
 "
+
+[connection signal="pressed" from="BoxContainer/creditsButton" to="." method="_on_credits_button_pressed"]
