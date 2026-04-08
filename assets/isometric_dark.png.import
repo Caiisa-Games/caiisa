@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sa753mfob6sx"
-path="res://.godot/imported/Block2.png-85aaf1315c87c66beaad00452c93d079.ctex"
+uid="uid://3xjebivvk0sc"
+path="res://.godot/imported/isometric_dark.png-db1d955129064d37b4a189ebd06ef84e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Block2.png"
-dest_files=["res://.godot/imported/Block2.png-85aaf1315c87c66beaad00452c93d079.ctex"]
+source_file="res://assets/isometric_dark.png"
+dest_files=["res://.godot/imported/isometric_dark.png-db1d955129064d37b4a189ebd06ef84e.ctex"]
 
 [params]
 
