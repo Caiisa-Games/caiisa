@@ -52,6 +52,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanel"]
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_behavior_recursive = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
 horizontal_scroll_mode = 0
 
@@ -97,3 +98,6 @@ data = ExtResource("6_j66un")
 
 [node name="Board" parent="HSplitContainer" instance=ExtResource("3_mcp5b")]
 position = Vector2(617, 231)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(576, 324)
