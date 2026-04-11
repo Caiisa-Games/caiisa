@@ -44,11 +44,6 @@ func _get_iso_pos(x: int, y: int) -> Vector2:
 		(x + y) * 29
 	)
 
-func _on_idle_click(tile: Node2D) -> void:
-	if tile.occupant != null:
-		selected_tile = tile
-		current_state = State.SELECTED
-
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var tile = tiles[grid_pos]
 	
@@ -62,8 +57,8 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 			if tile == selected_tile:
 				_deselect()
 			elif tile.occupant == null:
-				_move_occupant(selected_tile, tile)
-				_deselect()
+				if _move_occupant(selected_tile, tile):
+					_deselect()
 			else:
 				selected_tile = tile
 
@@ -71,12 +66,12 @@ func _deselect() -> void:
 	selected_tile = null
 	current_state = State.IDLE
 	
-func _move_occupant(from_tile: Node2D, to_tile: Node2D) -> void:
+func _move_occupant(from_tile: Node2D, to_tile: Node2D) -> bool:
 	var occupant = from_tile.occupant
 
 	var valid_moves = get_valid_moves(piece_data, from_tile)
 	if to_tile not in valid_moves:
-		return
+		return false
 
 	from_tile.occupant = null
 	to_tile.occupant = occupant
@@ -85,6 +80,8 @@ func _move_occupant(from_tile: Node2D, to_tile: Node2D) -> void:
 	from_tile.clear_occupant()
 	
 	to_tile.set_occupant(occupant, 1)
+	
+	return true
 
 	#_animate_occupant(occupant, to_tile)
 
@@ -134,7 +131,7 @@ func get_valid_moves(piece: PieceData, from_tile: Node2D) -> Array[Node2D]:
 	for dir in directions:
 		for range_step in range(1, movement.move_range + 1):
 			var target_pos = from_tile.grid_position + (dir * range_step)
-			if target_pos.y < 0 or target_pos.x < 0:
+			if (target_pos.y < 0 or target_pos.x < 0) or (target_pos.y > 6 or target_pos.x > 6):
 				break
 			var target_tile = tiles[Vector2i(target_pos.x, target_pos.y)]
 			
