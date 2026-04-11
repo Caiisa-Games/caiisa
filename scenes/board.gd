@@ -65,18 +65,17 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 func _deselect() -> void:
 	selected_tile = null
 	current_state = State.IDLE
-	
+
 func _move_occupant(from_tile: Node2D, to_tile: Node2D) -> bool:
 	var occupant = from_tile.occupant
 
-	var valid_moves = get_valid_moves(piece_data, from_tile)
+	var valid_moves = get_valid_moves(occupant, from_tile)
 	if to_tile not in valid_moves:
 		return false
 
 	from_tile.occupant = null
 	to_tile.occupant = occupant
 
-	
 	from_tile.clear_occupant()
 	
 	to_tile.set_occupant(occupant, 1)
