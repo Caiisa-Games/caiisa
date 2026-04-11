@@ -13,6 +13,8 @@ var selected_tile: Node2D = null
 enum State { IDLE, SELECTED }
 var current_state: State = State.IDLE
 
+var default_movement := MovementData.new()
+
 func generate() -> void:
 	var container = $TileContainer
 	for y in range(7):
@@ -72,8 +74,13 @@ func _deselect() -> void:
 func _move_occupant(from_tile: Node2D, to_tile: Node2D) -> void:
 	var occupant = from_tile.occupant
 
+	var valid_moves = get_valid_moves(piece_data, from_tile)
+	if to_tile not in valid_moves:
+		return
+
 	from_tile.occupant = null
 	to_tile.occupant = occupant
+
 	
 	from_tile.clear_occupant()
 	
@@ -105,6 +112,44 @@ func _get_tile_at_position(screen_pos: Vector2) -> Node2D:
 			#var my_occupant = tiles[location]
 			#location = Vector2i(randi() % 6, randi()%6)
 			#_move_occupant(my_occupant, tiles[location])
+
+
+func get_valid_moves(piece: PieceData, from_tile: Node2D) -> Array[Node2D]:
+	var moves: Array[Node2D] = []
+	var movement = piece.movement if piece.movement else default_movement
+	
+	var directions: Array[Vector2i] = []
+	
+	match movement.movement_type:
+		MovementData.MovementType.ORTHOGONAL:
+			directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+		MovementData.MovementType.DIAGONAL:
+			directions = [Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+		MovementData.MovementType.BOTH:
+			directions = [
+				Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT,
+				Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)
+			]
+	
+	for dir in directions:
+		for range_step in range(1, movement.move_range + 1):
+			var target_pos = from_tile.grid_position + (dir * range_step)
+			if target_pos.y < 0 or target_pos.x < 0:
+				break
+			var target_tile = tiles[Vector2i(target_pos.x, target_pos.y)]
+			
+			if target_tile == null:
+				break
+			
+			if target_tile.occupant != null and not movement.can_pass_through_pieces:
+				break
+			
+			if target_tile.occupant != null and movement.can_pass_through_pieces:
+				continue
+			
+			moves.append(target_tile)
+	
+	return moves
 
 func _ready() -> void:
 	generate()
