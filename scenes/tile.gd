@@ -48,7 +48,7 @@ func set_height(level: int) -> void:
 func set_occupant(piece: PieceData, player: int) -> void:
 	occupant = piece
 	occupant_node.texture = piece.texture
-	occupant_player = player
+	#occupant_player = player
 	#_update_occupant_visuals()
 	
 func clear_occupant() -> void:
