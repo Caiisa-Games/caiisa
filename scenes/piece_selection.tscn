@@ -92,7 +92,6 @@ mouse_behavior_recursive = 1
 layout_mode = 2
 size_flags_vertical = 8
 theme = SubResource("Theme_wgbiy")
-disabled = true
 text = "START"
 
 [node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
@@ -113,14 +112,12 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("3_k1b5r")
 theme_override_font_sizes/font_size = 16
-text = "a"
 
 [node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("3_k1b5r")
 theme_override_font_sizes/font_size = 16
-text = "a"
 horizontal_alignment = 2
 
 [node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
@@ -131,4 +128,5 @@ position = Vector2(659, 207)
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)
 
+[connection signal="pressed" from="HSplitContainer/LeftPanel/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="tile_clicked" from="HSplitContainer/RightPanel/PreviewLayer/Board" to="." method="_on_board_tile_clicked"]

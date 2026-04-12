@@ -109,5 +109,4 @@ func _update_ui() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	print("START")
-	#get_tree().change_scene_to_file("res://scenes/battle.tscn")
+	get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
