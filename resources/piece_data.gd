@@ -13,3 +13,6 @@ extends Resource
 @export var knockback: float = 1.0
 @export var power: float = 1.0
 @export var defense: float = 1.0
+
+@export_group("Movement")
+@export var movement: MovementData
