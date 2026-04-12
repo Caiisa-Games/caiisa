@@ -38,9 +38,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
+offset_left = 24.0
 offset_top = 16.0
-offset_right = -20.0
+offset_right = -12.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -101,3 +101,12 @@ position = Vector2(617, 231)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1062.0
+offset_top = 537.0
+offset_right = 1148.0
+offset_bottom = 644.0
+
+[connection signal="pressed" from="Button" to="HSplitContainer/RightPanel/Card" method="_on_button_pressed"]

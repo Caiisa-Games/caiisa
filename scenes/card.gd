@@ -14,3 +14,7 @@ func _ready() -> void:
 	
 	texture_sprite.texture = data.texture
 	title_label.text = data.name
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
