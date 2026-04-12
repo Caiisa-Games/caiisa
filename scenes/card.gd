@@ -1,16 +1,44 @@
-extends Control
+class_name Card
+extends TextureRect
 
-@export var data: PieceData
+@export var piece_data: PieceData
 
-@onready var texture_sprite: TextureRect = $VBoxContainer/TextureRect
-@onready var title_label: Label = $VBoxContainer/Label
-@onready var hp: ProgressBar = $VBoxContainer/ProgressBar
+var is_selected: bool = false
+signal card_selected(card: Card)
+signal card_deselected(card: Card)
 
 
 func _ready() -> void:
-	if not data: return
+	_update_display()
 
-	hp.value = data.defense
+func set_piece_data(data: PieceData) -> void:
+	piece_data = data
+	_update_display()
 	
-	texture_sprite.texture = data.texture
-	title_label.text = data.name
+func _update_display() -> void:
+	if piece_data == null:
+		return
+	
+	$VBoxContainer/ProgressBar.value = piece_data.defense
+	$VBoxContainer/TextureRect.texture = piece_data.texture
+	$VBoxContainer/Label.text = piece_data.name
+
+func select() -> void:
+	is_selected = true
+	$SelectionHighlight.visible = true
+	card_selected.emit(self)
+
+
+func deselect() -> void:
+	is_selected = false
+	$SelectionHighlight.visible = false
+	card_deselected.emit(self)
+
+
+func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if is_selected:
+				deselect()
+			else:
+				select()

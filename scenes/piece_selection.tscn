@@ -1,15 +1,41 @@
-[gd_scene load_steps=10 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=11 format=3 uid="uid://dakmm2a3fd0qk"]
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
-[ext_resource type="Texture2D" uid="uid://dt3u26svsupk8" path="res://icon.svg" id="2_c8ih6"]
+[ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://resources/piece_data.gd" id="2_j66un"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
-[ext_resource type="PackedScene" uid="uid://kovxmeios3jx" path="res://scenes/card.tscn" id="5_wgbiy"]
 [ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="6_j66un"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcp5b"]
+
+[sub_resource type="Theme" id="Theme_wgbiy"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = null
+Button/styles/pressed = null
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1b5r"]
 
@@ -21,6 +47,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_34mbo")
+available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_j66un")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -47,6 +75,7 @@ dragging_enabled = false
 
 [node name="LeftPanel" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanel"]
@@ -55,29 +84,16 @@ size_flags_horizontal = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
 horizontal_scroll_mode = 0
 
-[node name="CardGrid" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
+[node name="CardFlow" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
 layout_mode = 2
 mouse_behavior_recursive = 1
 
-[node name="TextureRect" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
+[node name="StartButton" type="Button" parent="HSplitContainer/LeftPanel"]
 layout_mode = 2
-texture = ExtResource("2_c8ih6")
-
-[node name="TextureRect2" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
-layout_mode = 2
-texture = ExtResource("2_c8ih6")
-
-[node name="TextureRect3" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
-layout_mode = 2
-texture = ExtResource("2_c8ih6")
-
-[node name="TextureRect4" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
-layout_mode = 2
-texture = ExtResource("2_c8ih6")
-
-[node name="TextureRect5" type="TextureRect" parent="HSplitContainer/LeftPanel/ScrollContainer/CardGrid"]
-layout_mode = 2
-texture = ExtResource("2_c8ih6")
+size_flags_vertical = 8
+theme = SubResource("Theme_wgbiy")
+disabled = true
+text = "START"
 
 [node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
@@ -92,13 +108,27 @@ theme_override_font_sizes/font_size = 32
 text = "Choose Your Pieces"
 horizontal_alignment = 1
 
-[node name="Card" parent="HSplitContainer/RightPanel" instance=ExtResource("5_wgbiy")]
-visible = false
+[node name="SelectedCountLabel" type="Label" parent="HSplitContainer/RightPanel"]
 layout_mode = 2
-data = ExtResource("6_j66un")
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_k1b5r")
+theme_override_font_sizes/font_size = 16
+text = "a"
 
-[node name="Board" parent="HSplitContainer/RightPanel" instance=ExtResource("3_mcp5b")]
-position = Vector2(469, 231)
+[node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_k1b5r")
+theme_override_font_sizes/font_size = 16
+text = "a"
+horizontal_alignment = 2
+
+[node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
+
+[node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("3_mcp5b")]
+position = Vector2(659, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)
+
+[connection signal="tile_clicked" from="HSplitContainer/RightPanel/PreviewLayer/Board" to="." method="_on_board_tile_clicked"]
