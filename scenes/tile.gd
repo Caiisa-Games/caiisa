@@ -1,3 +1,4 @@
+class_name Tile
 extends Node2D
 
 @export var grid_position: Vector2i = Vector2i.ZERO
@@ -68,10 +69,6 @@ func _update_visuals() -> void:
 	
 	height_label.text = str(height_level)
 	#height_label.visible = false
-
-#func _on_tile_clicked() -> void:
-	#print("Tile clicked: ", grid_position, " | Height: ", height_level)
-
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:

@@ -1,10 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://kovxmeios3jx"]
+[gd_scene load_steps=11 format=3 uid="uid://kovxmeios3jx"]
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://bvf6nhg8gs6m0" path="res://assets/Card-Baseform.png" id="2_6u4wf"]
 [ext_resource type="FontFile" uid="uid://b0q546sq5pqtw" path="res://assets/fonts/african.ttf" id="4_sy11y"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kg30u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
 bg_color = Color(1, 1, 1, 1)
@@ -65,41 +63,10 @@ ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_kg30u")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_sy11y")
 
-[node name="Card" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="Card" type="TextureRect"]
 scale = Vector2(1.1000222, 1.0271305)
-script = ExtResource("1_d81rb")
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -59.089714
-offset_top = -106.12089
-offset_right = 59.089714
-offset_bottom = 106.12089
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_kg30u")
-
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.90643
-offset_top = -130.90643
-offset_right = 130.90643
-offset_bottom = 130.90643
-grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("2_6u4wf")
+script = ExtResource("1_d81rb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -108,10 +75,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.45373
-offset_top = -105.1473
-offset_right = 40.45373
-offset_bottom = 88.59634
+offset_left = -55.36087
+offset_top = -107.55469
+offset_right = 55.36087
+offset_bottom = 107.55469
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_ktuci")
@@ -133,3 +100,22 @@ layout_mode = 2
 theme = SubResource("Theme_6ligt")
 max_value = 10.0
 value = 2.0
+
+[node name="SelectionHighlight" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 11.817943
+offset_top = 48.679306
+offset_right = 149.0879
+offset_bottom = 246.31729
+mouse_filter = 1
+color = Color(0.9529412, 0.9529412, 0, 0.6156863)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.99999994, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(72.725784, 140.19641)
+polygon = PackedVector2Array(-13.63607, -138.24925, 89.08913, -139.22284, 88.18005, 112.935974, -72.725784, 112.935974, -72.725784, -88.59636)
+
+[connection signal="input_event" from="Area2D" to="." method="_on_card_click"]
