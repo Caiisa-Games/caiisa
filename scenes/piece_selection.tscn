@@ -48,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_34mbo")
-available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_j66un")])
+available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_j66un"), ExtResource("6_j66un"), ExtResource("6_j66un"), ExtResource("6_j66un")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
