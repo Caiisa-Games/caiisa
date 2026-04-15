@@ -137,9 +137,8 @@ func _get_player_pieces(player: int) -> Array[Dictionary]:
 
 func _finish_player_placement() -> void:
 	if current_player == 1:
-		current_player = 2
-		_create_cards_for_current_player()
-		_update_ui()
+		start_button.disabled = false
+		start_button.visible = true
 	else:
 		start_button.disabled = false
 		start_button.visible = true
@@ -159,7 +158,14 @@ func _show_error_feedback(message: String) -> void:
 
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
+	if current_player == 1:
+		start_button.disabled = true
+		start_button.visible = false
+		current_player = 2
+		_create_cards_for_current_player()
+		_update_ui()
+	elif current_player == 2:
+		get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
 
 
 func get_placement_data() -> Dictionary:
