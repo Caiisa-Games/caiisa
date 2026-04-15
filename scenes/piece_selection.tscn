@@ -92,20 +92,12 @@ mouse_behavior_recursive = 1
 layout_mode = 2
 size_flags_vertical = 8
 theme = SubResource("Theme_wgbiy")
-text = "START"
+text = "CONFIRM"
 
 [node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
-
-[node name="Title" type="Label" parent="HSplitContainer/RightPanel"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("3_k1b5r")
-theme_override_font_sizes/font_size = 32
-text = "Choose Your Pieces"
-horizontal_alignment = 1
 
 [node name="SelectedCountLabel" type="Label" parent="HSplitContainer/RightPanel"]
 layout_mode = 2
@@ -115,6 +107,7 @@ theme_override_font_sizes/font_size = 16
 
 [node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("3_k1b5r")
 theme_override_font_sizes/font_size = 16
