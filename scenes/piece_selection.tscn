@@ -126,7 +126,22 @@ horizontal_alignment = 2
 position = Vector2(659, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(576, 324)
+visible = false
+offset = Vector2(800, 350)
+enabled = false
+zoom = Vector2(1.2, 1.2)
+drag_horizontal_offset = -0.73
+drag_vertical_offset = 0.39
+drag_top_margin = 0.24
+drag_right_margin = 0.3
+
+[node name="Buttonmm" type="Button" parent="."]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 488.0
+offset_right = 353.0
+offset_bottom = 635.0
 
 [connection signal="pressed" from="HSplitContainer/LeftPanel/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="tile_clicked" from="HSplitContainer/RightPanel/PreviewLayer/Board" to="." method="_on_board_tile_clicked"]
+[connection signal="pressed" from="Buttonmm" to="." method="_on_buttonmm_pressed"]

@@ -110,3 +110,10 @@ func _update_ui() -> void:
 
 func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
+	#$Camera2D.enabled = true
+	#$HSplitContainer/RightPanel/PreviewLayer/Board.scale.x = float(1.2)
+	#$HSplitContainer/RightPanel/PreviewLayer/Board.scale.y = float(1.2)
+
+
+func _on_buttonmm_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

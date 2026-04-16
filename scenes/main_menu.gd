@@ -1,26 +1,41 @@
 extends Control
 
 
-var gh := false
+@onready var color_2: ColorRect = $ColorRect2
+
+
 func _ready() -> void:
-	$BoxContainer/StartButton.pressed.connect(on_start_pressed)
-	$BoxContainer/QuitButton.pressed.connect(on_quit_pressed)
+	$TextureButton/AnimatedSprite2D.play("default")
+func _on_credits_button_pressed() -> void:
+	if $Label2.position.y <= -650:
+		$Label2.position = Vector2(279, 620)
+		create_tween().tween_property($Label2, "position", Vector2(279, -655), 20)     
 
-func on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
 
-func on_quit_pressed() -> void:
+func _on_exit_button_pressed() -> void:
+	color_2.visible = true
+	var twe = create_tween()
+	twe.tween_property(color_2, "modulate", Color(0, 0, 0, 1), 0.2)
+	await twe.finished
+	color_2.visible = false
 	get_tree().quit()
 
 
-func _on_credits_button_pressed() -> void:
-	if _on_credits_button_pressed:
-		$Label2.position = Vector2(375, 645)
-		create_tween().tween_property($Label2, "position", Vector2(375, -840), 25).set_trans(Tween.TRANS_SINE)     
-		$BoxContainer/creditsButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		$BoxContainer/StartButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		$BoxContainer/QuitButton.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		await get_tree().create_timer(25).timeout
-		$BoxContainer/creditsButton.mouse_filter = Control.MOUSE_FILTER_PASS
-		$BoxContainer/StartButton.mouse_filter = Control.MOUSE_FILTER_PASS
-		$BoxContainer/QuitButton.mouse_filter = Control.MOUSE_FILTER_PASS
+
+
+
+func _on_texture_button_pressed() -> void:
+	$TextureButton/AnimatedSprite2D.play("new_a")
+	color_2.visible = true
+	var twe = create_tween()
+	twe.tween_property(color_2, "modulate", Color(0, 0, 0, 1), 0.7)
+	await twe.finished
+	color_2.visible = false
+	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
+	#$TextureButton/AnimatedSprite2D.play("new_a")
+	
+	
+func _on_texture_button_mouse_entered() -> void:
+	$TextureButton/AnimatedSprite2D.play("hover")
+func _on_texture_button_mouse_exited() -> void:
+	$TextureButton/AnimatedSprite2D.play("default")

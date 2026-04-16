@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://dthlhu418a1q0"]
+
+[ext_resource type="Texture2D" uid="uid://cbb1jvapc4hif" path="res://assets/Settings.png" id="1_5p8wc"]
+[ext_resource type="Script" uid="uid://b8iaqnqhbq8d5" path="res://scenes/settings.gd" id="2_r6d6q"]
+
+[node name="Settings" type="Button"]
+offset_right = 1012.0
+offset_bottom = 996.0
+scale = Vector2(0.08588541, 0.08147608)
+icon = ExtResource("1_5p8wc")
+flat = true
+script = ExtResource("2_r6d6q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 3027.2896
+offset_top = 36.820625
+offset_right = 6799.758
+offset_bottom = 3240.2148
+color = Color(0.2513674, 0, 0.09910139, 0.6509804)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 0
+offset_right = 3772.4683
+offset_bottom = 3215.668
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 400
+text = "Music"
+
+[node name="CheckButton" type="CheckButton" parent="ColorRect/VBoxContainer/Label"]
+layout_mode = 0
+offset_left = 2852.6382
+offset_top = 73.641235
+offset_right = 2896.6382
+offset_bottom = 97.641235
+scale = Vector2(22.02679, 21.625105)
+button_pressed = true
+
+[node name="Label2" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 400
+text = "Button Sound"
+
+[node name="CheckButton" type="CheckButton" parent="ColorRect/VBoxContainer/Label2"]
+layout_mode = 0
+offset_left = 2852.6382
+offset_top = 73.641235
+offset_right = 2896.6382
+offset_bottom = 97.641235
+scale = Vector2(22.02679, 21.625105)
+button_pressed = true
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
