@@ -72,6 +72,18 @@ func get_valid_placement_tiles(player: int) -> Array[Tile]:
 func get_tile_at(grid_pos: Vector2i) -> Tile:
 	return tiles.get(grid_pos)
 
+func highlight_valid_row(player: int) -> void:
+	clear_all_highlights()
+	
+	var valid_tiles = get_valid_placement_tiles(player)
+	for tile in valid_tiles:
+		tile.set_placement_highlight(true)
+
+
+func clear_all_highlights() -> void:
+	for tile in tiles.values():
+		tile.set_placement_highlight(false)
+
 func generate() -> void:
 	var container = $TileContainer
 	
