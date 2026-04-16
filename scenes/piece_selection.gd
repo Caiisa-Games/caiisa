@@ -19,6 +19,7 @@ var player2_selected_pieces: Array[PieceData] = []
 
 func _ready() -> void:
 	board.set_mode(BoardManager.Mode.PREVIEW)
+	board.highlight_valid_row(current_player)
 	board.tile_clicked.connect(_on_board_tile_clicked)
 	
 	start_button.visible = false
@@ -44,6 +45,7 @@ func _create_cards_for_current_player() -> void:
 
 
 func _on_card_selected(card: Card) -> void:
+	board.highlight_valid_row(current_player)
 	for child in card_flow.get_children():
 		if child is Card and child != card:
 			child.deselect()
@@ -84,6 +86,7 @@ func _on_board_tile_clicked(tile: Tile) -> void:
 	)
 	
 	if success:
+		board.highlight_valid_row(current_player)
 		_handle_successful_placement(selected_card, tile)
 
 
@@ -136,13 +139,11 @@ func _get_player_pieces(player: int) -> Array[Dictionary]:
 
 
 func _finish_player_placement() -> void:
-	if current_player == 1:
-		start_button.disabled = false
-		start_button.visible = true
-	else:
-		start_button.disabled = false
-		start_button.visible = true
-		_update_ui()
+	board.clear_all_highlights()
+	start_button.disabled = false
+	start_button.visible = true
+	_update_ui()
+	if current_player == 2:
 		player_turn_label.text = "Both players ready!"
 
 
