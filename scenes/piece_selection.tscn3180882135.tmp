@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
-[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://resources/piece_data.gd" id="2_j66un"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
 [ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="6_j66un"]
@@ -122,3 +122,4 @@ position = Vector2(659, 207)
 offset = Vector2(576, 324)
 
 [connection signal="pressed" from="HSplitContainer/LeftPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="tile_clicked" from="HSplitContainer/RightPanel/PreviewLayer/Board" to="." method="_on_board_tile_clicked"]

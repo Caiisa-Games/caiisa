@@ -6,8 +6,6 @@ enum State { IDLE, SELECTED }
 
 const GRID_SIZE := 7
 
-signal tile_clicked(tile: Tile)
-
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
 #@export var piece_data: PieceData
@@ -68,7 +66,6 @@ func get_valid_placement_tiles(player: int) -> Array[Tile]:
 	
 	return valid_tiles
 
-
 func get_tile_at(grid_pos: Vector2i) -> Tile:
 	return tiles.get(grid_pos)
 
@@ -99,7 +96,6 @@ func generate() -> void:
 			tile.init()
 			tile.set_height(height)
 			tile.grid_position = Vector2i(x, y)
-			tile.tile_clicked.connect(_on_tile_clicked)
 			
 			container.add_child(tile)
 			tiles[Vector2i(x, y)] = tile
@@ -113,35 +109,6 @@ func _get_iso_pos(x: int, y: int) -> Vector2:
 		(x - y) * 64,
 		(x + y) * 29
 	)
-
-func _on_tile_clicked(grid_pos: Vector2i) -> void:
-	var tile = tiles[grid_pos]
-	
-	match current_mode:
-		Mode.PREVIEW:
-			tile_clicked.emit(tile)
-			pass
-		
-		Mode.BATTLE:
-			_match_mode_click(tile)
-
-
-func _match_mode_click(tile: Tile) -> void:
-	match current_state:
-		State.IDLE:
-			if tile.occupant != null:
-				selected_tile = tile
-				current_state = State.SELECTED
-		
-		State.SELECTED:
-			if tile == selected_tile:
-				_deselect()
-			elif tile.occupant == null:
-				if _move_occupant(selected_tile, tile):
-					_deselect()
-			else:
-				selected_tile = tile
-
 
 func _deselect() -> void:
 	selected_tile = null
@@ -161,6 +128,7 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 
 
 func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
+	print(piece)
 	var moves: Array[Tile] = []
 	var movement = piece.movement if piece.movement else default_movement
 	
