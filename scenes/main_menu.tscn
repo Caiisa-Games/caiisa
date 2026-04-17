@@ -1,371 +1,124 @@
-[gd_scene load_steps=47 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=11 format=3 uid="uid://b2x2kfympqvum"]
 
-[ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_rtw2f"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://bc5dp5ygsbjbn" path="res://assets/Background1.png" id="2_oa1go"]
-[ext_resource type="Texture2D" uid="uid://joxiu01wkl58" path="res://assets/Credit.png" id="5_hstxw"]
-[ext_resource type="Texture2D" uid="uid://dnbi6pvw8ribj" path="res://assets/Exit1.png" id="5_tbmy8"]
-[ext_resource type="Texture2D" uid="uid://6bnlvqg5mclp" path="res://assets/ani/Play(Button)1.png" id="8_hstxw"]
-[ext_resource type="Texture2D" uid="uid://chnykkd48ylrc" path="res://assets/Lastframe.png" id="8_tbmy8"]
-[ext_resource type="Texture2D" uid="uid://kl1kyp4sxg3o" path="res://assets/ani/Play(Button)2.png" id="9_8egab"]
-[ext_resource type="Texture2D" uid="uid://bn6hnfsc5dhtq" path="res://assets/Caissa.png" id="9_jk1qb"]
-[ext_resource type="Texture2D" uid="uid://cutwci1u0nwkl" path="res://assets/ani/Play(Button)11.png" id="10_gw5y6"]
-[ext_resource type="Texture2D" uid="uid://2keqdmei03sa" path="res://assets/ani/Play(Button)12.png" id="11_svtp6"]
-[ext_resource type="Texture2D" uid="uid://chiuh8adketey" path="res://assets/ani/Play(Button)3.png" id="12_1dfpl"]
-[ext_resource type="Texture2D" uid="uid://bpwi4x4e5o71k" path="res://assets/ani/Play(Button)4.png" id="13_qywvv"]
-[ext_resource type="Texture2D" uid="uid://dsumhqioqvrd4" path="res://assets/ani/Play(Button)5.png" id="14_3wgol"]
-[ext_resource type="Texture2D" uid="uid://dnu8lymprxu3t" path="res://assets/ani/Play(Button)6.png" id="15_1acrt"]
-[ext_resource type="Texture2D" uid="uid://cpebkbn6t08p5" path="res://assets/ani/Play(Button)7.png" id="16_vr8o3"]
-[ext_resource type="Texture2D" uid="uid://ru7nhkcy1srm" path="res://assets/ani/Play(Button)8.png" id="17_1a85y"]
-[ext_resource type="Texture2D" uid="uid://c5it2cof1l553" path="res://assets/ani/Play(Button)9.png" id="18_hl5e0"]
-[ext_resource type="Texture2D" uid="uid://cunteaexyc80f" path="res://assets/ani/Play(Button)10.png" id="19_engjn"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_oa1go"]
+[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="3_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="4_jk1qb"]
+[ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="6_5dd4i"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6h3lr"]
-atlas = ExtResource("8_hstxw")
-region = Rect2(316, 790, 1950, 992)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hstxw"]
-atlas = ExtResource("8_hstxw")
-region = Rect2(316, 790, 1950, 992)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcp5b"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8egab"]
-atlas = ExtResource("9_8egab")
-region = Rect2(316, 790, 1950, 992)
+[sub_resource type="Theme" id="Theme_wgbiy"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = null
+Button/styles/pressed = null
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gw5y6"]
-atlas = ExtResource("12_1dfpl")
-region = Rect2(316, 790, 1950, 992)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1b5r"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_svtp6"]
-atlas = ExtResource("13_qywvv")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dfpl"]
-atlas = ExtResource("14_3wgol")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qywvv"]
-atlas = ExtResource("15_1acrt")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3wgol"]
-atlas = ExtResource("16_vr8o3")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1acrt"]
-atlas = ExtResource("17_1a85y")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vr8o3"]
-atlas = ExtResource("18_hl5e0")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1a85y"]
-atlas = ExtResource("19_engjn")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hl5e0"]
-atlas = ExtResource("10_gw5y6")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_engjn"]
-atlas = ExtResource("11_svtp6")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dj67d"]
-atlas = ExtResource("11_svtp6")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6vcge"]
-atlas = ExtResource("10_gw5y6")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ip0br"]
-atlas = ExtResource("19_engjn")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xyero"]
-atlas = ExtResource("18_hl5e0")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tcusk"]
-atlas = ExtResource("17_1a85y")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4puye"]
-atlas = ExtResource("16_vr8o3")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q13xq"]
-atlas = ExtResource("15_1acrt")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u43bj"]
-atlas = ExtResource("14_3wgol")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jvjdd"]
-atlas = ExtResource("13_qywvv")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yxnar"]
-atlas = ExtResource("12_1dfpl")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eku7s"]
-atlas = ExtResource("9_8egab")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c6nra"]
-atlas = ExtResource("8_hstxw")
-region = Rect2(316, 790, 1950, 992)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6h3lr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6h3lr")
-}],
-"loop": true,
-"name": &"default",
-"speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hstxw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8egab")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gw5y6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_svtp6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1dfpl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qywvv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3wgol")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1acrt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vr8o3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1a85y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hl5e0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_engjn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dj67d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6vcge")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ip0br")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xyero")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tcusk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4puye")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q13xq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u43bj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jvjdd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yxnar")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eku7s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c6nra")
-}],
-"loop": true,
-"name": &"hover",
-"speed": 5.5
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_tbmy8")
-}],
-"loop": true,
-"name": &"new_a",
-"speed": 5.0
-}]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
-bg_color = Color(0.7254902, 0.7254902, 0.7254902, 1)
-corner_radius_top_left = 60
-corner_radius_top_right = 60
-corner_radius_bottom_right = 60
-corner_radius_bottom_left = 60
-shadow_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
-shadow_size = 1
-shadow_offset = Vector2(20, 20)
-
-[node name="MainMenu" type="Control"]
+[node name="PieceSelection" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_bqqt6")
+mouse_filter = 2
+script = ExtResource("1_rtw2f")
+available_pieces = Array[ExtResource("2_oa1go")]([ExtResource("3_tbmy8"), ExtResource("3_tbmy8"), ExtResource("3_tbmy8"), ExtResource("3_tbmy8")])
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 1.0
-offset_right = 303.43005
-offset_bottom = 247.00214
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.7915186, 0.72371197)
-texture = ExtResource("2_oa1go")
-metadata/_edit_lock_ = true
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 443.99997
-offset_top = 7.000018
-offset_right = 3004.0
-offset_bottom = 2567.0
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("9_jk1qb")
-
-[node name="Title" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 400.0
-offset_top = 171.0
-offset_right = 752.0
-offset_bottom = 235.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7254902)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 10
-theme_override_constants/outline_size = 12
-theme_override_constants/shadow_outline_size = 10
-theme_override_fonts/font = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 64
-text = "KAIISA"
-
-[node name="CreditsButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = -219.99994
-offset_top = -395.00012
-offset_right = 777.4786
-offset_bottom = 581.22986
-scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(873, 878)
-texture_normal = ExtResource("5_hstxw")
-ignore_texture_size = true
-stretch_mode = 3
-
-[node name="ExitButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 466.0
-offset_top = 396.0
-offset_right = 619.125
-offset_bottom = 547.5625
-scale = Vector2(0.64, 0.64)
-icon = ExtResource("5_tbmy8")
-flat = true
-autowrap_trim_flags = 0
-expand_icon = true
-
-[node name="TextureButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -109.99997
-offset_top = -52.0
-offset_right = 1827.0
-offset_bottom = 937.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.09967807, 0.09260933)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureButton"]
-position = Vector2(988.181, 496.71024)
-scale = Vector2(1.039644, 1.094027)
-sprite_frames = SubResource("SpriteFrames_6h3lr")
-animation = &"hover"
-
-[node name="Label2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 279.0
-offset_top = -650.0
-offset_right = 832.0
-offset_bottom = -28.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(1, 0, 0.08333349, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 20
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/outline_size = 15
-theme_override_constants/shadow_outline_size = 15
-theme_override_fonts/font = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 22
-theme_override_styles/normal = SubResource("StyleBoxFlat_flqon")
-text = "
-Designer:
-Aria Ashouri
-
-Artist:
-Mohammad Sadra Mousavi
-
-Programmers:
-Ario Najaf Shakery
-
-Esmail Afrang
-
-made with ❤"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-visible = false
-modulate = Color(0, 0, 0, 0)
-z_index = 2
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("4_jk1qb")
+expand_mode = 1
 
-[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
-[connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+dragging_enabled = false
+
+[node name="LeftPanel" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
+horizontal_scroll_mode = 0
+
+[node name="CardFlow" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
+layout_mode = 2
+mouse_behavior_recursive = 1
+
+[node name="StartButton" type="Button" parent="HSplitContainer/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = SubResource("Theme_wgbiy")
+text = "CONFIRM"
+
+[node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
+
+[node name="SelectedCountLabel" type="Label" parent="HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+
+[node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
+
+[node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("6_5dd4i")]
+position = Vector2(659, 207)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(576, 324)
+
+[connection signal="pressed" from="HSplitContainer/LeftPanel/StartButton" to="." method="_on_start_button_pressed"]
