@@ -1,124 +1,43 @@
-[gd_scene load_steps=11 format=3 uid="uid://5aapoewew0nq"]
+[gd_scene load_steps=4 format=3 uid="uid://5aapoewew0nq"]
 
-[ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_gtpg2"]
-[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_a2bny"]
-[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="3_284l3"]
-[ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="4_j3iir"]
-[ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="5_j8k5k"]
-[ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="6_w8vld"]
+[ext_resource type="Script" uid="uid://3onjfc1bkjh4" path="res://scenes/tile.gd" id="1_ywnoi"]
+[ext_resource type="Texture2D" uid="uid://dkj2jp6eh0cns" path="res://assets/isometric.png" id="2_ywnoi"]
+[ext_resource type="Texture2D" uid="uid://btkjv5pg2urpj" path="res://assets/base.png" id="3_jy7pm"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
+[node name="Tile" type="Node2D"]
+script = ExtResource("1_ywnoi")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcp5b"]
+[node name="BaseSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_jy7pm")
 
-[sub_resource type="Theme" id="Theme_wgbiy"]
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/colors/font_disabled_color = Color(0, 0, 0, 1)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
-Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
-Button/colors/icon_focus_color = Color(0, 0, 0, 1)
-Button/colors/icon_hover_color = Color(0, 0, 0, 1)
-Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/icon_normal_color = Color(0, 0, 0, 1)
-Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
-Button/constants/align_to_largest_stylebox = 0
-Button/constants/h_separation = 0
-Button/constants/icon_max_width = 0
-Button/constants/outline_size = 0
-Button/font_sizes/font_size = 16
-Button/fonts/font = null
-Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = null
-Button/styles/normal = null
-Button/styles/pressed = null
+[node name="HeightSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ywnoi")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1b5r"]
+[node name="BaseContainer" type="Node2D" parent="."]
+position = Vector2(0, -4)
 
-[node name="PieceSelection" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_gtpg2")
-available_pieces = Array[ExtResource("2_a2bny")]([ExtResource("3_284l3"), ExtResource("3_284l3"), ExtResource("3_284l3"), ExtResource("3_284l3")])
+[node name="Occupant" type="Node2D" parent="."]
 
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_j3iir")
-expand_mode = 1
+[node name="Sprite2D" type="Sprite2D" parent="Occupant"]
+position = Vector2(0, -44)
 
-[node name="HSplitContainer" type="HSplitContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -20.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 2
-dragging_enabled = false
+[node name="HeightLabel" type="Label" parent="."]
+visible = false
+offset_right = 57.0
+offset_bottom = 51.0
+metadata/_edit_use_anchors_ = true
 
-[node name="LeftPanel" type="PanelContainer" parent="HSplitContainer"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
+[node name="HighlightSprite" type="Polygon2D" parent="."]
+visible = false
+color = Color(0.30588236, 0.8039216, 0.76862746, 0.5019608)
+polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanel"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
-horizontal_scroll_mode = 0
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="CardFlow" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
-layout_mode = 2
-mouse_behavior_recursive = 1
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
 
-[node name="StartButton" type="Button" parent="HSplitContainer/LeftPanel"]
-layout_mode = 2
-size_flags_vertical = 8
-theme = SubResource("Theme_wgbiy")
-text = "CONFIRM"
-
-[node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
-
-[node name="SelectedCountLabel" type="Label" parent="HSplitContainer/RightPanel"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("5_j8k5k")
-theme_override_font_sizes/font_size = 16
-
-[node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("5_j8k5k")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 2
-
-[node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
-
-[node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("6_w8vld")]
-position = Vector2(659, 207)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(576, 324)
-
-[connection signal="pressed" from="HSplitContainer/LeftPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
