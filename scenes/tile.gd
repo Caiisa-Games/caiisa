@@ -55,12 +55,14 @@ func set_height(level: int) -> void:
 
 
 func set_occupant(piece: PieceData, player: int) -> void:
+	print(grid_position)
 	occupant = piece
 	occupant_node.texture = piece.texture
 	#occupant_player = player
 	#_update_occupant_visuals()
 	
 func clear_occupant() -> void:
+	print("CLEAR")
 	occupant = null
 	occupant_player = 0
 	

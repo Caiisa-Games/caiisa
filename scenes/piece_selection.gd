@@ -1,7 +1,7 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 3
+const MAX_PIECES := 1
 
 @onready var card_flow = $HSplitContainer/LeftPanel/ScrollContainer/CardFlow
 @onready var board = $HSplitContainer/RightPanel/PreviewLayer/Board
@@ -10,9 +10,8 @@ const MAX_PIECES := 3
 @onready var start_button = $HSplitContainer/LeftPanel/StartButton
 
 var current_player: int = 1
-var placed_pieces: Array[Dictionary] = []
-var player1_selected_pieces: Array[PieceData] = []
-var player2_selected_pieces: Array[PieceData] = []
+var player1_selected_pieces: Array[Dictionary] = []
+var player2_selected_pieces: Array[Dictionary] = []
 
 @export var available_pieces: Array[PieceData] = []
 
@@ -20,7 +19,7 @@ var player2_selected_pieces: Array[PieceData] = []
 func _ready() -> void:
 	board.set_mode(BoardManager.Mode.PREVIEW)
 	board.highlight_valid_row(current_player)
-	board.tile_clicked.connect(_on_board_tile_clicked)
+	_connect_board_signals()
 	
 	start_button.visible = false
 	start_button.disabled = true
@@ -29,6 +28,10 @@ func _ready() -> void:
 	_create_cards_for_current_player()
 	_update_ui()
 
+func _connect_board_signals() -> void:
+	for tile in board.tiles.values():
+		print(tile)
+		tile.tile_clicked.connect(_on_tile_clicked)
 
 func _create_cards_for_current_player() -> void:
 	for child in card_flow.get_children():
@@ -55,13 +58,14 @@ func _on_card_deselected(card: Card) -> void:
 	pass
 
 
-func _on_board_tile_clicked(tile: Tile) -> void:
+func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var selected_card: Card = _get_selected_card()
+	var tile = board.get_tile_at(grid_pos)
 	
 	if selected_card == null:
 		return
 	
-	if not _is_valid_placement_row(tile.grid_position.y):
+	if not _is_valid_placement_row(grid_pos.y):
 		_show_error_feedback("Invalid row! Player %d must place on row %d" % [current_player, _get_valid_row()])
 		return
 	
@@ -80,8 +84,8 @@ func _on_board_tile_clicked(tile: Tile) -> void:
 	
 	var success = board.place_piece(
 		selected_card.piece_data,
-		tile.grid_position.x,
-		tile.grid_position.y,
+		grid_pos.x,
+		grid_pos.y,
 		current_player
 	)
 	
@@ -107,17 +111,12 @@ func _get_valid_row() -> int:
 
 
 func _handle_successful_placement(card: Card, tile: Tile) -> void:
-	placed_pieces.append({
-		"piece": card.piece_data,
-		"tile": tile,
-		"player": current_player,
-		"card": card
-	})
-	
 	if current_player == 1:
-		player1_selected_pieces.append(card.piece_data)
+		player1_selected_pieces.append({"piece": card.piece_data,
+										"tile_pos": tile.grid_position})
 	else:
-		player2_selected_pieces.append(card.piece_data)
+		player2_selected_pieces.append({"piece": card.piece_data,
+										"tile_pos": tile.grid_position})
 	
 	card.deselect()
 	card.set_disabled(true)
@@ -131,11 +130,11 @@ func _handle_successful_placement(card: Card, tile: Tile) -> void:
 
 
 func _get_player_pieces(player: int) -> Array[Dictionary]:
-	var result: Array[Dictionary] = []
-	for piece in placed_pieces:
-		if piece.player == player:
-			result.append(piece)
-	return result
+	if player == 1:
+		return player1_selected_pieces
+	if player == 2:
+		return player2_selected_pieces
+	return [{}]
 
 
 func _finish_player_placement() -> void:
@@ -154,7 +153,6 @@ func _update_ui() -> void:
 
 
 func _show_error_feedback(message: String) -> void:
-	print()
 	push_warning(message) #TODO
 
 
@@ -166,12 +164,14 @@ func _on_start_button_pressed() -> void:
 		_create_cards_for_current_player()
 		_update_ui()
 	elif current_player == 2:
-		get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
+		GameState.player_1_pieces = player1_selected_pieces
+		GameState.player_2_pieces = player2_selected_pieces
+
+		get_tree().change_scene_to_file("res://scenes/battle.tscn")
 
 
 func get_placement_data() -> Dictionary:
 	return {
 		"player1_pieces": player1_selected_pieces,
 		"player2_pieces": player2_selected_pieces,
-		"placed_pieces": placed_pieces
 	}
