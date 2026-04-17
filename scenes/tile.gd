@@ -3,6 +3,7 @@ extends Node2D
 
 @export var grid_position: Vector2i = Vector2i.ZERO
 @export var height_level: int = 0
+@export var highlight_color: Color = Color("#4ECDC4")
 
 signal tile_clicked(grid_pos: Vector2i)
 
@@ -12,10 +13,13 @@ var height_sprite: Sprite2D
 var height_label: Label
 var occupant_node: Sprite2D
 var area_2d = Area2D
+var highlight_sprite: Polygon2D
 
 var occupant: PieceData = null
 var occupant_player: int = 0
 var is_interactive: bool = false
+var is_highlighted: bool = false
+
 
 func init() -> void:
 	base_container = $BaseContainer
@@ -24,6 +28,10 @@ func init() -> void:
 	height_label = $HeightLabel
 	occupant_node = $Occupant/Sprite2D
 	area_2d = $Area2D
+	highlight_sprite = $HighlightSprite
+
+	if highlight_sprite:
+		highlight_sprite.visible = false
 	
 	_update_visuals()
 
@@ -47,12 +55,14 @@ func set_height(level: int) -> void:
 
 
 func set_occupant(piece: PieceData, player: int) -> void:
+	print(grid_position)
 	occupant = piece
 	occupant_node.texture = piece.texture
 	#occupant_player = player
 	#_update_occupant_visuals()
 	
 func clear_occupant() -> void:
+	print("CLEAR")
 	occupant = null
 	occupant_player = 0
 	
@@ -65,10 +75,16 @@ func _update_visuals() -> void:
 	var height_offset := height_level * 10
 	height_sprite.position.y = -height_offset
 	area_2d.position.y = -height_offset
+	highlight_sprite.position.y = -height_offset
 	occupant_node.position.y = -height_offset - 44
 	
 	height_label.text = str(height_level)
 	#height_label.visible = false
+	
+func set_placement_highlight(enabled: bool) -> void:
+	is_highlighted = enabled
+	if highlight_sprite:
+		highlight_sprite.visible = enabled
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:

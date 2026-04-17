@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=11 format=3 uid="uid://bgofvr4laaigd"]
 
-[ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
-[ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
-[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
-[ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
-[ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
-[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="6_j66un"]
+[ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_6vh42"]
+[ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_4k1nj"]
+[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="3_f4pi3"]
+[ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="4_yahae"]
+[ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="5_v7i3o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
@@ -47,8 +47,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_34mbo")
-available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_j66un"), ExtResource("6_j66un"), ExtResource("6_j66un"), ExtResource("6_j66un")])
+script = ExtResource("1_6vh42")
+available_pieces = Array[ExtResource("2_4k1nj")]([ExtResource("3_f4pi3"), ExtResource("3_f4pi3"), ExtResource("3_f4pi3"), ExtResource("3_f4pi3")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -57,7 +57,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_7e3yo")
+texture = ExtResource("4_yahae")
 expand_mode = 1
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
@@ -102,20 +102,20 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
 [node name="SelectedCountLabel" type="Label" parent="HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("3_k1b5r")
+theme_override_fonts/font = ExtResource("5_v7i3o")
 theme_override_font_sizes/font_size = 16
 
 [node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("3_k1b5r")
+theme_override_fonts/font = ExtResource("5_v7i3o")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
 
 [node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
 
-[node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("3_mcp5b")]
+[node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("1_dn72j")]
 position = Vector2(659, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
