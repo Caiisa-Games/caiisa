@@ -128,7 +128,6 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 
 
 func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
-	print(piece)
 	var moves: Array[Tile] = []
 	var movement = piece.movement if piece.movement else default_movement
 	

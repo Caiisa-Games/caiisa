@@ -30,7 +30,6 @@ func _ready() -> void:
 
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
-		print(tile)
 		tile.tile_clicked.connect(_on_tile_clicked)
 
 func _create_cards_for_current_player() -> void:
