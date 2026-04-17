@@ -34,6 +34,8 @@ func deselect() -> void:
 	$SelectionHighlight.visible = false
 	card_deselected.emit(self)
 
+func set_disabled(value: bool) -> void:
+	visible = not value
 
 func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
