@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PieceData" load_steps=5 format=3 uid="uid://bk06pb3x532an"]
 
-[ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://resources/movement_data.gd" id="1_fsny8"]
-[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://resources/piece_data.gd" id="1_omffe"]
+[ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="1_fsny8"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_omffe"]
 [ext_resource type="Texture2D" uid="uid://d2cd4om8ap4pd" path="res://assets/pieces/King.png" id="2_pfm47"]
 
 [sub_resource type="Resource" id="Resource_gku5q"]
