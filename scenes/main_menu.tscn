@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=48 format=3 uid="uid://b2x2kfympqvum"]
 
 [ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -120,6 +120,10 @@ region = Rect2(316, 790, 1950, 992)
 atlas = ExtResource("8_hstxw")
 region = Rect2(316, 790, 1950, 992)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw82i"]
+atlas = ExtResource("8_tbmy8")
+region = Rect2(316, 790, 1950, 992)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_6h3lr"]
 animations = [{
 "frames": [{
@@ -205,11 +209,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"hover",
-"speed": 5.5
+"speed": 6.5
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_tbmy8")
+"texture": SubResource("AtlasTexture_qw82i")
 }],
 "loop": true,
 "name": &"new_a",
@@ -234,6 +238,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
+metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -251,10 +256,10 @@ metadata/_edit_lock_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 443.99997
-offset_top = 7.000018
-offset_right = 3004.0
-offset_bottom = 2567.0
+offset_left = 355.0
+offset_top = -69.00001
+offset_right = 4855.0
+offset_bottom = 3431.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_jk1qb")
 
@@ -289,11 +294,11 @@ stretch_mode = 3
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 466.0
-offset_top = 396.0
-offset_right = 619.125
-offset_bottom = 547.5625
-scale = Vector2(0.64, 0.64)
+offset_left = 465.00003
+offset_top = 394.0
+offset_right = 618.125
+offset_bottom = 545.5625
+scale = Vector2(0.66, 0.66)
 icon = ExtResource("5_tbmy8")
 flat = true
 autowrap_trim_flags = 0
@@ -318,7 +323,6 @@ scale = Vector2(0.09967807, 0.09260933)
 position = Vector2(988.181, 496.71024)
 scale = Vector2(1.039644, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
-animation = &"hover"
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0

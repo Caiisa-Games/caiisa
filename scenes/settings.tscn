@@ -12,6 +12,7 @@ flat = true
 script = ExtResource("2_r6d6q")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 3027.2896
 offset_top = 36.820625

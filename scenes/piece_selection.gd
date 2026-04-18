@@ -160,7 +160,7 @@ func _show_error_feedback(message: String) -> void:
 
 func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
-<<<<<<< HEAD
+#<<<<<<< HEAD
 	#$Camera2D.enabled = true
 	#$HSplitContainer/RightPanel/PreviewLayer/Board.scale.x = float(1.2)
 	#$HSplitContainer/RightPanel/PreviewLayer/Board.scale.y = float(1.2)
@@ -168,7 +168,7 @@ func _on_start_button_pressed() -> void:
 
 func _on_buttonmm_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
-=======
+
 
 
 func get_placement_data() -> Dictionary:
@@ -177,4 +177,4 @@ func get_placement_data() -> Dictionary:
 		"player2_pieces": player2_selected_pieces,
 		"placed_pieces": placed_pieces
 	}
->>>>>>> 907ba928ed2eed172fef555736e1eb0c29e1c884
+#>>>>>>> 907ba928ed2eed172fef555736e1eb0c29e1c884
