@@ -156,6 +156,18 @@ func _show_error_feedback(message: String) -> void:
 
 
 func _on_start_button_pressed() -> void:
+<<<<<<< HEAD
+	get_tree().change_scene_to_file("res://scenes/Battlefield.tscn")
+#<<<<<<< HEAD
+	#$Camera2D.enabled = true
+	#$HSplitContainer/RightPanel/PreviewLayer/Board.scale.x = float(1.2)
+	#$HSplitContainer/RightPanel/PreviewLayer/Board.scale.y = float(1.2)
+
+
+func _on_buttonmm_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+=======
 	if current_player == 1:
 		start_button.disabled = true
 		start_button.visible = false
@@ -167,6 +179,7 @@ func _on_start_button_pressed() -> void:
 		GameState.player_2_pieces = player2_selected_pieces
 
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+>>>>>>> f6bfd028e4d1dd41e6b506fb179fd0267e3d6827
 
 
 func get_placement_data() -> Dictionary:
@@ -174,3 +187,7 @@ func get_placement_data() -> Dictionary:
 		"player1_pieces": player1_selected_pieces,
 		"player2_pieces": player2_selected_pieces,
 	}
+<<<<<<< HEAD
+#>>>>>>> 907ba928ed2eed172fef555736e1eb0c29e1c884
+=======
+>>>>>>> f6bfd028e4d1dd41e6b506fb179fd0267e3d6827
