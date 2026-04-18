@@ -282,10 +282,10 @@ text = "KAIISA"
 
 [node name="CreditsButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = -219.99994
-offset_top = -395.00012
-offset_right = 777.4786
-offset_bottom = 581.22986
+offset_left = 264.9999
+offset_top = -243.00008
+offset_right = 1262.4784
+offset_bottom = 733.2299
 scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(873, 878)
 texture_normal = ExtResource("5_hstxw")
@@ -294,10 +294,10 @@ stretch_mode = 3
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 465.00003
-offset_top = 394.0
-offset_right = 618.125
-offset_bottom = 545.5625
+offset_left = 1.000031
+offset_top = 548.0
+offset_right = 154.125
+offset_bottom = 699.5625
 scale = Vector2(0.66, 0.66)
 icon = ExtResource("5_tbmy8")
 flat = true
@@ -320,7 +320,7 @@ grow_vertical = 2
 scale = Vector2(0.09967807, 0.09260933)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureButton"]
-position = Vector2(988.181, 496.71024)
+position = Vector2(988.18066, 529.105)
 scale = Vector2(1.039644, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
 
