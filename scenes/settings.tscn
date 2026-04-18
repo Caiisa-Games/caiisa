@@ -42,7 +42,6 @@ button_pressed = true
 
 [node name="Label2" type="Label" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"HeaderLarge"
 theme_override_font_sizes/font_size = 400
 text = "Button Sound"
 
@@ -53,6 +52,20 @@ offset_top = 73.641235
 offset_right = 2896.6382
 offset_bottom = 97.641235
 scale = Vector2(22.02679, 21.625105)
+button_pressed = true
+
+[node name="Label3" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 400
+text = "Language"
+
+[node name="CheckButton" type="CheckButton" parent="ColorRect/VBoxContainer/Label3"]
+layout_mode = 0
+offset_left = 2840.9932
+offset_top = 65.98694
+offset_right = 2884.9932
+offset_bottom = 89.98694
+scale = Vector2(22.463018, 21.752592)
 button_pressed = true
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
