@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=11 format=3 uid="uid://dakmm2a3fd0qk"]
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
-[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://resources/piece_data.gd" id="2_j66un"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
 [ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="6_j66un"]
-[ext_resource type="Texture2D" uid="uid://dnbi6pvw8ribj" path="res://assets/Exit1.png" id="7_j66un"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
@@ -120,26 +119,7 @@ horizontal_alignment = 2
 position = Vector2(659, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-<<<<<<< HEAD
-visible = false
-offset = Vector2(800, 350)
-enabled = false
-zoom = Vector2(1.2, 1.2)
-drag_horizontal_offset = -0.73
-drag_vertical_offset = 0.39
-drag_top_margin = 0.24
-drag_right_margin = 0.3
-
-[node name="Buttonmm" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1054.0001
-offset_top = 558.00006
-offset_right = 2020.0001
-offset_bottom = 1515.0
-scale = Vector2(0.09942979, 0.092396945)
-icon = ExtResource("7_j66un")
-=======
 offset = Vector2(576, 324)
->>>>>>> f6bfd028e4d1dd41e6b506fb179fd0267e3d6827
 
 [connection signal="pressed" from="HSplitContainer/LeftPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="tile_clicked" from="HSplitContainer/RightPanel/PreviewLayer/Board" to="." method="_on_board_tile_clicked"]

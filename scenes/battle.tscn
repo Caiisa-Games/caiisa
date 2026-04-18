@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgofvr4laaigd"]
+
+[ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
+[ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
+
+[node name="BattleField" type="Node2D"]
+script = ExtResource("1_th188")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="Panel" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="TurnLabel" type="Label" parent="UI/TopBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="RoundLabel" type="Label" parent="UI/TopBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="MenuButton" type="Button" parent="UI/TopBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "MENU"
+
+[node name="LeftPanel" type="Panel" parent="UI"]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="Player1Panel" type="Panel" parent="UI/LeftPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player2Panel" type="Panel" parent="UI/LeftPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BottomPanel" type="Panel" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="EndTurnButton" type="Button" parent="UI/BottomPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -31.0
+offset_right = 45.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "END TURN"
+
+[node name="BoardLayer" type="CanvasLayer" parent="."]
+
+[node name="Board" parent="BoardLayer" instance=ExtResource("1_dn72j")]
+position = Vector2(576, 207)
+
+[node name="BattleCamera" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
+
+[connection signal="pressed" from="UI/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="UI/BottomPanel/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
