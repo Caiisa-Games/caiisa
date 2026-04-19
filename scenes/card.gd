@@ -9,6 +9,7 @@ signal card_deselected(card: Card)
 
 
 func _ready() -> void:
+	$DescriptionPanel.visible = false
 	_update_display()
 
 func set_piece_data(data: PieceData) -> void:
@@ -44,3 +45,11 @@ func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 				deselect()
 			else:
 				select()
+
+
+#func _on_card_mouse_entered() -> void:
+	#$DescriptionPanel.visible = true
+#
+#
+#func _on_card_mouse_exited() -> void:
+	#$DescriptionPanel.visible = false
