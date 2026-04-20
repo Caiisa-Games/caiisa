@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=49 format=3 uid="uid://b2x2kfympqvum"]
 
 [ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://ru7nhkcy1srm" path="res://assets/ani/Play(Button)8.png" id="17_1a85y"]
 [ext_resource type="Texture2D" uid="uid://c5it2cof1l553" path="res://assets/ani/Play(Button)9.png" id="18_hl5e0"]
 [ext_resource type="Texture2D" uid="uid://cunteaexyc80f" path="res://assets/ani/Play(Button)10.png" id="19_engjn"]
+[ext_resource type="PackedScene" uid="uid://dthlhu418a1q0" path="res://scenes/settings.tscn" id="20_8egab"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6h3lr"]
 atlas = ExtResource("8_hstxw")
@@ -367,6 +368,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Settings" parent="." instance=ExtResource("20_8egab")]
+layout_mode = 0
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
