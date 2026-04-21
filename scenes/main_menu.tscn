@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-[gd_scene load_steps=49 format=3 uid="uid://b2x2kfympqvum"]
-=======
-[gd_scene load_steps=50 format=3 uid="uid://b2x2kfympqvum"]
->>>>>>> esy
+[gd_scene load_steps=50 format=3 uid="uid://5lb0il0rj8or"]
 
-[ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://cw2dv0ftswdbo" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://bc5dp5ygsbjbn" path="res://assets/Background1.png" id="2_oa1go"]
 [ext_resource type="Texture2D" uid="uid://joxiu01wkl58" path="res://assets/Credit.png" id="5_hstxw"]
@@ -383,10 +379,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-<<<<<<< HEAD
-[node name="Settings" parent="." instance=ExtResource("20_8egab")]
-layout_mode = 0
-=======
 [node name="Label" type="Label" parent="."]
 visible = false
 layout_mode = 0
@@ -426,7 +418,6 @@ offset_left = 4.0000157
 offset_top = 3.0
 offset_right = 1016.0
 offset_bottom = 999.0
->>>>>>> esy
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
