@@ -48,12 +48,9 @@ func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			else:
 				select()
 
-#func _on_card_mouse_entered() -> void:
-	#$DescriptionPanel.visible = true
-#
-#
-#func _on_card_mouse_exited() -> void:
-	#$DescriptionPanel.visible = false
+func _on_card_mouse_entered() -> void:
+	$DescriptionPanel.visible = true
 
-func _on_menu_button_2_focus_entered() -> void:
-	print(55)
+
+func _on_card_mouse_exited() -> void:
+	$DescriptionPanel.visible = false

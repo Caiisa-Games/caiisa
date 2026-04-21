@@ -121,8 +121,9 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 	if to_tile not in valid_moves:
 		return false
 	
+	var player = from_tile.occupant_player
 	from_tile.clear_occupant()
-	to_tile.set_occupant(occupant, 1)  # TODO: pass player ID
+	to_tile.set_occupant(occupant, player)
 	
 	return true
 

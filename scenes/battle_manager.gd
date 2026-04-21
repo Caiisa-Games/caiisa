@@ -67,6 +67,10 @@ func _handle_selection(tile: Tile, player: int) -> void:
 		_clear_selection()
 		return
 	
+	if tile.occupant_player != player:
+		_clear_selection()
+		return
+	
 	selected_piece = tile
 	current_phase = Phase.MOVE
 	_update_valid_moves()
@@ -95,7 +99,7 @@ func _execute_move(tile: Tile) -> void:
 	board._move_occupant(selected_piece, tile)
 	
 	has_moved_this_turn = true
-	selected_piece = tile
+	_end_turn()
 	_clear_selection()
 	_update_ui()
 
