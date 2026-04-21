@@ -11,6 +11,8 @@ signal card_deselected(card: Card)
 func _ready() -> void:
 	$DescriptionPanel.visible = false
 	_update_display()
+	#var popup = get_popup()
+	#get_popup().connect("index_hover", self, "_on_hover")
 
 func set_piece_data(data: PieceData) -> void:
 	piece_data = data
@@ -46,10 +48,12 @@ func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			else:
 				select()
 
-
 #func _on_card_mouse_entered() -> void:
 	#$DescriptionPanel.visible = true
 #
 #
 #func _on_card_mouse_exited() -> void:
 	#$DescriptionPanel.visible = false
+
+func _on_menu_button_2_focus_entered() -> void:
+	print(55)

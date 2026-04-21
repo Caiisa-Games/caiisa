@@ -155,7 +155,7 @@ func _show_error_feedback(message: String) -> void:
 	push_warning(message) #TODO
 
 
-func _on_start_button_pressed() -> void:
+func _on_start_button_pressed() -> void
 	if current_player == 1:
 		start_button.disabled = true
 		start_button.visible = false
