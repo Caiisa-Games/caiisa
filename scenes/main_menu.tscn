@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=49 format=3 uid="uid://b2x2kfympqvum"]
+=======
+[gd_scene load_steps=50 format=3 uid="uid://b2x2kfympqvum"]
+>>>>>>> esy
 
 [ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -231,6 +235,16 @@ shadow_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
 shadow_size = 1
 shadow_offset = Vector2(20, 20)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hstxw"]
+bg_color = Color(0.7254902, 0.7254902, 0.7254902, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+shadow_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
+shadow_size = 1
+shadow_offset = Vector2(20, 20)
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -369,8 +383,50 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+<<<<<<< HEAD
 [node name="Settings" parent="." instance=ExtResource("20_8egab")]
 layout_mode = 0
+=======
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 267.0
+offset_top = -651.0
+offset_right = 877.58887
+offset_bottom = 191.3169
+scale = Vector2(0.9253362, 0.7453703)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 2
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 7
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_hstxw")
+text = "طراح:
+اریا اشوری
+
+هنرمند:
+محمد صدرا موسوی
+
+بازی سازان:
+اریو نجف شاکری
+
+اسماعیل افرنگ
+
+ساخته شده با ❤"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" parent="." instance=ExtResource("20_8egab")]
+layout_mode = 0
+offset_left = 4.0000157
+offset_top = 3.0
+offset_right = 1016.0
+offset_bottom = 999.0
+>>>>>>> esy
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

@@ -6,16 +6,7 @@ extends Control
 
 func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
-func _on_credits_button_pressed() -> void:
-	if $Label2.position.y <= -650:
-		$Label2.position = Vector2(279, 620)
-		create_tween().tween_property($Label2, "position", Vector2(279, -655), 10)#.set_trans(Tween.TRANS_SINE) 
-		$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
-		$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-		await get_tree().create_timer(10).timeout
-		$TextureButton.mouse_filter = MOUSE_FILTER_PASS
-		$ExitButton.mouse_filter = MOUSE_FILTER_PASS
-
+			
 func _on_exit_button_pressed() -> void:
 	color_2.visible = true
 	var twe = create_tween()
@@ -42,3 +33,35 @@ func _on_texture_button_mouse_entered() -> void:
 	$TextureButton/AnimatedSprite2D.play("hover")
 func _on_texture_button_mouse_exited() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
+
+
+func _on_credits_button_pressed() -> void:
+	if $Label.visible == false:
+		if $Label2.position.y <= -650:
+			$Label2.visible = true
+			$Label.visible = false
+			$Label2.position = Vector2(279, 620)
+			create_tween().tween_property($Label2, "position", Vector2(279, -655), 10) 
+			$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
+			$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
+			$Settings.mouse_filter = MOUSE_FILTER_IGNORE
+			$Settings.get_child(0).visible = false
+			await get_tree().create_timer(10).timeout
+			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
+			$ExitButton.mouse_filter = MOUSE_FILTER_PASS
+			$Settings.mouse_filter = MOUSE_FILTER_PASS
+			
+	elif $Label.visible == true:
+		if $Label.position.y <= -650:
+			$Label2.visible = false
+			$Label.visible = true
+			$Label.position = Vector2(279, 620)
+			create_tween().tween_property($Label, "position", Vector2(279, -655), 10)
+			$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
+			$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
+			$Settings.mouse_filter = MOUSE_FILTER_IGNORE
+			$Settings.get_child(0).visible = false
+			await get_tree().create_timer(10).timeout
+			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
+			$ExitButton.mouse_filter = MOUSE_FILTER_PASS
+			$Settings.mouse_filter = MOUSE_FILTER_PASS
