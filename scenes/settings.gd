@@ -4,10 +4,6 @@ extends Button
 @onready var color_rec: ColorRect = $ColorRectf
 
 
-
-@onready var chec: CheckButton = $ColorRect/VBoxContainer/Label3/CheckButton
-
-
 func _on_pressed() -> void:
 	if color_rec.visible == false:
 		color_rec.visible = true

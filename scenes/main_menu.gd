@@ -8,11 +8,6 @@ func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
 			
 func _on_exit_button_pressed() -> void:
-	color_2.visible = true
-	var twe = create_tween()
-	twe.tween_property(color_2, "modulate", Color(0, 0, 0, 1), 0.2)
-	await twe.finished
-	color_2.visible = false
 	get_tree().quit()
 
 

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=49 format=3 uid="uid://b2x2kfympqvum"]
-=======
 [gd_scene load_steps=50 format=3 uid="uid://b2x2kfympqvum"]
->>>>>>> esy
 
 [ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -383,10 +379,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-<<<<<<< HEAD
-[node name="Settings" parent="." instance=ExtResource("20_8egab")]
-layout_mode = 0
-=======
 [node name="Label" type="Label" parent="."]
 visible = false
 layout_mode = 0
@@ -408,10 +400,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hstxw")
 text = "طراح:
 اریا اشوری
 
-هنرمند:
+آرتیست:
 محمد صدرا موسوی
 
-بازی سازان:
+برنامه نویسان:
 اریو نجف شاکری
 
 اسماعیل افرنگ
@@ -426,10 +418,8 @@ offset_left = 4.0000157
 offset_top = 3.0
 offset_right = 1016.0
 offset_bottom = 999.0
->>>>>>> esy
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
