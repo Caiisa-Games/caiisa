@@ -1,6 +1,6 @@
-[gd_scene load_steps=50 format=3 uid="uid://b2x2kfympqvum"]
+[gd_scene load_steps=50 format=3 uid="uid://5lb0il0rj8or"]
 
-[ext_resource type="Script" uid="uid://d27rgdkksymya" path="res://scenes/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://bc5dp5ygsbjbn" path="res://assets/Background1.png" id="2_oa1go"]
 [ext_resource type="Texture2D" uid="uid://joxiu01wkl58" path="res://assets/Credit.png" id="5_hstxw"]
@@ -334,6 +334,8 @@ scale = Vector2(0.09967807, 0.09260933)
 position = Vector2(988.18066, 529.105)
 scale = Vector2(1.039644, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
+animation = &"hover"
+frame_progress = 0.19837238
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
@@ -423,3 +425,4 @@ offset_bottom = 999.0
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

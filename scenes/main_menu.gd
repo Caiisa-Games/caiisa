@@ -1,18 +1,12 @@
 extends Control
 
-
 @onready var color_2: ColorRect = $ColorRect2
-
 
 func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
 			
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
-
-
-
-
 
 func _on_texture_button_pressed() -> void:
 	color_2.visible = true
