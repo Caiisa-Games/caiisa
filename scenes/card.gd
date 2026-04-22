@@ -50,7 +50,8 @@ func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 
 func _on_card_mouse_entered() -> void:
 	$DescriptionPanel.visible = true
-
+	$Label23.visible = true
 
 func _on_card_mouse_exited() -> void:
 	$DescriptionPanel.visible = false
+	$Label23.visible = false

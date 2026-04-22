@@ -267,12 +267,21 @@ metadata/_edit_lock_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 355.0
-offset_top = -69.00001
-offset_right = 4855.0
+offset_left = 344.00003
+offset_top = -69.0
+offset_right = 4844.0
 offset_bottom = 3431.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_jk1qb")
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect2"]
+visible = false
+layout_mode = 0
+offset_left = 769.9995
+offset_top = 750.00006
+offset_right = 3719.9995
+offset_bottom = 2929.9998
+color = Color(0, 0, 0, 0.07450981)
 
 [node name="Title" type="Label" parent="."]
 visible = false
