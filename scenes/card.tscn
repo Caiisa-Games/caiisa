@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://kovxmeios3jx"]
+[gd_scene load_steps=13 format=3 uid="uid://kovxmeios3jx"]
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://bvf6nhg8gs6m0" path="res://assets/Card-Baseform.png" id="2_6u4wf"]
@@ -64,6 +64,18 @@ corner_radius_bottom_left = 5
 ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_kg30u")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_sy11y")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w5pg"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 3
+border_color = Color(0.22911215, 0.22911215, 0.22911215, 0.8235294)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 20
+
+[sub_resource type="Theme" id="Theme_nvopj"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/styles/normal = SubResource("StyleBoxFlat_8w5pg")
 
 [node name="Card" type="TextureRect"]
 offset_left = 100.999985
@@ -140,6 +152,22 @@ scale = Vector2(0.99999994, 1)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(72.725784, 140.19641)
 polygon = PackedVector2Array(-13.63607, -138.24925, 89.08913, -139.22284, 88.43934, 41.015453, 88.18005, 112.935974, -72.725784, 112.935974, -72.725784, -88.59636)
+
+[node name="Label23" type="Label" parent="."]
+layout_mode = 0
+offset_left = 165.45123
+offset_top = -35.0491
+offset_right = 296.45123
+offset_bottom = 42.9509
+theme = SubResource("Theme_nvopj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.99, 0.4257, 0.43510485, 1)
+theme_override_colors/font_outline_color = Color(0.24412656, 0.026650142, 0.50516695, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 3
+text = " hello hello hello 
+ hello hello
+ hello"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_card_click"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_card_mouse_entered"]

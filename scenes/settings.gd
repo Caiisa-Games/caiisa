@@ -38,3 +38,10 @@ func _on_option_button_item_selected(index: int) -> void:
 		$"../Label".visible = true
 		$ColorRectf/VBoxContainer.visible = false
 		$ColorRectf/VBoxContainer2.visible = true
+
+
+func _on_mouse_entered() -> void:
+	$AnimatedSprite2D.play("animation_setting")
+
+func _on_mouse_exited() -> void:
+	$AnimatedSprite2D.play("default")
