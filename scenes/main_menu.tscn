@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://5lb0il0rj8or"]
+[gd_scene load_steps=51 format=3 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://c5it2cof1l553" path="res://assets/ani/Play(Button)9.png" id="18_hl5e0"]
 [ext_resource type="Texture2D" uid="uid://cunteaexyc80f" path="res://assets/ani/Play(Button)10.png" id="19_engjn"]
 [ext_resource type="PackedScene" uid="uid://dthlhu418a1q0" path="res://scenes/settings.tscn" id="20_8egab"]
+[ext_resource type="Texture2D" uid="uid://bs5h21qirhylf" path="res://assets/Caissa-Vined.png" id="21_gw5y6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6h3lr"]
 atlas = ExtResource("8_hstxw")
@@ -266,6 +267,7 @@ texture = ExtResource("2_oa1go")
 metadata/_edit_lock_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 344.00003
 offset_top = -69.0
@@ -302,11 +304,11 @@ text = "KAIISA"
 
 [node name="CreditsButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 264.9999
-offset_top = -243.00008
-offset_right = 1262.4784
-offset_bottom = 733.2299
-scale = Vector2(0.1, 0.1)
+offset_left = 269.00003
+offset_top = -240.0
+offset_right = 1266.4785
+offset_bottom = 736.23
+scale = Vector2(0.081092216, 0.0790686)
 pivot_offset = Vector2(873, 878)
 texture_normal = ExtResource("5_hstxw")
 ignore_texture_size = true
@@ -314,10 +316,10 @@ stretch_mode = 3
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1.000031
-offset_top = 548.0
-offset_right = 154.125
-offset_bottom = 699.5625
+offset_left = 604.0002
+offset_top = 384.00003
+offset_right = 757.1252
+offset_bottom = 535.5625
 scale = Vector2(0.66, 0.66)
 icon = ExtResource("5_tbmy8")
 flat = true
@@ -331,10 +333,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -109.99997
-offset_top = -52.0
-offset_right = 1827.0
-offset_bottom = 937.0
+offset_left = -102.0
+offset_top = -64.0
+offset_right = 1835.0
+offset_bottom = 925.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.09967807, 0.09260933)
@@ -425,10 +427,17 @@ vertical_alignment = 1
 
 [node name="Settings" parent="." instance=ExtResource("20_8egab")]
 layout_mode = 0
-offset_left = 4.0000157
-offset_top = 3.0
-offset_right = 1016.0
-offset_bottom = 999.0
+offset_left = 1062.0
+offset_top = 475.0
+offset_right = 2074.0
+offset_bottom = 1471.0
+
+[node name="CaissaVined" type="Sprite2D" parent="."]
+position = Vector2(573.95325, 321)
+scale = Vector2(0.5065796, 0.30082577)
+texture = ExtResource("21_gw5y6")
+region_enabled = true
+region_rect = Rect2(265.66895, 0, 2294.331, 2120.6736)
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
