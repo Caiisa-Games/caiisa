@@ -6,7 +6,7 @@ extends TextureRect
 var is_selected: bool = false
 signal card_selected(card: Card)
 signal card_deselected(card: Card)
-
+var dfg = 1
 
 func _ready() -> void:
 	$DescriptionPanel.visible = false
@@ -21,11 +21,12 @@ func set_piece_data(data: PieceData) -> void:
 func _update_display() -> void:
 	if piece_data == null:
 		return
-	
 	$VBoxContainer/ProgressBar.value = piece_data.defense
 	$VBoxContainer/TextureRect.texture = piece_data.texture
 	$VBoxContainer/Label.text = piece_data.name
 
+
+			
 func select() -> void:
 	is_selected = true
 	$SelectionHighlight.visible = true
