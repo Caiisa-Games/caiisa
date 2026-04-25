@@ -20,7 +20,7 @@ func set_piece_data(data: PieceData) -> void:
 func _update_display() -> void:
 	if piece_data == null:
 		return
-	$VBoxContainer/ProgressBar.value = piece_data.defense
+	$VBoxContainer/ProgressBar.value = piece_data.defense * 10
 	$VBoxContainer/TextureRect.texture = piece_data.texture
 	$VBoxContainer/Label.text = piece_data.name
 
@@ -38,7 +38,7 @@ func deselect() -> void:
 func set_disabled(value: bool) -> void:
 	visible = not value
 
-func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_card_click(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if is_selected:

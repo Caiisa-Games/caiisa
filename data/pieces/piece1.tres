@@ -6,6 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_gku5q"]
 script = ExtResource("1_fsny8")
+movement_type = 2
+move_range = 2
 can_pass_through_pieces = true
 metadata/_custom_type_script = "uid://yiknnlycdli6"
 
@@ -14,5 +16,7 @@ script = ExtResource("1_omffe")
 name = "ROOK"
 description = "test desc - rook"
 texture = ExtResource("2_pfm47")
+power = 5
+defense = 10
 movement = SubResource("Resource_gku5q")
 metadata/_custom_type_script = "uid://divct8m8b0k67"

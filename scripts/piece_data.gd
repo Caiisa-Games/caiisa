@@ -10,9 +10,9 @@ extends Resource
 @export var collision_shape: Shape2D
 
 @export_group("Stats")
-@export var knockback: float = 1.0
-@export var power: float = 1.0
-@export var defense: float = 1.0
+@export var knockback: int = 1
+@export var power: int = 1
+@export var defense: int = 1
 
 @export_group("Movement")
 @export var movement: MovementData

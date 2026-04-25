@@ -11,8 +11,7 @@ var current_turn: Turn = Turn.PLAYER_1
 var current_phase: Phase = Phase.SELECT
 var selected_piece: Tile = null
 var valid_moves: Array[Tile] = []
-var has_moved_this_turn: bool = false
-var has_attacked_this_turn: bool = false
+var has_attacked: bool = false
 var round_number: int = 1
 
 @onready var board = $BoardLayer/Board
@@ -54,7 +53,6 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 		return
 	
 	var current_player = 1 if current_turn == Turn.PLAYER_1 else 2
-	print(current_phase, current_player)
 	
 	match current_phase:
 		Phase.SELECT:
@@ -65,12 +63,10 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 
 
 func _handle_selection(tile: Tile, player: int) -> void:
-	print(tile.occupant)
 	if tile.occupant.piece_data == null:
 		_clear_selection()
 		return
 	
-	print(tile.occupant.player, player)
 	if tile.occupant.player != player:
 		_clear_selection()
 		return
@@ -79,30 +75,63 @@ func _handle_selection(tile: Tile, player: int) -> void:
 	current_phase = Phase.MOVE
 	_update_valid_moves()
 	_update_ui()
-
+	
 
 func _handle_move(tile: Tile) -> void:
+	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
 		_execute_move(tile)
-	elif tile.occupant.piece_data != null:
-		_handle_selection(tile, 1 if current_turn == Turn.PLAYER_1 else 2)
+	elif tile.occupant.piece_data != null and tile.occupant.player != turn:
+		_handle_attack(tile)
 	else:
 		_clear_selection()
 
 
 func _handle_attack(tile: Tile) -> void:
-	# TODO: Implement attack logic
-	pass
+	if has_attacked:
+		has_attacked = false
+		return
+	var target = tile.occupant
+	if target == null:
+		return
+	
+	if target == selected_piece.occupant:
+		return
+	
+	var attacker_player = selected_piece.occupant.player
+	var defender_player = target.player
+	
+	if attacker_player == defender_player:
+		return
+	
+	if not CombatRules.is_within_range(
+		selected_piece.grid_position, 
+		tile.grid_position, 
+		selected_piece.occupant.piece_data.movement.move_range #TODO: ADD ATTACK RANAGE
+	):
+		return
+	
+	var damage = CombatRules.calculate_damage(
+		selected_piece.occupant.piece_data.power, 
+		false # TODO: add critical chance
+	)
+	
+	var died = await target.take_damage(damage)
+	print(target.current_hp)
+	
+	#_show_damage_number(damage, tile.position) #TODO: Visual death feedback
+	
+	if died:
+		target.clear_data()
+	_end_turn()
+	_clear_selection()
 
 func _execute_move(tile: Tile) -> void:
 	if selected_piece == null:
 		return
-			
-	var player_id = selected_piece.occupant.player
-	
+
 	board._move_occupant(selected_piece, tile)
 	
-	has_moved_this_turn = true
 	_end_turn()
 	_clear_selection()
 	_update_ui()
@@ -120,9 +149,7 @@ func _update_valid_moves() -> void:
 	if selected_piece == null or selected_piece.occupant == null:
 		return
 	
-	print(selected_piece.occupant.piece_data.movement)
 	valid_moves = board.get_valid_moves(selected_piece.occupant.piece_data, selected_piece)
-	print(valid_moves)
 	
 	board.clear_all_highlights()
 	for tile in valid_moves:
@@ -136,23 +163,12 @@ func _end_turn() -> void:
 		current_turn = Turn.PLAYER_1
 		round_number += 1
 	
-	has_moved_this_turn = false
-	has_attacked_this_turn = false
 	_clear_selection()
 	_update_ui()
 
 func _update_ui() -> void:
 	turn_label.text = "Player %d's Turn" % (1 if current_turn == Turn.PLAYER_1 else 2)
 	round_label.text = "Round %d" % round_number
-	
-	#move_button.disabled = has_moved_this_turn or selected_piece == null
-	#attack_button.disabled = has_attacked_this_turn or selected_piece == null
-	
-	#match current_phase:
-		#Phase.SELECT:
-			#info_label.text = "Select a piece to move"
-		#Phase.MOVE:
-			#info_label.text = "Click a highlighted tile to move"
 
 func _on_move_button_pressed() -> void:
 	if selected_piece != null:
