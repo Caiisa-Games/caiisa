@@ -1,12 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://5lb0il0rj8or"]
+[gd_scene load_steps=48 format=3 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://bc5dp5ygsbjbn" path="res://assets/Background1.png" id="2_oa1go"]
+[ext_resource type="Texture2D" uid="uid://cdnprc84r25rp" path="res://assets/Background.png" id="2_hstxw"]
 [ext_resource type="Texture2D" uid="uid://joxiu01wkl58" path="res://assets/Credit.png" id="5_hstxw"]
-[ext_resource type="Texture2D" uid="uid://dnbi6pvw8ribj" path="res://assets/Exit1.png" id="5_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="7_8egab"]
 [ext_resource type="Texture2D" uid="uid://6bnlvqg5mclp" path="res://assets/ani/Play(Button)1.png" id="8_hstxw"]
-[ext_resource type="Texture2D" uid="uid://chnykkd48ylrc" path="res://assets/Lastframe.png" id="8_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://kl1kyp4sxg3o" path="res://assets/ani/Play(Button)2.png" id="9_8egab"]
 [ext_resource type="Texture2D" uid="uid://bn6hnfsc5dhtq" path="res://assets/Caissa.png" id="9_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://cutwci1u0nwkl" path="res://assets/ani/Play(Button)11.png" id="10_gw5y6"]
@@ -20,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://c5it2cof1l553" path="res://assets/ani/Play(Button)9.png" id="18_hl5e0"]
 [ext_resource type="Texture2D" uid="uid://cunteaexyc80f" path="res://assets/ani/Play(Button)10.png" id="19_engjn"]
 [ext_resource type="PackedScene" uid="uid://dthlhu418a1q0" path="res://scenes/settings.tscn" id="20_8egab"]
-[ext_resource type="Texture2D" uid="uid://bs5h21qirhylf" path="res://assets/Caissa-Vined.png" id="21_gw5y6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6h3lr"]
 atlas = ExtResource("8_hstxw")
@@ -122,10 +120,6 @@ region = Rect2(316, 790, 1950, 992)
 atlas = ExtResource("8_hstxw")
 region = Rect2(316, 790, 1950, 992)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qw82i"]
-atlas = ExtResource("8_tbmy8")
-region = Rect2(316, 790, 1950, 992)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_6h3lr"]
 animations = [{
 "frames": [{
@@ -172,7 +166,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_engjn")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 24.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dj67d")
 }, {
@@ -209,17 +208,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c6nra")
 }],
-"loop": true,
-"name": &"hover",
-"speed": 6.5
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qw82i")
-}],
-"loop": true,
-"name": &"new_a",
-"speed": 5.0
+"loop": false,
+"name": &"unhover",
+"speed": 24.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
@@ -263,11 +254,10 @@ offset_bottom = 247.00214
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7915186, 0.72371197)
-texture = ExtResource("2_oa1go")
+texture = ExtResource("2_hstxw")
 metadata/_edit_lock_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 344.00003
 offset_top = -69.0
@@ -275,15 +265,6 @@ offset_right = 4844.0
 offset_bottom = 3431.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_jk1qb")
-
-[node name="ColorRect" type="ColorRect" parent="TextureRect2"]
-visible = false
-layout_mode = 0
-offset_left = 769.9995
-offset_top = 750.00006
-offset_right = 3719.9995
-offset_bottom = 2929.9998
-color = Color(0, 0, 0, 0.07450981)
 
 [node name="Title" type="Label" parent="."]
 visible = false
@@ -304,27 +285,30 @@ text = "KAIISA"
 
 [node name="CreditsButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 269.00003
-offset_top = -240.0
-offset_right = 1266.4785
-offset_bottom = 736.23
-scale = Vector2(0.081092216, 0.0790686)
-pivot_offset = Vector2(873, 878)
+offset_left = 23.0
+offset_top = 595.0
+offset_right = 73.0
+offset_bottom = 645.0
 texture_normal = ExtResource("5_hstxw")
 ignore_texture_size = true
-stretch_mode = 3
+stretch_mode = 0
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="Settings" parent="." instance=ExtResource("20_8egab")]
 layout_mode = 0
-offset_left = 604.0002
-offset_top = 384.00003
-offset_right = 757.1252
-offset_bottom = 535.5625
-scale = Vector2(0.66, 0.66)
-icon = ExtResource("5_tbmy8")
-flat = true
-autowrap_trim_flags = 0
-expand_icon = true
+offset_left = 692.0
+offset_top = 266.0
+offset_right = 1704.0
+offset_bottom = 1262.0
+
+[node name="ExitButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 595.0
+offset_right = 127.0
+offset_bottom = 645.0
+texture_normal = ExtResource("7_8egab")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="TextureButton" type="Button" parent="."]
 layout_mode = 1
@@ -346,7 +330,6 @@ position = Vector2(988.18066, 529.105)
 scale = Vector2(1.039644, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
 animation = &"hover"
-frame_progress = 0.19837238
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
@@ -424,20 +407,6 @@ text = "طراح:
 ساخته شده با ❤"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Settings" parent="." instance=ExtResource("20_8egab")]
-layout_mode = 0
-offset_left = 1062.0
-offset_top = 475.0
-offset_right = 2074.0
-offset_bottom = 1471.0
-
-[node name="CaissaVined" type="Sprite2D" parent="."]
-position = Vector2(573.95325, 321)
-scale = Vector2(0.5065796, 0.30082577)
-texture = ExtResource("21_gw5y6")
-region_enabled = true
-region_rect = Rect2(265.66895, 0, 2294.331, 2120.6736)
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
