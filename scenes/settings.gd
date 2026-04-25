@@ -45,3 +45,14 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	$AnimatedSprite2D.play("default")
+
+
+func _on_check_button_3_pressed() -> void:
+	if $ColorRectf/VBoxContainer/Label/CheckButton3.button_pressed == true:
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
+	else:
+		var f = load("res://assets/sound/خاموش کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = f
+		$AudioStreamPlayer2D.play()
