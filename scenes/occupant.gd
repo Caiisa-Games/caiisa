@@ -18,7 +18,7 @@ func _ready() -> void:
 func _update_stats() -> void:
 	if not piece_data: return
 	
-	max_hp = piece_data.defense * 10
+	max_hp = piece_data.defense
 	current_hp = max_hp
 	
 	hp_changed.emit(current_hp, max_hp)
