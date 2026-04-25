@@ -68,7 +68,7 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 		_show_error_feedback("Invalid row! Player %d must place on row %d" % [current_player, _get_valid_row()])
 		return
 	
-	if tile.occupant != null:
+	if tile.occupant.piece_data != null:
 		_show_error_feedback("Tile already occupied!")
 		return
 		

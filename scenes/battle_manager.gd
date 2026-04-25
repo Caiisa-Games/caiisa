@@ -22,6 +22,8 @@ var round_number: int = 1
 @onready var move_button = $UI/LeftPanel/Player1Panel/ActionButtons/MoveButton
 @onready var attack_button = $UI/LeftPanel/Player1Panel/ActionButtons/AttackButton
 
+var unit_scene: PackedScene = preload("res://scenes/unit.tscn")
+
 func _ready() -> void:
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces	
@@ -42,7 +44,6 @@ func _setup_board() -> void:
 		var pos = piece_data.tile_pos
 		board.place_piece(piece_data.piece, pos.x, pos.y, 2)
 
-
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
@@ -53,6 +54,7 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 		return
 	
 	var current_player = 1 if current_turn == Turn.PLAYER_1 else 2
+	print(current_phase, current_player)
 	
 	match current_phase:
 		Phase.SELECT:
@@ -63,11 +65,13 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 
 
 func _handle_selection(tile: Tile, player: int) -> void:
-	if tile.occupant == null:
+	print(tile.occupant)
+	if tile.occupant.piece_data == null:
 		_clear_selection()
 		return
 	
-	if tile.occupant_player != player:
+	print(tile.occupant.player, player)
+	if tile.occupant.player != player:
 		_clear_selection()
 		return
 	
@@ -80,7 +84,7 @@ func _handle_selection(tile: Tile, player: int) -> void:
 func _handle_move(tile: Tile) -> void:
 	if tile in valid_moves:
 		_execute_move(tile)
-	elif tile.occupant != null:
+	elif tile.occupant.piece_data != null:
 		_handle_selection(tile, 1 if current_turn == Turn.PLAYER_1 else 2)
 	else:
 		_clear_selection()
@@ -94,7 +98,7 @@ func _execute_move(tile: Tile) -> void:
 	if selected_piece == null:
 		return
 			
-	var player_id = selected_piece.occupant_player
+	var player_id = selected_piece.occupant.player
 	
 	board._move_occupant(selected_piece, tile)
 	
@@ -116,7 +120,9 @@ func _update_valid_moves() -> void:
 	if selected_piece == null or selected_piece.occupant == null:
 		return
 	
-	valid_moves = board.get_valid_moves(selected_piece.occupant, selected_piece)
+	print(selected_piece.occupant.piece_data.movement)
+	valid_moves = board.get_valid_moves(selected_piece.occupant.piece_data, selected_piece)
+	print(valid_moves)
 	
 	board.clear_all_highlights()
 	for tile in valid_moves:
