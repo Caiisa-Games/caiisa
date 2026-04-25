@@ -37,7 +37,7 @@ func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> boo
 	if tile == null:
 		return false
 	
-	if tile.occupant != null:
+	if tile.occupant.piece_data != null:
 		return false
 	
 	if current_mode == Mode.PREVIEW:
@@ -45,13 +45,14 @@ func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> boo
 		if grid_y != valid_row:
 			return false
 	
-	tile.set_occupant(piece, player)
+	tile.occupant.set_data(piece, player)
 	return true
 
 
 func clear_board() -> void:
 	for tile in tiles.values():
-		tile.clear_occupant()
+		if tile.occupant:
+			tile.occupant.clear_data()
 	occupants.clear()
 
 
@@ -61,7 +62,7 @@ func get_valid_placement_tiles(player: int) -> Array[Tile]:
 	
 	for x in range(GRID_SIZE):
 		var tile = tiles.get(Vector2i(x, valid_row))
-		if tile != null and tile.occupant == null:
+		if tile != null and tile.occupant.piece_data == null:
 			valid_tiles.append(tile)
 	
 	return valid_tiles
@@ -115,15 +116,17 @@ func _deselect() -> void:
 	current_state = State.IDLE
 
 func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
-	var occupant = from_tile.occupant
+	var occupant = from_tile.occupant.piece_data
 	var valid_moves = get_valid_moves(occupant, from_tile)
 	
+	if not from_tile.occupant:
+		return false
 	if to_tile not in valid_moves:
 		return false
 	
-	var player = from_tile.occupant_player
-	from_tile.clear_occupant()
-	to_tile.set_occupant(occupant, player)
+	var player = from_tile.occupant.player
+	from_tile.occupant.clear_data()
+	to_tile.occupant.set_data(occupant, player)
 	
 	return true
 
@@ -155,7 +158,7 @@ func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
 			if target_tile == null:
 				break
 			
-			if target_tile.occupant != null:
+			if target_tile.occupant.piece_data != null:
 				if not movement.can_pass_through_pieces:
 					break
 				else:

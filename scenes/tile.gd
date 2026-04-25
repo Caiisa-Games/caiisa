@@ -11,12 +11,10 @@ var base_container: Node2D
 var base_sprite: Sprite2D
 var height_sprite: Sprite2D
 var height_label: Label
-var occupant_node: Sprite2D
+var occupant: Occupant
 var area_2d = Area2D
 var highlight_sprite: Polygon2D
 
-var occupant: PieceData = null
-var occupant_player: int = 0
 var is_interactive: bool = false
 var is_highlighted: bool = false
 
@@ -26,7 +24,7 @@ func init() -> void:
 	base_sprite = $BaseSprite
 	height_sprite = $HeightSprite
 	height_label = $HeightLabel
-	occupant_node = $Occupant/Sprite2D
+	occupant = $Occupant
 	area_2d = $Area2D
 	highlight_sprite = $HighlightSprite
 
@@ -53,19 +51,6 @@ func set_height(level: int) -> void:
 	
 	_update_visuals()
 
-
-func set_occupant(piece: PieceData, player: int) -> void:
-	occupant = piece
-	occupant_node.texture = piece.texture
-	occupant_player = player
-	#_update_occupant_visuals()
-	
-func clear_occupant() -> void:
-	occupant = null
-	occupant_player = 0
-	
-	occupant_node.texture = null
-
 func set_interactive(enabled: bool) -> void:
 	is_interactive = enabled
 
@@ -74,7 +59,7 @@ func _update_visuals() -> void:
 	height_sprite.position.y = -height_offset
 	area_2d.position.y = -height_offset
 	highlight_sprite.position.y = -height_offset
-	occupant_node.position.y = -height_offset - 44
+	$Occupant/Sprite2D.position.y = -height_offset - 44
 	
 	height_label.text = str(height_level)
 	#height_label.visible = false
