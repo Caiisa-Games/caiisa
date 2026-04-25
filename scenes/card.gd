@@ -9,7 +9,6 @@ signal card_deselected(card: Card)
 var dfg = 1
 
 func _ready() -> void:
-	$DescriptionPanel.visible = false
 	_update_display()
 	#var popup = get_popup()
 	#get_popup().connect("index_hover", self, "_on_hover")
@@ -25,8 +24,6 @@ func _update_display() -> void:
 	$VBoxContainer/TextureRect.texture = piece_data.texture
 	$VBoxContainer/Label.text = piece_data.name
 
-
-			
 func select() -> void:
 	is_selected = true
 	$SelectionHighlight.visible = true
@@ -48,11 +45,3 @@ func _on_card_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 				deselect()
 			else:
 				select()
-
-func _on_card_mouse_entered() -> void:
-	$DescriptionPanel.visible = true
-	$Label23.visible = true
-
-func _on_card_mouse_exited() -> void:
-	$DescriptionPanel.visible = false
-	$Label23.visible = false

@@ -21,7 +21,7 @@ func _on_texture_button_pressed() -> void:
 func _on_texture_button_mouse_entered() -> void:
 	$TextureButton/AnimatedSprite2D.play("hover")
 func _on_texture_button_mouse_exited() -> void:
-	$TextureButton/AnimatedSprite2D.play("default")
+	$TextureButton/AnimatedSprite2D.play("unhover")
 
 
 func _on_credits_button_pressed() -> void:
