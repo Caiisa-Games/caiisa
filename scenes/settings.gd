@@ -41,7 +41,7 @@ func _on_option_button_item_selected(index: int) -> void:
 
 
 func _on_mouse_entered() -> void:
-	$AnimatedSprite2D.play("animation_setting")
+	$AnimatedSprite2D.play("hover")
 
 func _on_mouse_exited() -> void:
-	$AnimatedSprite2D.play("default")
+	$AnimatedSprite2D.play("unhover")
