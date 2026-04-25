@@ -15,6 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://ciuhhnd512wnd" path="res://assets/ani_setting/Settings-Animation11.png" id="13_3gwh8"]
 [ext_resource type="Texture2D" uid="uid://devl0h22pr75o" path="res://assets/ani_setting/Settings-Animation12.png" id="14_q4e06"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4e06"]
+atlas = ExtResource("3_oe2nd")
+region = Rect2(800, 798, 965, 980)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nilcw"]
 atlas = ExtResource("3_oe2nd")
 region = Rect2(770, 780, 1020, 1020)
@@ -107,12 +111,16 @@ region = Rect2(800, 798, 965, 980)
 atlas = ExtResource("3_oe2nd")
 region = Rect2(800, 798, 965, 980)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q4e06"]
-atlas = ExtResource("3_oe2nd")
-region = Rect2(800, 798, 965, 980)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_8vrx8"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4e06")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nilcw")
@@ -149,6 +157,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8nnln")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nnln")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oe2nd")
@@ -183,17 +199,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3gwh8")
 }],
-"loop": true,
-"name": &"animation_setting",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q4e06")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
+"loop": false,
+"name": &"unhover",
+"speed": 24.0
 }]
 
 [sub_resource type="Theme" id="Theme_6wm04"]
