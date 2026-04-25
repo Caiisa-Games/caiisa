@@ -46,6 +46,7 @@ func _create_cards_for_current_player() -> void:
 		card_flow.add_child(card)
 
 
+
 func _on_card_selected(card: Card) -> void:
 	board.highlight_valid_row(current_player)
 	for child in card_flow.get_children():
@@ -110,6 +111,7 @@ func _get_valid_row() -> int:
 
 
 func _handle_successful_placement(card: Card, tile: Tile) -> void:
+
 	if current_player == 1:
 		player1_selected_pieces.append({"piece": card.piece_data,
 										"tile_pos": tile.grid_position})
