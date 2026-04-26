@@ -20,6 +20,11 @@ texture = ExtResource("2_ywnoi")
 [node name="BaseContainer" type="Node2D" parent="."]
 position = Vector2(0, -4)
 
+[node name="HighlightSprite" type="Polygon2D" parent="."]
+visible = false
+color = Color(0.30588236, 0.8039216, 0.76862746, 0.5019608)
+polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
+
 [node name="Occupant" type="Node2D" parent="."]
 script = ExtResource("4_q7utx")
 
@@ -31,11 +36,6 @@ visible = false
 offset_right = 57.0
 offset_bottom = 51.0
 metadata/_edit_use_anchors_ = true
-
-[node name="HighlightSprite" type="Polygon2D" parent="."]
-visible = false
-color = Color(0.30588236, 0.8039216, 0.76862746, 0.5019608)
-polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
 
 [node name="Area2D" type="Area2D" parent="."]
 

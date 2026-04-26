@@ -1,6 +1,8 @@
 class_name Tile
 extends Node2D
 
+enum HighlightColor { MOVE, ATTACK }
+
 @export var grid_position: Vector2i = Vector2i.ZERO
 @export var height_level: int = 0
 @export var highlight_color: Color = Color("#4ECDC4")
@@ -69,7 +71,13 @@ func set_placement_highlight(enabled: bool) -> void:
 	if highlight_sprite:
 		highlight_sprite.visible = enabled
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func set_highlight_color(color: HighlightColor) -> void:
+	if color == HighlightColor.MOVE:
+		highlight_sprite.color = Color("4ecdc47d")
+	elif color == HighlightColor.ATTACK:
+		highlight_sprite.color = Color("ee00007d")
+
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			tile_clicked.emit(grid_position)

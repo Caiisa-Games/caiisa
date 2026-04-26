@@ -52,10 +52,8 @@ func _on_card_selected(card: Card) -> void:
 		if child is Card and child != card:
 			child.deselect()
 
-
 func _on_card_deselected(card: Card) -> void:
 	pass
-
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var selected_card: Card = _get_selected_card()

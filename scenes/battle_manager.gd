@@ -17,11 +17,6 @@ var round_number: int = 1
 @onready var board = $BoardLayer/Board
 @onready var turn_label = $UI/TopBar/TurnLabel
 @onready var round_label = $UI/TopBar/RoundLabel
-@onready var info_label = $UI/RightPanel/InfoLabel
-@onready var move_button = $UI/LeftPanel/Player1Panel/ActionButtons/MoveButton
-@onready var attack_button = $UI/LeftPanel/Player1Panel/ActionButtons/AttackButton
-
-var unit_scene: PackedScene = preload("res://scenes/unit.tscn")
 
 func _ready() -> void:
 	player_1_pieces = GameState.player_1_pieces
@@ -61,7 +56,6 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 		Phase.MOVE:
 			_handle_move(tile)
 
-
 func _handle_selection(tile: Tile, player: int) -> void:
 	if tile.occupant.piece_data == null:
 		_clear_selection()
@@ -80,9 +74,10 @@ func _handle_selection(tile: Tile, player: int) -> void:
 func _handle_move(tile: Tile) -> void:
 	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
-		_execute_move(tile)
-	elif tile.occupant.piece_data != null and tile.occupant.player != turn:
-		_handle_attack(tile)
+		if tile.occupant.piece_data != null and tile.occupant.player != turn:
+			_handle_attack(tile)
+		else:
+			_execute_move(tile)
 	else:
 		_clear_selection()
 
@@ -103,7 +98,7 @@ func _handle_attack(tile: Tile) -> void:
 	
 	if attacker_player == defender_player:
 		return
-	
+		
 	if not CombatRules.is_within_range(
 		selected_piece.grid_position, 
 		tile.grid_position, 
@@ -153,6 +148,10 @@ func _update_valid_moves() -> void:
 	
 	board.clear_all_highlights()
 	for tile in valid_moves:
+		if tile.occupant.piece_data and tile.occupant.player != selected_piece.occupant.player:
+			tile.set_highlight_color(Tile.HighlightColor.ATTACK)
+		else:
+			tile.set_highlight_color(Tile.HighlightColor.MOVE)
 		tile.set_placement_highlight(true)
 
 
@@ -169,18 +168,6 @@ func _end_turn() -> void:
 func _update_ui() -> void:
 	turn_label.text = "Player %d's Turn" % (1 if current_turn == Turn.PLAYER_1 else 2)
 	round_label.text = "Round %d" % round_number
-
-func _on_move_button_pressed() -> void:
-	if selected_piece != null:
-		current_phase = Phase.MOVE
-		_update_valid_moves()
-		_update_ui()
-
-
-func _on_attack_button_pressed() -> void:
-	# TODO: Implement attack phase
-	pass
-
 
 func _on_end_turn_button_pressed() -> void:
 	_end_turn()

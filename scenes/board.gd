@@ -21,16 +21,8 @@ var default_movement := MovementData.new()
 func set_mode(mode: Mode) -> void:
 	current_mode = mode
 	
-	match current_mode:
-		Mode.PREVIEW:
-			current_state = State.IDLE
-			selected_tile = null
-			_update_placement_indicators(true)
-		Mode.BATTLE:
-			current_state = State.IDLE
-			selected_tile = null
-			_update_placement_indicators(false)
-
+	current_state = State.IDLE
+	selected_tile = null
 
 func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> bool:
 	var tile = tiles.get(Vector2i(grid_x, grid_y))
@@ -80,6 +72,7 @@ func highlight_valid_row(player: int) -> void:
 
 func clear_all_highlights() -> void:
 	for tile in tiles.values():
+		tile.set_highlight_color(Tile.HighlightColor.MOVE)
 		tile.set_placement_highlight(false)
 
 func generate() -> void:
@@ -157,21 +150,16 @@ func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
 			var target_tile = tiles.get(target_pos)
 			if target_tile == null:
 				break
-			
-			if target_tile.occupant.piece_data != null:
-				if not movement.can_pass_through_pieces:
-					break
-				else:
-					continue
+
+			#if target_tile.occupant.piece_data != null:
+				#if not movement.can_pass_through_pieces:
+					#break
+				#else:
+					#continue
 			
 			moves.append(target_tile)
 	
 	return moves
-
-func _update_placement_indicators(visible: bool) -> void:
-	var indicator = $PlacementIndicator
-	if indicator:
-		indicator.visible = visible
 
 
 func _get_tile_at_position(screen_pos: Vector2) -> Tile:
