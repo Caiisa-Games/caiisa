@@ -9,6 +9,7 @@ extends Resource
 @export var texture: Texture2D
 @export var collision_shape: Shape2D
 
+
 @export_group("Stats")
 @export var knockback: float = 1.0
 @export var power: float = 1.0
