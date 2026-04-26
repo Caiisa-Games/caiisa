@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cm5g530vbb0gh"
+path="res://.godot/imported/صفحه ی ویکتوری و برد.mp3-6c2a655f49e40ef19c5f8c89392e52a8.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/صفحه ی ویکتوری و برد.mp3"
+dest_files=["res://.godot/imported/صفحه ی ویکتوری و برد.mp3-6c2a655f49e40ef19c5f8c89392e52a8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

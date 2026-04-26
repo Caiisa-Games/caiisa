@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://vi15yyumktmj"
+path="res://.godot/imported/فشردن دکمه های سنگی.mp3-e892518e61b03409d5a2fce642413f82.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/فشردن دکمه های سنگی.mp3"
+dest_files=["res://.godot/imported/فشردن دکمه های سنگی.mp3-e892518e61b03409d5a2fce642413f82.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

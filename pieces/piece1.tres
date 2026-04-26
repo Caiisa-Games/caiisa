@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceData" load_steps=3 format=3 uid="uid://c7vw8u7n3xuq7"]
+
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_omffe"]
+[ext_resource type="Texture2D" uid="uid://cixmhyyfq88f8" path="res://assets/card/King-Card (1).png" id="2_rct86"]
+
+[resource]
+script = ExtResource("1_omffe")
+name = "King"
+texture = ExtResource("2_rct86")
+knockback = 200.0
+power = 200.0
+defense = 200.0
+metadata/_custom_type_script = "uid://divct8m8b0k67"
