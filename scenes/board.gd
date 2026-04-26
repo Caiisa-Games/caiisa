@@ -21,17 +21,37 @@ var default_movement := MovementData.new()
 func set_mode(mode: Mode) -> void:
 	current_mode = mode
 	
+
 	current_state = State.IDLE
 	selected_tile = null
+
+	match current_mode:
+		Mode.PREVIEW:
+			current_state = State.IDLE
+			selected_tile = null
+			#_update_placement_indicators(true)
+		Mode.BATTLE:
+			current_state = State.IDLE
+			selected_tile = null
+			_update_placement_indicators(false)
+
+
 
 func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> bool:
 	var tile = tiles.get(Vector2i(grid_x, grid_y))
 	if tile == null:
 		return false
+
 	
 	if tile.occupant.piece_data != null:
+
+
+	if tile.occupant != null:
+
 		return false
 	
+
+
 	if current_mode == Mode.PREVIEW:
 		var valid_row = 0 if player == 1 else GRID_SIZE - 1
 		if grid_y != valid_row:

@@ -7,6 +7,25 @@ enum HighlightColor { MOVE, ATTACK }
 @export var height_level: int = 0
 @export var highlight_color: Color = Color("#4ECDC4")
 
+
+@export var king: PieceData
+@export var queen: PieceData
+@export var knight: PieceData
+@export var bishop: PieceData
+@export var rook: PieceData
+@export var pown: PieceData
+
+var king1 = "res://assets/pieces/King(White).png11.png"
+var queen1 = "res://assets/Sprait/Queen(White).png"
+var knight1 = "res://assets/Sprait/Knight(White).png"
+var bishop1 = "res://assets/Sprait/Bishop(White).png"
+var rook1 = "res://assets/Sprait/Rook(White).png"
+var pown1 = "res://assets/Sprait/Pawn(White).png"
+
+
+
+
+
 signal tile_clicked(grid_pos: Vector2i)
 
 var base_container: Node2D
@@ -70,6 +89,8 @@ func set_placement_highlight(enabled: bool) -> void:
 	is_highlighted = enabled
 	if highlight_sprite:
 		highlight_sprite.visible = enabled
+		
+	#cardd.texture_rectt.texture = lkl
 
 func set_highlight_color(color: HighlightColor) -> void:
 	if color == HighlightColor.MOVE:
@@ -80,4 +101,29 @@ func set_highlight_color(color: HighlightColor) -> void:
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			tile_clicked.emit(grid_position)
+			
+			#tile_clicked.emit(grid_position)
+			if king != null:
+				var t = load(king1)
+				king.texture = t
+				tile_clicked.emit(grid_position)
+
+			if queen != null:
+				var t = load(queen1)
+				queen.texture = t
+				tile_clicked.emit(grid_position)
+
+			if knight != null:
+				var t = load(knight1)
+				knight.texture = t
+				tile_clicked.emit(grid_position)
+
+			if bishop != null:
+				var t = load(bishop1)
+				bishop.texture = t
+				tile_clicked.emit(grid_position)
+
+			if pown != null:
+				var t = load(pown1)
+				pown.texture = t
+				tile_clicked.emit(grid_position)

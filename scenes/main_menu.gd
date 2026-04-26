@@ -4,7 +4,7 @@ extends Control
 
 func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
-			
+	
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
@@ -34,7 +34,7 @@ func _on_credits_button_pressed() -> void:
 			$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
 			$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
 			$Settings.mouse_filter = MOUSE_FILTER_IGNORE
-			$Settings.get_child(0).visible = false
+			$Settings.get_child(1).visible = false
 			await get_tree().create_timer(10).timeout
 			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
 			$ExitButton.mouse_filter = MOUSE_FILTER_PASS
@@ -49,7 +49,7 @@ func _on_credits_button_pressed() -> void:
 			$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
 			$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
 			$Settings.mouse_filter = MOUSE_FILTER_IGNORE
-			$Settings.get_child(0).visible = false
+			$Settings.get_child(1).visible = false
 			await get_tree().create_timer(10).timeout
 			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
 			$ExitButton.mouse_filter = MOUSE_FILTER_PASS

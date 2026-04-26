@@ -1,11 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=15 format=3 uid="uid://dakmm2a3fd0qk"]
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
-[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/piece1.tres" id="6_j66un"]
+[ext_resource type="Resource" uid="uid://c7vw8u7n3xuq7" path="res://pieces/piece1.tres" id="4_gwvtb"]
+[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://pieces/piece2.tres" id="5_rme2a"]
+[ext_resource type="Resource" uid="uid://425mbxscserg" path="res://pieces/piece3.tres" id="6_svpf0"]
+[ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://pieces/piece4.tres" id="7_6migr"]
+[ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://pieces/pieces5.tres" id="7_gwvtb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
@@ -48,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_34mbo")
-available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_j66un"), ExtResource("6_j66un"), ExtResource("6_j66un"), ExtResource("6_j66un")])
+available_pieces = Array[ExtResource("2_j66un")]([ExtResource("4_gwvtb"), ExtResource("5_rme2a"), ExtResource("6_svpf0"), ExtResource("7_6migr"), ExtResource("7_gwvtb")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
