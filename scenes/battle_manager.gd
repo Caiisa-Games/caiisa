@@ -102,7 +102,7 @@ func _handle_attack(tile: Tile) -> void:
 	if not CombatRules.is_within_range(
 		selected_piece.grid_position, 
 		tile.grid_position, 
-		selected_piece.occupant.piece_data.movement.move_range #TODO: ADD ATTACK RANAGE
+		selected_piece.occupant.piece_data.movement.move_range # TODO: ADD ATTACK RANAGE
 	):
 		return
 	
@@ -112,10 +112,7 @@ func _handle_attack(tile: Tile) -> void:
 	)
 	
 	var died = await target.take_damage(damage)
-	print(target.current_hp)
-	
-	#_show_damage_number(damage, tile.position) #TODO: Visual death feedback
-	
+		
 	if died:
 		target.clear_data()
 	_end_turn()
