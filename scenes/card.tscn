@@ -1,10 +1,8 @@
-
-[gd_scene load_steps=14 format=3 uid="uid://kovxmeios3jx"]
+[gd_scene load_steps=11 format=3 uid="uid://kovxmeios3jx"]
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
-[ext_resource type="Texture2D" uid="uid://bvf6nhg8gs6m0" path="res://assets/Card-Baseform.png" id="2_6u4wf"]
-[ext_resource type="Texture2D" uid="uid://bqjhl2psj18fe" path="res://assets/hhhh24.png" id="3_kg30u"]
-[ext_resource type="FontFile" uid="uid://b0q546sq5pqtw" path="res://assets/fonts/african.ttf" id="4_sy11y"]
+[ext_resource type="Texture2D" uid="uid://cvpe2wmkq2go2" path="res://assets/pieces/cards/blank_card.png" id="3_kg30u"]
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_ktuci"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
 bg_color = Color(1, 1, 1, 1)
@@ -67,90 +65,84 @@ ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_kg30u")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_sy11y")
 
-[node name="Card" type="TextureRect"]
-offset_left = 100.999985
-offset_top = 48.0
-offset_right = 263.0
-offset_bottom = 304.0
-scale = Vector2(1.1000222, 1.0271305)
-texture = ExtResource("2_6u4wf")
+[node name="Card" type="Control"]
+custom_minimum_size = Vector2(171, 240)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -120.0
+offset_right = 85.5
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(85.5, 120)
 script = ExtResource("1_d81rb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BlankCard" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_kg30u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlankCard"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -55.36087
-offset_top = -107.55469
-offset_right = 55.36087
-offset_bottom = 107.55469
+offset_left = -62.77318
+offset_top = -37.24518
+offset_right = 66.315125
+offset_bottom = 108.27936
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_ktuci")
 theme_override_constants/separation = 16
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_kg30u")
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-visible = false
+[node name="Label" type="Label" parent="BlankCard/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_8w5pg")
-theme_override_fonts/font = ExtResource("4_sy11y")
+theme_override_fonts/font = ExtResource("3_ktuci")
 theme_override_font_sizes/font_size = 20
 text = "NAME"
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
-visible = false
+[node name="ProgressBar" type="ProgressBar" parent="BlankCard/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_6ligt")
+theme_override_fonts/font = ExtResource("3_ktuci")
 max_value = 10.0
 value = 2.0
+
+[node name="CardTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SelectionHighlight" type="ColorRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 11.817943
-offset_top = 48.679306
-offset_right = 149.0879
-offset_bottom = 246.31729
+offset_left = 9.090739
+offset_top = 9.735863
+offset_right = 163.63307
+offset_bottom = 231.71353
 mouse_filter = 1
 color = Color(0.9529412, 0.9529412, 0, 0.6156863)
-
-
-[node name="DescriptionPanel" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="RichTextLabel" parent="DescriptionPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.5258789e-05
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(0.99999994, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(72.725784, 140.19641)
-polygon = PackedVector2Array(-13.63607, -138.24925, 89.08913, -139.22284, 88.43934, 41.015453, 88.18005, 112.935974, -72.725784, 112.935974, -72.725784, -88.59636)
+polygon = PackedVector2Array(99.088974, -140.19641, 99.99803, 100.27934, -72.72576, 100.27934, -72.72576, -140.19641)
 
 [connection signal="input_event" from="Area2D" to="." method="_on_card_click"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_card_mouse_entered"]

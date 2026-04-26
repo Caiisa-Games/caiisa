@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="PieceData" load_steps=7 format=3 uid="uid://bk06pb3x532an"]
+
+[ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="1_fsny8"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_omffe"]
+[ext_resource type="Texture2D" uid="uid://cixmhyyfq88f8" path="res://assets/pieces/cards/king_card.png" id="1_r6wyx"]
+[ext_resource type="Texture2D" uid="uid://c6chgl51q35lh" path="res://assets/pieces/black/king_black.png" id="4_0w8ds"]
+[ext_resource type="Texture2D" uid="uid://c6ghrppxeslwe" path="res://assets/pieces/white/king_white.png" id="5_m8d1l"]
+
+[sub_resource type="Resource" id="Resource_gku5q"]
+script = ExtResource("1_fsny8")
+movement_type = 2
+move_range = 2
+can_pass_through_pieces = true
+metadata/_custom_type_script = "uid://yiknnlycdli6"
+
+[resource]
+script = ExtResource("1_omffe")
+name = "King"
+description = "a powerful king without war skills"
+texture_white = ExtResource("5_m8d1l")
+texture_black = ExtResource("4_0w8ds")
+card_texture = ExtResource("1_r6wyx")
+power = 5
+defense = 10
+movement = SubResource("Resource_gku5q")
+metadata/_custom_type_script = "uid://divct8m8b0k67"

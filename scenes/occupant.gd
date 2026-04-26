@@ -22,15 +22,19 @@ func _update_stats() -> void:
 	max_hp = piece_data.defense
 	current_hp = max_hp
 	
-	var p = piece_data.texture.get_height()
+	var p = sprite.texture.get_height()
 	health_bar.position.y -= (p * sprite.scale.y) + 20
 
 	_update_hp()
 	
 func set_data(data: PieceData, _player: int) -> void:
 	piece_data = data
-	sprite.texture = data.texture
 	player = _player
+	
+	if player == 1:
+		sprite.texture = data.texture_white
+	elif player == 2:
+		sprite.texture = data.texture_black
 	
 	health_bar.visible = true
 	

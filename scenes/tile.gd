@@ -96,29 +96,4 @@ func set_highlight_color(color: HighlightColor = HighlightColor.NONE) -> void:
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			
-			#tile_clicked.emit(grid_position)
-			if king != null:
-				var t = load(king1)
-				king.texture = t
-				tile_clicked.emit(grid_position)
-
-			if queen != null:
-				var t = load(queen1)
-				queen.texture = t
-				tile_clicked.emit(grid_position)
-
-			if knight != null:
-				var t = load(knight1)
-				knight.texture = t
-				tile_clicked.emit(grid_position)
-
-			if bishop != null:
-				var t = load(bishop1)
-				bishop.texture = t
-				tile_clicked.emit(grid_position)
-
-			if pown != null:
-				var t = load(pown1)
-				pown.texture = t
-				tile_clicked.emit(grid_position)
+			tile_clicked.emit(grid_position)

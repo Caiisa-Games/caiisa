@@ -1,22 +1,26 @@
 class_name Card
-extends TextureRect
+extends Control
 
-@onready var carddd: Card = $"."
-@onready var texture_rectt: TextureRect = $VBoxContainer/TextureRect
-@onready var texture_rect_2: TextureRect = $VBoxContainer/TextureRect2
+var blank_card: TextureRect
+var card_texture: TextureRect
 
 @export var piece_data: PieceData
 
 var is_selected: bool = false
 signal card_selected(card: Card)
 signal card_deselected(card: Card)
-var dfg = 1
 
-func _ready() -> void:
-	#$DescriptionPanel.visible = false
+var original_scale: Vector2
+
+func init() -> void:
+	card_texture = $CardTexture
+	blank_card = $BlankCard
+	blank_card.visible = false
+	
+	original_scale = scale
+	print(scale)
+	
 	_update_display()
-	#var popup = get_popup()
-	#get_popup().connect("index_hover", self, "_on_hover")
 
 func set_piece_data(data: PieceData) -> void:
 	piece_data = data
@@ -25,18 +29,18 @@ func set_piece_data(data: PieceData) -> void:
 func _update_display() -> void:
 	if piece_data == null:
 		return
-	$VBoxContainer/ProgressBar.value = piece_data.defense * 10
-	$VBoxContainer/TextureRect.texture = piece_data.texture
-	$VBoxContainer/Label.text = piece_data.name
+
+	$CardTexture.texture = piece_data.card_texture
+	$BlankCard/VBoxContainer/ProgressBar.value = piece_data.defense * 10
+	$BlankCard/VBoxContainer/Label.text = piece_data.name
 func select() -> void:
 	is_selected = true
-	$SelectionHighlight.visible = true
+	scale = original_scale * 1.075
 	card_selected.emit(self)
-
 
 func deselect() -> void:
 	is_selected = false
-	$SelectionHighlight.visible = false
+	scale = original_scale
 	card_deselected.emit(self)
 
 func set_disabled(value: bool) -> void:
@@ -47,17 +51,14 @@ func _on_card_click(_viewport: Node, event: InputEvent, _shape_idx: int) -> void
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if is_selected:
 				deselect()
-				
 			else:
 				select()
 
 
 func _on_card_mouse_entered() -> void:
-	$VBoxContainer/TextureRect.visible = false
-	$VBoxContainer/Label.visible = true
-	$VBoxContainer/ProgressBar.visible = true
+	card_texture.visible = false
+	blank_card.visible = true
 
 func _on_card_mouse_exited() -> void:
-	$VBoxContainer/TextureRect.visible = true
-	$VBoxContainer/Label.visible = false
-	$VBoxContainer/ProgressBar.visible = false
+	card_texture.visible = true
+	blank_card.visible = false

@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameState="*res://scripts/game_state.gd"
-cardd="*res://scenes/card.gd"
 
 [display]
 
