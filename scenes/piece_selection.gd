@@ -23,7 +23,6 @@ func _ready() -> void:
 	
 	start_button.visible = false
 	start_button.disabled = true
-	start_button.pressed.connect(_on_start_button_pressed)
 	
 	_create_cards_for_current_player()
 	_update_ui()
