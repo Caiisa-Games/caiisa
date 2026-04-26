@@ -7,4 +7,7 @@
 script = ExtResource("1_omffe")
 name = "King"
 texture = ExtResource("2_rct86")
+knockback = 200.0
+power = 200.0
+defense = 200.0
 metadata/_custom_type_script = "uid://divct8m8b0k67"
