@@ -1,15 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=16 format=3 uid="uid://dakmm2a3fd0qk"]
 
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
-[ext_resource type="Resource" uid="uid://c7vw8u7n3xuq7" path="res://pieces/piece1.tres" id="4_gwvtb"]
-[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://pieces/piece2.tres" id="5_rme2a"]
-[ext_resource type="Resource" uid="uid://425mbxscserg" path="res://pieces/piece3.tres" id="6_svpf0"]
-[ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://pieces/piece4.tres" id="7_6migr"]
-[ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://pieces/pieces5.tres" id="7_gwvtb"]
+[ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="4_rme2a"]
+[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="5_rme2a"]
+[ext_resource type="Resource" uid="uid://425mbxscserg" path="res://data/pieces/bishop.tres" id="5_svpf0"]
+[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/king.tres" id="6_svpf0"]
+[ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://data/pieces/knight.tres" id="7_6migr"]
+[ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://data/pieces/queen.tres" id="7_gwvtb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
@@ -52,7 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_34mbo")
-available_pieces = Array[ExtResource("2_j66un")]([ExtResource("4_gwvtb"), ExtResource("5_rme2a"), ExtResource("6_svpf0"), ExtResource("7_6migr"), ExtResource("7_gwvtb")])
+available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_svpf0"), ExtResource("7_gwvtb"), ExtResource("5_svpf0"), ExtResource("7_6migr"), ExtResource("4_rme2a"), ExtResource("5_rme2a")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -88,9 +89,15 @@ size_flags_horizontal = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
 horizontal_scroll_mode = 0
 
-[node name="CardFlow" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/LeftPanel/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 15
+
+[node name="CardFlow" type="HFlowContainer" parent="HSplitContainer/LeftPanel/ScrollContainer/MarginContainer"]
 layout_mode = 2
 mouse_behavior_recursive = 1
+theme_override_constants/v_separation = 15
 
 [node name="StartButton" type="Button" parent="HSplitContainer/LeftPanel"]
 layout_mode = 2
@@ -120,7 +127,7 @@ horizontal_alignment = 2
 [node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
 
 [node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("3_mcp5b")]
-position = Vector2(659, 207)
+position = Vector2(675, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)

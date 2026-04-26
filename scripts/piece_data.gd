@@ -6,8 +6,9 @@ extends Resource
 @export var description: String
 
 @export_group("Visuals")
-@export var texture: Texture2D
-@export var collision_shape: Shape2D
+@export var texture_white: Texture2D
+@export var texture_black: Texture2D
+@export var card_texture: Texture2D
 
 @export_group("Stats")
 @export var knockback: int = 1

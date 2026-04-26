@@ -1,9 +1,9 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 1
+const MAX_PIECES := 6
 
-@onready var card_flow = $HSplitContainer/LeftPanel/ScrollContainer/CardFlow
+@onready var card_flow = $HSplitContainer/LeftPanel/ScrollContainer/MarginContainer/CardFlow
 @onready var board = $HSplitContainer/RightPanel/PreviewLayer/Board
 @onready var selected_count_label = $HSplitContainer/RightPanel/SelectedCountLabel
 @onready var player_turn_label = $HSplitContainer/RightPanel/PlayerTurnLabel
@@ -14,7 +14,6 @@ var player1_selected_pieces: Array[Dictionary] = []
 var player2_selected_pieces: Array[Dictionary] = []
 
 @export var available_pieces: Array[PieceData] = []
-
 
 func _ready() -> void:
 	board.set_mode(BoardManager.Mode.PREVIEW)
@@ -36,15 +35,14 @@ func _create_cards_for_current_player() -> void:
 		child.queue_free()
 	
 	var card_scene = load("res://scenes/card.tscn")
-		
+
 	for piece in available_pieces:
 		var card = card_scene.instantiate() as Card
+		card.init()
 		card.set_piece_data(piece)
 		card.card_selected.connect(_on_card_selected)
 		card.card_deselected.connect(_on_card_deselected)
 		card_flow.add_child(card)
-
-
 
 func _on_card_selected(card: Card) -> void:
 	board.highlight_valid_row(current_player)

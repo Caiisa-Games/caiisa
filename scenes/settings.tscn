@@ -224,10 +224,10 @@ sprite_frames = SubResource("SpriteFrames_8vrx8")
 
 [node name="ColorRectf" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 5472.408
-offset_top = -3743.43
-offset_right = 9244.877
-offset_bottom = -540.03564
+offset_left = 2934.129
+offset_top = -3706.6094
+offset_right = 6706.5977
+offset_bottom = -503.2151
 theme = SubResource("Theme_oe2nd")
 color = Color(0.2513674, 0, 0.09910139, 0.6509804)
 
