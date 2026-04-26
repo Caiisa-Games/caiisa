@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dthlhu418a1q0"]
+[gd_scene load_steps=42 format=3 uid="uid://dthlhu418a1q0"]
 
 [ext_resource type="Script" uid="uid://b8iaqnqhbq8d5" path="res://scenes/settings.gd" id="2_r6d6q"]
 [ext_resource type="Texture2D" uid="uid://bs0jfhi4cjkdi" path="res://assets/khfsad.png" id="3_6wm04"]
@@ -204,27 +204,31 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="Theme" id="Theme_oe2nd"]
+
 [sub_resource type="Theme" id="Theme_6wm04"]
 default_font_size = 300
 
 [node name="Settings" type="Button"]
-offset_right = 1036.2645
-offset_bottom = 996.0
+offset_left = 4.0
+offset_top = 304.0
+offset_right = 1040.2645
+offset_bottom = 1300.0
 scale = Vector2(0.08588541, 0.08147608)
 flat = true
 script = ExtResource("2_r6d6q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(547.2412, 527.7622)
+position = Vector2(523.9541, 527.7622)
 sprite_frames = SubResource("SpriteFrames_8vrx8")
 
 [node name="ColorRectf" type="ColorRect" parent="."]
-visible = false
 layout_mode = 0
-offset_left = 1443.7852
-offset_top = 36.820618
-offset_right = 5216.2534
-offset_bottom = 3240.2148
+offset_left = 5472.408
+offset_top = -3743.43
+offset_right = 9244.877
+offset_bottom = -540.03564
+theme = SubResource("Theme_oe2nd")
 color = Color(0.2513674, 0, 0.09910139, 0.6509804)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRectf"]
@@ -316,7 +320,13 @@ popup/item_0/id = 0
 popup/item_1/text = "persian"
 popup/item_1/id = 0
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="pressed" from="ColorRectf/VBoxContainer/Label/CheckButton3" to="." method="_on_check_button_3_pressed"]
+[connection signal="pressed" from="ColorRectf/VBoxContainer/Label2/CheckButton2" to="." method="_on_check_button_2_pressed"]
+[connection signal="pressed" from="ColorRectf/VBoxContainer2/Label4/CheckButton4" to="." method="_on_check_button_4_pressed"]
+[connection signal="pressed" from="ColorRectf/VBoxContainer2/Label5/CheckButton5" to="." method="_on_check_button_5_pressed"]
 [connection signal="item_selected" from="ColorRectf/OptionButton" to="." method="_on_option_button_item_selected"]

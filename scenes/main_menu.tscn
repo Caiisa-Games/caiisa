@@ -325,6 +325,13 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.09967807, 0.09260933)
 
+[node name="CaissaVined" type="Sprite2D" parent="TextureButton"]
+position = Vector2(1002.76025, 658.6809)
+scale = Vector2(5.0821567, 3.248331)
+texture = ExtResource("21_gw5y6")
+region_enabled = true
+region_rect = Rect2(265.66895, 0, 2294.331, 2120.6736)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureButton"]
 position = Vector2(988.18066, 529.105)
 scale = Vector2(1.039644, 1.094027)
@@ -407,6 +414,15 @@ text = "طراح:
 ساخته شده با ❤"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+
+[node name="Settings" parent="." instance=ExtResource("20_8egab")]
+layout_mode = 0
+offset_left = 1.9999695
+offset_top = 561.0
+offset_right = 1014.0
+offset_bottom = 1557.0002
+
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

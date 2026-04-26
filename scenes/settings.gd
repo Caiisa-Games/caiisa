@@ -31,17 +31,67 @@ func _on_check_button_6_pressed() -> void:
 
 func _on_option_button_item_selected(index: int) -> void:
 	if index == 0:
+		$"../Label".visible = true
 		$ColorRectf/VBoxContainer.visible = true
 		$ColorRectf/VBoxContainer2.visible = false
-		$"../Label".visible = false
-	elif index == 1:
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
+	elif index == 1 :
 		$"../Label".visible = true
 		$ColorRectf/VBoxContainer.visible = false
 		$ColorRectf/VBoxContainer2.visible = true
-
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
 
 func _on_mouse_entered() -> void:
 	$AnimatedSprite2D.play("hover")
 
 func _on_mouse_exited() -> void:
 	$AnimatedSprite2D.play("unhover")
+	$AnimatedSprite2D.play("default")
+
+
+func _on_check_button_3_pressed() -> void:
+	if $ColorRectf/VBoxContainer/Label/CheckButton3.button_pressed == true:
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
+	else:
+		var f = load("res://assets/sound/خاموش کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = f
+		$AudioStreamPlayer2D.play()
+
+
+func _on_check_button_2_pressed() -> void:
+	if $ColorRectf/VBoxContainer/Label2/CheckButton2.button_pressed == true:
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
+	else:
+		var f = load("res://assets/sound/خاموش کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = f
+		$AudioStreamPlayer2D.play()
+
+
+func _on_check_button_4_pressed() -> void:
+	if $ColorRectf/VBoxContainer2/Label4/CheckButton4.button_pressed == true:
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
+	else:
+		var f = load("res://assets/sound/خاموش کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = f
+		$AudioStreamPlayer2D.play()
+
+
+func _on_check_button_5_pressed() -> void:
+	if $ColorRectf/VBoxContainer2/Label5/CheckButton5.button_pressed == true:
+		var g = load("res://assets/sound/روشن کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = g
+		$AudioStreamPlayer2D.play()
+	else:
+		var f = load("res://assets/sound/خاموش کردن (Toggle) ستینگ.mp3")
+		$AudioStreamPlayer2D.stream = f
+		$AudioStreamPlayer2D.play()
