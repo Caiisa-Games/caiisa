@@ -1,11 +1,15 @@
 class_name Tile
 extends Node2D
 
-enum HighlightColor { MOVE, ATTACK }
+enum HighlightColor { NONE, MOVE, ATTACK }
+enum TileVariant { DARK, LIGHT }
 
 @export var grid_position: Vector2i = Vector2i.ZERO
 @export var height_level: int = 0
-@export var highlight_color: Color = Color("#4ECDC4")
+@export var highlight_color: Color = HighlightColor.NONE
+
+@export var texture_light: Texture2D
+@export var texture_dark: Texture2D
 
 signal tile_clicked(grid_pos: Vector2i)
 
@@ -16,6 +20,7 @@ var height_label: Label
 var occupant: Occupant
 var area_2d = Area2D
 var highlight_sprite: Polygon2D
+var variant: TileVariant = TileVariant.LIGHT
 
 var is_interactive: bool = false
 var is_highlighted: bool = false
@@ -52,6 +57,14 @@ func set_height(level: int) -> void:
 		base_container.add_child(edge)
 	
 	_update_visuals()
+	
+func set_variant(_variant: TileVariant):
+	variant = _variant
+	match _variant:
+		TileVariant.LIGHT:
+			height_sprite.texture = texture_light
+		TileVariant.DARK:
+			height_sprite.texture = texture_dark
 
 func set_interactive(enabled: bool) -> void:
 	is_interactive = enabled
@@ -65,17 +78,20 @@ func _update_visuals() -> void:
 	
 	height_label.text = str(height_level)
 	#height_label.visible = false
-	
-func set_placement_highlight(enabled: bool) -> void:
-	is_highlighted = enabled
-	if highlight_sprite:
-		highlight_sprite.visible = enabled
 
-func set_highlight_color(color: HighlightColor) -> void:
-	if color == HighlightColor.MOVE:
-		highlight_sprite.color = Color("4ecdc47d")
-	elif color == HighlightColor.ATTACK:
-		highlight_sprite.color = Color("ee00007d")
+func set_highlight_color(color: HighlightColor = HighlightColor.NONE) -> void:
+	if not highlight_sprite: return
+	
+	is_highlighted = true
+	highlight_sprite.visible = true
+	match color:
+		HighlightColor.MOVE:
+			highlight_sprite.color = Color("4ecdc47d")
+		HighlightColor.ATTACK:
+			highlight_sprite.color = Color("ee00007d")
+		HighlightColor.NONE:
+			is_highlighted = false
+			highlight_sprite.visible = false
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
