@@ -67,13 +67,12 @@ func highlight_valid_row(player: int) -> void:
 	
 	var valid_tiles = get_valid_placement_tiles(player)
 	for tile in valid_tiles:
-		tile.set_placement_highlight(true)
+		tile.set_highlight_color(Tile.HighlightColor.MOVE)
 
 
 func clear_all_highlights() -> void:
 	for tile in tiles.values():
-		tile.set_highlight_color(Tile.HighlightColor.MOVE)
-		tile.set_placement_highlight(false)
+		tile.set_highlight_color(Tile.HighlightColor.NONE)
 
 func generate() -> void:
 	var container = $TileContainer
@@ -90,6 +89,12 @@ func generate() -> void:
 			tile.init()
 			tile.set_height(height)
 			tile.grid_position = Vector2i(x, y)
+			
+			var is_light = (x + y) % 2 == 0
+			if is_light:
+				tile.set_variant(Tile.TileVariant.LIGHT)
+			else:
+				tile.set_variant(Tile.TileVariant.DARK)
 			
 			container.add_child(tile)
 			tiles[Vector2i(x, y)] = tile

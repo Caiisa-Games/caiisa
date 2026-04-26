@@ -69,7 +69,6 @@ func _handle_selection(tile: Tile, player: int) -> void:
 	current_phase = Phase.MOVE
 	_update_valid_moves()
 	_update_ui()
-	
 
 func _handle_move(tile: Tile) -> void:
 	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
@@ -112,7 +111,7 @@ func _handle_attack(tile: Tile) -> void:
 	)
 	
 	var died = await target.take_damage(damage)
-		
+	
 	if died:
 		target.clear_data()
 	_end_turn()
@@ -149,8 +148,6 @@ func _update_valid_moves() -> void:
 			tile.set_highlight_color(Tile.HighlightColor.ATTACK)
 		else:
 			tile.set_highlight_color(Tile.HighlightColor.MOVE)
-		tile.set_placement_highlight(true)
-
 
 func _end_turn() -> void:
 	if current_turn == Turn.PLAYER_1:
