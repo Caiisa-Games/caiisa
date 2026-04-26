@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bx05y5e5r35rn"
+path="res://.godot/imported/سلکت کردن مهره برای قبل از حرکت.mp3-116648f1b914a174b18f801a65a0d93a.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"
+dest_files=["res://.godot/imported/سلکت کردن مهره برای قبل از حرکت.mp3-116648f1b914a174b18f801a65a0d93a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

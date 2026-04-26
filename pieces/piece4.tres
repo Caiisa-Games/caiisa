@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PieceData" load_steps=3 format=3 uid="uid://dhey5alqj4klo"]
+
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_pbags"]
+[ext_resource type="Texture2D" uid="uid://bvneb0kg2q6cw" path="res://assets/card/Bishop-Card.png" id="2_27mce"]
+
+[resource]
+script = ExtResource("1_pbags")
+name = "Bishop"
+texture = ExtResource("2_27mce")
+metadata/_custom_type_script = "uid://divct8m8b0k67"
