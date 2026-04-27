@@ -1,7 +1,7 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 6
+const MAX_PIECES := 3
 
 @onready var card_flow = $HSplitContainer/LeftPanel/ScrollContainer/MarginContainer/CardFlow
 @onready var board = $HSplitContainer/RightPanel/PreviewLayer/Board
