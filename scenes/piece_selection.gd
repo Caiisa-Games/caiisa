@@ -17,7 +17,7 @@ var player2_selected_pieces: Array[Dictionary] = []
 
 func _ready() -> void:
 	board.set_mode(BoardManager.Mode.PREVIEW)
-	board.highlight_valid_row(current_player)
+	#board.highlight_valid_row(current_player)
 	_connect_board_signals()
 	
 	start_button.visible = false
@@ -45,10 +45,16 @@ func _create_cards_for_current_player() -> void:
 		card_flow.add_child(card)
 
 func _on_card_selected(card: Card) -> void:
-	board.highlight_valid_row(current_player)
 	for child in card_flow.get_children():
 		if child is Card and child != card:
 			child.deselect()
+	if current_player == 1:
+		if MAX_PIECES == len(player1_selected_pieces):
+			return
+	else:
+		if MAX_PIECES == len(player2_selected_pieces):
+			return
+	board.highlight_valid_row(current_player)
 
 func _on_card_deselected(card: Card) -> void:
 	pass
