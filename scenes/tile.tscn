@@ -28,6 +28,7 @@ visible = false
 polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
 
 [node name="Occupant" type="Node2D" parent="."]
+position = Vector2(0, -5)
 script = ExtResource("4_q7utx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Occupant"]

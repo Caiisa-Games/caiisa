@@ -18,7 +18,6 @@ func init() -> void:
 	blank_card.visible = false
 	
 	original_scale = scale
-	print(scale)
 	
 	_update_display()
 

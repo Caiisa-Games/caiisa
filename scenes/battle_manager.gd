@@ -20,7 +20,7 @@ var round_number: int = 1
 
 func _ready() -> void:
 	player_1_pieces = GameState.player_1_pieces
-	player_2_pieces = GameState.player_2_pieces	
+	player_2_pieces = GameState.player_2_pieces
 	
 	_setup_board()
 	_connect_board_signals()
@@ -80,7 +80,6 @@ func _handle_move(tile: Tile) -> void:
 	else:
 		_clear_selection()
 
-
 func _handle_attack(tile: Tile) -> void:
 	if has_attacked:
 		has_attacked = false
@@ -97,11 +96,12 @@ func _handle_attack(tile: Tile) -> void:
 	
 	if attacker_player == defender_player:
 		return
-		
+	
+	var attack_range = selected_piece.occupant.piece_data.movement.move_range or MovementData.new() # TODO: ADD ATTACK RANAGE
 	if not CombatRules.is_within_range(
-		selected_piece.grid_position, 
-		tile.grid_position, 
-		selected_piece.occupant.piece_data.movement.move_range # TODO: ADD ATTACK RANAGE
+		selected_piece.grid_position,
+		tile.grid_position,
+		attack_range
 	):
 		return
 	
@@ -112,10 +112,13 @@ func _handle_attack(tile: Tile) -> void:
 	
 	var died = await target.take_damage(damage)
 	
+	var finished = false
 	if died:
-		target.clear_data()
-	_end_turn()
-	_clear_selection()
+		finished = _handle_died(target)
+		
+	if not finished:
+		_end_turn()
+		_clear_selection()
 
 func _execute_move(tile: Tile) -> void:
 	if selected_piece == null:
@@ -127,6 +130,27 @@ func _execute_move(tile: Tile) -> void:
 	_clear_selection()
 	_update_ui()
 
+func _handle_died(target: Occupant) -> bool:
+	var pieces: Array[Dictionary];
+	match target.player:
+		1: pieces = player_1_pieces
+		2: pieces = player_2_pieces
+
+	for item in pieces:
+		print(item["piece"])
+		print(target.piece_data)
+		if item["piece"] == target.piece_data:
+			pieces.erase(item)
+	
+	print(player_1_pieces, player_2_pieces)
+	target.clear_data()
+	if len(player_1_pieces) == 0:
+		print("P2 Winner")
+		return true
+	elif len(player_2_pieces) == 0:
+		print("P1 Winner")
+		return true
+	return false
 
 func _clear_selection() -> void:
 	selected_piece = null
