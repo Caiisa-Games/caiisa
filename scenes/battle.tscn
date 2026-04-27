@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene load_steps=4 format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_p1qf1"]
 
 [node name="BattleField" type="Node2D"]
 script = ExtResource("1_th188")
@@ -85,6 +86,67 @@ text = "END TURN"
 
 [node name="Board" parent="BoardLayer" instance=ExtResource("1_dn72j")]
 position = Vector2(576, 207)
+
+[node name="GameOverLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="GameOverLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameOverLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.23529412)
+
+[node name="GameOverLabel" type="Label" parent="GameOverLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -129.5
+offset_right = 46.0
+offset_bottom = -106.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.72860736, 0.12275202, 3.85046e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6666667)
+theme_override_constants/shadow_offset_x = 7
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_p1qf1")
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+
+[node name="WinnerLabel" type="Label" parent="GameOverLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0.34509805, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6666667)
+theme_override_constants/shadow_offset_x = 7
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_p1qf1")
+theme_override_font_sizes/font_size = 32
+text = "Player 1 Won"
 
 [node name="BattleCamera" type="Camera2D" parent="."]
 limit_left = 0
