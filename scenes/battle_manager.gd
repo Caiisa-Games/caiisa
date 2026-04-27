@@ -104,11 +104,13 @@ func _handle_attack(tile: Tile) -> void:
 	if attacker_player == defender_player:
 		return
 	
-	var attack_range = selected_piece.occupant.piece_data.movement.move_range or MovementData.new() # TODO: ADD ATTACK RANAGE
+	var movement = selected_piece.occupant.piece_data.movement
+	if not movement:
+		movement = MovementData.new()
 	if not CombatRules.is_within_range(
 		selected_piece.grid_position,
 		tile.grid_position,
-		attack_range
+		movement.move_range
 	):
 		return
 	
