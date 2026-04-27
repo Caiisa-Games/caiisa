@@ -173,8 +173,11 @@ func _update_valid_moves() -> void:
 	
 	board.clear_all_highlights()
 	for tile in valid_moves:
-		if tile.occupant.piece_data and tile.occupant.player != selected_piece.occupant.player:
-			tile.set_highlight_color(Tile.HighlightColor.ATTACK)
+		if tile.occupant.piece_data:
+			if tile.occupant.player != selected_piece.occupant.player:
+				tile.set_highlight_color(Tile.HighlightColor.ATTACK)
+			else:
+				valid_moves.erase(tile)
 		else:
 			tile.set_highlight_color(Tile.HighlightColor.MOVE)
 
