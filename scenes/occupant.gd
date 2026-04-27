@@ -23,7 +23,8 @@ func _update_stats() -> void:
 	current_hp = max_hp
 	
 	var p = sprite.texture.get_height()
-	health_bar.position.y -= (p * sprite.scale.y) + 20
+	var h = get_parent().height_level
+	health_bar.position.y = -15 - ((p * sprite.scale.y) + h * 10)
 
 	_update_hp()
 	
