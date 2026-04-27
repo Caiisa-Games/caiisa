@@ -156,11 +156,11 @@ func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
 			if target_tile == null:
 				break
 
-			if target_tile.occupant.piece_data != null:
-				if not movement.can_pass_through_pieces:
-					break
-				else:
-					continue
+			#if target_tile.occupant.piece_data != null:
+				#if not movement.can_pass_through_pieces:
+					#break
+				#else:
+					#continue
 			
 			moves.append(target_tile)
 	
