@@ -13,14 +13,21 @@ var selected_piece: Tile = null
 var valid_moves: Array[Tile] = []
 var has_attacked: bool = false
 var round_number: int = 1
+var winner: int = 0
 
 @onready var board = $BoardLayer/Board
 @onready var turn_label = $UI/TopBar/TurnLabel
 @onready var round_label = $UI/TopBar/RoundLabel
+@onready var winner_label = $GameOverLayer/Control/WinnerLabel
+
+@onready var UI = $UI
+@onready var game_over = $GameOverLayer
 
 func _ready() -> void:
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces
+	
+	game_over.visible = false
 	
 	_setup_board()
 	_connect_board_signals()
@@ -116,7 +123,9 @@ func _handle_attack(tile: Tile) -> void:
 	if died:
 		finished = _handle_died(target)
 		
-	if not finished:
+	if finished:
+		_handle_game_over()
+	else:
 		_end_turn()
 		_clear_selection()
 
@@ -137,19 +146,16 @@ func _handle_died(target: Occupant) -> bool:
 		2: pieces = player_2_pieces
 
 	for item in pieces:
-		print(item["piece"])
-		print(target.piece_data)
 		if item["piece"] == target.piece_data:
 			pieces.erase(item)
 	
-	print(player_1_pieces, player_2_pieces)
-	target.clear_data()
 	if len(player_1_pieces) == 0:
-		print("P2 Winner")
+		winner = 2
 		return true
 	elif len(player_2_pieces) == 0:
-		print("P1 Winner")
+		winner = 1
 		return true
+	target.clear_data()
 	return false
 
 func _clear_selection() -> void:
@@ -158,7 +164,6 @@ func _clear_selection() -> void:
 	valid_moves.clear()
 	board.clear_all_highlights()
 	_update_ui()
-
 
 func _update_valid_moves() -> void:
 	if selected_piece == null or selected_piece.occupant == null:
@@ -186,6 +191,15 @@ func _end_turn() -> void:
 func _update_ui() -> void:
 	turn_label.text = "Player %d's Turn" % (1 if current_turn == Turn.PLAYER_1 else 2)
 	round_label.text = "Round %d" % round_number
+	
+func _handle_game_over() -> void:
+	if winner == 0:
+		return
+	
+	UI.visible = false
+	game_over.visible = true
+	
+	winner_label.text = "Player %d Won!" % winner
 
 func _on_end_turn_button_pressed() -> void:
 	_end_turn()
