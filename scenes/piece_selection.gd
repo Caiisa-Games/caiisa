@@ -164,12 +164,11 @@ func _on_start_button_pressed() -> void:
 		current_player = 2
 		_create_cards_for_current_player()
 		_update_ui()
+		$AudioStreamPlayer2D.play()
 	elif current_player == 2:
 		GameState.player_1_pieces = player1_selected_pieces
 		GameState.player_2_pieces = player2_selected_pieces
-
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
-
 
 func get_placement_data() -> Dictionary:
 	return {

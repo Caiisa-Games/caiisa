@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene load_steps=6 format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="2_a12nh"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_p1qf1"]
+[ext_resource type="AudioStream" uid="uid://chw6jqodlfywk" path="res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3" id="5_lpir7"]
 
 [node name="BattleField" type="Node2D"]
 script = ExtResource("1_th188")
@@ -146,6 +147,9 @@ limit_left = 0
 limit_top = 0
 limit_right = 1152
 limit_bottom = 648
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lpir7")
 
 [connection signal="pressed" from="UI/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="UI/BottomPanel/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
