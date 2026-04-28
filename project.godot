@@ -21,6 +21,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameState="*res://scripts/game_state.gd"
+SettingsManager="*res://scripts/settings_manager.gd"
+LocaleManager="*res://scripts/locale_manager.gd"
 
 [display]
 

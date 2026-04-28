@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgpuuvbgesr4j"]
+
+[ext_resource type="Script" uid="uid://j66uos7jy171" path="res://scenes/settings_menu.gd" id="1_wswnh"]
+[ext_resource type="PackedScene" uid="uid://ddf21rj0jqydy" path="res://scenes/UI/volume_slider.tscn" id="2_wswnh"]
+[ext_resource type="PackedScene" uid="uid://kjlmqy88dkpv" path="res://scenes/UI/lang_picker.tscn" id="3_labj1"]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+script = ExtResource("1_wswnh")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 376.0
+offset_bottom = 250.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Volume"
+
+[node name="MasterSlider" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+layout_mode = 2
+
+[node name="MusicSlider" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+layout_mode = 2
+bus_name = "Music"
+display_name = "Music"
+
+[node name="SFXSlider" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+layout_mode = 2
+bus_name = "SFX"
+display_name = "SFX"
+
+[node name="LanguagePicker" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_labj1")]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "BACK"
+
+[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "RESET"
+
+[node name="ApplyButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "APPLY"
