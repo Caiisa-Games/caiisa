@@ -120,10 +120,16 @@ func _handle_attack(tile: Tile) -> void:
 		movement.move_range
 	):
 		return
+	var attacker_tile = selected_piece
+	var attacker_height = attacker_tile.height_level
+	var defender_height = tile.height_level
+	
+	var height_delta = attacker_height - defender_height
 	
 	var damage = CombatRules.calculate_damage(
-		selected_piece.occupant.piece_data.power, 
-		false # TODO: add critical chance
+		selected_piece.occupant.piece_data.power,
+		height_delta,
+		false
 	)
 	
 	var died = target.take_damage(damage)
