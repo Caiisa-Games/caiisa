@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://budu10gvejeko"]
+
+[ext_resource type="AudioStream" uid="uid://gxipdp5ulyqj" path="res://assets/sound/mus_hotel.ogg" id="1_05ggv"]
+[ext_resource type="Script" uid="uid://cjwdqexku0j22" path="res://scenes/music.gd" id="1_ibx2e"]
+
+[node name="AudioStre" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_05ggv")
+autoplay = true
+script = ExtResource("1_ibx2e")
