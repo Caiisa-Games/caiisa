@@ -4,12 +4,16 @@ extends Control
 const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
 
 func _ready() -> void:
+	$AudioStreamPlayer2D2.stream.loop = true
+	$AudioStreamPlayer2D2.play()
 	$TextureButton/AnimatedSprite2D.play("default")
 	
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_texture_button_pressed() -> void:
+	$AudioStreamPlayer2D2.stream = load("res://assets/sound/mus_harpnoise.ogg")
+	$AudioStreamPlayer2D2.play()
 	color_2.visible = true
 	var twe = create_tween()
 	twe.tween_property(color_2, "modulate", Color(0, 0, 0, 1), 0.7)

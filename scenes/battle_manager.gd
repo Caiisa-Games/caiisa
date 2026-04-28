@@ -24,9 +24,6 @@ var winner: int = 0
 @onready var game_over = $GameOverLayer
 
 func _ready() -> void:
-	var h = load("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3")
-	$AudioStreamPlayer2D.stream = h
-	$AudioStreamPlayer2D.play()
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces
 	
@@ -79,7 +76,7 @@ func _handle_selection(tile: Tile, player: int) -> void:
 	current_phase = Phase.MOVE
 	_update_valid_moves()
 	_update_ui()
-
+	
 func _handle_move(tile: Tile) -> void:
 	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
@@ -89,6 +86,7 @@ func _handle_move(tile: Tile) -> void:
 			$AudioStreamPlayer2D.stream = sdk
 			$AudioStreamPlayer2D.play()
 		else:
+			$AudioStreamPlayer2D3.play()
 			_execute_move(tile)
 	else:
 		_clear_selection()
@@ -131,16 +129,15 @@ func _handle_attack(tile: Tile) -> void:
 	var finished = false
 	if died:
 		finished = _handle_died(target)
-	var df = load("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3")
-	$AudioStreamPlayer2D.stream = df
-	$AudioStreamPlayer2D.play()
+	#var df = load("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3")
+	#$AudioStreamPlayer2D.stream = df
+	#$AudioStreamPlayer2D.play()
 	if finished:
 		_handle_game_over()
-		print(3)
+		$AudioStreamPlayer2D2.play()
 	else:
 		_end_turn()
 		_clear_selection()
-		print(4)
 
 func _execute_move(tile: Tile) -> void:
 	if selected_piece == null:
@@ -220,9 +217,7 @@ func _handle_game_over() -> void:
 	
 	#UI.visible = false
 	game_over.visible = true
-	
 	winner_label.text = "Player %d Won!" % winner
-
 func _on_end_turn_button_pressed() -> void:
 	_end_turn()
 

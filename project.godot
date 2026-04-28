@@ -23,6 +23,8 @@ config/icon="res://icon.svg"
 GameState="*res://scripts/game_state.gd"
 SettingsManager="*res://scripts/settings_manager.gd"
 LocaleManager="*res://scripts/locale_manager.gd"
+Music="*res://scenes/music.tscn"
+musicc="*res://scenes/music.gd"
 
 [display]
 
