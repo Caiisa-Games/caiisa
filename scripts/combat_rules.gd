@@ -1,9 +1,15 @@
 class_name CombatRules
 
-# Damage = (AttackerPower - heightdelta) * RangeModifier
-# TODO: Account for height
-static func calculate_damage(attacker_power: int, is_critical: bool = false) -> int:
+static func calculate_damage(
+	attacker_power: int, 
+	height_delta: int, 
+	is_critical: bool = false
+) -> int:
+	
 	var raw_damage = attacker_power
+	
+	var height_bonus = clamp(height_delta, -3, 3)
+	raw_damage += height_bonus
 	
 	if is_critical:
 		raw_damage = int(raw_damage * 1.5)
