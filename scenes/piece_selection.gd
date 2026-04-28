@@ -17,7 +17,6 @@ var player2_selected_pieces: Array[Dictionary] = []
 
 func _ready() -> void:
 	board.set_mode(BoardManager.Mode.PREVIEW)
-	#board.highlight_valid_row(current_player)
 	_connect_board_signals()
 	
 	start_button.visible = false
@@ -56,8 +55,8 @@ func _on_card_selected(card: Card) -> void:
 			return
 	board.highlight_valid_row(current_player)
 
-func _on_card_deselected(card: Card) -> void:
-	pass
+func _on_card_deselected(_card: Card) -> void:
+	board.clear_all_highlights()
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var selected_card: Card = _get_selected_card()

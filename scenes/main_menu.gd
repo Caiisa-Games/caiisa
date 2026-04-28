@@ -1,6 +1,7 @@
 extends Control
 
 @onready var color_2: ColorRect = $ColorRect2
+const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
 
 func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
@@ -54,3 +55,9 @@ func _on_credits_button_pressed() -> void:
 			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
 			$ExitButton.mouse_filter = MOUSE_FILTER_PASS
 			$Settings.mouse_filter = MOUSE_FILTER_PASS
+
+
+func _on_settings_button_pressed() -> void:
+	var menu : SettingsMenu = SettingsMenuScene.instantiate()
+	#menu.closed.connect(_on_settings_closed)
+	add_child(menu)

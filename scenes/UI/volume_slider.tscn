@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddf21rj0jqydy"]
+
+[ext_resource type="Script" uid="uid://cgo62xsx5cr74" path="res://scenes/UI/volume_slider.gd" id="1_buh2l"]
+
+[node name="VolumeSlider" type="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -962.0
+offset_bottom = -617.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_buh2l")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

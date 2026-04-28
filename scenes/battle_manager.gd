@@ -91,6 +91,7 @@ func _handle_attack(tile: Tile) -> void:
 	if has_attacked:
 		has_attacked = false
 		return
+	has_attacked = true
 	var target = tile.occupant
 	if target == null:
 		return
@@ -119,7 +120,7 @@ func _handle_attack(tile: Tile) -> void:
 		false # TODO: add critical chance
 	)
 	
-	var died = await target.take_damage(damage)
+	var died = target.take_damage(damage)
 	
 	var finished = false
 	if died:
@@ -201,7 +202,7 @@ func _handle_game_over() -> void:
 	if winner == 0:
 		return
 	
-	UI.visible = false
+	#UI.visible = false
 	game_over.visible = true
 	
 	winner_label.text = "Player %d Won!" % winner
