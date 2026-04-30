@@ -8,16 +8,18 @@
 script = ExtResource("1_wswnh")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+auto_translate_mode = 1
 offset_right = 376.0
 offset_bottom = 250.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = 6
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Volume"
+text = "volume"
 
 [node name="MasterSlider" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
 layout_mode = 2
@@ -40,12 +42,12 @@ layout_mode = 2
 
 [node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
 layout_mode = 2
-text = "BACK"
+text = "back"
 
 [node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
 layout_mode = 2
-text = "RESET"
+text = "reset"
 
 [node name="ApplyButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
 layout_mode = 2
-text = "APPLY"
+text = "apply"

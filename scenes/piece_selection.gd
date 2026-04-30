@@ -1,7 +1,7 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 2
+const MAX_PIECES := 1
 
 @onready var card_flow = $HSplitContainer/LeftPanel/ScrollContainer/MarginContainer/CardFlow
 @onready var board = $HSplitContainer/RightPanel/PreviewLayer/Board
@@ -144,13 +144,13 @@ func _finish_player_placement() -> void:
 	start_button.visible = true
 	_update_ui()
 	if current_player == 2:
-		player_turn_label.text = "Both players ready!"
+		player_turn_label.text = tr("both_ready")
 
 
 func _update_ui() -> void:
 	var player_pieces = _get_player_pieces(current_player)
-	selected_count_label.text = "%d/%d Pieces Placed" % [player_pieces.size(), MAX_PIECES]
-	player_turn_label.text = "Player %d - Select Your Pieces" % current_player
+	selected_count_label.text = tr("pieces_selected") % [player_pieces.size(), MAX_PIECES]
+	player_turn_label.text = tr("turn_label") % current_player
 
 
 func _show_error_feedback(message: String) -> void:

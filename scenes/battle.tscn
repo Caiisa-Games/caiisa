@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://chw6jqodlfywk" path="res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3" id="5_lpir7"]
 
 [node name="BattleField" type="Node2D"]
+auto_translate_mode = 1
 script = ExtResource("1_th188")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -51,7 +52,7 @@ anchor_right = 1.0
 offset_left = -8.0
 offset_bottom = 8.0
 grow_horizontal = 0
-text = "MENU"
+text = "menu"
 
 [node name="BottomPanel" type="Panel" parent="UI"]
 anchors_preset = 12
@@ -74,7 +75,7 @@ offset_top = -31.0
 offset_right = 45.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "END TURN"
+text = "end_turn"
 
 [node name="BoardLayer" type="CanvasLayer" parent="."]
 
@@ -119,7 +120,7 @@ theme_override_constants/shadow_offset_x = 7
 theme_override_constants/shadow_offset_y = 7
 theme_override_fonts/font = ExtResource("3_p1qf1")
 theme_override_font_sizes/font_size = 64
-text = "GAME OVER"
+text = "game_over"
 
 [node name="WinnerLabel" type="Label" parent="GameOverLayer/Control"]
 layout_mode = 1

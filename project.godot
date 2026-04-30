@@ -29,6 +29,10 @@ LocaleManager="*res://scripts/locale_manager.gd"
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://locale/translations.en.translation", "res://locale/translations.fa.translation")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
