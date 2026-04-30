@@ -3,9 +3,9 @@ extends CanvasLayer
 
 signal closed
 
-@onready var btn_apply : Button = $PanelContainer/VBoxContainer/Buttons/ApplyButton
-@onready var btn_reset : Button = $PanelContainer/VBoxContainer/Buttons/ResetButton
-@onready var btn_back  : Button = $PanelContainer/VBoxContainer/Buttons/BackButton
+@onready var btn_apply: Button = $PanelContainer/VBoxContainer/Buttons/ApplyButton
+@onready var btn_reset: Button = $PanelContainer/VBoxContainer/Buttons/ResetButton
+@onready var btn_back: Button = $PanelContainer/VBoxContainer/Buttons/BackButton
 
 func _ready() -> void:
 	#print(get_tree_string_pretty())

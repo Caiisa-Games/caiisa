@@ -3,6 +3,8 @@ extends Control
 @onready var color_2: ColorRect = $ColorRect2
 const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
 
+var is_settings_open := false
+
 func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
 	
@@ -26,38 +28,26 @@ func _on_texture_button_mouse_exited() -> void:
 
 
 func _on_credits_button_pressed() -> void:
-	if $Label.visible == false:
-		if $Label2.position.y <= -650:
-			$Label2.visible = true
-			$Label.visible = false
-			$Label2.position = Vector2(279, 620)
-			create_tween().tween_property($Label2, "position", Vector2(279, -655), 10) 
-			$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
-			$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-			$Settings.mouse_filter = MOUSE_FILTER_IGNORE
-			$Settings.get_child(1).visible = false
-			await get_tree().create_timer(10).timeout
-			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
-			$ExitButton.mouse_filter = MOUSE_FILTER_PASS
-			$Settings.mouse_filter = MOUSE_FILTER_PASS
-			
-	elif $Label.visible == true:
-		if $Label.position.y <= -650:
-			$Label2.visible = false
-			$Label.visible = true
-			$Label.position = Vector2(279, 620)
-			create_tween().tween_property($Label, "position", Vector2(279, -655), 10)
-			$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
-			$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-			$Settings.mouse_filter = MOUSE_FILTER_IGNORE
-			$Settings.get_child(1).visible = false
-			await get_tree().create_timer(10).timeout
-			$TextureButton.mouse_filter = MOUSE_FILTER_PASS
-			$ExitButton.mouse_filter = MOUSE_FILTER_PASS
-			$Settings.mouse_filter = MOUSE_FILTER_PASS
-
+	if $CreditsLabel.position.y <= -650:
+		$CreditsLabel.visible = true
+		$CreditsLabel.position = Vector2(279, 620)
+		create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 10) 
+		$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
+		$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
+		$Settings.mouse_filter = MOUSE_FILTER_IGNORE
+		$Settings.get_child(1).visible = false
+		await get_tree().create_timer(10).timeout
+		$TextureButton.mouse_filter = MOUSE_FILTER_PASS
+		$ExitButton.mouse_filter = MOUSE_FILTER_PASS
+		$Settings.mouse_filter = MOUSE_FILTER_PASS
 
 func _on_settings_button_pressed() -> void:
+	if is_settings_open:
+		return
 	var menu : SettingsMenu = SettingsMenuScene.instantiate()
-	#menu.closed.connect(_on_settings_closed)
+	menu.closed.connect(_on_settings_closed)
 	add_child(menu)
+	is_settings_open = true
+
+func _on_settings_closed() -> void:
+	is_settings_open = false

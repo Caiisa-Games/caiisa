@@ -217,8 +217,8 @@ func _end_turn() -> void:
 	_update_ui()
 
 func _update_ui() -> void:
-	turn_label.text = "Player %d's Turn" % (1 if current_turn == Turn.PLAYER_1 else 2)
-	round_label.text = "Round %d" % round_number
+	turn_label.text = tr("player_turn") % (1 if current_turn == Turn.PLAYER_1 else 2)
+	round_label.text = tr("current_round") % round_number
 	
 func _handle_game_over() -> void:
 	if winner == 0:
@@ -227,7 +227,7 @@ func _handle_game_over() -> void:
 	#UI.visible = false
 	game_over.visible = true
 	
-	winner_label.text = "Player %d Won!" % winner
+	winner_label.text = tr("player_won") % winner
 
 func _on_end_turn_button_pressed() -> void:
 	_end_turn()

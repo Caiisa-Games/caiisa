@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://5lb0il0rj8or"]
+[gd_scene load_steps=84 format=3 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -424,17 +424,9 @@ shadow_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
 shadow_size = 1
 shadow_offset = Vector2(20, 20)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hstxw"]
-bg_color = Color(0.7254902, 0.7254902, 0.7254902, 1)
-corner_radius_top_left = 60
-corner_radius_top_right = 60
-corner_radius_bottom_right = 60
-corner_radius_bottom_left = 60
-shadow_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
-shadow_size = 1
-shadow_offset = Vector2(20, 20)
-
 [node name="MainMenu" type="Control"]
+auto_translate_mode = 2
+layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -545,7 +537,8 @@ scale = Vector2(1.039644, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
 animation = &"hover"
 
-[node name="Label2" type="Label" parent="."]
+[node name="CreditsLabel" type="Label" parent="."]
+auto_translate_mode = 1
 layout_mode = 0
 offset_left = 279.0
 offset_top = -650.0
@@ -562,19 +555,7 @@ theme_override_constants/shadow_outline_size = 15
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxFlat_flqon")
-text = "
-Designer:
-Aria Ashouri
-
-Artist:
-Mohammad Sadra Mousavi
-
-Programmers:
-Ario Najaf Shakery
-
-Esmail Afrang
-
-made with ❤"
+text = "credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -588,39 +569,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 267.0
-offset_top = -651.0
-offset_right = 877.58887
-offset_bottom = 191.3169
-scale = Vector2(0.9253362, 0.7453703)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 2
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/outline_size = 9
-theme_override_constants/shadow_outline_size = 7
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_hstxw")
-text = "طراح:
-اریا اشوری
-
-آرتیست:
-محمد صدرا موسوی
-
-برنامه نویسان:
-اریو نجف شاکری
-
-اسماعیل افرنگ
-
-ساخته شده با ❤"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
