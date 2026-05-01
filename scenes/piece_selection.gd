@@ -175,3 +175,7 @@ func get_placement_data() -> Dictionary:
 		"player1_pieces": player1_selected_pieces,
 		"player2_pieces": player2_selected_pieces,
 	}
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
