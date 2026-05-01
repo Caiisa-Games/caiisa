@@ -6,6 +6,8 @@ const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
 var is_settings_open := false
 
 func _ready() -> void:
+	$AudioStreamPlayer2D2.stream.loop = true
+	$AudioStreamPlayer2D2.play()
 	$TextureButton/AnimatedSprite2D.play("default")
 	
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))

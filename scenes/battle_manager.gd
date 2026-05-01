@@ -84,13 +84,14 @@ func _handle_selection(tile: Tile, player: int) -> void:
 	current_phase = Phase.MOVE
 	_update_valid_moves()
 	_update_ui()
-
+	
 func _handle_move(tile: Tile) -> void:
 	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
 		if tile.occupant.piece_data != null and tile.occupant.player != turn:
 			_handle_attack(tile)
 		else:
+			$AudioStreamPlayer2D3.play()
 			_execute_move(tile)
 	else:
 		_clear_selection()
