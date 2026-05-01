@@ -164,7 +164,7 @@ func _on_start_button_pressed() -> void:
 		current_player = 2
 		_create_cards_for_current_player()
 		_update_ui()
-		$AudioStreamPlayer2D.play()
+		AudioManager.play_sfx(preload("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3"))
 	elif current_player == 2:
 		GameState.player_1_pieces = player1_selected_pieces
 		GameState.player_2_pieces = player2_selected_pieces

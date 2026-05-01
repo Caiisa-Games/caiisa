@@ -8,10 +8,13 @@ var is_settings_open := false
 func _ready() -> void:
 	$TextureButton/AnimatedSprite2D.play("default")
 	
+	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
+	
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_texture_button_pressed() -> void:
+	AudioManager.play_music(preload("res://assets/sound/music_transition.ogg"), "Music", false)
 	color_2.visible = true
 	var twe = create_tween()
 	twe.tween_property(color_2, "modulate", Color(0, 0, 0, 1), 0.7)
@@ -34,12 +37,9 @@ func _on_credits_button_pressed() -> void:
 		create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 10) 
 		$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
 		$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-		$Settings.mouse_filter = MOUSE_FILTER_IGNORE
-		$Settings.get_child(1).visible = false
 		await get_tree().create_timer(10).timeout
 		$TextureButton.mouse_filter = MOUSE_FILTER_PASS
 		$ExitButton.mouse_filter = MOUSE_FILTER_PASS
-		$Settings.mouse_filter = MOUSE_FILTER_PASS
 
 func _on_settings_button_pressed() -> void:
 	if is_settings_open:
@@ -51,3 +51,10 @@ func _on_settings_button_pressed() -> void:
 
 func _on_settings_closed() -> void:
 	is_settings_open = false
+
+
+func _on_settings_hover() -> void:
+	$SettingsButton/AnimatedSprite2D.play("hover")
+
+func _on_settings_exit() -> void:
+	$SettingsButton/AnimatedSprite2D.play("unhover")

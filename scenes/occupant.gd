@@ -6,19 +6,24 @@ signal died
 
 var piece_data: PieceData = null
 var current_hp: int = 0
-var max_hp: int     = 0
-var player: int     = 0
+var max_hp: int = 0
+var player: int = 0
 
-@onready var sprite:      Sprite2D    = $Sprite2D
-@onready var health_bar:  Label       = $HealthLabel
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var health_bar: Label = $HealthLabel
 
 func _ready() -> void:
 	if health_bar:
 		health_bar.visible = false
 
-func set_data(data: PieceData, _player: int) -> void:
+func set_data(data: PieceData, _player: int, _current_hp: int) -> void:
+	if not data:
+		return
 	piece_data = data
 	player = _player
+	current_hp = _current_hp
+
+	print(global_position)
 
 	if player == 1:
 		sprite.texture = data.texture_white
@@ -61,7 +66,6 @@ func _update_stats() -> void:
 		return
 
 	max_hp  = piece_data.defense
-	current_hp = max_hp
 
 	if sprite.texture:
 		var sprite_height: float = sprite.texture.get_height() * sprite.scale.y
