@@ -24,6 +24,7 @@ var winner: int = 0
 @onready var game_over = $GameOverLayer
 
 func _ready() -> void:
+	$AudioStreamPlayer2D.play()
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces
 	
