@@ -25,8 +25,8 @@ var winner: int = 0
 
 func _ready() -> void:
 	var h = load("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3")
-	$AudioStreamPlayer2D.stream = h
-	$AudioStreamPlayer2D.play()
+	AudioManager.play_sfx(h)
+	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces
 	
@@ -53,9 +53,11 @@ func _connect_board_signals() -> void:
 		tile.tile_clicked.connect(_on_tile_clicked)
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
-	var tile = board.get_tile_at(grid_pos)
+	var tile: Tile = board.get_tile_at(grid_pos)
 	if tile == null:
 		return
+		
+	print("TILE POS: ", tile.grid_position)
 	
 	var current_player = 1 if current_turn == Turn.PLAYER_1 else 2
 	
@@ -75,6 +77,9 @@ func _handle_selection(tile: Tile, player: int) -> void:
 		_clear_selection()
 		return
 	
+	var audio = load("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3")
+	AudioManager.play_sfx(audio)
+	
 	selected_piece = tile
 	current_phase = Phase.MOVE
 	_update_valid_moves()
@@ -85,9 +90,6 @@ func _handle_move(tile: Tile) -> void:
 	if tile in valid_moves:
 		if tile.occupant.piece_data != null and tile.occupant.player != turn:
 			_handle_attack(tile)
-			var sdk = load("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3")
-			$AudioStreamPlayer2D.stream = sdk
-			$AudioStreamPlayer2D.play()
 		else:
 			_execute_move(tile)
 	else:
@@ -137,16 +139,13 @@ func _handle_attack(tile: Tile) -> void:
 	var finished = false
 	if died:
 		finished = _handle_died(target)
-	var df = load("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3")
-	$AudioStreamPlayer2D.stream = df
-	$AudioStreamPlayer2D.play()
+	var audio = load("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3")
+	AudioManager.play_sfx(audio)
 	if finished:
 		_handle_game_over()
-		print(3)
 	else:
 		_end_turn()
 		_clear_selection()
-		print(4)
 
 func _execute_move(tile: Tile) -> void:
 	if selected_piece == null:
@@ -175,9 +174,6 @@ func _handle_died(target: Occupant) -> bool:
 		winner = 1
 		return true
 	target.clear_data()
-	var df = load("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3")
-	$AudioStreamPlayer2D.stream = df
-	$AudioStreamPlayer2D.play()
 	return false
 
 func _clear_selection() -> void:
@@ -202,9 +198,6 @@ func _update_valid_moves() -> void:
 				valid_moves.erase(tile)
 		else:
 			tile.set_highlight_color(Tile.HighlightColor.MOVE)
-			var s = load("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3")
-			$AudioStreamPlayer2D.stream = s
-			$AudioStreamPlayer2D.play()
 
 func _end_turn() -> void:
 	if current_turn == Turn.PLAYER_1:

@@ -1,0 +1,21 @@
+keys,en,fa
+end_turn,End Turn,پایان نوبت
+menu,Menu, صفحه اصلی
+confirm,Confirm, تایید
+both_ready,Both Players Ready, جفت بازیکن آماده هستند
+pieces_selected,%d/%d Pieces Placed,%d/%d مهره قرار گرفته
+turn_label,Player %d - Select Your Pieces, بازیکن %d - مهره هات رو انتخاب کن
+game_over,GAME OVER,پایان بازی
+player_won,Player %d Won,بازیکن %d برنده شد.
+player_turn,Player %d's Turn,نوبت بازیکن %d
+current_round,Round %d,نوبت %d
+
+choose_lang,Language:,:زبان
+Master,Master,صدای کل
+Music,Music,موسیقی
+SFX,SFX,جلوه های صوتی
+back,Back,بازگشت
+reset,Reset,بازنشانی
+apply,Apply,اعمال
+volume,Volume,صدا
+credits,\nDesigner:\nAria Ashouri\n\nArtist:\nMohammad Sadra Mousavi\n\nProgrammers:\nArio Shakeri\nEsmail Afrang\n\nmade with ❤,طراح:\nآریا آشوری\n\nآرتیست:\nمحمد صدرا موسوی\n\nبرنامه نویسان:\nآریو نجف شاکری\nاسماعیل افرنگ\n\nساخته شده با ❤

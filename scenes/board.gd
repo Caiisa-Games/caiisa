@@ -37,7 +37,7 @@ func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> boo
 		if grid_y != valid_row:
 			return false
 	
-	tile.occupant.set_data(piece, player)
+	tile.occupant.set_data(piece, player, piece.defense)
 	return true
 
 
@@ -121,10 +121,13 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 		return false
 	if to_tile not in valid_moves:
 		return false
+		
+	#_animate_occupant(from_tile.occupant, to_tile)
 	
 	var player = from_tile.occupant.player
+	var hp = from_tile.occupant.current_hp
 	from_tile.occupant.clear_data()
-	to_tile.occupant.set_data(occupant, player)
+	to_tile.occupant.set_data(occupant, player, hp)
 	
 	return true
 
@@ -174,15 +177,22 @@ func _get_tile_at_position(screen_pos: Vector2) -> Tile:
 			return tile
 	return null
 
-func _animate_occupant(occupant: Node2D, target_tile: Tile) -> void:
-	var target_pos = target_tile.position
+func _animate_occupant(occupant: Occupant, target_tile: Tile) -> void:
+	var target_pos = target_tile.occupant.global_position
+	print("CURRENT POS: ", occupant.global_position)
+	print("NEW POS: ", target_pos)
 	var height = board_data.cell_heights[target_tile.grid_position.y * GRID_SIZE + target_tile.grid_position.x]
 	target_pos.y -= height * 10
+	occupant.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
+	
+	var center_offset = Vector2(0, 0)
+	
+	target_pos += center_offset
 	
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(occupant, "position", target_pos, 0.3)
+	tween.tween_property(occupant, "global_position", target_pos, 0.3)
 
 
 func _ready() -> void:
