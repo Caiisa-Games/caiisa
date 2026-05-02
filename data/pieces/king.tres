@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://yiknnlycdli6"
 
 [resource]
 script = ExtResource("1_omffe")
-name = "King"
+name = "king"
 description = "a powerful king without war skills"
 texture_white = ExtResource("5_m8d1l")
 texture_black = ExtResource("4_0w8ds")
