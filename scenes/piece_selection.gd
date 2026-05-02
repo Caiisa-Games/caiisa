@@ -3,11 +3,11 @@ extends Control
 
 const MAX_PIECES := 1
 
-@onready var card_flow = $HSplitContainer/LeftPanel/ScrollContainer/MarginContainer/CardFlow
+@onready var card_flow = $HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer/CardFlow
 @onready var board = $HSplitContainer/RightPanel/PreviewLayer/Board
 @onready var selected_count_label = $HSplitContainer/RightPanel/SelectedCountLabel
 @onready var player_turn_label = $HSplitContainer/RightPanel/PlayerTurnLabel
-@onready var start_button = $HSplitContainer/LeftPanel/StartButton
+@onready var start_button = $HSplitContainer/LeftPanel/VBoxContainer/StartButton
 
 var current_player: int = 1
 var player1_selected_pieces: Array[Dictionary] = []
@@ -177,5 +177,7 @@ func get_placement_data() -> Dictionary:
 	}
 
 
-func _on_button_pressed() -> void:
+func _on_exit_pressed() -> void:
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
+	
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

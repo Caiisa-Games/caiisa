@@ -6,13 +6,12 @@ const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
 var is_settings_open := false
 
 func _ready() -> void:
-	$AudioStreamPlayer2D2.stream.loop = true
-	$AudioStreamPlayer2D2.play()
 	$TextureButton/AnimatedSprite2D.play("default")
 	
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	
 func _on_exit_button_pressed() -> void:
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	get_tree().quit()
 
 func _on_texture_button_pressed() -> void:
@@ -33,17 +32,21 @@ func _on_texture_button_mouse_exited() -> void:
 
 
 func _on_credits_button_pressed() -> void:
-	if $CreditsLabel.position.y <= -650:
-		$CreditsLabel.visible = true
-		$CreditsLabel.position = Vector2(279, 620)
-		create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 10) 
-		$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
-		$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-		await get_tree().create_timer(10).timeout
-		$TextureButton.mouse_filter = MOUSE_FILTER_PASS
-		$ExitButton.mouse_filter = MOUSE_FILTER_PASS
+	if $CreditsLabel.position.y > -650:
+		return
+
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
+	$CreditsLabel.visible = true
+	$CreditsLabel.position = Vector2(279, 620)
+	create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 10) 
+	$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
+	$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
+	await get_tree().create_timer(10).timeout
+	$TextureButton.mouse_filter = MOUSE_FILTER_PASS
+	$ExitButton.mouse_filter = MOUSE_FILTER_PASS
 
 func _on_settings_button_pressed() -> void:
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	if is_settings_open:
 		return
 	var menu : SettingsMenu = SettingsMenuScene.instantiate()
