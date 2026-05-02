@@ -91,9 +91,10 @@ func _handle_move(tile: Tile) -> void:
 		if tile.occupant.piece_data != null and tile.occupant.player != turn:
 			_handle_attack(tile)
 		else:
-			$AudioStreamPlayer2D3.play()
+			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
 			_execute_move(tile)
 	else:
+		AudioManager.play_sfx(preload("res://assets/sound/کلیک روی خونه های غیر قابل دسترس به هنگام حرکت مهره.mp3"))
 		_clear_selection()
 
 func _handle_attack(tile: Tile) -> void:
