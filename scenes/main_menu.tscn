@@ -499,9 +499,9 @@ text = "KAIISA"
 
 [node name="CreditsButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 23.0
+offset_left = 82.0
 offset_top = 595.0
-offset_right = 73.0
+offset_right = 132.0
 offset_bottom = 645.0
 texture_normal = ExtResource("5_hstxw")
 ignore_texture_size = true
@@ -509,10 +509,11 @@ stretch_mode = 0
 
 [node name="SettingsButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 695.0
-offset_top = 272.0
-offset_right = 780.0
-offset_bottom = 359.0
+offset_left = 26.999985
+offset_top = 596.0
+offset_right = 101.999985
+offset_bottom = 677.0
+scale = Vector2(0.5995198, 0.59343624)
 theme = SubResource("Theme_6h3lr")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_engjn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_6h3lr")
@@ -525,10 +526,11 @@ sprite_frames = SubResource("SpriteFrames_c6nra")
 
 [node name="ExitButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 77.0
-offset_top = 595.0
-offset_right = 127.0
-offset_bottom = 645.0
+offset_left = 392.00003
+offset_top = 265.0001
+offset_right = 442.00003
+offset_bottom = 315.0001
+scale = Vector2(1.5196102, 1.6855116)
 texture_normal = ExtResource("7_8egab")
 ignore_texture_size = true
 stretch_mode = 0

@@ -46,15 +46,19 @@ func _on_credits_button_pressed() -> void:
 	$ExitButton.mouse_filter = MOUSE_FILTER_PASS
 
 func _on_settings_button_pressed() -> void:
+	create_tween().tween_property($PanelContainer/VBoxContainer, "position", Vector2(279, -655), 3) 
 	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	if is_settings_open:
 		return
 	var menu : SettingsMenu = SettingsMenuScene.instantiate()
 	menu.closed.connect(_on_settings_closed)
 	add_child(menu)
+	create_tween().tween_property($".", "position", Vector2(279, -655), 3) 
 	is_settings_open = true
+	
 
 func _on_settings_closed() -> void:
+	create_tween().tween_property($PanelContainer/VBoxContainer, "position", Vector2(279, -655), 3) 
 	is_settings_open = false
 
 
