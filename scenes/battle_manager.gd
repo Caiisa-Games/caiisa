@@ -15,7 +15,7 @@ var has_attacked: bool = false
 var round_number: int = 1
 var winner: int = 0
 
-@onready var board = $BoardLayer/Board
+@onready var board: BoardManager = $BoardLayer/Board
 @onready var turn_label = $UI/TopBar/TurnLabel
 @onready var round_label = $UI/TopBar/RoundLabel
 @onready var winner_label = $GameOverLayer/Control/WinnerLabel
@@ -51,6 +51,37 @@ func _setup_board() -> void:
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
+		
+func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
+	var moves: Array[Tile] = []
+	var movement = piece.movement if piece.movement else board.default_movement
+	
+	var directions: Array[Vector2i] = []
+	match movement.movement_type:
+		MovementData.MovementType.ORTHOGONAL:
+			directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+		MovementData.MovementType.DIAGONAL:
+			directions = [Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+		MovementData.MovementType.BOTH:
+			directions = [
+				Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT,
+				Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)
+			]
+	
+	for dir in directions:
+		for range_step in range(1, movement.move_range + 1):
+			var target_pos = from_tile.grid_position + (dir * range_step)
+			
+			if target_pos.y < 0 or target_pos.x < 0 or target_pos.y >= board.GRID_SIZE or target_pos.x >= board.GRID_SIZE:
+				break
+			
+			var target_tile = board.tiles.get(target_pos)
+			if target_tile == null:
+				break
+			
+			moves.append(target_tile)
+	
+	return moves
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var tile: Tile = board.get_tile_at(grid_pos)
@@ -189,7 +220,7 @@ func _update_valid_moves() -> void:
 	if selected_piece == null or selected_piece.occupant == null:
 		return
 	
-	valid_moves = board.get_valid_moves(selected_piece.occupant.piece_data, selected_piece)
+	valid_moves = get_valid_moves(selected_piece.occupant.piece_data, selected_piece)
 	
 	board.clear_all_highlights()
 	for tile in valid_moves:

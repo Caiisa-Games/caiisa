@@ -115,11 +115,7 @@ func _deselect() -> void:
 
 func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 	var occupant = from_tile.occupant.piece_data
-	var valid_moves = get_valid_moves(occupant, from_tile)
-	
 	if not from_tile.occupant:
-		return false
-	if to_tile not in valid_moves:
 		return false
 		
 	#_animate_occupant(from_tile.occupant, to_tile)
@@ -130,45 +126,6 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 	to_tile.occupant.set_data(occupant, player, hp)
 	
 	return true
-
-
-func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
-	var moves: Array[Tile] = []
-	var movement = piece.movement if piece.movement else default_movement
-	
-	var directions: Array[Vector2i] = []
-	match movement.movement_type:
-		MovementData.MovementType.ORTHOGONAL:
-			directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
-		MovementData.MovementType.DIAGONAL:
-			directions = [Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
-		MovementData.MovementType.BOTH:
-			directions = [
-				Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT,
-				Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)
-			]
-	
-	for dir in directions:
-		for range_step in range(1, movement.move_range + 1):
-			var target_pos = from_tile.grid_position + (dir * range_step)
-			
-			if target_pos.y < 0 or target_pos.x < 0 or target_pos.y >= GRID_SIZE or target_pos.x >= GRID_SIZE:
-				break
-			
-			var target_tile = tiles.get(target_pos)
-			if target_tile == null:
-				break
-
-			#if target_tile.occupant.piece_data != null:
-				#if not movement.can_pass_through_pieces:
-					#break
-				#else:
-					#continue
-			
-			moves.append(target_tile)
-	
-	return moves
-
 
 func _get_tile_at_position(screen_pos: Vector2) -> Tile:
 	for tile in tiles.values():
