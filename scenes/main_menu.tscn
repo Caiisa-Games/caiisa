@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://5lb0il0rj8or"]
+[gd_scene load_steps=92 format=3 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
@@ -30,6 +30,14 @@
 [ext_resource type="Texture2D" uid="uid://devl0h22pr75o" path="res://assets/ani_setting/Settings-Animation12.png" id="18_eku7s"]
 [ext_resource type="Texture2D" uid="uid://c5it2cof1l553" path="res://assets/ani/Play(Button)9.png" id="18_hl5e0"]
 [ext_resource type="Texture2D" uid="uid://cunteaexyc80f" path="res://assets/ani/Play(Button)10.png" id="19_engjn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_engjn"]
+border_color = Color(0, 0, 0, 1)
+expand_margin_right = 55.0
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_6h3lr"]
+Button/styles/hover = SubResource("StyleBoxFlat_engjn")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_engjn"]
 
@@ -225,6 +233,8 @@ animations = [{
 "name": &"unhover",
 "speed": 24.0
 }]
+
+[sub_resource type="Theme" id="Theme_dj67d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6vcge"]
 
@@ -499,16 +509,17 @@ stretch_mode = 0
 
 [node name="SettingsButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 691.0
+offset_left = 695.0
 offset_top = 272.0
-offset_right = 769.0
-offset_bottom = 349.0
+offset_right = 780.0
+offset_bottom = 359.0
+theme = SubResource("Theme_6h3lr")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_engjn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_6h3lr")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dj67d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SettingsButton"]
-position = Vector2(40.999996, 38)
+position = Vector2(37, 38)
 scale = Vector2(0.084974125, 0.084974155)
 sprite_frames = SubResource("SpriteFrames_c6nra")
 
@@ -536,6 +547,7 @@ offset_bottom = 925.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.09967807, 0.09260933)
+theme = SubResource("Theme_dj67d")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6vcge")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ip0br")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_xyero")
