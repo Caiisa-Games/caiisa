@@ -23,8 +23,6 @@ func set_data(data: PieceData, _player: int, _current_hp: int) -> void:
 	player = _player
 	current_hp = _current_hp
 
-	print(global_position)
-
 	if player == 1:
 		sprite.texture = data.texture_white
 	elif player == 2:

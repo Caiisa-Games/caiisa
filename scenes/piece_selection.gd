@@ -1,7 +1,7 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 1
+const MAX_PIECES := 3
 
 @onready var card_flow = $HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer/CardFlow
 @onready var board = $HSplitContainer/RightPanel/PreviewLayer/Board
@@ -12,6 +12,8 @@ const MAX_PIECES := 1
 var current_player: int = 1
 var player1_selected_pieces: Array[Dictionary] = []
 var player2_selected_pieces: Array[Dictionary] = []
+
+var selected_tile: Tile
 
 @export var available_pieces: Array[PieceData] = []
 
@@ -62,15 +64,22 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var selected_card: Card = _get_selected_card()
 	var tile = board.get_tile_at(grid_pos)
 	
-	if selected_card == null:
-		return
-	
 	if not _is_valid_placement_row(grid_pos.y):
 		_show_error_feedback("Invalid row! Player %d must place on row %d" % [current_player, _get_valid_row()])
 		return
+
+	if selected_tile != null:
+		if tile == selected_tile:
+			return
+		board._move_occupant(selected_tile, tile)
+		selected_tile = null
+		return
 	
 	if tile.occupant.piece_data != null:
-		_show_error_feedback("Tile already occupied!")
+		selected_tile = tile
+		return
+
+	if selected_card == null:
 		return
 		
 	if current_player == 1:
