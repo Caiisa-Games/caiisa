@@ -221,7 +221,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_color = Color(0.20152658, 0.20152658, 0.20152652, 1)
-shadow_size = 3
+shadow_size = 5
 shadow_offset = Vector2(1, 1)
 
 [sub_resource type="Theme" id="Theme_x0dr5"]
@@ -244,6 +244,7 @@ sprite_frames = SubResource("SpriteFrames_bgjg7")
 
 [node name="PanelContainer" type="PanelContainer" parent="Button"]
 auto_translate_mode = 1
+visible = false
 layout_mode = 0
 offset_left = 104.0
 offset_top = 63.0
@@ -282,13 +283,28 @@ offset_right = 164.0
 offset_bottom = 24.0
 button_pressed = true
 
+[node name="SFXSlider" parent="Button/PanelContainer/VBoxContainer/Label3" instance=ExtResource("2_wswnh")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 127.0
+offset_top = 5.0
+offset_right = 427.0
+offset_bottom = 25.698334
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.09902324, 0.676382)
+bus_name = "SFX"
+display_name = "SFX"
+
 [node name="MasterSlider" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+visible = false
 layout_mode = 2
 
 [node name="MusicSlider" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
-layout_mode = 2
-
-[node name="SFXSlider" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+visible = false
 layout_mode = 2
 
 [node name="LanguagePicker" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("3_labj1")]
@@ -316,4 +332,4 @@ text = "apply"
 [connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button/PanelContainer/VBoxContainer/Label2/CheckButton" to="." method="_on_check_button_pressed"]
-[connection signal="pressed" from="Button/PanelContainer/VBoxContainer/Label3/CheckButton3" to="." method="_on_check_button_3_pressed"]
+[connection signal="pressed" from="Button/PanelContainer/VBoxContainer/Label3/CheckButton3" to="Button/PanelContainer/VBoxContainer/Label3/SFXSlider" method="_on_check_button_3_pressed"]
