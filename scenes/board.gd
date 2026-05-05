@@ -55,7 +55,11 @@ func highlight_tiles(color_tiles: Array[Tile], color: Tile.HighlightColor = Tile
 	
 	for tile in color_tiles:
 		tile.set_highlight_color(color)
-
+		
+func highlight_tile(tile: Tile, color: Tile.HighlightColor = Tile.HighlightColor.MOVE, clear = false) -> void:
+	if clear:
+		clear_all_highlights()
+	tile.set_highlight_color(color)
 
 func clear_all_highlights() -> void:
 	for tile in tiles.values():
