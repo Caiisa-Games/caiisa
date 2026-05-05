@@ -47,27 +47,14 @@ func clear_board() -> void:
 			tile.occupant.clear_data()
 	occupants.clear()
 
-
-func get_valid_placement_tiles(player: int) -> Array[Tile]:
-	var valid_tiles: Array[Tile] = []
-	var valid_row = 0 if player == 1 else GRID_SIZE - 1
-	
-	for x in range(GRID_SIZE):
-		var tile = tiles.get(Vector2i(x, valid_row))
-		if tile != null and tile.occupant.piece_data == null:
-			valid_tiles.append(tile)
-	
-	return valid_tiles
-
 func get_tile_at(grid_pos: Vector2i) -> Tile:
 	return tiles.get(grid_pos)
 
-func highlight_valid_row(player: int) -> void:
+func highlight_tiles(color_tiles: Array[Tile], color: Tile.HighlightColor = Tile.HighlightColor.MOVE) -> void:
 	clear_all_highlights()
 	
-	var valid_tiles = get_valid_placement_tiles(player)
-	for tile in valid_tiles:
-		tile.set_highlight_color(Tile.HighlightColor.MOVE)
+	for tile in color_tiles:
+		tile.set_highlight_color(color)
 
 
 func clear_all_highlights() -> void:

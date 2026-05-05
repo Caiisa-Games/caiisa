@@ -4,8 +4,8 @@ extends Node2D
 enum Phase { SELECT, MOVE, ATTACK }
 enum Turn { PLAYER_1, PLAYER_2 }
 
-@export var player_1_pieces: Array[Dictionary] = []  # [{piece: PieceData, tile: Vector2i}]
-@export var player_2_pieces: Array[Dictionary] = []
+@export var player_1_pieces: Dictionary = {}  # [{piece: PieceData, tile: Vector2i}]
+@export var player_2_pieces: Dictionary = {}
 
 var current_turn: Turn = Turn.PLAYER_1
 var current_phase: Phase = Phase.SELECT
@@ -40,13 +40,11 @@ func _ready() -> void:
 func _setup_board() -> void:
 	board.set_mode(BoardManager.Mode.BATTLE)
 	
-	for piece_data in player_1_pieces:
-		var pos = piece_data.tile_pos
-		board.place_piece(piece_data.piece, pos.x, pos.y, 1)
+	for pos in player_1_pieces:
+		board.place_piece(player_1_pieces[pos], pos.x, pos.y, 1)
 	
-	for piece_data in player_2_pieces:
-		var pos = piece_data.tile_pos
-		board.place_piece(piece_data.piece, pos.x, pos.y, 2)
+	for pos in player_2_pieces:
+		board.place_piece(player_2_pieces[pos], pos.x, pos.y, 2)
 
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
@@ -191,13 +189,13 @@ func _execute_move(tile: Tile) -> void:
 	_update_ui()
 
 func _handle_died(target: Occupant) -> bool:
-	var pieces: Array[Dictionary];
+	var pieces: Dictionary;
 	match target.player:
 		1: pieces = player_1_pieces
 		2: pieces = player_2_pieces
 
 	for item in pieces:
-		if item["piece"] == target.piece_data:
+		if pieces[item] == target.piece_data:
 			pieces.erase(item)
 	
 	if len(player_1_pieces) == 0:

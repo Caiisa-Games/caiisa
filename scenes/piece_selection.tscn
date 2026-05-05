@@ -108,9 +108,11 @@ mouse_behavior_recursive = 1
 theme_override_constants/v_separation = 15
 
 [node name="StartButton" type="Button" parent="HSplitContainer/LeftPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 8
 theme = SubResource("Theme_wgbiy")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "confirm"
 
 [node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
@@ -118,7 +120,19 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
 
-[node name="ExitButton" type="TextureButton" parent="HSplitContainer/RightPanel"]
+[node name="Buttons" type="HBoxContainer" parent="HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="RemoveButton" type="Button" parent="HSplitContainer/RightPanel/Buttons"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "remove"
+
+[node name="ExitButton" type="TextureButton" parent="HSplitContainer/RightPanel/Buttons"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -150,4 +164,5 @@ position = Vector2(675, 207)
 offset = Vector2(576, 324)
 
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/RightPanel/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="HSplitContainer/RightPanel/Buttons/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/RightPanel/Buttons/ExitButton" to="." method="_on_exit_pressed"]
