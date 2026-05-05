@@ -58,7 +58,7 @@ func _on_card_selected(card: Card) -> void:
 	else:
 		if MAX_PIECES == len(player2_selected_pieces):
 			return
-	
+	selected_tile = null
 	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 	var valid_row = get_valid_placement_tiles(current_player)
 	board.highlight_tiles(valid_row)
@@ -77,9 +77,12 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 
 	if tile.occupant.piece_data != null and tile != selected_tile:
 		_set_remvovebtn_status(true)
+		if selected_card:
+			selected_card.deselect()
 		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 		var valid_moves = get_valid_placement_tiles(current_player)
 		board.highlight_tiles(valid_moves)
+		board.highlight_tile(tile, Tile.HighlightColor.SELF)
 		selected_tile = tile
 		return
 

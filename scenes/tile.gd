@@ -1,11 +1,12 @@
 class_name Tile
 extends Node2D
 
-enum HighlightColor { NONE, MOVE, ATTACK }
+enum HighlightColor { NONE, MOVE, ATTACK, SELF }
 enum TileVariant { DARK, LIGHT }
 
-const COLOR_MOVE   := Color("4ecdc47d")
+const COLOR_MOVE := Color("4ecdc47d")
 const COLOR_ATTACK := Color("ee00007d")
+const COLOR_SELF := Color("f8d0007d")
 
 @export var grid_position: Vector2i = Vector2i.ZERO
 @export var height_level: int = 0
@@ -79,11 +80,15 @@ func set_highlight_color(color: HighlightColor = HighlightColor.NONE) -> void:
 			highlight_sprite.visible = false
 		HighlightColor.MOVE:
 			is_highlighted = true
-			highlight_sprite.color   = COLOR_MOVE
+			highlight_sprite.color = COLOR_MOVE
 			highlight_sprite.visible = true
 		HighlightColor.ATTACK:
 			is_highlighted = true
-			highlight_sprite.color   = COLOR_ATTACK
+			highlight_sprite.color = COLOR_ATTACK
+			highlight_sprite.visible = true
+		HighlightColor.SELF:
+			is_highlighted = true
+			highlight_sprite.color = COLOR_SELF
 			highlight_sprite.visible = true
 
 

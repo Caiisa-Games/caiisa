@@ -112,6 +112,7 @@ func _handle_selection(tile: Tile, player: int) -> void:
 	selected_piece = tile
 	current_phase = Phase.MOVE
 	_update_valid_moves()
+	board.highlight_tile(tile, Tile.HighlightColor.SELF)
 	_update_ui()
 	
 func _handle_move(tile: Tile) -> void:
