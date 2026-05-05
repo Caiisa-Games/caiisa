@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("2_by47r")
-name = "Rook"
+name = "rook"
 description = "A strong, iron fortress against attacks"
 texture_white = ExtResource("4_47oeh")
 texture_black = ExtResource("3_kroi7")

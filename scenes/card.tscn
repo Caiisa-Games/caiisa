@@ -66,7 +66,9 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_kg30u")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_sy11y")
 
 [node name="Card" type="Control"]
+auto_translate_mode = 1
 custom_minimum_size = Vector2(171, 240)
+layout_direction = 2
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

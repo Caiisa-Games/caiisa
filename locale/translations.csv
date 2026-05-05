@@ -18,4 +18,11 @@ back,Back,بازگشت
 reset,Reset,بازنشانی
 apply,Apply,اعمال
 volume,Volume,صدا
-credits,\nDesigner:\nAria Ashouri\n\nArtist:\nMohammad Sadra Mousavi\n\nProgrammers:\nArio Shakeri\nEsmail Afrang\n\nmade with ❤,طراح:\nآریا آشوری\n\nآرتیست:\nمحمد صدرا موسوی\n\nبرنامه نویسان:\nآریو نجف شاکری\nاسماعیل افرنگ\n\nساخته شده با ❤
+credits,\nDesigner:\nAria Ashouri\n\nArtist:\nMohammad Sadra Mousavi\n\nProgrammers:\nArio Shakeri\nEsmail Afrang\n\nMade with ❤,طراح:\nآریا آشوری\n\nآرتیست:\nمحمد صدرا موسوی\n\nبرنامه نویسان:\nآریو نجف شاکری\nاسماعیل افرنگ\n\nساخته شده با ❤
+
+pawn,Pawn,سرباز
+queen,Queen,وزیر
+king,King,شاه
+bishop,Bishop,فیل
+rook,Rook,رخ
+knight,Knight,اسب

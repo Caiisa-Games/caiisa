@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("1_pbags")
-name = "Knight"
+name = "knight"
 description = "quick horse with a fighter rider"
 texture_white = ExtResource("4_xwehc")
 texture_black = ExtResource("2_igdar")
