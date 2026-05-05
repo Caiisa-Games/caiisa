@@ -1,7 +1,7 @@
 extends Node
 
-var player_1_pieces: Array[Dictionary] = []
-var player_2_pieces: Array[Dictionary] = []
+var player_1_pieces: Dictionary = {}
+var player_2_pieces: Dictionary = {}
 var selected_board: BoardData
 var selected_board_index: int = 0
 
@@ -17,8 +17,8 @@ func reset() -> void:
 	winner = 0
 
 
-func get_pieces_for_player(player: int) -> Array[Dictionary]:
+func get_pieces_for_player(player: int) -> Dictionary:
 	match player:
 		1: return player_1_pieces
 		2: return player_2_pieces
-	return []
+	return {}

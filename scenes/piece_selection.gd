@@ -8,10 +8,11 @@ const MAX_PIECES := 3
 @onready var selected_count_label = $HSplitContainer/RightPanel/SelectedCountLabel
 @onready var player_turn_label = $HSplitContainer/RightPanel/PlayerTurnLabel
 @onready var start_button = $HSplitContainer/LeftPanel/VBoxContainer/StartButton
+@onready var remove_button = $HSplitContainer/RightPanel/Buttons/RemoveButton
 
 var current_player: int = 1
-var player1_selected_pieces: Array[Dictionary] = []
-var player2_selected_pieces: Array[Dictionary] = []
+var player1_selected_pieces: Dictionary = {}
+var player2_selected_pieces: Dictionary = {}
 
 var selected_tile: Tile
 
@@ -24,6 +25,8 @@ func _ready() -> void:
 	start_button.visible = false
 	start_button.disabled = true
 	
+	_set_remvovebtn_status(false)
+
 	_create_cards_for_current_player()
 	_update_ui()
 
@@ -55,7 +58,10 @@ func _on_card_selected(card: Card) -> void:
 	else:
 		if MAX_PIECES == len(player2_selected_pieces):
 			return
-	board.highlight_valid_row(current_player)
+	
+	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
+	var valid_row = get_valid_placement_tiles(current_player)
+	board.highlight_tiles(valid_row)
 
 func _on_card_deselected(_card: Card) -> void:
 	board.clear_all_highlights()
@@ -65,18 +71,25 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var tile = board.get_tile_at(grid_pos)
 	
 	if not _is_valid_placement_row(grid_pos.y):
+		AudioManager.play_sfx(preload("res://assets/sound/کلیک روی خونه های غیر قابل دسترس به هنگام حرکت مهره.mp3"))
 		_show_error_feedback("Invalid row! Player %d must place on row %d" % [current_player, _get_valid_row()])
 		return
 
-	if selected_tile != null:
-		if tile == selected_tile:
-			return
-		board._move_occupant(selected_tile, tile)
-		selected_tile = null
-		return
-	
-	if tile.occupant.piece_data != null:
+	if tile.occupant.piece_data != null and tile != selected_tile:
+		_set_remvovebtn_status(true)
+		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
+		var valid_moves = get_valid_placement_tiles(current_player)
+		board.highlight_tiles(valid_moves)
 		selected_tile = tile
+		return
+
+	if selected_tile != null:
+		_set_remvovebtn_status(false)
+		if tile != selected_tile:
+			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
+			board._move_occupant(selected_tile, tile)
+		board.clear_all_highlights()
+		selected_tile = null
 		return
 
 	if selected_card == null:
@@ -99,7 +112,9 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	)
 	
 	if success:
-		board.highlight_valid_row(current_player)
+		AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
+		var valid_moves = get_valid_placement_tiles(current_player)
+		board.highlight_tiles(valid_moves)
 		_handle_successful_placement(selected_card, tile)
 
 
@@ -122,11 +137,10 @@ func _get_valid_row() -> int:
 func _handle_successful_placement(card: Card, tile: Tile) -> void:
 
 	if current_player == 1:
-		player1_selected_pieces.append({"piece": card.piece_data,
-										"tile_pos": tile.grid_position})
+		player1_selected_pieces[tile.grid_position] = card.piece_data
 	else:
-		player2_selected_pieces.append({"piece": card.piece_data,
-										"tile_pos": tile.grid_position})
+		player2_selected_pieces[tile.grid_position] = card.piece_data
+
 	
 	card.deselect()
 	card.set_disabled(true)
@@ -138,13 +152,16 @@ func _handle_successful_placement(card: Card, tile: Tile) -> void:
 	else:
 		_update_ui()
 
+func _set_remvovebtn_status(visibility: bool):
+	remove_button.visible = visibility
+	remove_button.disabled = !visibility
 
-func _get_player_pieces(player: int) -> Array[Dictionary]:
+func _get_player_pieces(player: int) -> Dictionary:
 	if player == 1:
 		return player1_selected_pieces
 	if player == 2:
 		return player2_selected_pieces
-	return [{}]
+	return {}
 
 
 func _finish_player_placement() -> void:
@@ -165,6 +182,16 @@ func _update_ui() -> void:
 func _show_error_feedback(message: String) -> void:
 	push_warning(message) #TODO
 
+func get_valid_placement_tiles(player: int) -> Array[Tile]:
+	var valid_tiles: Array[Tile] = []
+	var valid_row = 0 if player == 1 else board.GRID_SIZE - 1
+	
+	for x in range(board.GRID_SIZE):
+		var tile = board.tiles.get(Vector2i(x, valid_row))
+		if tile != null and tile.occupant.piece_data == null:
+			valid_tiles.append(tile)
+	
+	return valid_tiles
 
 func _on_start_button_pressed() -> void:
 	if current_player == 1:
@@ -185,8 +212,23 @@ func get_placement_data() -> Dictionary:
 		"player2_pieces": player2_selected_pieces,
 	}
 
-
 func _on_exit_pressed() -> void:
 	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _on_remove_button_pressed() -> void:
+	if selected_tile == null:
+		AudioManager.play_sfx(preload("res://assets/sound/کلیک روی خونه های غیر قابل دسترس به هنگام حرکت مهره.mp3"))
+		return
+	
+	board.clear_all_highlights()
+	selected_tile.occupant.clear_data()
+	match current_player:
+		1: player1_selected_pieces.erase(selected_tile.grid_position)
+		2: player2_selected_pieces.erase(selected_tile.grid_position)
+	
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
+	_update_ui()
+	_set_remvovebtn_status(false)
