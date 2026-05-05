@@ -55,3 +55,7 @@ func _on_button_pressed() -> void:
 	else:
 		$Button/PanelContainer.visible = false
 		$Button/PanelContainer.position.y = 104
+
+
+func _on_button_mouse_entered() -> void:
+	$Button/AnimatedSprite2D.play("hoverr")

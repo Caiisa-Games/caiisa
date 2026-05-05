@@ -241,6 +241,7 @@ flat = true
 position = Vector2(30, 29)
 scale = Vector2(0.055636067, 0.051926088)
 sprite_frames = SubResource("SpriteFrames_bgjg7")
+animation = &"hoverr"
 
 [node name="PanelContainer" type="PanelContainer" parent="Button"]
 auto_translate_mode = 1
