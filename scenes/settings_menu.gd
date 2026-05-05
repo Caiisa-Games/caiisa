@@ -2,7 +2,8 @@ class_name SettingsMenu
 extends CanvasLayer
 
 signal closed
-
+var ddd = preload("res://scenes/main_menu.tscn")
+var sdd = preload("res://scenes/piece_selection.tscn")
 var data := SettingsData.new()
 #@onready var btn_apply: Button = $PanelContainer/VBoxContainer/Buttons/ApplyButton
 #@onready var btn_reset: Button = $PanelContainer/VBoxContainer/Buttons/ResetButton
@@ -29,15 +30,13 @@ var data := SettingsData.new()
 	
 	
 func _on_check_button_pressed() -> void:
-	if $Button/PanelContainer/VBoxContainer/Label2/CheckButton.button_pressed == false:
-		var jh = load("")
-		AudioManager.play_music(jh)
-	else:
-		var sg = load("res://assets/sound/music_menu.ogg")
-		AudioManager.play_music(sg)
-
-
-func _on_button_mouse_entered() -> void:
+	if ddd: 
+		if $Button/PanelContainer/VBoxContainer/Label2/CheckButton.button_pressed == false:  
+			var jh = load("")
+			AudioManager.play_music(jh)
+		else:
+			var sg = load("res://assets/sound/music_menu.ogg")
+			AudioManager.play_music(sg)
 	$Button/AnimatedSprite2D.play("hoverr")
 
 
@@ -56,11 +55,3 @@ func _on_button_pressed() -> void:
 	else:
 		$Button/PanelContainer.visible = false
 		$Button/PanelContainer.position.y = 104
-
-
-func _on_check_button_3_pressed() -> void:
-	if $Button/PanelContainer/VBoxContainer/Label3/CheckButton3.button_pressed == false:
-		#var dd = AudioStreamPlayer.new()
-		AudioManager
-	else:
-		pass

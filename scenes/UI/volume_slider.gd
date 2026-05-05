@@ -12,7 +12,7 @@ func _ready() -> void:
 
 	slider.min_value = 0
 	slider.max_value = 0
-	slider.step = 100
+	slider.step = 0
 
 	match bus_name:
 		SettingsManager.BUS_MASTER: slider.value = SettingsManager.data.master_volume
@@ -23,3 +23,17 @@ func _ready() -> void:
 
 func _on_value_changed(value: float) -> void:
 	SettingsManager.set_volume(bus_name, value)
+	if $"../CheckButton3".button_pressed == true:
+		$"../CheckButton3".button_pressed = false
+		slider.min_value = 0
+		slider.max_value = 0
+		slider.step = 0
+	else:
+		slider.min_value = 100
+		slider.max_value = 100
+		slider.step = 100
+		$"../CheckButton3".button_pressed = true
+
+func _on_check_button_3_pressed() -> void:
+	#if $"../Label3/CheckButton3".button_pressed == false:
+	pass
