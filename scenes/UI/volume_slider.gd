@@ -10,9 +10,9 @@ extends HBoxContainer
 func _ready() -> void:
 	label.text = display_name
 
-	slider.min_value = 0.0
-	slider.max_value = 1.0
-	slider.step = 0.01
+	slider.min_value = 0
+	slider.max_value = 0
+	slider.step = 100
 
 	match bus_name:
 		SettingsManager.BUS_MASTER: slider.value = SettingsManager.data.master_volume

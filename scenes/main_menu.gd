@@ -53,12 +53,10 @@ func _on_settings_button_pressed() -> void:
 	var menu : SettingsMenu = SettingsMenuScene.instantiate()
 	menu.closed.connect(_on_settings_closed)
 	add_child(menu)
-	create_tween().tween_property($".", "position", Vector2(279, -655), 3) 
 	is_settings_open = true
 	
 
 func _on_settings_closed() -> void:
-	create_tween().tween_property($PanelContainer/VBoxContainer, "position", Vector2(279, -655), 3) 
 	is_settings_open = false
 
 

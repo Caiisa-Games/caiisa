@@ -24,6 +24,8 @@ func _ready() -> void:
 	
 	_create_cards_for_current_player()
 	_update_ui()
+	var fd = load("res://assets/sound/music_game.ogg")
+	AudioManager.play_music(fd)
 
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
@@ -179,5 +181,4 @@ func get_placement_data() -> Dictionary:
 
 func _on_exit_pressed() -> void:
 	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
-	
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
