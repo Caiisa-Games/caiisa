@@ -17,5 +17,5 @@ func _on_item_selected(index: int) -> void:
 	SettingsManager.set_locale(code)
 	$"../../..".position.x = 483
 	$"../../..".position.y = 210
-	$"../..".position.x = 104
-	$"../..".position.y = -515
+	$"../..".position.x = 5
+	$"../..".position.y = -150

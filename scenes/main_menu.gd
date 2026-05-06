@@ -38,12 +38,15 @@ func _on_credits_button_pressed() -> void:
 	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	$CreditsLabel.visible = true
 	$CreditsLabel.position = Vector2(279, 620)
-	create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 10) 
+	create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 15)  
 	$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
 	$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-	await get_tree().create_timer(10).timeout
+	$SettingsMenu.get_child(0).mouse_filter = MOUSE_FILTER_IGNORE
+	await get_tree().create_timer(15).timeout
 	$TextureButton.mouse_filter = MOUSE_FILTER_PASS
 	$ExitButton.mouse_filter = MOUSE_FILTER_PASS
+	$SettingsMenu.get_child(0).mouse_filter = MOUSE_FILTER_PASS
+	
 
 func _on_settings_button_pressed() -> void:
 	create_tween().tween_property($PanelContainer/VBoxContainer, "position", Vector2(279, -655), 3) 
