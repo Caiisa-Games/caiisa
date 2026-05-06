@@ -221,8 +221,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_color = Color(0.20152658, 0.20152658, 0.20152652, 1)
-shadow_size = 5
-shadow_offset = Vector2(1, 1)
+shadow_size = 1
+shadow_offset = Vector2(4, 4)
 
 [sub_resource type="Theme" id="Theme_x0dr5"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_75x6d")
@@ -245,7 +245,6 @@ animation = &"hoverr"
 
 [node name="PanelContainer" type="PanelContainer" parent="Button"]
 auto_translate_mode = 1
-visible = false
 layout_mode = 0
 offset_left = 5.0
 offset_top = 82.0
@@ -291,12 +290,12 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 127.0
-offset_top = 5.0
+offset_top = -2.0
 offset_right = 427.0
-offset_bottom = 25.698334
+offset_bottom = 14.0
 grow_horizontal = 1
 grow_vertical = 1
-scale = Vector2(0.09902324, 0.676382)
+scale = Vector2(0.101422295, 1.7325789)
 bus_name = "SFX"
 display_name = "SFX"
 

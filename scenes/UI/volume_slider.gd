@@ -28,12 +28,12 @@ func _on_value_changed(value: float) -> void:
 		slider.min_value = 0
 		slider.max_value = 0
 		slider.step = 0
+		print(23)
 	else:
 		slider.min_value = 100
 		slider.max_value = 100
 		slider.step = 100
 		$"../CheckButton3".button_pressed = true
-
+		print(32)
 func _on_check_button_3_pressed() -> void:
-	#if $"../Label3/CheckButton3".button_pressed == false:
-	pass
+	print(2222)

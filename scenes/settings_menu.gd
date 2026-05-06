@@ -51,12 +51,15 @@ func _on_button_pressed() -> void:
 	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	if $Button/PanelContainer.visible == false:
 		$Button/PanelContainer.visible = true
-		create_tween().tween_property($Button/PanelContainer, "position", Vector2(5, -150), 3).set_trans(Tween.TRANS_BACK)     
+		create_tween().tween_property($Button/PanelContainer, "position", Vector2(5, -150), 3).set_trans(Tween.TRANS_BACK)  
+		$Button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		await get_tree().create_timer(2.5).timeout
+		$Button.mouse_filter = Control.MOUSE_FILTER_PASS
 	else:
-		
-		#$Button/PanelContainer.position.y = 82
 		create_tween().tween_property($Button/PanelContainer, "position", Vector2(5, 82), 3).set_trans(Tween.TRANS_BACK)   
-		await get_tree().create_timer(3).timeout
+		$Button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		await get_tree().create_timer(2).timeout
 		$Button/PanelContainer.visible = false
+		$Button.mouse_filter = Control.MOUSE_FILTER_PASS
 func _on_button_mouse_entered() -> void:
 	$Button/AnimatedSprite2D.play("hoverr")
