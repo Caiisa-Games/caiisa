@@ -498,16 +498,6 @@ theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 64
 text = "KAIISA"
 
-[node name="CreditsButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 82.0
-offset_top = 592.0
-offset_right = 135.0
-offset_bottom = 642.0
-texture_normal = ExtResource("5_hstxw")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="SettingsButton" type="Button" parent="."]
 visible = false
 layout_mode = 0
@@ -596,11 +586,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SettingsMenu" parent="." instance=ExtResource("31_6h3lr")]
-offset = Vector2(-460, 378)
-transform = Transform2D(1, 0, 0, 1, -460, 378)
+[node name="CreditsButton" type="TextureButton" parent="."]
+light_mask = 6
+visibility_layer = 30
+z_index = 1
+layout_mode = 0
+offset_left = 82.0
+offset_top = 592.0
+offset_right = 135.0
+offset_bottom = 642.0
+texture_normal = ExtResource("5_hstxw")
+ignore_texture_size = true
+stretch_mode = 0
 
-[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
+[node name="SettingsMenu" parent="." instance=ExtResource("31_6h3lr")]
+offset = Vector2(-460, 300)
+transform = Transform2D(1, 0, 0, 1, -460, 300)
+
 [connection signal="mouse_entered" from="SettingsButton" to="." method="_on_settings_hover"]
 [connection signal="mouse_exited" from="SettingsButton" to="." method="_on_settings_exit"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -608,3 +610,4 @@ transform = Transform2D(1, 0, 0, 1, -460, 378)
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
