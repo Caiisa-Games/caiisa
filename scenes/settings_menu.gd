@@ -27,7 +27,7 @@ var data := SettingsData.new()
 	#closed.emit()
 	#queue_free()
 	#pass
-	
+	#$Button/AnimatedSprite2D.play("new_animation")
 	
 func _on_check_button_pressed() -> void:
 	if ddd: 
