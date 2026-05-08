@@ -238,13 +238,13 @@ offset_bottom = 269.0
 flat = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Button"]
-position = Vector2(30, 29)
-scale = Vector2(0.055636067, 0.051926088)
+position = Vector2(29.999985, 27.175943)
+scale = Vector2(0.05306122, 0.04835187)
 sprite_frames = SubResource("SpriteFrames_bgjg7")
-animation = &"hoverr"
 
 [node name="PanelContainer" type="PanelContainer" parent="Button"]
 auto_translate_mode = 1
+visible = false
 z_index = -1
 layout_mode = 0
 offset_left = 5.0
