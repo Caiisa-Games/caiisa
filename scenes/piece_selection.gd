@@ -173,6 +173,8 @@ func _set_remove_btn_status(v):
 	remove_button.disabled = !v
 
 func _handle_board_piece_click(tile: Tile) -> void:
+	if tile.occupant.player != current_player:
+		return
 	if selected_card: selected_card.deselect()
 	selected_card = null
 	selected_tile = tile
@@ -182,7 +184,7 @@ func _handle_board_piece_click(tile: Tile) -> void:
 	board.highlight_tile(tile, Tile.HighlightColor.SELF)
 
 func _handle_repositioning(target_tile: Tile) -> void:
-	if target_tile != selected_tile and _is_valid_placement_row(target_tile.grid_position.y) and target_tile.occupant.piece_data == null:
+	if target_tile != selected_tile and _is_valid_placement_row(target_tile.grid_position.y) and target_tile.occupant.piece_data == null and selected_tile.occupant.player == current_player:
 		var dict = _get_current_placed_dict()
 		dict[target_tile.grid_position] = dict[selected_tile.grid_position]
 		dict.erase(selected_tile.grid_position)

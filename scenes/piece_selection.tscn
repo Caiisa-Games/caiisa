@@ -113,7 +113,7 @@ layout_mode = 2
 theme_override_constants/v_separation = 15
 
 [node name="StartButton" type="Button" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_vertical = 8
 theme = SubResource("Theme_wgbiy")
@@ -202,6 +202,7 @@ columns = 3
 
 [node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
 layout_mode = 2
+text = "confirm"
 
 [node name="BoardCanvas" type="CanvasLayer" parent="."]
 layer = 2
