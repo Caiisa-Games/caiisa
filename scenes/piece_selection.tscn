@@ -58,7 +58,18 @@ mouse_filter = 2
 script = ExtResource("1_34mbo")
 available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_svpf0"), ExtResource("7_gwvtb"), ExtResource("5_svpf0"), ExtResource("7_6migr"), ExtResource("4_rme2a"), ExtResource("5_rme2a")])
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="MainUI" type="Control" parent="UICanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Background" type="TextureRect" parent="UICanvas/MainUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,46 +79,40 @@ grow_vertical = 2
 texture = ExtResource("1_7e3yo")
 expand_mode = 1
 
-[node name="HSplitContainer" type="HSplitContainer" parent="."]
+[node name="HSplitContainer" type="HSplitContainer" parent="UICanvas/MainUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -20.0
-offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 dragging_enabled = false
 
-[node name="LeftPanel" type="PanelContainer" parent="HSplitContainer"]
+[node name="LeftPanel" type="PanelContainer" parent="UICanvas/MainUI/HSplitContainer"]
 layout_mode = 2
-mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/LeftPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanel/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
-[node name="CardFlow" type="HFlowContainer" parent="HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="CardFlow" type="HFlowContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-mouse_behavior_recursive = 1
 theme_override_constants/v_separation = 15
 
-[node name="StartButton" type="Button" parent="HSplitContainer/LeftPanel/VBoxContainer"]
+[node name="StartButton" type="Button" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 8
@@ -115,24 +120,24 @@ theme = SubResource("Theme_wgbiy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "confirm"
 
-[node name="RightPanel" type="PanelContainer" parent="HSplitContainer"]
+[node name="RightPanel" type="PanelContainer" parent="UICanvas/MainUI/HSplitContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
 
-[node name="Buttons" type="HBoxContainer" parent="HSplitContainer/RightPanel"]
+[node name="Buttons" type="HBoxContainer" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="RemoveButton" type="Button" parent="HSplitContainer/RightPanel/Buttons"]
+[node name="RemoveButton" type="Button" parent="UICanvas/MainUI/HSplitContainer/RightPanel/Buttons"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "remove"
 
-[node name="ExitButton" type="TextureButton" parent="HSplitContainer/RightPanel/Buttons"]
+[node name="ExitButton" type="TextureButton" parent="UICanvas/MainUI/HSplitContainer/RightPanel/Buttons"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -141,7 +146,7 @@ texture_normal = ExtResource("10_6migr")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="SelectedCountLabel" type="Label" parent="HSplitContainer/RightPanel"]
+[node name="SelectedCountLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 1, 0, 1)
@@ -155,7 +160,7 @@ theme_override_constants/shadow_outline_size = 4
 theme_override_fonts/font = ExtResource("3_k1b5r")
 theme_override_font_sizes/font_size = 16
 
-[node name="PlayerTurnLabel" type="Label" parent="HSplitContainer/RightPanel"]
+[node name="PlayerTurnLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -171,14 +176,40 @@ theme_override_fonts/font = ExtResource("3_k1b5r")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
 
-[node name="PreviewLayer" type="CanvasLayer" parent="HSplitContainer/RightPanel"]
+[node name="SelectionOverlay" type="PanelContainer" parent="UICanvas/MainUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
-[node name="Board" parent="HSplitContainer/RightPanel/PreviewLayer" instance=ExtResource("3_mcp5b")]
+[node name="ColorRect" type="ColorRect" parent="UICanvas/MainUI/SelectionOverlay"]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.47843137)
+
+[node name="CenterContainer" type="CenterContainer" parent="UICanvas/MainUI/SelectionOverlay"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer"]
+layout_mode = 2
+
+[node name="SelectionGrid" type="GridContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BoardCanvas" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Board" parent="BoardCanvas" instance=ExtResource("3_mcp5b")]
 position = Vector2(675, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)
 
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/RightPanel/Buttons/RemoveButton" to="." method="_on_remove_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/RightPanel/Buttons/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="UICanvas/MainUI/HSplitContainer/RightPanel/Buttons/RemoveButton" to="." method="_on_remove_button_pressed"]

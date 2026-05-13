@@ -82,12 +82,14 @@ offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(85.5, 120)
+mouse_filter = 1
 script = ExtResource("1_d81rb")
 
 [node name="BlankCard" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("3_kg30u")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlankCard"]
@@ -103,6 +105,7 @@ offset_right = 66.315125
 offset_bottom = 108.27936
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = SubResource("Theme_ktuci")
 theme_override_constants/separation = 16
 
@@ -116,6 +119,7 @@ horizontal_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="BlankCard/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme = SubResource("Theme_6ligt")
 theme_override_fonts/font = ExtResource("3_ktuci")
 max_value = 10.0
@@ -128,24 +132,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="SelectionHighlight" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 9.090739
-offset_top = 9.735863
-offset_right = 163.63307
-offset_bottom = 231.71353
-mouse_filter = 1
-color = Color(0.9529412, 0.9529412, 0, 0.6156863)
-
-[node name="Area2D" type="Area2D" parent="."]
-scale = Vector2(0.99999994, 1)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2(72.725784, 140.19641)
-polygon = PackedVector2Array(99.088974, -140.19641, 99.99803, 100.27934, -72.72576, 100.27934, -72.72576, -140.19641)
-
-[connection signal="input_event" from="Area2D" to="." method="_on_card_click"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_card_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_card_mouse_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
