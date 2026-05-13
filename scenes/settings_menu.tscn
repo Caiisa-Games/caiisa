@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cgpuuvbgesr4j"]
+[gd_scene load_steps=45 format=3 uid="uid://cgpuuvbgesr4j"]
 
 [ext_resource type="Script" uid="uid://j66uos7jy171" path="res://scenes/settings_menu.gd" id="1_wswnh"]
 [ext_resource type="Texture2D" uid="uid://bxxl3n03y3jqf" path="res://assets/ani_setting/Settings-Animation1.png" id="2_labj1"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://mto6gsi0mt7o" path="res://assets/ani_setting/Settings-Animation4.png" id="11_fmx0a"]
 [ext_resource type="Texture2D" uid="uid://dkq7pppo0dask" path="res://assets/ani_setting/Settings-Animation3.png" id="12_ojcm3"]
 [ext_resource type="Texture2D" uid="uid://dl007m0m6j1x5" path="res://assets/ani_setting/Settings-Animation2.png" id="13_y1j7s"]
+[ext_resource type="Texture2D" uid="uid://cw11h6w4t6bmp" path="res://assets/Sprite-0001.png" id="14_x0dr5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwwgp"]
 atlas = ExtResource("2_labj1")
@@ -231,17 +232,23 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_75x6d")
 script = ExtResource("1_wswnh")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 483.0
-offset_top = 210.0
-offset_right = 543.0
-offset_bottom = 269.0
+offset_left = 491.0
+offset_top = 214.0
+offset_right = 544.0
+offset_bottom = 263.0
 flat = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Button"]
-position = Vector2(30, 29)
-scale = Vector2(0.055636067, 0.051926088)
+position = Vector2(27, 25.5)
+scale = Vector2(0.055102065, 0.051000018)
 sprite_frames = SubResource("SpriteFrames_bgjg7")
-animation = &"hoverr"
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+position = Vector2(94, 150)
+scale = Vector2(0.18754676, 0.10322531)
+texture = ExtResource("14_x0dr5")
+region_enabled = true
+region_rect = Rect2(785.575, 583.04395, 988.988, 1386.2477)
 
 [node name="PanelContainer" type="PanelContainer" parent="Button"]
 auto_translate_mode = 1
