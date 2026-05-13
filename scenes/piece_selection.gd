@@ -14,8 +14,12 @@ enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 
 @onready var board = $BoardCanvas/Board
 
-@onready var selected_count_label = $UICanvas/MainUI/HSplitContainer/RightPanel/SelectedCountLabel
-@onready var player_turn_label = $UICanvas/MainUI/HSplitContainer/RightPanel/PlayerTurnLabel
+@onready var draft_turn_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftTurnLabel
+@onready var draft_count_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftCountLabel
+
+@onready var placement_turn_label = $UICanvas/MainUI/HSplitContainer/RightPanel/PlayerTurnLabel
+@onready var placement_count_label = $UICanvas/MainUI/HSplitContainer/RightPanel/SelectedCountLabel
+
 @onready var remove_button = $UICanvas/MainUI/HSplitContainer/RightPanel/Buttons/RemoveButton
 
 @export var available_pieces: Array[PieceData] = []
@@ -162,11 +166,16 @@ func get_valid_placement_tiles(player: int):
 	return tiles
 
 func _update_ui() -> void:
-	player_turn_label.text = "Player %d Turn" % current_player
-	if current_step <= FlowStep.P2_SELECT:
-		selected_count_label.text = "Hand: %d/%d" % [_get_current_hand().size(), MAX_PIECES]
+	if current_step == FlowStep.P1_SELECT or current_step == FlowStep.P2_SELECT:
+		draft_turn_label.text = "Player %d: Draft your Squad" % current_player
+		draft_count_label.text = "Pieces Picked: %d / %d" % [_get_current_hand().size(), MAX_PIECES]
+		
+		placement_turn_label.text = "" 
+		placement_count_label.text = ""
+	
 	else:
-		selected_count_label.text = "Placed: %d/%d" % [_get_current_placed_dict().size(), MAX_PIECES]
+		placement_turn_label.text = "Player %d: Deploying" % current_player
+		placement_count_label.text = "Pieces Placed: %d / %d" % [_get_current_placed_dict().size(), MAX_PIECES]
 
 func _set_remove_btn_status(v):
 	remove_button.visible = v
