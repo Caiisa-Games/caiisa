@@ -196,6 +196,16 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer"]
 layout_mode = 2
 
+[node name="DraftTurnLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="DraftCountLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
 [node name="SelectionGrid" type="GridContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
 layout_mode = 2
 columns = 3
