@@ -14,8 +14,8 @@ enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 
 @onready var board = $BoardCanvas/Board
 
-@onready var draft_turn_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftTurnLabel
-@onready var draft_count_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftCountLabel
+@onready var draft_turn_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels/DraftTurnLabel
+@onready var draft_count_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels/DraftCountLabel
 
 @onready var placement_turn_label = $UICanvas/MainUI/HSplitContainer/RightPanel/PlayerTurnLabel
 @onready var placement_count_label = $UICanvas/MainUI/HSplitContainer/RightPanel/SelectedCountLabel
@@ -141,11 +141,11 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	elif selected_tile != null:
 		_handle_repositioning(tile)
 	elif selected_card != null and _is_valid_placement_row(grid_pos.y):
-		_place_new_piece(grid_pos, tile)
+		_place_new_piece(grid_pos, selected_card.piece_data)
 
-func _place_new_piece(grid_pos: Vector2i, tile: Tile) -> void:
+func _place_new_piece(grid_pos: Vector2i, piece: PieceData) -> void:
 	if board.place_piece(selected_card.piece_data, grid_pos.x, grid_pos.y, current_player):
-		_get_current_placed_dict()[grid_pos] = selected_card.piece_data
+		_get_current_placed_dict()[grid_pos] = piece
 		selected_card.set_disabled(true)
 		selected_card.deselect()
 		selected_card = null
