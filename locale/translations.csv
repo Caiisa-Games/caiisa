@@ -2,13 +2,14 @@ keys,en,fa
 end_turn,End Turn,پایان نوبت
 menu,Menu, صفحه اصلی
 confirm,Confirm, تایید
-both_ready,Both Players Ready, جفت بازیکن آماده هستند
-pieces_selected,%d/%d Pieces Placed,%d/%d مهره قرار گرفته
-turn_label,Player %d - Select Your Pieces, بازیکن %d - مهره هات رو انتخاب کن
 game_over,GAME OVER,پایان بازی
 player_won,Player %d Won,بازیکن %d برنده شد.
 player_turn,Player %d's Turn,نوبت بازیکن %d
 current_round,Round %d,نوبت %d
+draft_label,Player %d: Draft your Squad, بازیکن %d: مهره های های خودتو انتخاب کن
+pieces_picked,Pieces Picked: %d / %d, مهره های انتخاب شده: %d / %d
+pieces_placed,Pieces Placed: %d / %d, مهره های قرار گرفته شده: %d / %d
+player_deploying, Player %d: Deploying,بازیکن %d: در حال قرار دادن مهره
 
 choose_lang,Language:,:زبان
 Master,Master,صدای کل

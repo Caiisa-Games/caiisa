@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6yyr6n4ljotv"]
+[gd_scene load_steps=5 format=3 uid="uid://b6yyr6n4ljotv"]
 
 [ext_resource type="Script" uid="uid://okylwii1cp6s" path="res://scenes/board.gd" id="1_bw3vb"]
 [ext_resource type="PackedScene" uid="uid://5aapoewew0nq" path="res://scenes/tile.tscn" id="2_tx6nw"]
 [ext_resource type="Resource" uid="uid://bmheprnba1onh" path="res://data/boards/board_01.tres" id="3_nglv8"]
+[ext_resource type="Texture2D" uid="uid://b36wndvjvnu8e" path="res://assets/BoardBase.png" id="4_fv4ni"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bw3vb")
 tile_scene = ExtResource("2_tx6nw")
 board_data = ExtResource("3_nglv8")
+
+[node name="BoardBase" type="Sprite2D" parent="."]
+position = Vector2(0, 235)
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("4_fv4ni")
 
 [node name="TileContainer" type="Node2D" parent="."]

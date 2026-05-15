@@ -1,10 +1,7 @@
 class_name PieceData
 extends Resource
 
-enum PieceClass { CLASS_A, CLASS_B, CLASS_C }
-
-@export_group("Classification")
-@export var piece_class: PieceClass
+enum PieceClass { TANK, BERSERKER, UTILITY }
 
 @export_group("Info")
 @export var name: String
@@ -22,3 +19,6 @@ enum PieceClass { CLASS_A, CLASS_B, CLASS_C }
 
 @export_group("Movement")
 @export var movement: MovementData
+
+@export_group("Classification")
+@export var piece_class: PieceClass

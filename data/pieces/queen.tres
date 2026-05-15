@@ -12,4 +12,5 @@ description = "such a wisdom and mindful queen"
 texture_white = ExtResource("4_kroi7")
 texture_black = ExtResource("3_by47r")
 card_texture = ExtResource("1_bo4sf")
+piece_class = 2
 metadata/_custom_type_script = "uid://divct8m8b0k67"

@@ -47,11 +47,13 @@ func _on_mouse_exited() -> void:
 	blank_card.visible = false
 
 func select() -> void:
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	is_selected = true
 	scale = original_scale * 1.075
 	modulate = Color(1.2, 1.2, 1)
 
 func deselect() -> void:
+	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
 	is_selected = false
 	scale = original_scale
 	modulate = Color.WHITE

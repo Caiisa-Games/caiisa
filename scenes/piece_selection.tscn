@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
-[ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="3_k1b5r"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
 [ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="4_rme2a"]
 [ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="5_rme2a"]
@@ -12,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://data/pieces/knight.tres" id="7_6migr"]
 [ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://data/pieces/queen.tres" id="7_gwvtb"]
 [ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="10_6migr"]
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="11_svpf0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
@@ -56,7 +56,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_34mbo")
-available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_svpf0"), ExtResource("7_gwvtb"), ExtResource("5_svpf0"), ExtResource("7_6migr"), ExtResource("4_rme2a"), ExtResource("5_rme2a")])
+available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_svpf0"), ExtResource("7_gwvtb"), ExtResource("7_6migr"), ExtResource("4_rme2a"), ExtResource("5_svpf0"), ExtResource("5_rme2a")])
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
@@ -157,7 +157,7 @@ theme_override_constants/paragraph_spacing = 4
 theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 4
 theme_override_constants/shadow_outline_size = 4
-theme_override_fonts/font = ExtResource("3_k1b5r")
+theme_override_fonts/font = ExtResource("11_svpf0")
 theme_override_font_sizes/font_size = 16
 
 [node name="PlayerTurnLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
@@ -172,7 +172,7 @@ theme_override_constants/paragraph_spacing = 4
 theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 4
 theme_override_constants/shadow_outline_size = 4
-theme_override_fonts/font = ExtResource("3_k1b5r")
+theme_override_fonts/font = ExtResource("11_svpf0")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
 
@@ -199,11 +199,21 @@ theme_override_constants/separation = 12
 
 [node name="DraftLabels" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="DraftTurnLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.49803922, 0.13725491, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 4
+theme_override_constants/paragraph_spacing = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("11_svpf0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -211,6 +221,16 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.49803922, 0.13725491, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 4
+theme_override_constants/paragraph_spacing = 4
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("11_svpf0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
