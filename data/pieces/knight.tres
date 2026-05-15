@@ -12,4 +12,5 @@ description = "quick horse with a fighter rider"
 texture_white = ExtResource("4_xwehc")
 texture_black = ExtResource("2_igdar")
 card_texture = ExtResource("1_n5u1o")
+piece_class = 1
 metadata/_custom_type_script = "uid://divct8m8b0k67"

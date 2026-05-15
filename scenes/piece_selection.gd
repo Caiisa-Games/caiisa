@@ -86,29 +86,42 @@ func _start_placement_phase() -> void:
 
 func _on_card_interacted(card: Card) -> void:
 	if current_step <= FlowStep.P2_SELECT:
-		var hand = _get_current_hand()
-		if card.is_selected:
-			card.deselect()
-			hand.erase(card.piece_data)
-		elif hand.size() < MAX_PIECES:
-			card.select()
-			hand.append(card.piece_data)
-		
-		confirm_selection_btn.disabled = (hand.size() != MAX_PIECES)
+		_handle_draft_interaction(card)
 	else:
-		if card.is_selected:
-			card.deselect()
-			selected_card = null
-			board.clear_all_highlights()
-		else:
-			for child in card_flow.get_children():
-				child.deselect()
-			card.select()
-			selected_card = card
-			selected_tile = null
-			board.clear_all_highlights()
-			board.highlight_tiles(get_valid_placement_tiles(current_player))
+		_handle_placement_interaction(card)
 	_update_ui()
+
+func _handle_draft_interaction(card: Card) -> void:
+	var hand = _get_current_hand()
+	if card.is_selected:
+		card.deselect()
+		hand.erase(card.piece_data)
+	elif hand.size() < MAX_PIECES:
+		var existing_of_class = _get_piece_by_class(hand, card.piece_data.piece_class)
+		if existing_of_class:
+			hand.erase(existing_of_class)
+			_deselect_card_by_data(selection_grid, existing_of_class)
+		card.select()
+		hand.append(card.piece_data)
+		
+		
+	confirm_selection_btn.disabled = (hand.size() != MAX_PIECES)
+	
+func _handle_placement_interaction(card: Card) -> void:
+	if card.is_selected:
+		card.deselect()
+		selected_card = null
+		board.clear_all_highlights()
+	else:
+		for child in card_flow.get_children():
+			if child is Card: child.deselect()
+		
+		card.select()
+		selected_card = card
+		selected_tile = null
+		_set_remove_btn_status(false)
+		board.clear_all_highlights()
+		board.highlight_tiles(get_valid_placement_tiles(current_player))
 
 func _on_confirm_selection_pressed() -> void:
 	AudioManager.play_sfx(preload("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3"))
@@ -145,6 +158,7 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 
 func _place_new_piece(grid_pos: Vector2i, piece: PieceData) -> void:
 	if board.place_piece(selected_card.piece_data, grid_pos.x, grid_pos.y, current_player):
+		AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
 		_get_current_placed_dict()[grid_pos] = piece
 		selected_card.set_disabled(true)
 		selected_card.deselect()
@@ -167,15 +181,15 @@ func get_valid_placement_tiles(player: int):
 
 func _update_ui() -> void:
 	if current_step == FlowStep.P1_SELECT or current_step == FlowStep.P2_SELECT:
-		draft_turn_label.text = "Player %d: Draft your Squad" % current_player
-		draft_count_label.text = "Pieces Picked: %d / %d" % [_get_current_hand().size(), MAX_PIECES]
+		draft_turn_label.text = tr("draft_label") % current_player
+		draft_count_label.text = tr("pieces_picked") % [_get_current_hand().size(), MAX_PIECES]
 		
 		placement_turn_label.text = "" 
 		placement_count_label.text = ""
 	
 	else:
-		placement_turn_label.text = "Player %d: Deploying" % current_player
-		placement_count_label.text = "Pieces Placed: %d / %d" % [_get_current_placed_dict().size(), MAX_PIECES]
+		placement_turn_label.text = tr("player_deploying") % current_player
+		placement_count_label.text = tr("pieces_placed") % [_get_current_placed_dict().size(), MAX_PIECES]
 
 func _set_remove_btn_status(v):
 	remove_button.visible = v
@@ -198,6 +212,7 @@ func _handle_repositioning(target_tile: Tile) -> void:
 		dict[target_tile.grid_position] = dict[selected_tile.grid_position]
 		dict.erase(selected_tile.grid_position)
 		board._move_occupant(selected_tile, target_tile)
+	AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
 	selected_tile = null
 	_set_remove_btn_status(false)
 	board.clear_all_highlights()
@@ -215,3 +230,14 @@ func _on_remove_button_pressed() -> void:
 		selected_tile = null
 		_update_ui()
 		confirm_placement_btn.disabled = true
+
+func _get_piece_by_class(hand: Array[PieceData], p_class: PieceData.PieceClass) -> PieceData:
+	for piece in hand:
+		if piece.piece_class == p_class: return piece
+	return null
+
+func _deselect_card_by_data(container: Control, data: PieceData) -> void:
+	for child in container.get_children():
+		if child is Card and child.piece_data == data:
+			child.deselect()
+			return

@@ -8,6 +8,7 @@ const GRID_SIZE := 7
 
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
+@export var show_base: bool = false
 #@export var piece_data: PieceData
 
 var tiles: Dictionary = {}  # Vector2i(x,y) -> Tile
@@ -144,4 +145,6 @@ func _animate_occupant(occupant: Occupant, target_tile: Tile) -> void:
 
 
 func _ready() -> void:
+	if not show_base:
+		$BoardBase.hide()
 	generate()

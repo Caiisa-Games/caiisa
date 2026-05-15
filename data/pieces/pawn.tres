@@ -12,4 +12,5 @@ description = " A devoted soldier on the verge of becoming king"
 texture_white = ExtResource("4_1q7a2")
 texture_black = ExtResource("1_nhnax")
 card_texture = ExtResource("3_yt1lp")
+piece_class = 1
 metadata/_custom_type_script = "uid://divct8m8b0k67"
