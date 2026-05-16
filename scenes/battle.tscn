@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene load_steps=6 format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="2_a12nh"]
+[ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="3_lpir7"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_p1qf1"]
 
 [node name="BattleField" type="Node2D"]
@@ -27,6 +28,7 @@ offset_bottom = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme = ExtResource("3_lpir7")
 
 [node name="TurnLabel" type="Label" parent="UI/TopBar"]
 layout_mode = 1
@@ -61,6 +63,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
+theme = ExtResource("3_lpir7")
 
 [node name="EndTurnButton" type="Button" parent="UI/BottomPanel"]
 layout_mode = 1
@@ -90,6 +93,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_lpir7")
 
 [node name="ColorRect" type="ColorRect" parent="GameOverLayer/Control"]
 layout_mode = 1

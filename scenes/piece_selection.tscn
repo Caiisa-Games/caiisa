@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://dakmm2a3fd0qk"]
+[gd_scene load_steps=18 format=3 uid="uid://dakmm2a3fd0qk"]
 
+[ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="1_6migr"]
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="1_7e3yo"]
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
@@ -68,6 +69,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_6migr")
 
 [node name="Background" type="TextureRect" parent="UICanvas/MainUI"]
 layout_mode = 1
@@ -149,9 +151,6 @@ stretch_mode = 0
 [node name="SelectedCountLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.49941963, 0.13780305, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 4
 theme_override_constants/paragraph_spacing = 4
 theme_override_constants/shadow_offset_y = 4
@@ -164,9 +163,6 @@ theme_override_font_sizes/font_size = 16
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.49803922, 0.13725491, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 4
 theme_override_constants/paragraph_spacing = 4
 theme_override_constants/shadow_offset_y = 4
@@ -205,9 +201,6 @@ theme_override_constants/separation = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.49803922, 0.13725491, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 4
 theme_override_constants/paragraph_spacing = 4
 theme_override_constants/shadow_offset_y = 4
@@ -221,9 +214,6 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.49803922, 0.13725491, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 4
 theme_override_constants/paragraph_spacing = 4
 theme_override_constants/shadow_offset_x = 1
@@ -236,6 +226,8 @@ vertical_alignment = 1
 
 [node name="SelectionGrid" type="GridContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 15
 columns = 3
 
 [node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
