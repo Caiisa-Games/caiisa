@@ -59,10 +59,11 @@ func _start_selection_phase() -> void:
 	var card_scene = load("res://scenes/card.tscn")
 	for piece in available_pieces:
 		var card = card_scene.instantiate() as Card
-		card.init()
+		
+		selection_grid.add_child(card)
+		
 		card.set_piece_data(piece)
 		card.clicked.connect(_on_card_interacted)
-		selection_grid.add_child(card)
 	_update_ui()
 
 func _start_placement_phase() -> void:
@@ -78,7 +79,6 @@ func _start_placement_phase() -> void:
 	var card_scene = load("res://scenes/card.tscn")
 	for piece in _get_current_hand():
 		var card = card_scene.instantiate() as Card
-		card.init()
 		card.set_piece_data(piece)
 		card.clicked.connect(_on_card_interacted)
 		card_flow.add_child(card)
