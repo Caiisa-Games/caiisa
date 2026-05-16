@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dax6cc1pkfyti"]
+
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="1_8xrcq"]
+[ext_resource type="Texture2D" uid="uid://cw11h6w4t6bmp" path="res://assets/Sprite-0001.png" id="1_o0di7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8xrcq"]
+texture = ExtResource("1_o0di7")
+texture_margin_left = 7.0
+texture_margin_top = 8.0
+texture_margin_right = 7.0
+texture_margin_bottom = 3.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(61, 79, 135, 97)
+
+[resource]
+default_font = ExtResource("1_8xrcq")
+default_font_size = 16
+Button/colors/font_color = Color(9.819507, 9.819507, 9.819507, 1)
+Button/styles/disabled = SubResource("StyleBoxTexture_8xrcq")
+Button/styles/hover = SubResource("StyleBoxTexture_8xrcq")
+Button/styles/normal = SubResource("StyleBoxTexture_8xrcq")
+Button/styles/pressed = SubResource("StyleBoxTexture_8xrcq")

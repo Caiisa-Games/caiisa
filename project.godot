@@ -32,7 +32,11 @@ window/stretch/mode="canvas_items"
 
 [internationalization]
 
+locale/translation_remaps={
+"res://assets/fonts/Thin Sans.ttf": PackedStringArray("res://assets/fonts/Raqami.ttf:fa")
+}
 locale/translations=PackedStringArray("res://locale/translations.en.translation", "res://locale/translations.fa.translation")
+locale/locale_filter_mode=0
 
 [rendering]
 

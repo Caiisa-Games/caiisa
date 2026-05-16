@@ -160,7 +160,7 @@ func _place_new_piece(grid_pos: Vector2i, piece: PieceData) -> void:
 	if board.place_piece(selected_card.piece_data, grid_pos.x, grid_pos.y, current_player):
 		AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
 		_get_current_placed_dict()[grid_pos] = piece
-		selected_card.set_disabled(true)
+		selected_card.hide()
 		selected_card.deselect()
 		selected_card = null
 		board.clear_all_highlights()
@@ -224,7 +224,7 @@ func _on_remove_button_pressed() -> void:
 		selected_tile.occupant.clear_data()
 		for child in card_flow.get_children():
 			if child is Card and child.piece_data == data:
-				child.set_disabled(false)
+				child.show()
 		board.clear_all_highlights()
 		_set_remove_btn_status(false)
 		selected_tile = null
