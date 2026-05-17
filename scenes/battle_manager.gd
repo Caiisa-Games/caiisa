@@ -16,7 +16,6 @@ var round_number: int = 1
 var winner: int = 0
 
 @onready var board: BoardManager = $BoardLayer/Board
-@onready var turn_label = $UI/TopBar/TurnLabel
 @onready var round_label = $UI/TopBar/RoundLabel
 @onready var winner_label = $GameOverLayer/Control/WinnerLabel
 
@@ -261,7 +260,6 @@ func _update_ui() -> void:
 		for pos in player_1_pieces:
 			board.tiles[pos].occupant.hide_orb()
 	
-	turn_label.text = tr("player_turn") % (1 if current_turn == Turn.PLAYER_1 else 2)
 	round_label.text = tr("current_round") % round_number
 	
 func _handle_game_over() -> void:

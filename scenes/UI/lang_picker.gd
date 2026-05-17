@@ -15,9 +15,5 @@ func _ready() -> void:
 func _on_item_selected(index: int) -> void:
 	var code := LocaleManager.get_code_by_index(index)
 	SettingsManager.set_locale(code)
-	$"../../..".position.x = 483
-	$"../../..".position.y = 210
-	$"../..".position.x = 5
-	$"../..".position.y = -150
 	
 	SettingsManager.save_settings()

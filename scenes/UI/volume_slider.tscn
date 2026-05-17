@@ -16,9 +16,10 @@ scale = Vector2(0.019664448, 0.12439387)
 script = ExtResource("1_buh2l")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="CheckButton" type="CheckButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
