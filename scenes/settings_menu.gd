@@ -37,6 +37,8 @@ func _on_check_button_pressed() -> void:
 			var sg = load("res://assets/sound/music_menu.ogg")
 			AudioManager.play_music(sg)
 	$Button/AnimatedSprite2D.play("hoverr")
+	
+	SettingsManager.save_settings()
 
 
 func _on_button_mouse_exited() -> void:
