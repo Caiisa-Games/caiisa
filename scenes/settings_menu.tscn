@@ -1,214 +1,8 @@
-[gd_scene load_steps=45 format=3 uid="uid://cgpuuvbgesr4j"]
+[gd_scene load_steps=6 format=3 uid="uid://cgpuuvbgesr4j"]
 
 [ext_resource type="Script" uid="uid://j66uos7jy171" path="res://scenes/settings_menu.gd" id="1_wswnh"]
-[ext_resource type="Texture2D" uid="uid://bxxl3n03y3jqf" path="res://assets/sprites/settings_button/Settings-Animation1.png" id="2_labj1"]
 [ext_resource type="PackedScene" uid="uid://ddf21rj0jqydy" path="res://scenes/UI/volume_slider.tscn" id="2_wswnh"]
-[ext_resource type="Texture2D" uid="uid://devl0h22pr75o" path="res://assets/sprites/settings_button/Settings-Animation12.png" id="3_75x6d"]
 [ext_resource type="PackedScene" uid="uid://kjlmqy88dkpv" path="res://scenes/UI/lang_picker.tscn" id="3_labj1"]
-[ext_resource type="Texture2D" uid="uid://ciuhhnd512wnd" path="res://assets/sprites/settings_button/Settings-Animation11.png" id="4_x0dr5"]
-[ext_resource type="Texture2D" uid="uid://7ayqwimeiemk" path="res://assets/sprites/settings_button/Settings-Animation10.png" id="5_gdgfw"]
-[ext_resource type="Texture2D" uid="uid://c3qnej6vpclfk" path="res://assets/sprites/settings_button/Settings-Animation9.png" id="6_vymnv"]
-[ext_resource type="Texture2D" uid="uid://ddcokh2c5me0y" path="res://assets/sprites/settings_button/Settings-Animation8.png" id="7_2tyyr"]
-[ext_resource type="Texture2D" uid="uid://ebf6nv8pfje8" path="res://assets/sprites/settings_button/Settings-Animation7.png" id="8_wambi"]
-[ext_resource type="Texture2D" uid="uid://b06v37q3m64tu" path="res://assets/sprites/settings_button/Settings-Animation6.png" id="9_khnq6"]
-[ext_resource type="Texture2D" uid="uid://dk2ipff2jiwn8" path="res://assets/sprites/settings_button/Settings-Animation5.png" id="10_vlw5p"]
-[ext_resource type="Texture2D" uid="uid://mto6gsi0mt7o" path="res://assets/sprites/settings_button/Settings-Animation4.png" id="11_fmx0a"]
-[ext_resource type="Texture2D" uid="uid://dkq7pppo0dask" path="res://assets/sprites/settings_button/Settings-Animation3.png" id="12_ojcm3"]
-[ext_resource type="Texture2D" uid="uid://dl007m0m6j1x5" path="res://assets/sprites/settings_button/Settings-Animation2.png" id="13_y1j7s"]
-[ext_resource type="Texture2D" uid="uid://cw11h6w4t6bmp" path="res://assets/Sprite-0001.png" id="14_x0dr5"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwwgp"]
-atlas = ExtResource("2_labj1")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_51alr"]
-atlas = ExtResource("3_75x6d")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aadi2"]
-atlas = ExtResource("4_x0dr5")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0xvj3"]
-atlas = ExtResource("5_gdgfw")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ba8q1"]
-atlas = ExtResource("6_vymnv")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rockl"]
-atlas = ExtResource("7_2tyyr")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mtud4"]
-atlas = ExtResource("8_wambi")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s0vrw"]
-atlas = ExtResource("9_khnq6")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jqo53"]
-atlas = ExtResource("10_vlw5p")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wa640"]
-atlas = ExtResource("11_fmx0a")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jaajm"]
-atlas = ExtResource("12_ojcm3")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3esdg"]
-atlas = ExtResource("13_y1j7s")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hp6av"]
-atlas = ExtResource("2_labj1")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aksyt"]
-atlas = ExtResource("2_labj1")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_orv6s"]
-atlas = ExtResource("13_y1j7s")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_54cov"]
-atlas = ExtResource("12_ojcm3")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_144ar"]
-atlas = ExtResource("11_fmx0a")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_syelv"]
-atlas = ExtResource("10_vlw5p")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3m0t1"]
-atlas = ExtResource("9_khnq6")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qiqss"]
-atlas = ExtResource("8_wambi")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f44e7"]
-atlas = ExtResource("7_2tyyr")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ofi82"]
-atlas = ExtResource("6_vymnv")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xv3ph"]
-atlas = ExtResource("5_gdgfw")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hd3ya"]
-atlas = ExtResource("4_x0dr5")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ds2f"]
-atlas = ExtResource("3_75x6d")
-region = Rect2(790, 780, 980, 1000)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bgjg7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lwwgp")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_51alr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aadi2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0xvj3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ba8q1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rockl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mtud4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s0vrw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jqo53")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wa640")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jaajm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3esdg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hp6av")
-}],
-"loop": false,
-"name": &"elseee",
-"speed": 24.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aksyt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_orv6s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_54cov")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_144ar")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_syelv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3m0t1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qiqss")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f44e7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ofi82")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xv3ph")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hd3ya")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1ds2f")
-}],
-"loop": false,
-"name": &"hoverr",
-"speed": 24.0
-}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75x6d"]
 bg_color = Color(0.13725491, 0.13725491, 0.13725491, 0.6313726)
@@ -231,115 +25,56 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_75x6d")
 [node name="SettingsMenu" type="CanvasLayer"]
 script = ExtResource("1_wswnh")
 
-[node name="Button" type="Button" parent="."]
-offset_left = 491.0
-offset_top = 214.0
-offset_right = 544.0
-offset_bottom = 263.0
-flat = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Button"]
-position = Vector2(27, 25.5)
-scale = Vector2(0.055102065, 0.051000018)
-sprite_frames = SubResource("SpriteFrames_bgjg7")
-
-[node name="Sprite2D" type="Sprite2D" parent="Button"]
-position = Vector2(94, 150)
-scale = Vector2(0.18754676, 0.10322531)
-texture = ExtResource("14_x0dr5")
-region_enabled = true
-region_rect = Rect2(785.575, 583.04395, 988.988, 1386.2477)
-
-[node name="PanelContainer" type="PanelContainer" parent="Button"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 auto_translate_mode = 1
-visible = false
 z_index = -1
-layout_mode = 0
-offset_left = 5.0
-offset_top = 82.0
-offset_right = 179.0
-offset_bottom = 214.0
+offset_right = 174.0
+offset_bottom = 132.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme = SubResource("Theme_x0dr5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Button/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 z_index = 1
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Label" type="Label" parent="Button/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "volume"
 
-[node name="Label2" type="Label" parent="Button/PanelContainer/VBoxContainer"]
+[node name="MasterMute" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+visible = false
 layout_mode = 2
-text = "Music"
 
-[node name="CheckButton" type="CheckButton" parent="Button/PanelContainer/VBoxContainer/Label2"]
-layout_mode = 0
-offset_left = 120.0
-offset_right = 164.0
-offset_bottom = 24.0
-button_pressed = true
-
-[node name="Label3" type="Label" parent="Button/PanelContainer/VBoxContainer"]
+[node name="SFXMute" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "SFX"
-
-[node name="CheckButton3" type="CheckButton" parent="Button/PanelContainer/VBoxContainer/Label3"]
-layout_mode = 0
-offset_left = 120.0
-offset_right = 164.0
-offset_bottom = 24.0
-button_pressed = true
-
-[node name="SFXSlider" parent="Button/PanelContainer/VBoxContainer/Label3" instance=ExtResource("2_wswnh")]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 127.0
-offset_top = -2.0
-offset_right = 427.0
-offset_bottom = 14.0
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(0.101422295, 1.7325789)
 bus_name = "SFX"
 display_name = "SFX"
 
-[node name="MasterSlider" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+[node name="MusicMute" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+bus_name = "Music"
+display_name = "Music"
+
+[node name="LanguagePicker" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_labj1")]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="MusicSlider" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
-visible = false
-layout_mode = 2
-
-[node name="LanguagePicker" parent="Button/PanelContainer/VBoxContainer" instance=ExtResource("3_labj1")]
-layout_mode = 2
-
-[node name="Buttons" type="HBoxContainer" parent="Button/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="BackButton" type="Button" parent="Button/PanelContainer/VBoxContainer/Buttons"]
-visible = false
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
 layout_mode = 2
 text = "back"
 
-[node name="ResetButton" type="Button" parent="Button/PanelContainer/VBoxContainer/Buttons"]
-visible = false
+[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
 layout_mode = 2
 text = "reset"
 
-[node name="ApplyButton" type="Button" parent="Button/PanelContainer/VBoxContainer/Buttons"]
-visible = false
+[node name="ApplyButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
 layout_mode = 2
 text = "apply"
-
-[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button/PanelContainer/VBoxContainer/Label2/CheckButton" to="." method="_on_check_button_pressed"]
-[connection signal="pressed" from="Button/PanelContainer/VBoxContainer/Label3/CheckButton3" to="Button/PanelContainer/VBoxContainer/Label3/SFXSlider" method="_on_check_button_3_pressed"]

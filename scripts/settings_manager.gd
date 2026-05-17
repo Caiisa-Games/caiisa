@@ -1,7 +1,7 @@
 extends Node
 
 signal settings_changed(data: SettingsData)
-signal volume_changed(bus: String, volume: float)
+signal mute_changed(bus: String, is_muted: bool)
 signal locale_changed(locale: String)
 
 const SAVE_PATH := "user://settings.cfg"
@@ -17,25 +17,27 @@ func _ready() -> void:
 	load_settings()
 	_apply_all()
 
-func set_volume(bus: String, value: float) -> void:
-	value = clampf(value, 0.0, 1.0)
+func set_muted(bus: String, is_muted: bool) -> void:
 	match bus:
-		BUS_MASTER: data.master_volume = value
-		BUS_MUSIC: data.music_volume = value
-		BUS_SFX: data.sfx_volume = value
-	_apply_volume(bus, value)
-	volume_changed.emit(bus, value)
+		BUS_MASTER: data.master_muted = is_muted
+		BUS_MUSIC: data.music_muted = is_muted
+		BUS_SFX: data.sfx_muted = is_muted
+	
+	_apply_mute_state(bus, is_muted)
+	mute_changed.emit(bus, is_muted)
+	save_settings()
 
 func set_locale(locale: String) -> void:
 	data.locale = locale
-	_apply_locale(locale)
+	TranslationServer.set_locale(locale)
 	locale_changed.emit(locale)
+	save_settings()
 
 func save_settings() -> void:
 	var cfg := ConfigFile.new()
-	cfg.set_value(SECTION, "master_volume", data.master_volume)
-	cfg.set_value(SECTION, "music_volume", data.music_volume)
-	cfg.set_value(SECTION, "sfx_volume", data.sfx_volume)
+	cfg.set_value(SECTION, "master_muted", data.master_muted)
+	cfg.set_value(SECTION, "music_muted", data.music_muted)
+	cfg.set_value(SECTION, "sfx_muted", data.sfx_muted)
 	cfg.set_value(SECTION, "locale", data.locale)
 	cfg.save(SAVE_PATH)
 
@@ -43,27 +45,25 @@ func load_settings() -> void:
 	var cfg := ConfigFile.new()
 	if cfg.load(SAVE_PATH) != OK:
 		return
-	data.master_volume = cfg.get_value(SECTION, "master_volume", SettingsData.DEFAULT_MASTER_VOLUME)
-	data.music_volume  = cfg.get_value(SECTION, "music_volume",  SettingsData.DEFAULT_MUSIC_VOLUME)
-	data.sfx_volume    = cfg.get_value(SECTION, "sfx_volume",    SettingsData.DEFAULT_SFX_VOLUME)
-	data.locale        = cfg.get_value(SECTION, "locale",        SettingsData.DEFAULT_LOCALE)
+	
+	data.master_muted = cfg.get_value(SECTION, "master_muted", data.MASTER_MUTED)
+	data.music_muted  = cfg.get_value(SECTION, "music_muted", data.MUSIC_MUTED)
+	data.sfx_muted    = cfg.get_value(SECTION, "sfx_muted", data.SFX_MUTED)
+	data.locale       = cfg.get_value(SECTION, "locale", "en")
+
+func _apply_all() -> void:
+	_apply_mute_state(BUS_MASTER, data.master_muted)
+	_apply_mute_state(BUS_MUSIC, data.music_muted)
+	_apply_mute_state(BUS_SFX, data.sfx_muted)
+	TranslationServer.set_locale(data.locale)
+
+func _apply_mute_state(bus: String, is_muted: bool) -> void:
+	var bus_idx := AudioServer.get_bus_index(bus)
+	if bus_idx != -1:
+		AudioServer.set_bus_mute(bus_idx, is_muted)
 
 func reset_to_defaults() -> void:
 	data = SettingsData.new()
 	_apply_all()
+	save_settings()
 	settings_changed.emit(data)
-
-func _apply_all() -> void:
-	_apply_volume(BUS_MASTER, data.master_volume)
-	_apply_volume(BUS_MUSIC,  data.music_volume)
-	_apply_volume(BUS_SFX,    data.sfx_volume)
-	_apply_locale(data.locale)
-
-func _apply_volume(bus: String, linear: float) -> void:
-	var bus_idx := AudioServer.get_bus_index(bus)
-	if bus_idx == -1:
-		push_error("SettingsManager: audio bus '%s' not found." % bus)
-		return
-	AudioServer.set_bus_mute(bus_idx, not linear)
-func _apply_locale(locale: String) -> void:
-	TranslationServer.set_locale(locale)

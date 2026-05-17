@@ -1,70 +1,91 @@
+class_name MainMenu
 extends Control
 
-@onready var color_2: ColorRect = $ColorRect2
-const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
+const PIECE_SELECTION_SCENE = "res://scenes/piece_selection.tscn"
+const SETTINGS_SCENE = preload("res://scenes/settings_menu.tscn")
+const CLICK_SFX = preload("res://assets/sound/فشردن دکمه های سنگی.mp3")
+const TRANSITION_MUSIC = preload("res://assets/sound/music_transition.ogg")
 
-var is_settings_open := false
+const CREDITS_START_POS = Vector2(279, 620)
+const CREDITS_END_POS = Vector2(279, -655)
+const CREDITS_DURATION = 15.0
+const FADE_DURATION = 0.7
+
+@onready var color_fade: ColorRect = $ColorRect2
+@onready var credits_label: Label = $CreditsLabel
+@onready var start_button: Button = $StartButton
+@onready var exit_button: TextureButton = $ExitButton
+@onready var settings_button: Button = $HBoxContainer/SettingsButton
+@onready var settings_menu: SettingsMenu = $SettingsMenu
 
 func _ready() -> void:
-	$TextureButton/AnimatedSprite2D.play("default")
+	color_fade.visible = false
+	color_fade.modulate.a = 0
+	credits_label.visible = false
 	
+	settings_menu.hide()
+	
+	_play_anim(start_button, "default")
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
-	
-func _on_exit_button_pressed() -> void:
-	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
-	get_tree().quit()
 
 func _on_texture_button_pressed() -> void:
-	AudioManager.play_music(preload("res://assets/sound/music_transition.ogg"), "Music", false)
-	color_2.visible = true
-	var twe = create_tween()
-	twe.tween_property(color_2, "modulate", Color(0, 0, 0, 1), 0.7)
-	await twe.finished
-	color_2.visible = false
-	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
-	$TextureButton/AnimatedSprite2D.play("new_a")
+	_set_ui_interactable(false)
+	AudioManager.play_music(TRANSITION_MUSIC, "Music", false)
 	
+	color_fade.visible = true
+	var tween = create_tween()
+	tween.tween_property(color_fade, "modulate:a", 1.0, FADE_DURATION)
 	
-func _on_texture_button_mouse_entered() -> void:
-	$TextureButton/AnimatedSprite2D.play("hover")
-func _on_texture_button_mouse_exited() -> void:
-	$TextureButton/AnimatedSprite2D.play("unhover")
-
-
-func _on_credits_button_pressed() -> void:
-	if $CreditsLabel.position.y > -650:
-		return
-
-	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
-	$CreditsLabel.visible = true
-	$CreditsLabel.position = Vector2(279, 620)
-	create_tween().tween_property($CreditsLabel, "position", Vector2(279, -655), 15)  
-	$TextureButton.mouse_filter = MOUSE_FILTER_IGNORE
-	$ExitButton.mouse_filter = MOUSE_FILTER_IGNORE
-	$SettingsMenu.get_child(0).mouse_filter = MOUSE_FILTER_IGNORE
-	await get_tree().create_timer(15).timeout
-	$TextureButton.mouse_filter = MOUSE_FILTER_PASS
-	$ExitButton.mouse_filter = MOUSE_FILTER_PASS
-	$SettingsMenu.get_child(0).mouse_filter = MOUSE_FILTER_PASS
-	
+	await tween.finished
+	get_tree().change_scene_to_file(PIECE_SELECTION_SCENE)
 
 func _on_settings_button_pressed() -> void:
-	create_tween().tween_property($PanelContainer/VBoxContainer, "position", Vector2(279, -655), 3) 
-	AudioManager.play_sfx(preload("res://assets/sound/فشردن دکمه های سنگی.mp3"))
-	if is_settings_open:
-		return
-	var menu : SettingsMenu = SettingsMenuScene.instantiate()
-	menu.closed.connect(_on_settings_closed)
-	add_child(menu)
-	is_settings_open = true
+	AudioManager.play_sfx(CLICK_SFX)
+	if settings_menu.visible:
+		settings_menu.close()
+	else:
+		settings_menu.open()
+
+func _on_credits_button_pressed() -> void:
+	if credits_label.visible: return
+
+	AudioManager.play_sfx(CLICK_SFX)
+	_set_ui_interactable(false)
 	
+	credits_label.visible = true
+	credits_label.position = CREDITS_START_POS
+	
+	var tween = create_tween()
+	tween.tween_property(credits_label, "position", CREDITS_END_POS, CREDITS_DURATION)
+	tween.finished.connect(func(): 
+		credits_label.visible = false
+		_set_ui_interactable(true)
+	)
 
-func _on_settings_closed() -> void:
-	is_settings_open = false
+func _on_texture_button_mouse_entered() -> void:
+	_play_anim(start_button, "hover")
 
+func _on_texture_button_mouse_exited() -> void:
+	_play_anim(start_button, "unhover")
 
 func _on_settings_hover() -> void:
-	$SettingsButton/AnimatedSprite2D.play("hover")
+	_play_anim(settings_button, "hover")
 
 func _on_settings_exit() -> void:
-	$SettingsButton/AnimatedSprite2D.play("unhover")
+	_play_anim(settings_button, "unhover")
+
+func _on_exit_button_pressed() -> void:
+	AudioManager.play_sfx(CLICK_SFX)
+	await get_tree().create_timer(0.2).timeout 
+	get_tree().quit()
+
+func _play_anim(node: Node, anim_name: String) -> void:
+	var sprite = node.get_node_or_null("AnimatedSprite2D")
+	if sprite:
+		sprite.play(anim_name)
+
+func _set_ui_interactable(state: bool) -> void:
+	var mode = Control.MOUSE_FILTER_PASS if state else Control.MOUSE_FILTER_IGNORE
+	start_button.mouse_filter = mode
+	exit_button.mouse_filter = mode
+	settings_button.mouse_filter = mode
