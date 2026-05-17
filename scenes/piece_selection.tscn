@@ -59,6 +59,19 @@ mouse_filter = 2
 script = ExtResource("1_34mbo")
 available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_svpf0"), ExtResource("7_gwvtb"), ExtResource("7_6migr"), ExtResource("4_rme2a"), ExtResource("5_svpf0"), ExtResource("5_rme2a")])
 
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7e3yo")
+expand_mode = 1
+
+[node name="Board" parent="." instance=ExtResource("3_mcp5b")]
+position = Vector2(675, 207)
+
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="MainUI" type="Control" parent="UICanvas"]
@@ -70,16 +83,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_6migr")
-
-[node name="Background" type="TextureRect" parent="UICanvas/MainUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_7e3yo")
-expand_mode = 1
 
 [node name="HSplitContainer" type="HSplitContainer" parent="UICanvas/MainUI"]
 layout_mode = 1
@@ -233,12 +236,6 @@ columns = 3
 [node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "confirm"
-
-[node name="BoardCanvas" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="Board" parent="BoardCanvas" instance=ExtResource("3_mcp5b")]
-position = Vector2(675, 207)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)

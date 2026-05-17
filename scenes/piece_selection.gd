@@ -12,7 +12,7 @@ enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 @onready var card_flow = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer/CardFlow
 @onready var confirm_placement_btn = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/StartButton
 
-@onready var board = $BoardCanvas/Board
+@onready var board = $Board
 
 @onready var draft_turn_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels/DraftTurnLabel
 @onready var draft_count_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels/DraftCountLabel
@@ -49,7 +49,6 @@ func _connect_board_signals() -> void:
 
 
 func _start_selection_phase() -> void:
-	board.hide()
 	selection_overlay.show()
 	confirm_selection_btn.disabled = true
 	
@@ -68,7 +67,6 @@ func _start_selection_phase() -> void:
 
 func _start_placement_phase() -> void:
 	selection_overlay.hide()
-	board.show()
 	selected_card = null
 	confirm_placement_btn.visible = true
 	confirm_placement_btn.disabled = true
