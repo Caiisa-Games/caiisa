@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PieceData" load_steps=4 format=3 uid="uid://dpanvcxhacvsn"]
+
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_4fvfo"]
+[ext_resource type="Texture2D" uid="uid://b02wfvwqvs7ik" path="res://assets/sprites/pieces/black/mini_queen_black.png" id="2_cp0gr"]
+[ext_resource type="Texture2D" uid="uid://1f4vkrwbbi10" path="res://assets/sprites/pieces/white/mini_queen_white.png" id="3_sbrky"]
+
+[resource]
+script = ExtResource("2_4fvfo")
+name = "mini_queen"
+description = "an upgraded pawn"
+texture_white = ExtResource("3_sbrky")
+texture_black = ExtResource("2_cp0gr")
+piece_class = 1
+metadata/_custom_type_script = "uid://divct8m8b0k67"
