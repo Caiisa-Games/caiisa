@@ -83,12 +83,27 @@ func take_damage(amount: int) -> bool:
 		died.emit()
 		return true
 	return false
+	
+func promote_to(new_data: PieceData) -> void:
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(self, "scale", Vector2(1.4, 1.4), 0.4).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(self, "modulate", Color(2, 2, 2), 0.4)
+	
+	await tween.finished
+	
+	set_data(new_data, player, min(current_hp+2, new_data.defense))
+	
+	var burst = create_tween().set_parallel(true)
+	burst.tween_property(self, "scale", Vector2(1.0, 1.0), 0.3).set_trans(Tween.TRANS_ELASTIC)
+	burst.tween_property(self, "modulate", Color.WHITE, 0.5)
+	
+	_update_hp()
 
 func _update_stats() -> void:
 	if piece_data == null:
 		return
 
-	max_hp  = piece_data.defense
+	max_hp = piece_data.defense
 
 	if sprite.texture:
 		var sprite_height: float = sprite.texture.get_height() * sprite.scale.y
@@ -124,6 +139,7 @@ func _update_hp() -> void:
 		.set_ease(Tween.EASE_OUT)
 
 	hp_changed.emit(current_hp, max_hp)
+
 func _flash_damage() -> void:
 	modulate = Color.RED
 	var tween := create_tween()

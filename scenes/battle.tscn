@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene load_steps=7 format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
+[ext_resource type="Resource" uid="uid://dpanvcxhacvsn" path="res://data/pieces/mini_queen.tres" id="2_6vh42"]
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="2_a12nh"]
 [ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="3_lpir7"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_p1qf1"]
@@ -9,6 +10,7 @@
 [node name="BattleField" type="Node2D"]
 auto_translate_mode = 1
 script = ExtResource("1_th188")
+mini_queen_data = ExtResource("2_6vh42")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
