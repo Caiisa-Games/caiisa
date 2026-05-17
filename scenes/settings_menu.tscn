@@ -1,26 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgpuuvbgesr4j"]
+[gd_scene load_steps=7 format=3 uid="uid://cgpuuvbgesr4j"]
 
 [ext_resource type="Script" uid="uid://j66uos7jy171" path="res://scenes/settings_menu.gd" id="1_wswnh"]
 [ext_resource type="PackedScene" uid="uid://ddf21rj0jqydy" path="res://scenes/UI/volume_slider.tscn" id="2_wswnh"]
 [ext_resource type="PackedScene" uid="uid://kjlmqy88dkpv" path="res://scenes/UI/lang_picker.tscn" id="3_labj1"]
+[ext_resource type="Texture2D" uid="uid://cw11h6w4t6bmp" path="res://assets/Sprite-0001.png" id="14_x0dr5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75x6d"]
-bg_color = Color(0.13725491, 0.13725491, 0.13725491, 0.6313726)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.2661226, 0.2661226, 0.2661226, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0.20152658, 0.20152658, 0.20152652, 1)
-shadow_size = 1
-shadow_offset = Vector2(4, 4)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_labj1"]
+texture = ExtResource("14_x0dr5")
+texture_margin_left = 6.0
+texture_margin_top = 9.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(61, 79, 135, 97)
 
 [sub_resource type="Theme" id="Theme_x0dr5"]
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_75x6d")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_labj1")
 
 [node name="SettingsMenu" type="CanvasLayer"]
 script = ExtResource("1_wswnh")
