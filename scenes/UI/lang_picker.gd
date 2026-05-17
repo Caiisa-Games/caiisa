@@ -19,3 +19,5 @@ func _on_item_selected(index: int) -> void:
 	$"../../..".position.y = 210
 	$"../..".position.x = 5
 	$"../..".position.y = -150
+	
+	SettingsManager.save_settings()

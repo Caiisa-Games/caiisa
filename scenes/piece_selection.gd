@@ -1,7 +1,7 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 3
+const MAX_PIECES := 1
 
 enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 
