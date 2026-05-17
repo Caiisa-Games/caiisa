@@ -23,6 +23,8 @@ var winner: int = 0
 @onready var UI = $UI
 @onready var game_over = $GameOverLayer
 
+@export var mini_queen_data: PieceData
+
 func _ready() -> void:
 	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
 	player_1_pieces = GameState.player_1_pieces
@@ -120,6 +122,8 @@ func _handle_move(tile: Tile) -> void:
 		else:
 			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
 			_execute_move(tile)
+		if board.should_promote(tile.occupant, tile.grid_position.y, turn):
+			await tile.occupant.promote_to(mini_queen_data)
 	else:
 		AudioManager.play_sfx(preload("res://assets/sound/کلیک روی خونه های غیر قابل دسترس به هنگام حرکت مهره.mp3"))
 		_clear_selection()
@@ -267,6 +271,7 @@ func _handle_game_over() -> void:
 	#UI.visible = false
 	game_over.visible = true
 	
+	AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
 	winner_label.text = tr("player_won") % winner
 
 func _on_end_turn_button_pressed() -> void:
