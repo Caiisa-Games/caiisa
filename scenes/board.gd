@@ -5,6 +5,7 @@ enum Mode { PREVIEW, BATTLE }
 enum State { IDLE, SELECTED }
 
 const GRID_SIZE := 7
+@onready var color_rectfd: ColorRect = $ColorRectfd
 
 @export var tile_scene: PackedScene
 @export var board_data: BoardData

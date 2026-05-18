@@ -9,6 +9,7 @@ var current_round: int = 1
 var current_turn: int = 1
 var winner: int = 0
 
+
 func reset() -> void:
 	player_1_pieces.clear()
 	player_2_pieces.clear()

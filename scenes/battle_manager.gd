@@ -24,6 +24,30 @@ var winner: int = 0
 @onready var game_over = $GameOverLayer
 
 func _ready() -> void:
+	#$ColorRectr.modulate = Color(0.0, 0.0, 0.0, 0.0)
+	await get_tree().create_timer(0.5).timeout
+	create_tween().tween_property($ColorRectr, "modulate", Color(1.0, 1.0, 1.0, 0.0), 5)
+	var asd = randi_range(1, 4)
+	if asd == 1:
+		$Label.text = "hello ..."
+	elif asd == 2:
+		$Label.text = "bye ..."
+	elif asd == 3:
+		$Label.text = "caissa ..."
+	else:
+		$Label.text = "llllllllllllllllllll ..."
+	for dd in range(1, 21):
+		if dd % 2 == 0:
+			#var ds = randi_range(1, 14)
+			await get_tree().create_timer(0.5).timeout
+			$ProgressBar.value += dd# + ds
+	create_tween().tween_property($ColorRectr , "modulate", Color(0, 0, 0, 1), 1)
+	#$ProgressBar.visible = false
+	await get_tree().create_timer(1).timeout
+	create_tween().tween_property($ColorRectr , "modulate", Color(0.0, 0.0, 0.0, 0.0), 0.5)
+	$UI.visible = true
+	$BoardLayer.visible = true
+	$GameOverLayer.visible = true
 	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces

@@ -252,6 +252,7 @@ region_rect = Rect2(785.575, 583.04395, 988.988, 1386.2477)
 
 [node name="PanelContainer" type="PanelContainer" parent="Button"]
 auto_translate_mode = 1
+visible = false
 z_index = -1
 layout_mode = 0
 offset_left = 5.0
