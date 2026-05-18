@@ -4,8 +4,26 @@ extends Control
 const SettingsMenuScene := preload("res://scenes/settings_menu.tscn")
 
 var is_settings_open := false
-
 func _ready() -> void:
+	await get_tree().create_timer(1.5).timeout
+	create_tween().tween_property($Fade.get_child(0), "modulate", Color(1.0, 1.0, 1.0, 0.0), 3)
+	for dd in range(1, 21):
+		if dd % 2 == 0:
+			var ds = randi_range(1, 10)
+			await get_tree().create_timer(0.23).timeout
+			$Fade.get_child(2).value += dd + ds - 2
+	create_tween().tween_property($Fade.get_child(0), "modulate", Color(0, 0, 0, 1), 1.5)
+	await get_tree().create_timer(1.5).timeout
+	create_tween().tween_property($Fade.get_child(0), "modulate", Color(0.0, 0.0, 0.0, 0.0), 0.5)
+	$TextureRect3.visible = true
+	$TextureRect2.visible = true
+	$TextureButton.visible = true
+	$ExitButton.visible = true
+	$CreditsButton.visible = true
+	$SettingsMenu.visible = true
+	$ExitButton.visible = true
+	$Fade.visible = false
+	print(4)
 	$TextureButton/AnimatedSprite2D.play("default")
 	
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
