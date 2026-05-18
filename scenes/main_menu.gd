@@ -18,48 +18,90 @@ const FADE_DURATION = 0.7
 @onready var settings_button: Button = $HBoxContainer/SettingsButton
 @onready var settings_menu: SettingsMenu = $SettingsMenu
 
+@onready var splash_container: Control = $Fade
+@onready var splash_dimmer: ColorRect = $Fade/Overlay
+@onready var loading_bar: ProgressBar = $Fade/ProgressBar
+
 func _ready() -> void:
-	color_fade.visible = false
-	color_fade.modulate.a = 0
-	credits_label.visible = false
+	_prepare_ui()
+	_run_intro_sequence()
+
+func _prepare_ui() -> void:
+	$Background.hide()
+	$Title.hide()
+	$StartButton.hide()
+	$HBoxContainer.hide()
+	$ExitButton.hide()
 	
-	settings_menu.hide()
+	color_fade.hide()
+	color_fade.modulate.a = 0
+	credits_label.hide()
+	
+	splash_container.show()
+	splash_dimmer.modulate = Color.BLACK
+	loading_bar.value = 0
+	
+func _run_intro_sequence() -> void:
+	var intro = create_tween()
+	
+	intro.tween_interval(1.5)
+	intro.tween_property(splash_dimmer, "modulate:a", 0.0, 3.0)
+	
+	intro.parallel().tween_property(loading_bar, "value", 100.0, 4.0)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_IN_OUT)
+	
+	intro.tween_property(splash_dimmer, "modulate:a", 1.0, 1.0)
+	intro.tween_interval(0.2)
+	
+	intro.tween_callback(_reveal_main_menu)
+	intro.tween_property(splash_dimmer, "modulate:a", 0.0, 0.4)
+
+func _reveal_main_menu() -> void:
+	splash_container.hide()
+	
+	$Background.show()
+	$Title.show()
+	$StartButton.show()
+	$HBoxContainer.show()
+	$ExitButton.show()
 	
 	_play_anim(start_button, "default")
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 
 func _on_texture_button_pressed() -> void:
-	_set_ui_interactable(false)
+	_set_input_enabled(false)
 	AudioManager.play_music(TRANSITION_MUSIC, "Music", false)
 	
-	color_fade.visible = true
+	color_fade.show()
 	var tween = create_tween()
 	tween.tween_property(color_fade, "modulate:a", 1.0, FADE_DURATION)
-	
-	await tween.finished
-	get_tree().change_scene_to_file(PIECE_SELECTION_SCENE)
+	tween.finished.connect(func(): get_tree().change_scene_to_file(PIECE_SELECTION_SCENE))
 
 func _on_settings_button_pressed() -> void:
+	if settings_menu.visible: return
+	
 	AudioManager.play_sfx(CLICK_SFX)
-	if settings_menu.visible:
-		settings_menu.close()
-	else:
-		settings_menu.open()
+	_set_input_enabled(false)
+	settings_menu.open()
+
+func _on_settings_closed() -> void:
+	_set_input_enabled(true)
 
 func _on_credits_button_pressed() -> void:
 	if credits_label.visible: return
 
 	AudioManager.play_sfx(CLICK_SFX)
-	_set_ui_interactable(false)
+	_set_input_enabled(false)
 	
-	credits_label.visible = true
+	credits_label.show()
 	credits_label.position = CREDITS_START_POS
 	
 	var tween = create_tween()
 	tween.tween_property(credits_label, "position", CREDITS_END_POS, CREDITS_DURATION)
 	tween.finished.connect(func(): 
-		credits_label.visible = false
-		_set_ui_interactable(true)
+		credits_label.hide()
+		_set_input_enabled(true)
 	)
 
 func _on_texture_button_mouse_entered() -> void:
@@ -79,12 +121,11 @@ func _on_exit_button_pressed() -> void:
 	await get_tree().create_timer(0.2).timeout 
 	get_tree().quit()
 
-func _play_anim(node: Node, anim_name: String) -> void:
-	var sprite = node.get_node_or_null("AnimatedSprite2D")
-	if sprite:
-		sprite.play(anim_name)
+func _play_anim(btn: Node, anim: String) -> void:
+	var sprite = btn.get_node_or_null("AnimatedSprite2D")
+	if sprite: sprite.play(anim)
 
-func _set_ui_interactable(state: bool) -> void:
+func _set_input_enabled(state: bool) -> void:
 	var mode = Control.MOUSE_FILTER_PASS if state else Control.MOUSE_FILTER_IGNORE
 	start_button.mouse_filter = mode
 	exit_button.mouse_filter = mode
