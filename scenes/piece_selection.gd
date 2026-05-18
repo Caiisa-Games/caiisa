@@ -4,7 +4,8 @@ extends Control
 const MAX_PIECES := 1
 
 enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
-
+var sssd = randf_range(0, 5)
+var sang = randi_range(0, 640)
 @onready var selection_overlay = $UICanvas/MainUI/SelectionOverlay
 @onready var selection_grid = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/SelectionGrid
 @onready var confirm_selection_btn = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/ConfirmBtn
@@ -39,10 +40,8 @@ func _ready() -> void:
 	_connect_board_signals()
 	_set_remove_btn_status(false)
 	_start_selection_phase()
-	
 	confirm_selection_btn.pressed.connect(_on_confirm_selection_pressed)
 	confirm_placement_btn.pressed.connect(_on_confirm_placement_pressed)
-
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
@@ -142,7 +141,6 @@ func _on_confirm_placement_pressed() -> void:
 		GameState.player_1_pieces = player1_placed
 		GameState.player_2_pieces = player2_placed
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
-
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	if current_step < FlowStep.P1_PLACE: return
 	var tile = board.get_tile_at(grid_pos)

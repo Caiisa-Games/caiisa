@@ -15,6 +15,17 @@ var has_attacked: bool = false
 var round_number: int = 1
 var winner: int = 0
 
+const FADE_IN_DURATION = 3.0
+const LOADING_DURATION = 5.0
+const FADE_OUT_DURATION = 1.0
+
+@onready var fade_overlay: ColorRect = $ColorRectr
+@onready var loading_bar: ProgressBar = $ProgressBar
+@onready var tip_label: Label = $Label
+@onready var ui_layer: CanvasLayer = $UI
+@onready var board_layer: CanvasLayer = $BoardLayer
+@onready var game_over_layer: CanvasLayer = $GameOverLayer
+
 @onready var board: BoardManager = $BoardLayer/Board
 @onready var round_label = $UI/TopBar/RoundLabel
 @onready var winner_label = $GameOverLayer/Control/WinnerLabel
@@ -24,17 +35,62 @@ var winner: int = 0
 
 @export var mini_queen_data: PieceData
 
+const LOADING_TIPS = [
+	"HELLO...",
+	"BYE...",
+	"CAISSA...",
+]
+
 func _ready() -> void:
+	_prepare_scene()
+	_start_intro_sequence()
+
+func _prepare_scene() -> void:
+	ui_layer.hide()
+	board_layer.hide()
+	game_over_layer.hide()
+	
+	fade_overlay.show()
+	fade_overlay.modulate = Color.BLACK
+	loading_bar.value = 0
+	loading_bar.show()
+	
+	tip_label.text = LOADING_TIPS.pick_random()
+	tip_label.show()
+
+func _start_intro_sequence() -> void:
+	var intro = create_tween()
+	
+	intro.tween_interval(0.5)
+	intro.tween_property(fade_overlay, "modulate:a", 0.0, FADE_IN_DURATION)
+	
+	intro.parallel().tween_property(loading_bar, "value", 100.0, LOADING_DURATION)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_IN_OUT)
+	
+	intro.tween_property(fade_overlay, "modulate:a", 1.0, FADE_OUT_DURATION)
+	
+	intro.tween_callback(_initialize_game_logic)
+	
+	intro.tween_interval(0.5)
+	intro.tween_property(fade_overlay, "modulate:a", 0.0, 0.5)
+	intro.finished.connect(func(): fade_overlay.hide())
+
+func _initialize_game_logic() -> void:
+	loading_bar.hide()
+	tip_label.hide()
+	
+	ui_layer.show()
+	board_layer.show()
+	game_over_layer.hide()
+
 	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
 	player_1_pieces = GameState.player_1_pieces
 	player_2_pieces = GameState.player_2_pieces
 	
-	game_over.visible = false
-	
 	_setup_board()
 	_connect_board_signals()
 	_update_ui()
-
 
 func _setup_board() -> void:
 	board.set_mode(BoardManager.Mode.BATTLE)
@@ -116,7 +172,6 @@ func _handle_move(tile: Tile) -> void:
 	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
 		if tile.occupant.piece_data != null and tile.occupant.player != turn:
-			print("ATTACK")
 			_handle_attack(tile)
 		else:
 			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
