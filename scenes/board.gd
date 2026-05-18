@@ -9,7 +9,7 @@ const GRID_SIZE := 7
 
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
-@export var show_base: bool = false
+@export var show_base: bool = true
 #@export var piece_data: PieceData
 
 var tiles: Dictionary = {}  # Vector2i(x,y) -> Tile
@@ -38,8 +38,8 @@ func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> boo
 		var valid_row = 0 if player == 1 else GRID_SIZE - 1
 		if grid_y != valid_row:
 			return false
-	
-	tile.occupant.set_data(piece, player, piece.defense)
+	var show_health = current_mode == Mode.BATTLE
+	tile.occupant.set_data(piece, player, piece.defense, show_health)
 	return true
 
 
@@ -113,10 +113,12 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 		
 	#_animate_occupant(from_tile.occupant, to_tile)
 	
+	var show_health = current_mode == Mode.BATTLE
+	
 	var player = from_tile.occupant.player
 	var hp = from_tile.occupant.current_hp
 	from_tile.occupant.clear_data()
-	to_tile.occupant.set_data(occupant, player, hp)
+	to_tile.occupant.set_data(occupant, player, hp, show_health)
 	
 	return true
 
