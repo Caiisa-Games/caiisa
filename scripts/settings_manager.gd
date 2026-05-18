@@ -25,7 +25,6 @@ func set_volume(bus: String, value: float) -> void:
 		BUS_SFX: data.sfx_volume = value
 	_apply_volume(bus, value)
 	volume_changed.emit(bus, value)
-	print(1)
 
 func set_locale(locale: String) -> void:
 	data.locale = locale
@@ -59,16 +58,12 @@ func _apply_all() -> void:
 	_apply_volume(BUS_MUSIC,  data.music_volume)
 	_apply_volume(BUS_SFX,    data.sfx_volume)
 	_apply_locale(data.locale)
-	print(13)
 
 func _apply_volume(bus: String, linear: float) -> void:
 	var bus_idx := AudioServer.get_bus_index(bus)
 	if bus_idx == -1:
 		push_error("SettingsManager: audio bus '%s' not found." % bus)
-		print(11)
 		return
-	AudioServer.set_bus_volume_db(bus_idx, linear_to_db(linear))
-	AudioServer.set_bus_mute(bus_idx, linear == 0.1)
-	print(12)
+	AudioServer.set_bus_mute(bus_idx, not linear)
 func _apply_locale(locale: String) -> void:
 	TranslationServer.set_locale(locale)

@@ -32,12 +32,13 @@ var data := SettingsData.new()
 func _on_check_button_pressed() -> void:
 	if ddd: 
 		if $Button/PanelContainer/VBoxContainer/Label2/CheckButton.button_pressed == false:  
-			var jh = load("")
-			AudioManager.play_music(jh)
+			AudioManager.stop_music()
 		else:
 			var sg = load("res://assets/sound/music_menu.ogg")
 			AudioManager.play_music(sg)
 	$Button/AnimatedSprite2D.play("hoverr")
+	
+	SettingsManager.save_settings()
 
 
 func _on_button_mouse_exited() -> void:

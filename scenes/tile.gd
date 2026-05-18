@@ -27,14 +27,13 @@ var variant: TileVariant = TileVariant.LIGHT
 
 var is_highlighted: bool = false
 
-
 func init() -> void:
-	base_container  = $BaseContainer
-	base_sprite     = $BaseSprite
-	height_sprite   = $HeightSprite
-	height_label    = $HeightLabel
-	occupant        = $Occupant
-	area_2d         = $Area2D
+	base_container = $BaseContainer
+	base_sprite = $BaseSprite
+	height_sprite = $HeightSprite
+	height_label = $HeightLabel
+	occupant = $Occupant
+	area_2d = $Area2D
 	highlight_sprite = $HighlightSprite
 
 	if highlight_sprite:

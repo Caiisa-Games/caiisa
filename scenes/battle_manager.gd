@@ -107,8 +107,6 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var tile: Tile = board.get_tile_at(grid_pos)
 	if tile == null:
 		return
-		
-	print("TILE POS: ", tile.grid_position)
 	
 	var current_player = 1 if current_turn == Turn.PLAYER_1 else 2
 	
@@ -141,6 +139,7 @@ func _handle_move(tile: Tile) -> void:
 	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
 		if tile.occupant.piece_data != null and tile.occupant.player != turn:
+			print("ATTACK")
 			_handle_attack(tile)
 		else:
 			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
@@ -150,10 +149,10 @@ func _handle_move(tile: Tile) -> void:
 		_clear_selection()
 
 func _handle_attack(tile: Tile) -> void:
-	if has_attacked:
-		has_attacked = false
-		return
-	has_attacked = true
+	#if has_attacked:
+		#has_attacked = false
+		#return
+	#has_attacked = true
 	var target = tile.occupant
 	if target == null:
 		return
@@ -188,7 +187,7 @@ func _handle_attack(tile: Tile) -> void:
 		false
 	)
 	
-	var died = target.take_damage(damage)
+	var died = await target.take_damage(damage)
 	
 	var finished = false
 	if died:
@@ -205,6 +204,13 @@ func _execute_move(tile: Tile) -> void:
 	if selected_piece == null:
 		return
 
+	var pieces = [];
+	match current_turn:
+		Turn.PLAYER_1: pieces = player_1_pieces
+		Turn.PLAYER_2: pieces = player_2_pieces
+
+	pieces[tile.grid_position] = pieces[selected_piece.grid_position]
+	pieces.erase(selected_piece.grid_position)
 	board._move_occupant(selected_piece, tile)
 	
 	_end_turn()
@@ -264,6 +270,17 @@ func _end_turn() -> void:
 	_update_ui()
 
 func _update_ui() -> void:
+	if current_turn == Turn.PLAYER_1:
+		for pos in player_1_pieces:
+			board.tiles[pos].occupant.show_orb()
+		for pos in player_2_pieces:
+			board.tiles[pos].occupant.hide_orb()
+	else:
+		for pos in player_2_pieces:
+			board.tiles[pos].occupant.show_orb()
+		for pos in player_1_pieces:
+			board.tiles[pos].occupant.hide_orb()
+	
 	turn_label.text = tr("player_turn") % (1 if current_turn == Turn.PLAYER_1 else 2)
 	round_label.text = tr("current_round") % round_number
 	
