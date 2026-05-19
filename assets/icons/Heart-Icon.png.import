@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mapgvg1ktc8k"
-path="res://.godot/imported/Class3-2.png-85c3f304870717e4a20a82d8955ff491.ctex"
+uid="uid://dojaswrfwmofe"
+path="res://.godot/imported/Heart-Icon.png-e9e53130e7ef19b48f33b00c6ec7dfaa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/Class3-2.png"
-dest_files=["res://.godot/imported/Class3-2.png-85c3f304870717e4a20a82d8955ff491.ctex"]
+source_file="res://assets/icons/Heart-Icon.png"
+dest_files=["res://.godot/imported/Heart-Icon.png-e9e53130e7ef19b48f33b00c6ec7dfaa.ctex"]
 
 [params]
 
