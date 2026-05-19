@@ -1,23 +1,10 @@
 class_name BattleManager
 extends Node2D
 
-enum Phase { SELECT, MOVE, ATTACK }
+enum Phase { SELECT, MOVE }
 enum Turn { PLAYER_1, PLAYER_2 }
 
-@export var player_1_pieces: Dictionary = {}  # [{piece: PieceData, tile: Vector2i}]
-@export var player_2_pieces: Dictionary = {}
-
-var current_turn: Turn = Turn.PLAYER_1
-var current_phase: Phase = Phase.SELECT
-var selected_piece: Tile = null
-var valid_moves: Array[Tile] = []
-var has_attacked: bool = false
-var round_number: int = 1
-var winner: int = 0
-
-const FADE_IN_DURATION = 3.0
-const LOADING_DURATION = 5.0
-const FADE_OUT_DURATION = 1.0
+@export var mini_queen_data: PieceData
 
 @onready var fade_overlay: ColorRect = $ColorRectr
 @onready var loading_bar: ProgressBar = $ProgressBar
@@ -25,24 +12,30 @@ const FADE_OUT_DURATION = 1.0
 @onready var ui_layer: CanvasLayer = $UI
 @onready var board_layer: CanvasLayer = $BoardLayer
 @onready var game_over_layer: CanvasLayer = $GameOverLayer
-
 @onready var board: BoardManager = $BoardLayer/Board
-@onready var round_label = $UI/TopBar/RoundLabel
-@onready var winner_label = $GameOverLayer/Control/WinnerLabel
+@onready var round_label: Label = $UI/TopBar/RoundLabel
+@onready var winner_label: Label = $GameOverLayer/Control/WinnerLabel
 
-@onready var UI = $UI
-@onready var game_over = $GameOverLayer
-
-@export var mini_queen_data: PieceData
-
-const LOADING_TIPS = [
-	"story... 1",
-	"story... 2",
-	"story... 3",
-	"story... 4",
-	"story... 5",
-	"story... 6"
+const FADE_IN_DURATION := 3.0
+const LOADING_DURATION := 5.0
+const FADE_OUT_DURATION := 1.0
+const LOADING_TIPS := [
+	"STORY... 1",
+	"STORY... 2",
+	"STORY... 3",
+	"STORY... 4",
+	"STORY... 5",
+	"STORY... 6"
 ]
+
+var player_1_pieces: Dictionary = {}
+var player_2_pieces: Dictionary = {}
+var current_turn: Turn = Turn.PLAYER_1
+var current_phase: Phase = Phase.SELECT
+var selected_piece: Tile = null
+var valid_moves: Array[Tile] = []
+var round_number: int = 1
+var winner: int = 0
 
 func _ready() -> void:
 	_prepare_scene()
@@ -52,29 +45,20 @@ func _prepare_scene() -> void:
 	ui_layer.hide()
 	board_layer.hide()
 	game_over_layer.hide()
-	
 	fade_overlay.show()
 	fade_overlay.modulate = Color.BLACK
 	loading_bar.value = 0
 	loading_bar.show()
-	
 	tip_label.text = LOADING_TIPS.pick_random()
 	tip_label.show()
 
 func _start_intro_sequence() -> void:
 	var intro = create_tween()
-	
 	intro.tween_interval(0.5)
 	intro.tween_property(fade_overlay, "modulate:a", 0.0, FADE_IN_DURATION)
-	
-	intro.parallel().tween_property(loading_bar, "value", 100.0, LOADING_DURATION)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN_OUT)
-	
+	intro.parallel().tween_property(loading_bar, "value", 100.0, LOADING_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	intro.tween_property(fade_overlay, "modulate:a", 1.0, FADE_OUT_DURATION)
-	
 	intro.tween_callback(_initialize_game_logic)
-	
 	intro.tween_interval(0.5)
 	intro.tween_property(fade_overlay, "modulate:a", 0.0, 0.5)
 	intro.finished.connect(func(): fade_overlay.hide())
@@ -82,196 +66,149 @@ func _start_intro_sequence() -> void:
 func _initialize_game_logic() -> void:
 	loading_bar.hide()
 	tip_label.hide()
-	
 	ui_layer.show()
 	board_layer.show()
-	game_over_layer.hide()
-
 	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
-	player_1_pieces = GameState.player_1_pieces
-	player_2_pieces = GameState.player_2_pieces
-	
+	player_1_pieces = GameState.player_1_pieces.duplicate()
+	player_2_pieces = GameState.player_2_pieces.duplicate()
 	_setup_board()
 	_connect_board_signals()
 	_update_ui()
 
 func _setup_board() -> void:
 	board.set_mode(BoardManager.Mode.BATTLE)
-	
 	for pos in player_1_pieces:
 		board.place_piece(player_1_pieces[pos], pos.x, pos.y, 1)
-	
 	for pos in player_2_pieces:
 		board.place_piece(player_2_pieces[pos], pos.x, pos.y, 2)
 
 func _connect_board_signals() -> void:
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
-		
-func get_valid_moves(piece: PieceData, from_tile: Tile) -> Array[Tile]:
-	var moves: Array[Tile] = []
-	var movement = piece.movement if piece.movement else board.default_movement
-	
-	var directions: Array[Vector2i] = []
-	match movement.movement_type:
-		MovementData.MovementType.ORTHOGONAL:
-			directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
-		MovementData.MovementType.DIAGONAL:
-			directions = [Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
-		MovementData.MovementType.BOTH:
-			directions = [
-				Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT,
-				Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)
-			]
-	
-	for dir in directions:
-		for range_step in range(1, movement.move_range + 1):
-			var target_pos = from_tile.grid_position + (dir * range_step)
-			
-			if target_pos.y < 0 or target_pos.x < 0 or target_pos.y >= board.GRID_SIZE or target_pos.x >= board.GRID_SIZE:
-				break
-			
-			var target_tile = board.tiles.get(target_pos)
-			if target_tile == null:
-				break
-			
-			moves.append(target_tile)
-	
-	return moves
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	var tile: Tile = board.get_tile_at(grid_pos)
-	if tile == null:
-		return
-	
-	var current_player = 1 if current_turn == Turn.PLAYER_1 else 2
-	
+	if not tile: return
+	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
 	match current_phase:
-		Phase.SELECT:
-			_handle_selection(tile, current_player)
-		
-		Phase.MOVE:
-			_handle_move(tile)
+		Phase.SELECT: _handle_selection(tile, p_idx)
+		Phase.MOVE: _handle_move(tile)
 
-func _handle_selection(tile: Tile, player: int) -> void:
-	if tile.occupant.piece_data == null:
+func _handle_selection(tile: Tile, p_idx: int) -> void:
+	if not tile.occupant.piece_data or tile.occupant.player != p_idx:
 		_clear_selection()
 		return
-	
-	if tile.occupant.player != player:
-		_clear_selection()
-		return
-	
-	var audio = load("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3")
-	AudioManager.play_sfx(audio)
-	
+	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 	selected_piece = tile
 	current_phase = Phase.MOVE
 	_update_valid_moves()
 	board.highlight_tile(tile, Tile.HighlightColor.SELF)
-	_update_ui()
-	
+
 func _handle_move(tile: Tile) -> void:
-	var turn = 1 if current_turn == Turn.PLAYER_1 else 2
+	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
 	if tile in valid_moves:
-		if tile.occupant.piece_data != null and tile.occupant.player != turn:
-			_handle_attack(tile)
+		if tile.occupant.piece_data and tile.occupant.player != p_idx:
+			await _handle_attack(tile)
 		else:
 			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
-			_execute_move(tile)
-		if board.should_promote(tile.occupant, tile.grid_position.y, turn):
-			await tile.occupant.promote_to(mini_queen_data)
+			_execute_dictionary_move(selected_piece, tile)
+			board._move_occupant(selected_piece, tile)
+			await _check_promotion(tile)
+			_end_turn()
 	else:
 		AudioManager.play_sfx(preload("res://assets/sound/کلیک روی خونه های غیر قابل دسترس به هنگام حرکت مهره.mp3"))
 		_clear_selection()
 
 func _handle_attack(tile: Tile) -> void:
-	#if has_attacked:
-		#has_attacked = false
-		#return
-	#has_attacked = true
-	var target = tile.occupant
-	if target == null:
-		return
-	
-	if target == selected_piece.occupant:
-		return
-	
-	var attacker_player = selected_piece.occupant.player
-	var defender_player = target.player
-	
-	if attacker_player == defender_player:
-		return
-	
-	var movement = selected_piece.occupant.piece_data.movement
-	if not movement:
-		movement = MovementData.new()
-	if not CombatRules.is_within_range(
-		selected_piece.grid_position,
-		tile.grid_position,
-		movement.move_range
-	):
-		return
 	var attacker_tile = selected_piece
-	var attacker_height = attacker_tile.height_level
-	var defender_height = tile.height_level
-	
-	var height_delta = attacker_height - defender_height
-	
+	var target_occupant = tile.occupant
 	var damage = CombatRules.calculate_damage(
-		selected_piece.occupant.piece_data.power,
-		height_delta,
+		attacker_tile.occupant.piece_data.power,
+		attacker_tile.height_level - tile.height_level,
 		false
 	)
-	
-	var died = await target.take_damage(damage)
-	
-	var finished = false
+	var died = await target_occupant.take_damage(damage)
+	AudioManager.play_sfx(preload("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3"))
 	if died:
-		finished = _handle_died(target)
-	var audio = load("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3")
-	AudioManager.play_sfx(audio)
-	if finished:
+		_handle_died(tile)
+		_execute_dictionary_move(attacker_tile, tile)
+		board._move_occupant(attacker_tile, tile)
+		await _check_promotion(tile)
+	else:
+		await _apply_knockback(attacker_tile, tile)
+	if winner != 0:
 		_handle_game_over()
 	else:
 		_end_turn()
-		_clear_selection()
 
-func _execute_move(tile: Tile) -> void:
-	if selected_piece == null:
-		return
+func _apply_knockback(attacker_tile: Tile, target_tile: Tile) -> void:
+	var knock_power = attacker_tile.occupant.piece_data.knockback
+	if knock_power <= 0: return
+	var diff = target_tile.grid_position - attacker_tile.grid_position
+	var dir = Vector2i(sign(diff.x), sign(diff.y))
+	var start_pos = target_tile.grid_position
+	var end_pos = start_pos
+	for i in range(knock_power):
+		var next = end_pos + dir
+		if not board.is_within_bounds(next.x, next.y) or board.get_tile_at(next).occupant.piece_data:
+			break
+		end_pos = next
+	if end_pos != start_pos:
+		var end_tile = board.get_tile_at(end_pos)
+		_execute_dictionary_move(target_tile, end_tile)
+		board._move_occupant(target_tile, end_tile)
+		_execute_dictionary_move(attacker_tile, target_tile)
+		board._move_occupant(attacker_tile, target_tile)
+		await _check_promotion(target_tile)
 
-	var pieces = [];
-	match current_turn:
-		Turn.PLAYER_1: pieces = player_1_pieces
-		Turn.PLAYER_2: pieces = player_2_pieces
+func _execute_dictionary_move(from: Tile, to: Tile) -> void:
+	var dict = player_1_pieces if from.occupant.player == 1 else player_2_pieces
+	dict[to.grid_position] = dict[from.grid_position]
+	dict.erase(from.grid_position)
 
-	pieces[tile.grid_position] = pieces[selected_piece.grid_position]
-	pieces.erase(selected_piece.grid_position)
-	board._move_occupant(selected_piece, tile)
-	
-	_end_turn()
-	_clear_selection()
-	_update_ui()
+func _check_promotion(tile: Tile) -> void:
+	if board.should_promote(tile.occupant, tile.grid_position.y, tile.occupant.player):
+		await tile.occupant.promote_to(mini_queen_data)
 
-func _handle_died(target: Occupant) -> bool:
-	var pieces: Dictionary;
-	match target.player:
-		1: pieces = player_1_pieces
-		2: pieces = player_2_pieces
-
-	for item in pieces:
-		if pieces[item] == target.piece_data:
-			pieces.erase(item)
-	
-	if len(player_1_pieces) == 0:
-		winner = 2
-		return true
-	elif len(player_2_pieces) == 0:
-		winner = 1
-		return true
+func _handle_died(target_tile: Tile) -> void:
+	var target = target_tile.occupant
+	var dict = player_1_pieces if target.player == 1 else player_2_pieces
+	dict.erase(target_tile.grid_position)
 	target.clear_data()
-	return false
+	if player_1_pieces.is_empty(): winner = 2
+	elif player_2_pieces.is_empty(): winner = 1
+
+func _update_valid_moves() -> void:
+	valid_moves.clear()
+	board.clear_all_highlights()
+	if not selected_piece: return
+	var piece = selected_piece.occupant.piece_data
+	var move_data = piece.movement if piece.movement else board.default_movement
+	var dirs = []
+	match move_data.movement_type:
+		MovementData.MovementType.ORTHOGONAL: dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+		MovementData.MovementType.DIAGONAL: dirs = [Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+		MovementData.MovementType.BOTH: dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT, Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+	for d in dirs:
+		for r in range(1, move_data.move_range + 1):
+			var tp = selected_piece.grid_position + (d * r)
+			if not board.is_within_bounds(tp.x, tp.y): break
+			var target = board.get_tile_at(tp)
+			if target.occupant.piece_data:
+				if target.occupant.player != selected_piece.occupant.player:
+					valid_moves.append(target)
+					target.set_highlight_color(Tile.HighlightColor.ATTACK)
+				break
+			valid_moves.append(target)
+			target.set_highlight_color(Tile.HighlightColor.MOVE)
+
+func _end_turn() -> void:
+	if current_turn == Turn.PLAYER_1:
+		current_turn = Turn.PLAYER_2
+	else:
+		current_turn = Turn.PLAYER_1
+		round_number += 1
+	_clear_selection()
 
 func _clear_selection() -> void:
 	selected_piece = null
@@ -280,53 +217,16 @@ func _clear_selection() -> void:
 	board.clear_all_highlights()
 	_update_ui()
 
-func _update_valid_moves() -> void:
-	if selected_piece == null or selected_piece.occupant == null:
-		return
-	
-	valid_moves = get_valid_moves(selected_piece.occupant.piece_data, selected_piece)
-	
-	board.clear_all_highlights()
-	for tile in valid_moves:
-		if tile.occupant.piece_data:
-			if tile.occupant.player != selected_piece.occupant.player:
-				tile.set_highlight_color(Tile.HighlightColor.ATTACK)
-			else:
-				valid_moves.erase(tile)
-		else:
-			tile.set_highlight_color(Tile.HighlightColor.MOVE)
-
-func _end_turn() -> void:
-	if current_turn == Turn.PLAYER_1:
-		current_turn = Turn.PLAYER_2
-	else:
-		current_turn = Turn.PLAYER_1
-		round_number += 1
-	
-	_clear_selection()
-	_update_ui()
-
 func _update_ui() -> void:
-	if current_turn == Turn.PLAYER_1:
-		for pos in player_1_pieces:
-			board.tiles[pos].occupant.show_orb()
-		for pos in player_2_pieces:
-			board.tiles[pos].occupant.hide_orb()
-	else:
-		for pos in player_2_pieces:
-			board.tiles[pos].occupant.show_orb()
-		for pos in player_1_pieces:
-			board.tiles[pos].occupant.hide_orb()
-	
+	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
+	for t in board.tiles.values():
+		if t.occupant.piece_data:
+			if t.occupant.player == p_idx: t.occupant.show_orb()
+			else: t.occupant.hide_orb()
 	round_label.text = tr("current_round") % round_number
-	
+
 func _handle_game_over() -> void:
-	if winner == 0:
-		return
-	
-	#UI.visible = false
-	game_over.visible = true
-	
+	game_over_layer.show()
 	AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
 	winner_label.text = tr("player_won") % winner
 

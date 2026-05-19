@@ -1,7 +1,7 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 1
+const MAX_PIECES := 2
 
 enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 var sssd = randf_range(0, 5)
