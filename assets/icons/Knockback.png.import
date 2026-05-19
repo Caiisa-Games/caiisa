@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mapgvg1ktc8k"
-path="res://.godot/imported/Class3-2.png-85c3f304870717e4a20a82d8955ff491.ctex"
+uid="uid://crvxo5qa1eln2"
+path="res://.godot/imported/Knockback.png-3c0458efb83aa05889b5df2ff4f27725.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/Class3-2.png"
-dest_files=["res://.godot/imported/Class3-2.png-85c3f304870717e4a20a82d8955ff491.ctex"]
+source_file="res://assets/icons/Knockback.png"
+dest_files=["res://.godot/imported/Knockback.png-3c0458efb83aa05889b5df2ff4f27725.ctex"]
 
 [params]
 
