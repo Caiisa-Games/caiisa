@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene load_steps=11 format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
@@ -7,6 +7,8 @@
 [ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="3_lpir7"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_p1qf1"]
 [ext_resource type="Script" uid="uid://c4l2vgtbi64a7" path="res://scenes/color_rectfd.gd" id="6_6vh42"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4k1nj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vh42"]
 bg_color = Color(1, 1, 1, 1)
@@ -30,7 +32,6 @@ script = ExtResource("1_th188")
 mini_queen_data = ExtResource("2_6vh42")
 
 [node name="UI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Background" type="TextureRect" parent="UI"]
 anchors_preset = 15
@@ -43,12 +44,15 @@ texture = ExtResource("2_a12nh")
 [node name="TopBar" type="Panel" parent="UI"]
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = -13.0
+offset_bottom = 59.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("3_lpir7")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4k1nj")
 
 [node name="RoundLabel" type="Label" parent="UI/TopBar"]
 layout_mode = 0

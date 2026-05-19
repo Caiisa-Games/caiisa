@@ -156,6 +156,9 @@ func should_promote(occupant: Occupant, row: int, player: int) -> bool:
 		
 	return false
 
+func is_within_bounds(x: int, y: int) -> bool:
+	return x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE
+
 func _ready() -> void:
 	if not show_base:
 		$BoardBase.hide()
