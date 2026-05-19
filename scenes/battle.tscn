@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dtnx0m4qvnr24" path="res://assets/BG.png" id="2_a12nh"]
 [ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="3_lpir7"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_p1qf1"]
-[ext_resource type="Script" path="res://scenes/color_rectfd.gd" id="6_6vh42"]
+[ext_resource type="Script" uid="uid://c4l2vgtbi64a7" path="res://scenes/color_rectfd.gd" id="6_6vh42"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vh42"]
 bg_color = Color(1, 1, 1, 1)
@@ -99,6 +99,7 @@ offset_bottom = 107.0
 script = ExtResource("6_6vh42")
 
 [node name="BoardLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Board" parent="BoardLayer" instance=ExtResource("1_dn72j")]
 position = Vector2(576, 207)
@@ -173,20 +174,28 @@ limit_right = 1152
 limit_bottom = 648
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = 411.0
-offset_top = 265.0
-offset_right = 653.0
-offset_bottom = 292.0
+offset_left = 462.0
+offset_top = 353.0
+offset_right = 704.0
+offset_bottom = 380.0
 theme_override_styles/background = SubResource("StyleBoxFlat_6vh42")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4k1nj")
 show_percentage = false
 
 [node name="Label" type="Label" parent="."]
-offset_left = 518.0
-offset_top = 563.0
-offset_right = 558.0
-offset_bottom = 626.0
+offset_left = 487.0
+offset_top = 257.0
+offset_right = 527.0
+offset_bottom = 320.0
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.20392157, 0, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.5803922, 0.2, 0.2, 1)
+theme_override_constants/line_spacing = 6
+theme_override_constants/paragraph_spacing = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
 theme_override_font_sizes/font_size = 45
 
 [node name="ColorRectr" type="ColorRect" parent="."]
