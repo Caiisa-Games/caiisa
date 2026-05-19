@@ -36,9 +36,12 @@ const FADE_OUT_DURATION = 1.0
 @export var mini_queen_data: PieceData
 
 const LOADING_TIPS = [
-	"HELLO...",
-	"BYE...",
-	"CAISSA...",
+	"story... 1",
+	"story... 2",
+	"story... 3",
+	"story... 4",
+	"story... 5",
+	"story... 6"
 ]
 
 func _ready() -> void:
