@@ -15,7 +15,7 @@ func popop():
 		position.x = -300
 		
 	await get_tree().create_timer(randf_range(0, 5)).timeout
-
+	$".".position.y = randi_range(180, 635)
 	$".".texture = images.pick_random()
 	canmove = true
 func _process(delta: float) -> void:
