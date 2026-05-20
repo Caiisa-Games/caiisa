@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://kovxmeios3jx"]
+[gd_scene load_steps=17 format=3 uid="uid://kovxmeios3jx"]
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://by3wq4qweay0" path="res://assets/icons/Class1.png" id="2_berserker"]
@@ -32,6 +32,9 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 expand_margin_left = 5.0
 expand_margin_right = 5.0
+
+[sub_resource type="Theme" id="Theme_1yd6c"]
+TooltipLabel/font_sizes/font_size = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
 content_margin_left = 2.0
@@ -149,11 +152,12 @@ mouse_filter = 2
 [node name="StatsGrid" type="VBoxContainer" parent="BlankCard/Margin/Content"]
 layout_mode = 2
 size_flags_vertical = 10
+theme = SubResource("Theme_1yd6c")
 theme_override_constants/separation = 10
 
 [node name="HP_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid"]
 layout_mode = 2
-mouse_filter = 2
+tooltip_text = "Health"
 
 [node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/HP_Row"]
 custom_minimum_size = Vector2(20, 20)
@@ -176,7 +180,7 @@ show_percentage = false
 
 [node name="ATK_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid"]
 layout_mode = 2
-mouse_filter = 2
+tooltip_text = "Attack"
 
 [node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row"]
 custom_minimum_size = Vector2(20, 20)
@@ -199,7 +203,7 @@ show_percentage = false
 
 [node name="KB_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid"]
 layout_mode = 2
-mouse_filter = 2
+tooltip_text = "Knockback"
 
 [node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/KB_Row"]
 custom_minimum_size = Vector2(20, 20)

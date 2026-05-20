@@ -14,26 +14,16 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var game_over_layer: CanvasLayer = $GameOverLayer
 @onready var board: BoardManager = $BoardLayer/Board
 @onready var round_label: Label = $UI/TopBar/RoundLabel
-@onready var winner_label: Label = $GameOverLayer/Control/WinnerLabel
+
+@onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
+@onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
+
+@onready var top_bar: Panel = $UI/TopBar
+@onready var bottom_panel: Panel = $UI/BottomPanel
 
 const FADE_IN_DURATION := 3.0
 const LOADING_DURATION := 5.0
 const FADE_OUT_DURATION := 1.0
-
-const LOADING_TIPS = [
-	"شاه قدرتمند است و جان زیادی برای هدر دادن دارد اما قدرت شمشیر او شما ر
-	ا به خانه ها عقب تر برمیگرداند، اگر شانس بیاورید به پله ای بالاتر منتقل شوید...",
-	"قلعه ای محکم و استوار در برابر حملات است اما توان او در ضربه زدن 
-	شما را متحیر نمیکند بلکه استقامت اوست که میتواند حریف را کلافه کند",
-	"اسبی تندرو و از آن مهمتر سواری شجاع که آن را هدایت میکند میتواند ضربات مهلکی
-	 را برای حریف به همراه داشته باشد اما اگر اسب برود چیز زیادی برای ارائه نمیماند",
-	"سربازی است که راهی طولانی برای جنگنده شدن دارد، راهی که حداقل 
-	شش حرکت رو به مستقیم میطلبد، البته اگر در این مسیر زنده بماند",
-	"فیل نمادی از تعادل میان ضرباتی درخور و جانی مطلوب می 
-	باشد اما احرکات محدود او نقطه ای از نقاط ضعف او میباشد",
-	"حرکات متوع وزیر در کنار جان بیشتر او نسبت به هم ردیفش میتواند
-	 دلیل کافی برای انتخاب او باشد یا نیاز به ضرباتی مهلک تر دارید؟"
-]
 
 var player_1_pieces: Dictionary = {}
 var player_2_pieces: Dictionary = {}
@@ -56,7 +46,8 @@ func _prepare_scene() -> void:
 	fade_overlay.modulate = Color.BLACK
 	loading_bar.value = 0
 	loading_bar.show()
-	tip_label.text = LOADING_TIPS.pick_random()
+	var tip_number = randi() % 6 + 1
+	tip_label.text = tr("tip" + str(tip_number))
 	tip_label.show()
 
 func _start_intro_sequence() -> void:
@@ -83,6 +74,11 @@ func _initialize_game_logic() -> void:
 	_update_ui()
 
 func _setup_board() -> void:
+	board.board_data = GameState.board
+	if not board.board_data:
+		push_error("No board data")
+		return
+	board.generate()
 	board.set_mode(BoardManager.Mode.BATTLE)
 	for pos in player_1_pieces:
 		board.place_piece(player_1_pieces[pos], pos.x, pos.y, 1)
@@ -144,6 +140,7 @@ func _handle_attack(tile: Tile) -> void:
 	else:
 		await _apply_knockback(attacker_tile, tile)
 	if winner != 0:
+		GameState.winner = winner
 		_handle_game_over()
 	else:
 		_end_turn()
@@ -236,9 +233,16 @@ func _handle_game_over() -> void:
 	game_over_layer.show()
 	AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
 	winner_label.text = tr("player_won") % winner
+	round_label_gm.text = tr("current_round") % round_number
+	
+	top_bar.hide()
+	bottom_panel.hide()
 
 func _on_end_turn_button_pressed() -> void:
 	_end_turn()
 
 func _on_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_replay_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")

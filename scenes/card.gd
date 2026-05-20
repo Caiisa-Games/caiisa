@@ -36,7 +36,7 @@ func _update_display() -> void:
 	
 	card_texture.texture = piece_data.card_texture
 	
-	$BlankCard/Margin/Content/NameLabel.text = piece_data.name.to_upper()
+	$BlankCard/Margin/Content/NameLabel.text = piece_data.name
 	$BlankCard/Margin/Content/StatsGrid/HP_Row/Bar.value = piece_data.defense
 	$BlankCard/Margin/Content/StatsGrid/ATK_Row/Bar.value = piece_data.power
 	$BlankCard/Margin/Content/StatsGrid/KB_Row/Bar.value = piece_data.knockback

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://gtqgjr1iie1b"]
+[gd_scene load_steps=5 format=3 uid="uid://gtqgjr1iie1b"]
 
-[ext_resource type="Script" path="res://scenes/fade.gd" id="1_nukjo"]
+[ext_resource type="Texture2D" uid="uid://djtwy4upv31ax" path="res://assets/Background-6.png" id="1_76d3x"]
+[ext_resource type="Texture2D" uid="uid://bn6hnfsc5dhtq" path="res://assets/Caissa.png" id="2_76d3x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nukjo"]
 bg_color = Color(1, 1, 1, 1)
@@ -25,7 +26,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nukjo")
 
 [node name="Overlay" type="ColorRect" parent="."]
 z_index = 10
@@ -37,20 +37,45 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 530.0
-offset_top = 263.0
-offset_right = 570.0
-offset_bottom = 303.0
-color = Color(0, 0, 0, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_76d3x")
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.60858
+offset_top = -324.03253
+offset_right = 247.4638
+offset_bottom = 174.03253
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_76d3x")
+expand_mode = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_left = 478.0
-offset_top = 347.0
-offset_right = 627.0
-offset_bottom = 362.0
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 66.5
+offset_right = 136.0
+offset_bottom = 81.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_nukjo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_76d3x")
 show_percentage = false

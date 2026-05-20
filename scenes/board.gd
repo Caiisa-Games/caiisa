@@ -5,7 +5,6 @@ enum Mode { PREVIEW, BATTLE }
 enum State { IDLE, SELECTED }
 
 const GRID_SIZE := 7
-@onready var color_rectfd: ColorRect = $ColorRectfd
 
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
@@ -78,10 +77,11 @@ func generate() -> void:
 			
 			var cell_index = y * GRID_SIZE + x
 			var height = board_data.cell_heights[cell_index]
-			
+
+			container.add_child(tile)
 			tile.init()
-			tile.set_height(height)
 			tile.grid_position = Vector2i(x, y)
+			tile.set_height(height)
 			
 			var is_light = (x + y) % 2 == 0
 			if is_light:
@@ -89,7 +89,6 @@ func generate() -> void:
 			else:
 				tile.set_variant(Tile.TileVariant.DARK)
 			
-			container.add_child(tile)
 			tiles[Vector2i(x, y)] = tile
 	
 	#if piece_data != null:
@@ -162,4 +161,3 @@ func is_within_bounds(x: int, y: int) -> bool:
 func _ready() -> void:
 	if not show_base:
 		$BoardBase.hide()
-	generate()
