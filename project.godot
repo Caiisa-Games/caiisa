@@ -27,6 +27,7 @@ AudioManager="*res://scripts/audio.gd"
 
 [display]
 
+window/size/mode=4
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 
