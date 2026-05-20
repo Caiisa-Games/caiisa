@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chtbe4bspbxln"
-path="res://.godot/imported/BoardBase2.png-6c41f34ee0a4cadc6c83a5a27e6b0493.ctex"
+uid="uid://b1430l7kct313"
+path="res://.godot/imported/Just-The-C-Animation2.png-f48c7f38568b848d4383993c32d76d13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BoardBase2.png"
-dest_files=["res://.godot/imported/BoardBase2.png-6c41f34ee0a4cadc6c83a5a27e6b0493.ctex"]
+source_file="res://assets/sprites/c_anim/Just-The-C-Animation2.png"
+dest_files=["res://.godot/imported/Just-The-C-Animation2.png-f48c7f38568b848d4383993c32d76d13.ctex"]
 
 [params]
 

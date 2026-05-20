@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="PieceData" load_steps=5 format=3 uid="uid://425mbxscserg"]
+[gd_resource type="Resource" script_class="PieceData" load_steps=7 format=3 uid="uid://425mbxscserg"]
 
 [ext_resource type="Texture2D" uid="uid://bvneb0kg2q6cw" path="res://assets/sprites/pieces/cards/bishop_card.png" id="1_183yx"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_w1f8c"]
+[ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="2_r6wyx"]
 [ext_resource type="Texture2D" uid="uid://c2qtq864fb0pt" path="res://assets/sprites/pieces/black/bishop_black.png" id="3_r6wyx"]
 [ext_resource type="Texture2D" uid="uid://d1felper7ixxi" path="res://assets/sprites/pieces/white/bishop_white.png" id="4_0w8ds"]
+
+[sub_resource type="Resource" id="Resource_0w8ds"]
+script = ExtResource("2_r6wyx")
+movement_type = 1
+move_range = 2
+metadata/_custom_type_script = "uid://yiknnlycdli6"
 
 [resource]
 script = ExtResource("1_w1f8c")
@@ -12,5 +19,9 @@ description = "a powerful king without war skills"
 texture_white = ExtResource("4_0w8ds")
 texture_black = ExtResource("3_r6wyx")
 card_texture = ExtResource("1_183yx")
+knockback = 2
+power = 13
+defense = 75
+movement = SubResource("Resource_0w8ds")
 piece_class = 2
 metadata/_custom_type_script = "uid://divct8m8b0k67"

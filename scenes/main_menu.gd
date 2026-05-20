@@ -6,8 +6,8 @@ const SETTINGS_SCENE = preload("res://scenes/settings_menu.tscn")
 const CLICK_SFX = preload("res://assets/sound/فشردن دکمه های سنگی.mp3")
 const TRANSITION_MUSIC = preload("res://assets/sound/music_transition.ogg")
 
-const CREDITS_START_POS = Vector2(279, 620)
-const CREDITS_END_POS = Vector2(279, -655)
+const CREDITS_START_POS = Vector2(395, 620)
+const CREDITS_END_POS = Vector2(395, -655)
 const CREDITS_DURATION = 15.0
 const FADE_DURATION = 0.7
 
@@ -23,10 +23,13 @@ const FADE_DURATION = 0.7
 @onready var loading_bar: ProgressBar = $Fade/ProgressBar
 
 func _ready() -> void:
-	_prepare_ui()
-	_run_intro_sequence()
+	if not GameState.intro_played:
+		_prepare_ui_for_intro()
+		_run_intro_sequence()
+	else:
+		_reveal_main_menu()
 
-func _prepare_ui() -> void:
+func _prepare_ui_for_intro() -> void:
 	$Background.hide()
 	$Title.hide()
 	$StartButton.hide()
@@ -51,13 +54,10 @@ func _run_intro_sequence() -> void:
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 	
-	intro.tween_property(splash_dimmer, "modulate:a", 1.0, 1.0)
-	intro.tween_interval(0.2)
-	
 	intro.tween_callback(_reveal_main_menu)
-	intro.tween_property(splash_dimmer, "modulate:a", 0.0, 0.4)
 
 func _reveal_main_menu() -> void:
+	GameState.intro_played = true
 	splash_container.hide()
 	
 	$Background.show()
@@ -66,6 +66,10 @@ func _reveal_main_menu() -> void:
 	$HBoxContainer.show()
 	$ExitButton.show()
 	
+	color_fade.hide()
+	color_fade.modulate.a = 0
+	
+	$Title.play("default")
 	_play_anim(start_button, "default")
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 
@@ -80,7 +84,6 @@ func _on_texture_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	if settings_menu.visible: return
-	
 	AudioManager.play_sfx(CLICK_SFX)
 	settings_menu.open()
 

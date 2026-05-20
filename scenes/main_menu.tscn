@@ -1,40 +1,122 @@
-[gd_scene load_steps=95 format=3 uid="uid://5lb0il0rj8or"]
+[gd_scene load_steps=102 format=3 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bcunte0mi7gyh" path="res://assets/fonts/Pixel-Bold.ttf" id="2_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://cdnprc84r25rp" path="res://assets/Background.png" id="2_hstxw"]
-[ext_resource type="Texture2D" uid="uid://dwmcwmkiiwvk7" path="res://assets/Background-2.png.jpeg" id="4_dj67d"]
+[ext_resource type="Texture2D" uid="uid://ce4fo7mirli5u" path="res://assets/Background-3.png" id="3_ip0br"]
+[ext_resource type="Texture2D" uid="uid://omcuhewvr44a" path="res://assets/sprites/caiisa_logo/Caissa-3.png" id="4_ybca7"]
 [ext_resource type="Texture2D" uid="uid://joxiu01wkl58" path="res://assets/Credit.png" id="5_hstxw"]
+[ext_resource type="Texture2D" uid="uid://bojvm732kiw47" path="res://assets/sprites/caiisa_logo/Caissa-4.png" id="5_k5xsf"]
+[ext_resource type="Texture2D" uid="uid://c3pmgxnjp7vr8" path="res://assets/sprites/caiisa_logo/Caissa-5.png" id="6_71lbq"]
 [ext_resource type="Texture2D" uid="uid://bxxl3n03y3jqf" path="res://assets/sprites/settings_button/Settings-Animation1.png" id="7_6h3lr"]
 [ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="7_8egab"]
+[ext_resource type="Texture2D" uid="uid://bc8142fe0vmxk" path="res://assets/sprites/caiisa_logo/Caissa-6.png" id="7_akqfu"]
 [ext_resource type="Texture2D" uid="uid://dl007m0m6j1x5" path="res://assets/sprites/settings_button/Settings-Animation2.png" id="8_dj67d"]
 [ext_resource type="Texture2D" uid="uid://6bnlvqg5mclp" path="res://assets/sprites/play_button/Play(Button)1.png" id="8_hstxw"]
+[ext_resource type="Texture2D" uid="uid://drg32q1bcgaf3" path="res://assets/sprites/caiisa_logo/Caissa-7.png" id="8_mb34c"]
 [ext_resource type="Texture2D" uid="uid://dkq7pppo0dask" path="res://assets/sprites/settings_button/Settings-Animation3.png" id="9_6vcge"]
 [ext_resource type="Texture2D" uid="uid://kl1kyp4sxg3o" path="res://assets/sprites/play_button/Play(Button)2.png" id="9_8egab"]
-[ext_resource type="Texture2D" uid="uid://bn6hnfsc5dhtq" path="res://assets/Caissa.png" id="9_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://cojifigapyrc2" path="res://assets/sprites/caiisa_logo/Caissa-8.png" id="9_sgh51"]
 [ext_resource type="Texture2D" uid="uid://cutwci1u0nwkl" path="res://assets/sprites/play_button/Play(Button)11.png" id="10_gw5y6"]
+[ext_resource type="Texture2D" uid="uid://4mh64thflbsy" path="res://assets/sprites/caiisa_logo/Caissa-9.png" id="10_hjv1c"]
 [ext_resource type="Texture2D" uid="uid://mto6gsi0mt7o" path="res://assets/sprites/settings_button/Settings-Animation4.png" id="10_ip0br"]
+[ext_resource type="Texture2D" uid="uid://5a0h78rvpfx6" path="res://assets/sprites/caiisa_logo/Caissa-10.png" id="11_41a2d"]
 [ext_resource type="Texture2D" uid="uid://2keqdmei03sa" path="res://assets/sprites/play_button/Play(Button)12.png" id="11_svtp6"]
 [ext_resource type="Texture2D" uid="uid://dk2ipff2jiwn8" path="res://assets/sprites/settings_button/Settings-Animation5.png" id="11_xyero"]
 [ext_resource type="Texture2D" uid="uid://chiuh8adketey" path="res://assets/sprites/play_button/Play(Button)3.png" id="12_1dfpl"]
+[ext_resource type="Texture2D" uid="uid://dx32rdlufauvi" path="res://assets/sprites/caiisa_logo/Caissa-11.png" id="12_f5cck"]
 [ext_resource type="Texture2D" uid="uid://b06v37q3m64tu" path="res://assets/sprites/settings_button/Settings-Animation6.png" id="12_tcusk"]
 [ext_resource type="Texture2D" uid="uid://ebf6nv8pfje8" path="res://assets/sprites/settings_button/Settings-Animation7.png" id="13_4puye"]
 [ext_resource type="Texture2D" uid="uid://bpwi4x4e5o71k" path="res://assets/sprites/play_button/Play(Button)4.png" id="13_qywvv"]
+[ext_resource type="Texture2D" uid="uid://ca5wrnj0jwff6" path="res://assets/sprites/caiisa_logo/Caissa-12.png" id="13_s4ogs"]
 [ext_resource type="Texture2D" uid="uid://dsumhqioqvrd4" path="res://assets/sprites/play_button/Play(Button)5.png" id="14_3wgol"]
+[ext_resource type="Texture2D" uid="uid://nx8lfggji4q1" path="res://assets/sprites/caiisa_logo/Caissa-13.png" id="14_ew011"]
 [ext_resource type="Texture2D" uid="uid://ddcokh2c5me0y" path="res://assets/sprites/settings_button/Settings-Animation8.png" id="14_q13xq"]
 [ext_resource type="Texture2D" uid="uid://dnu8lymprxu3t" path="res://assets/sprites/play_button/Play(Button)6.png" id="15_1acrt"]
+[ext_resource type="Texture2D" uid="uid://dg1mn6mv0ccw2" path="res://assets/sprites/caiisa_logo/Caissa-14.png" id="15_tcyl8"]
 [ext_resource type="Texture2D" uid="uid://c3qnej6vpclfk" path="res://assets/sprites/settings_button/Settings-Animation9.png" id="15_u43bj"]
 [ext_resource type="Texture2D" uid="uid://7ayqwimeiemk" path="res://assets/sprites/settings_button/Settings-Animation10.png" id="16_jvjdd"]
+[ext_resource type="Texture2D" uid="uid://crj6r0p47uk47" path="res://assets/sprites/caiisa_logo/Caissa-15.png" id="16_tgcit"]
 [ext_resource type="Texture2D" uid="uid://cpebkbn6t08p5" path="res://assets/sprites/play_button/Play(Button)7.png" id="16_vr8o3"]
 [ext_resource type="Texture2D" uid="uid://ru7nhkcy1srm" path="res://assets/sprites/play_button/Play(Button)8.png" id="17_1a85y"]
+[ext_resource type="Texture2D" uid="uid://y0epu578pj21" path="res://assets/sprites/caiisa_logo/Caissa-16.png" id="17_5053t"]
 [ext_resource type="Texture2D" uid="uid://ciuhhnd512wnd" path="res://assets/sprites/settings_button/Settings-Animation11.png" id="17_yxnar"]
+[ext_resource type="Texture2D" uid="uid://bcj7u3o1g7hul" path="res://assets/sprites/caiisa_logo/Caissa-17.png" id="18_2wgix"]
 [ext_resource type="Texture2D" uid="uid://devl0h22pr75o" path="res://assets/sprites/settings_button/Settings-Animation12.png" id="18_eku7s"]
 [ext_resource type="Texture2D" uid="uid://c5it2cof1l553" path="res://assets/sprites/play_button/Play(Button)9.png" id="18_hl5e0"]
+[ext_resource type="Texture2D" uid="uid://dfoeg6ls1g8og" path="res://assets/sprites/caiisa_logo/Caissa-18.png" id="19_b56yx"]
 [ext_resource type="Texture2D" uid="uid://cunteaexyc80f" path="res://assets/sprites/play_button/Play(Button)10.png" id="19_engjn"]
+[ext_resource type="Texture2D" uid="uid://cw11h6w4t6bmp" path="res://assets/Sprite-0001.png" id="19_ip0br"]
+[ext_resource type="Texture2D" uid="uid://bs2l5b4wcu4gh" path="res://assets/sprites/caiisa_logo/Caissa-19.png" id="20_h5mb6"]
+[ext_resource type="Texture2D" uid="uid://bib7rycbddx5s" path="res://assets/sprites/caiisa_logo/Caissa-20.png" id="21_q1l3m"]
+[ext_resource type="Texture2D" uid="uid://dxfegclyjlxda" path="res://assets/sprites/caiisa_logo/Caissa-21.png" id="22_7u5pb"]
 [ext_resource type="PackedScene" uid="uid://cgpuuvbgesr4j" path="res://scenes/settings_menu.tscn" id="31_6h3lr"]
 [ext_resource type="PackedScene" uid="uid://gtqgjr1iie1b" path="res://scenes/fade.tscn" id="33_6vcge"]
 
-[sub_resource type="Theme" id="Theme_dj67d"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_6vcge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ybca7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k5xsf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_71lbq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_akqfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mb34c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_sgh51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hjv1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_41a2d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f5cck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s4ogs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ew011")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_tcyl8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_tgcit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_5053t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_2wgix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_b56yx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_h5mb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_q1l3m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_7u5pb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.5
+}]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6vcge"]
 
@@ -235,15 +317,13 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
-bg_color = Color(0.7254902, 0.7254902, 0.7254902, 1)
-corner_radius_top_left = 60
-corner_radius_top_right = 60
-corner_radius_bottom_right = 60
-corner_radius_bottom_left = 60
-shadow_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
-shadow_size = 1
-shadow_offset = Vector2(20, 20)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xyero"]
+texture = ExtResource("19_ip0br")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(61, 79, 135, 97)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_engjn"]
 border_color = Color(0, 0, 0, 1)
@@ -258,54 +338,6 @@ Button/styles/hover = SubResource("StyleBoxFlat_engjn")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6h3lr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dj67d"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q4e06"]
-atlas = ExtResource("7_6h3lr")
-region = Rect2(800, 798, 965, 980)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nilcw"]
-atlas = ExtResource("7_6h3lr")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wqwn7"]
-atlas = ExtResource("8_dj67d")
-region = Rect2(800, 798, 965, 980)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1x8m"]
-atlas = ExtResource("9_6vcge")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tgmq"]
-atlas = ExtResource("10_ip0br")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bvmy7"]
-atlas = ExtResource("11_xyero")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1xtb"]
-atlas = ExtResource("12_tcusk")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_slfok"]
-atlas = ExtResource("13_4puye")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1hxbv"]
-atlas = ExtResource("14_q13xq")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bfx0v"]
-atlas = ExtResource("15_u43bj")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_st1ee"]
-atlas = ExtResource("16_jvjdd")
-region = Rect2(770, 780, 1020, 1020)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3p4mg"]
-atlas = ExtResource("17_yxnar")
-region = Rect2(770, 780, 1020, 1020)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nnln"]
 atlas = ExtResource("18_eku7s")
@@ -359,7 +391,7 @@ region = Rect2(800, 798, 965, 980)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q4e06")
+"texture": ExtResource("7_6h3lr")
 }],
 "loop": false,
 "name": &"default",
@@ -367,40 +399,40 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nilcw")
+"texture": ExtResource("7_6h3lr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wqwn7")
+"texture": ExtResource("8_dj67d")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g1x8m")
+"texture": ExtResource("9_6vcge")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5tgmq")
+"texture": ExtResource("10_ip0br")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bvmy7")
+"texture": ExtResource("11_xyero")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s1xtb")
+"texture": ExtResource("12_tcusk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_slfok")
+"texture": ExtResource("13_4puye")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1hxbv")
+"texture": ExtResource("14_q13xq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bfx0v")
+"texture": ExtResource("15_u43bj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_st1ee")
+"texture": ExtResource("16_jvjdd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3p4mg")
+"texture": ExtResource("17_yxnar")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8nnln")
+"texture": ExtResource("18_eku7s")
 }],
 "loop": false,
 "name": &"hover",
@@ -476,7 +508,6 @@ texture = ExtResource("2_hstxw")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="TextureRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -487,24 +518,21 @@ offset_bottom = 363.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.76765496, 0.64184445)
-texture = ExtResource("4_dj67d")
+texture = ExtResource("3_ip0br")
 
-[node name="Title" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 345.00003
-offset_top = -7.0000086
-offset_right = 4845.0
-offset_bottom = 3493.0
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("9_jk1qb")
+[node name="Title" type="AnimatedSprite2D" parent="."]
+position = Vector2(575, 203.00002)
+scale = Vector2(0.19300002, 0.19299999)
+sprite_frames = SubResource("SpriteFrames_6vcge")
+frame = 18
+frame_progress = 1.0
 
 [node name="ExitButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 0
-offset_left = 467.00003
-offset_top = 335.0001
-offset_right = 517.0
-offset_bottom = 385.0001
+offset_left = 443.00003
+offset_top = 447.00012
+offset_right = 493.0
+offset_bottom = 497.00012
 scale = Vector2(1.5196102, 1.6855116)
 texture_normal = ExtResource("7_8egab")
 ignore_texture_size = true
@@ -512,47 +540,44 @@ stretch_mode = 0
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 45.0
-offset_top = -3.0
-offset_right = 1982.0
-offset_bottom = 986.0
+anchors_preset = -1
+anchor_left = 0.45572916
+anchor_top = 0.5046297
+anchor_right = 0.6197917
+anchor_bottom = 0.6589507
+offset_top = 112.0
+offset_right = 1707.1045
+offset_bottom = 1091.8049
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.09967807, 0.09260933)
-theme = SubResource("Theme_dj67d")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6vcge")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ip0br")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_xyero")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StartButton"]
-position = Vector2(163.22021, 604.6885)
 scale = Vector2(0.9596992, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
 animation = &"hover"
+offset = Vector2(1000, 500)
 
 [node name="CreditsLabel" type="Label" parent="."]
 auto_translate_mode = 1
+visible = false
 layout_mode = 0
-offset_left = 279.0
-offset_top = -650.0
-offset_right = 832.0
-offset_bottom = -28.0
+offset_left = 395.0
+offset_top = -500.0
+offset_right = 758.0
+offset_bottom = -11.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(1, 0, 0.08333349, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 20
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 5
-theme_override_constants/outline_size = 15
-theme_override_constants/shadow_outline_size = 15
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 22
-theme_override_styles/normal = SubResource("StyleBoxFlat_flqon")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_xyero")
 text = "credits"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -591,7 +616,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="SettingsButton" type="Button" parent="HBoxContainer"]
-custom_minimum_size = Vector2(60, 60)
+custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 theme = SubResource("Theme_6h3lr")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_engjn")
@@ -604,8 +629,10 @@ scale = Vector2(0.084974125, 0.084974155)
 sprite_frames = SubResource("SpriteFrames_c6nra")
 
 [node name="SettingsMenu" parent="." instance=ExtResource("31_6h3lr")]
+visible = false
 
 [node name="Fade" parent="." instance=ExtResource("33_6vcge")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

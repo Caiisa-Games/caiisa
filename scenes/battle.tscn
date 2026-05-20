@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene load_steps=17 format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://btd6irgtnxmki" path="res://assets/Cloud2.png" id="7_03edq"]
 [ext_resource type="Texture2D" uid="uid://cqvv4ob3thr00" path="res://assets/Cloud3.png" id="8_22uqi"]
 [ext_resource type="Texture2D" uid="uid://bml7od6can3qo" path="res://assets/Cloud4.png" id="9_6ni85"]
+[ext_resource type="Texture2D" uid="uid://cc56a0o5y31bw" path="res://assets/Background-2.png" id="33_e50ek"]
+[ext_resource type="PackedScene" uid="uid://0otu1vei661g" path="res://scenes/spinning_c.tscn" id="34_mpb26"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4k1nj"]
 
@@ -38,27 +40,20 @@ mini_queen_data = ExtResource("2_6vh42")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Background" type="TextureRect" parent="UI"]
+layout_direction = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0000005
-offset_right = 491.42847
-offset_bottom = 284.85712
+offset_right = 493.71423
+offset_bottom = 280.57135
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_66ngm")
-
-[node name="ColorRect" type="ColorRect" parent="UI"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.24705882, 0.24705882, 0.24705882, 0.7647059)
+metadata/_edit_use_anchors_ = true
 
 [node name="TopBar" type="Panel" parent="UI"]
+layout_direction = 2
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 20.0
@@ -87,10 +82,13 @@ grow_horizontal = 0
 text = "menu"
 
 [node name="BottomPanel" type="Panel" parent="UI"]
+layout_direction = 2
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
@@ -99,15 +97,16 @@ theme = ExtResource("3_lpir7")
 [node name="EndTurnButton" type="Button" parent="UI/BottomPanel"]
 z_index = 1
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -45.0
-offset_top = -31.0
-offset_right = 45.0
-grow_horizontal = 2
+offset_left = -130.0
+offset_top = -59.0
+offset_right = 8.0
+offset_bottom = -8.0
+grow_horizontal = 0
 grow_vertical = 0
 text = "end_turn"
 
@@ -118,13 +117,11 @@ script = ExtResource("6_6vh42")
 images = Array[Texture]([ExtResource("6_66ngm"), ExtResource("7_03edq"), ExtResource("8_22uqi"), ExtResource("9_6ni85")])
 
 [node name="BoardLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Board" parent="BoardLayer" instance=ExtResource("1_dn72j")]
 position = Vector2(576, 207)
 
 [node name="GameOverLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="GameOverLayer"]
 layout_mode = 3
@@ -142,49 +139,72 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.23529412)
+color = Color(0, 0, 0, 0.47058824)
 
-[node name="GameOverLabel" type="Label" parent="GameOverLayer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverLayer/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -129.5
-offset_right = 46.0
-offset_bottom = -106.5
+offset_left = -276.0
+offset_top = -124.0
+offset_right = 276.0
+offset_bottom = 124.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.72860736, 0.12275202, 3.85046e-07, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6666667)
-theme_override_constants/shadow_offset_x = 7
-theme_override_constants/shadow_offset_y = 7
-theme_override_fonts/font = ExtResource("3_p1qf1")
-theme_override_font_sizes/font_size = 64
-text = "game_over"
 
-[node name="WinnerLabel" type="Label" parent="GameOverLayer/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 1, 0.34509805, 1)
+[node name="WinnerLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6666667)
 theme_override_constants/shadow_offset_x = 7
 theme_override_constants/shadow_offset_y = 7
 theme_override_fonts/font = ExtResource("3_p1qf1")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 text = "Player 1 Won"
+
+[node name="RoundLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6666667)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 7
+theme_override_constants/shadow_offset_y = 7
+theme_override_font_sizes/font_size = 32
+text = "Round 1"
+
+[node name="Buttons" type="HBoxContainer" parent="GameOverLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.693
+anchor_right = 0.5
+anchor_bottom = 0.693
+offset_left = -253.0
+offset_top = -54.064026
+offset_right = 253.0
+offset_bottom = 53.935974
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="MenuButton" type="Button" parent="GameOverLayer/Control/Buttons"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "replay"
+
+[node name="ReplayButton" type="Button" parent="GameOverLayer/Control/Buttons"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "menu"
 
 [node name="BattleCamera" type="Camera2D" parent="."]
 limit_left = 0
@@ -193,41 +213,57 @@ limit_right = 1152
 limit_bottom = 648
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = 462.0
-offset_top = 353.0
-offset_right = 704.0
-offset_bottom = 380.0
+visible = false
+offset_left = 452.0
+offset_top = 356.0
+offset_right = 694.0
+offset_bottom = 383.0
 theme_override_styles/background = SubResource("StyleBoxFlat_6vh42")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4k1nj")
 show_percentage = false
-metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_direction = 2
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("33_e50ek")
 
 [node name="Label" type="Label" parent="."]
+layout_direction = 2
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 554.0
-offset_top = 586.0
-offset_right = 594.0
-offset_bottom = 617.0
+offset_left = 259.0
+offset_top = 532.0
+offset_right = 891.0
+offset_bottom = 595.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.29803923, 0, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.5803922, 0.2, 0.2, 1)
+size_flags_horizontal = 4
+theme = ExtResource("3_lpir7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 1
 theme_override_constants/paragraph_spacing = 1
-theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 22
-horizontal_alignment = 2
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
 vertical_alignment = 2
+autowrap_mode = 3
+
+[node name="SpinningC" parent="." instance=ExtResource("34_mpb26")]
+position = Vector2(1090.9999, 569)
+scale = Vector2(0.15, 0.15)
 
 [node name="ColorRectr" type="ColorRect" parent="."]
+visible = false
+layout_direction = 2
 offset_right = 1152.0
 offset_bottom = 650.0
 color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="UI/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="UI/BottomPanel/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="GameOverLayer/Control/Buttons/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameOverLayer/Control/Buttons/ReplayButton" to="." method="_on_replay_button_pressed"]

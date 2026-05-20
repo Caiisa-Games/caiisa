@@ -15,19 +15,18 @@ enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 
 @onready var split_container: HSplitContainer = $UICanvas/MainUI/HSplitContainer
 
-@onready var card_flow: HFlowContainer = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer/CardFlow
-@onready var confirm_placement_btn: Button = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/StartButton
+@onready var card_flow: HFlowContainer = $UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/ScrollContainer/CardFlow
+@onready var confirm_placement_btn: Button = $UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/StartButton
 
 @onready var board: BoardManager = $Board
 
 @onready var draft_turn_label: Label = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels/DraftTurnLabel
 @onready var draft_count_label: Label = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels/DraftCountLabel
 
-@onready var placement_turn_label: Label = $UICanvas/MainUI/HSplitContainer/RightPanel/TopBar/PlayerTurnLabel
-@onready var placement_count_label: Label = $UICanvas/MainUI/HSplitContainer/RightPanel/TopBar/SelectedCountLabel
+@onready var placement_turn_label: Label = $UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar/PlayerTurnLabel
+@onready var placement_count_label: Label = $UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar/SelectedCountLabel
 
-@onready var remove_button: Button = $UICanvas/MainUI/HSplitContainer/RightPanel/Buttons/RemoveButton
-
+@export var available_boards: Array[BoardData]
 @export var available_pieces: Array[PieceData] = []
 
 var current_step: FlowStep = FlowStep.P1_SELECT
@@ -41,9 +40,18 @@ var selected_card: Card = null
 var selected_tile: Tile = null
 
 func _ready() -> void:
+	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	board.set_mode(BoardManager.Mode.PREVIEW)
+	
+	if available_boards.size() == 0:
+		push_error("No boards")
+		return
+	var chosen_board = available_boards.pick_random()
+	board.board_data = chosen_board
+	GameState.board = chosen_board
+	
+	board.generate()
 	_connect_signals()
-	_set_remove_btn_status(false)
 	_start_selection_phase()
 
 func _connect_signals() -> void:
@@ -104,15 +112,15 @@ func _handle_draft_interaction(card: Card) -> void:
 	if card.is_selected:
 		card.deselect()
 		hand.erase(card.piece_data)
-	elif hand.size() < MAX_PIECES:
+	else:
 		var existing_of_class = _get_piece_by_class(hand, card.piece_data.piece_class)
 		if existing_of_class:
 			hand.erase(existing_of_class)
 			_deselect_card_by_data(selection_grid, existing_of_class)
-		
-		card.select()
-		hand.append(card.piece_data)
-		AudioManager.play_sfx(SELECT_SFX)
+		if hand.size() < MAX_PIECES:
+			card.select()
+			hand.append(card.piece_data)
+			AudioManager.play_sfx(SELECT_SFX)
 	
 	confirm_selection_btn.disabled = (hand.size() != MAX_PIECES)
 
@@ -128,7 +136,6 @@ func _handle_placement_interaction(card: Card) -> void:
 		card.select()
 		selected_card = card
 		selected_tile = null
-		_set_remove_btn_status(false)
 		board.clear_all_highlights()
 		board.highlight_tiles(get_valid_placement_tiles(current_player))
 
@@ -186,7 +193,6 @@ func _handle_board_piece_click(tile: Tile) -> void:
 	if selected_card: selected_card.deselect()
 	selected_card = null
 	selected_tile = tile
-	_set_remove_btn_status(true)
 	board.clear_all_highlights()
 	board.highlight_tiles(get_valid_placement_tiles(current_player))
 	board.highlight_tile(tile, Tile.HighlightColor.SELF)
@@ -205,31 +211,16 @@ func _handle_repositioning(target_tile: Tile) -> void:
 		AudioManager.play_sfx(MOVE_SFX)
 		
 	selected_tile = null
-	_set_remove_btn_status(false)
 	board.clear_all_highlights()
-
-func _on_remove_button_pressed() -> void:
-	if selected_tile:
-		var data = selected_tile.occupant.piece_data
-		_get_current_placed_dict().erase(selected_tile.grid_position)
-		selected_tile.occupant.clear_data()
-		for child in card_flow.get_children():
-			if child is Card and child.piece_data == data:
-				child.show()
-		board.clear_all_highlights()
-		_set_remove_btn_status(false)
-		selected_tile = null
-		_update_ui()
-		_validate_placement_completion()
 
 func _update_ui() -> void:
 	if current_step <= FlowStep.P2_SELECT:
-		draft_turn_label.text = tr("draft_label") % current_player
+		draft_turn_label.text = tr("player_label") % current_player
 		draft_count_label.text = tr("pieces_picked") % [_get_current_hand().size(), MAX_PIECES]
 		placement_turn_label.text = "" 
 		placement_count_label.text = ""
 	else:
-		placement_turn_label.text = tr("player_deploying") % current_player
+		placement_turn_label.text = tr("player_label") % current_player
 		placement_count_label.text = tr("pieces_placed") % [_get_current_placed_dict().size(), MAX_PIECES]
 
 func _get_current_hand() -> Array[PieceData]:
@@ -259,10 +250,6 @@ func _deselect_card_by_data(container: Control, data: PieceData) -> void:
 		if child is Card and child.piece_data == data:
 			child.deselect()
 			return
-
-func _set_remove_btn_status(v: bool) -> void:
-	remove_button.visible = v
-	remove_button.disabled = !v
 
 func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

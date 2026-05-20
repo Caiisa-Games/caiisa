@@ -1,20 +1,17 @@
 extends Node
 
+var board: BoardData
+
 var player_1_pieces: Dictionary = {}
 var player_2_pieces: Dictionary = {}
-var selected_board: BoardData
-var selected_board_index: int = 0
 
-var current_round: int = 1
-var current_turn: int = 1
 var winner: int = 0
 
+var intro_played: bool = false
 
 func reset() -> void:
 	player_1_pieces.clear()
 	player_2_pieces.clear()
-	current_round = 1
-	current_turn = 1
 	winner = 0
 
 
