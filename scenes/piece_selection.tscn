@@ -5,50 +5,25 @@
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
-[ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="4_rme2a"]
-[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="5_rme2a"]
-[ext_resource type="Resource" uid="uid://425mbxscserg" path="res://data/pieces/bishop.tres" id="5_svpf0"]
-[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/king.tres" id="6_svpf0"]
-[ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://data/pieces/knight.tres" id="7_6migr"]
-[ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://data/pieces/queen.tres" id="7_gwvtb"]
+[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/king.tres" id="4_king"]
+[ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://data/pieces/queen.tres" id="5_queen"]
+[ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://data/pieces/knight.tres" id="6_knight"]
+[ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="7_rook"]
+[ext_resource type="Resource" uid="uid://425mbxscserg" path="res://data/pieces/bishop.tres" id="8_bishop"]
+[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="9_pawn"]
 [ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="10_6migr"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="11_svpf0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcp5b"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6migr"]
 
-[sub_resource type="Theme" id="Theme_wgbiy"]
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/colors/font_disabled_color = Color(0, 0, 0, 1)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
-Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
-Button/colors/icon_focus_color = Color(0, 0, 0, 1)
-Button/colors/icon_hover_color = Color(0, 0, 0, 1)
-Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/icon_normal_color = Color(0, 0, 0, 1)
-Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
-Button/constants/align_to_largest_stylebox = 0
-Button/constants/h_separation = 0
-Button/constants/icon_max_width = 0
-Button/constants/outline_size = 0
-Button/font_sizes/font_size = 16
-Button/fonts/font = null
-Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = null
-Button/styles/normal = null
-Button/styles/pressed = null
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0, 0, 0, 0.588235)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1b5r"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sidebar"]
 
 [node name="PieceSelection" type="Control"]
-auto_translate_mode = 1
-layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_34mbo")
-available_pieces = Array[ExtResource("2_j66un")]([ExtResource("6_svpf0"), ExtResource("7_gwvtb"), ExtResource("7_6migr"), ExtResource("4_rme2a"), ExtResource("5_svpf0"), ExtResource("5_rme2a")])
+available_pieces = Array[ExtResource("2_j66un")]([ExtResource("4_king"), ExtResource("5_queen"), ExtResource("6_knight"), ExtResource("7_rook"), ExtResource("8_bishop"), ExtResource("9_pawn")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -73,6 +48,7 @@ expand_mode = 1
 position = Vector2(675, 207)
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="MainUI" type="Control" parent="UICanvas"]
 layout_mode = 3
@@ -91,89 +67,86 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-dragging_enabled = false
+mouse_filter = 2
+dragger_visibility = 2
 
 [node name="LeftPanel" type="PanelContainer" parent="UICanvas/MainUI/HSplitContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_c8ih6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mcp5b")
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
 [node name="CardFlow" type="HFlowContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 15
+alignment = 1
 
 [node name="StartButton" type="Button" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
-theme = SubResource("Theme_wgbiy")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "confirm"
 
 [node name="RightPanel" type="PanelContainer" parent="UICanvas/MainUI/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_k1b5r")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6migr")
+
+[node name="TopBar" type="HBoxContainer" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="SelectedCountLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("11_svpf0")
+theme_override_font_sizes/font_size = 24
+text = "PLACED: 0/3"
+
+[node name="PlayerTurnLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("11_svpf0")
+theme_override_font_sizes/font_size = 24
+text = "PLAYER 1"
+horizontal_alignment = 2
 
 [node name="Buttons" type="HBoxContainer" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
 layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 8
+alignment = 2
 
 [node name="RemoveButton" type="Button" parent="UICanvas/MainUI/HSplitContainer/RightPanel/Buttons"]
-custom_minimum_size = Vector2(100, 50)
+custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
 text = "remove"
 
 [node name="ExitButton" type="TextureButton" parent="UICanvas/MainUI/HSplitContainer/RightPanel/Buttons"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
 texture_normal = ExtResource("10_6migr")
 ignore_texture_size = true
-stretch_mode = 0
-
-[node name="SelectedCountLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/line_spacing = 4
-theme_override_constants/paragraph_spacing = 4
-theme_override_constants/shadow_offset_y = 4
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 4
-theme_override_fonts/font = ExtResource("11_svpf0")
-theme_override_font_sizes/font_size = 16
-
-[node name="PlayerTurnLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/RightPanel"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_override_constants/line_spacing = 4
-theme_override_constants/paragraph_spacing = 4
-theme_override_constants/shadow_offset_y = 4
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 4
-theme_override_fonts/font = ExtResource("11_svpf0")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 2
+stretch_mode = 5
 
 [node name="SelectionOverlay" type="PanelContainer" parent="UICanvas/MainUI"]
 layout_mode = 1
@@ -182,62 +155,66 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
 
-[node name="ColorRect" type="ColorRect" parent="UICanvas/MainUI/SelectionOverlay"]
-layout_mode = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.47843137)
-
-[node name="CenterContainer" type="CenterContainer" parent="UICanvas/MainUI/SelectionOverlay"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/MainUI/SelectionOverlay"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer"]
+[node name="Sidebar" type="PanelContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sidebar")
 
-[node name="DraftLabels" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 40
 
-[node name="DraftTurnLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/line_spacing = 4
-theme_override_constants/paragraph_spacing = 4
-theme_override_constants/shadow_offset_y = 4
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 4
-theme_override_fonts/font = ExtResource("11_svpf0")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="DraftCountLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels"]
+[node name="DraftLabels" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/line_spacing = 4
-theme_override_constants/paragraph_spacing = 4
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 4
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 4
-theme_override_fonts/font = ExtResource("11_svpf0")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/separation = 5
 
-[node name="SelectionGrid" type="GridContainer" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+[node name="DraftTurnLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels"]
+custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
-theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 15
-columns = 3
+theme_override_font_sizes/font_size = 22
+text = "PLAYER 1"
+autowrap_mode = 2
 
-[node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer"]
+[node name="DraftCountLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.831373, 1, 1)
+theme_override_font_sizes/font_size = 19
+text = "PICKED: 0/2"
+
+[node name="Spacer" type="Control" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "confirm"
 
+[node name="BackBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "back"
+
+[node name="GridArea" type="CenterContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectionGrid" type="GridContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/GridArea"]
+layout_mode = 2
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+columns = 3
+
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(576, 324)
-
-[connection signal="pressed" from="UICanvas/MainUI/HSplitContainer/RightPanel/Buttons/RemoveButton" to="." method="_on_remove_button_pressed"]

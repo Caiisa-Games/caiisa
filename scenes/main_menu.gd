@@ -82,17 +82,13 @@ func _on_settings_button_pressed() -> void:
 	if settings_menu.visible: return
 	
 	AudioManager.play_sfx(CLICK_SFX)
-	_set_input_enabled(false)
 	settings_menu.open()
-
-func _on_settings_closed() -> void:
-	_set_input_enabled(true)
 
 func _on_credits_button_pressed() -> void:
 	if credits_label.visible: return
-
-	AudioManager.play_sfx(CLICK_SFX)
-	_set_input_enabled(false)
+	
+	AudioManager.play_sfx(CLICK_SFX)	
+	settings_menu.close()
 	
 	credits_label.show()
 	credits_label.position = CREDITS_START_POS

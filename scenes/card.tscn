@@ -50,12 +50,12 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp"]
-bg_color = Color(0, 0.85098, 0.45098, 1)
+bg_color = Color(0.8509804, 0, 0.1882353, 1)
 border_width_right = 1
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atk"]
-bg_color = Color(0.85098, 0, 0.188235, 1)
+bg_color = Color(0.8509804, 0.8901961, 0.1882353, 1)
 border_width_right = 1
 border_color = Color(0, 0, 0, 1)
 
@@ -99,7 +99,6 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_glow")
 
 [node name="BlankCard" type="TextureRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
