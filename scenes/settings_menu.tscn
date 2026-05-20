@@ -1,74 +1,133 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgpuuvbgesr4j"]
+[gd_scene load_steps=10 format=3 uid="uid://cgpuuvbgesr4j"]
 
 [ext_resource type="Script" uid="uid://j66uos7jy171" path="res://scenes/settings_menu.gd" id="1_wswnh"]
 [ext_resource type="PackedScene" uid="uid://ddf21rj0jqydy" path="res://scenes/UI/volume_slider.tscn" id="2_wswnh"]
 [ext_resource type="PackedScene" uid="uid://kjlmqy88dkpv" path="res://scenes/UI/lang_picker.tscn" id="3_labj1"]
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="3_lwwgp"]
 [ext_resource type="Texture2D" uid="uid://cw11h6w4t6bmp" path="res://assets/Sprite-0001.png" id="14_x0dr5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0, 0, 0, 0.470588)
+
+[sub_resource type="Theme" id="Theme_lwwgp"]
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 10
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_labj1"]
 texture = ExtResource("14_x0dr5")
-texture_margin_left = 6.0
-texture_margin_top = 9.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
 region_rect = Rect2(61, 79, 135, 97)
 
-[sub_resource type="Theme" id="Theme_x0dr5"]
-PanelContainer/styles/panel = SubResource("StyleBoxTexture_labj1")
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_divider"]
+color = Color(1, 1, 1, 0.196078)
+thickness = 2
 
 [node name="SettingsMenu" type="CanvasLayer"]
+auto_translate_mode = 1
+layer = 20
 script = ExtResource("1_wswnh")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Overlay" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+
+[node name="Tray" type="PanelContainer" parent="."]
 auto_translate_mode = 1
-z_index = -1
-offset_right = 174.0
-offset_bottom = 132.0
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme = SubResource("Theme_x0dr5")
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -175.0
+offset_right = 150.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 175)
+theme = SubResource("Theme_lwwgp")
+theme_override_styles/panel = SubResource("StyleBoxTexture_labj1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-z_index = 1
+[node name="Margin" type="MarginContainer" parent="Tray"]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="Content" type="VBoxContainer" parent="Tray/Margin"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "volume"
+theme_override_constants/separation = 15
 
-[node name="MasterMute" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
-visible = false
+[node name="Title" type="Label" parent="Tray/Margin/Content"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.831373, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_lwwgp")
+theme_override_font_sizes/font_size = 24
+text = "settings"
+horizontal_alignment = 1
 
-[node name="SFXMute" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
-custom_minimum_size = Vector2(100, 0)
+[node name="HSeparator" type="HSeparator" parent="Tray/Margin/Content"]
 layout_mode = 2
-bus_name = "SFX"
-display_name = "SFX"
+theme_override_styles/separator = SubResource("StyleBoxLine_divider")
 
-[node name="MusicMute" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_wswnh")]
-custom_minimum_size = Vector2(100, 0)
+[node name="AudioSection" type="VBoxContainer" parent="Tray/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Tray/Margin/Content/AudioSection"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lwwgp")
+theme_override_font_sizes/font_size = 14
+text = "audio"
+horizontal_alignment = 1
+
+[node name="MusicMute" parent="Tray/Margin/Content/AudioSection" instance=ExtResource("2_wswnh")]
 layout_mode = 2
 bus_name = "Music"
 display_name = "Music"
 
-[node name="LanguagePicker" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_labj1")]
+[node name="SFXMute" parent="Tray/Margin/Content/AudioSection" instance=ExtResource("2_wswnh")]
+layout_mode = 2
+bus_name = "SFX"
+display_name = "SFX"
+
+[node name="HSeparator2" type="HSeparator" parent="Tray/Margin/Content"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_divider")
+
+[node name="LanguageSection" type="VBoxContainer" parent="Tray/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Tray/Margin/Content/LanguageSection"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lwwgp")
+theme_override_font_sizes/font_size = 14
+text = "language"
+horizontal_alignment = 1
+
+[node name="LanguagePicker" parent="Tray/Margin/Content/LanguageSection" instance=ExtResource("3_labj1")]
 layout_mode = 2
 
-[node name="Buttons" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-visible = false
+[node name="Spacer" type="Control" parent="Tray/Margin/Content"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
+[node name="CloseButton" type="Button" parent="Tray/Margin/Content"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-text = "back"
+theme_override_fonts/font = ExtResource("3_lwwgp")
+text = "close"
 
-[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
-layout_mode = 2
-text = "reset"
-
-[node name="ApplyButton" type="Button" parent="PanelContainer/VBoxContainer/Buttons"]
-layout_mode = 2
-text = "apply"
+[connection signal="pressed" from="Tray/Margin/Content/CloseButton" to="." method="close"]

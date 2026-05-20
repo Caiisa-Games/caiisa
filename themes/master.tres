@@ -21,3 +21,5 @@ Button/styles/disabled = SubResource("StyleBoxTexture_8xrcq")
 Button/styles/hover = SubResource("StyleBoxTexture_8xrcq")
 Button/styles/normal = SubResource("StyleBoxTexture_8xrcq")
 Button/styles/pressed = SubResource("StyleBoxTexture_8xrcq")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 10

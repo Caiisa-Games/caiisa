@@ -1,27 +1,32 @@
 class_name PieceSelection
 extends Control
 
-const MAX_PIECES := 2
+const MAX_PIECES := 3
+const SELECT_SFX := preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3")
+const CONFIRM_SFX := preload("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3")
+const MOVE_SFX := preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3")
 
 enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
-var sssd = randf_range(0, 5)
-var sang = randi_range(0, 640)
-@onready var selection_overlay = $UICanvas/MainUI/SelectionOverlay
-@onready var selection_grid = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/SelectionGrid
-@onready var confirm_selection_btn = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/ConfirmBtn
 
-@onready var card_flow = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer/CardFlow
-@onready var confirm_placement_btn = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/StartButton
+@onready var selection_overlay: PanelContainer = $UICanvas/MainUI/SelectionOverlay
+@onready var selection_grid: GridContainer = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/GridArea/SelectionGrid
+@onready var confirm_selection_btn: Button = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/ConfirmBtn
+@onready var draft_back_btn: Button = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/BackBtn
 
-@onready var board = $Board
+@onready var split_container: HSplitContainer = $UICanvas/MainUI/HSplitContainer
 
-@onready var draft_turn_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels/DraftTurnLabel
-@onready var draft_count_label = $UICanvas/MainUI/SelectionOverlay/CenterContainer/VBoxContainer/DraftLabels/DraftCountLabel
+@onready var card_flow: HFlowContainer = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/ScrollContainer/MarginContainer/CardFlow
+@onready var confirm_placement_btn: Button = $UICanvas/MainUI/HSplitContainer/LeftPanel/VBoxContainer/StartButton
 
-@onready var placement_turn_label = $UICanvas/MainUI/HSplitContainer/RightPanel/PlayerTurnLabel
-@onready var placement_count_label = $UICanvas/MainUI/HSplitContainer/RightPanel/SelectedCountLabel
+@onready var board: BoardManager = $Board
 
-@onready var remove_button = $UICanvas/MainUI/HSplitContainer/RightPanel/Buttons/RemoveButton
+@onready var draft_turn_label: Label = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels/DraftTurnLabel
+@onready var draft_count_label: Label = $UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels/DraftCountLabel
+
+@onready var placement_turn_label: Label = $UICanvas/MainUI/HSplitContainer/RightPanel/TopBar/PlayerTurnLabel
+@onready var placement_count_label: Label = $UICanvas/MainUI/HSplitContainer/RightPanel/TopBar/SelectedCountLabel
+
+@onready var remove_button: Button = $UICanvas/MainUI/HSplitContainer/RightPanel/Buttons/RemoveButton
 
 @export var available_pieces: Array[PieceData] = []
 
@@ -37,17 +42,20 @@ var selected_tile: Tile = null
 
 func _ready() -> void:
 	board.set_mode(BoardManager.Mode.PREVIEW)
-	_connect_board_signals()
+	_connect_signals()
 	_set_remove_btn_status(false)
 	_start_selection_phase()
-	confirm_selection_btn.pressed.connect(_on_confirm_selection_pressed)
-	confirm_placement_btn.pressed.connect(_on_confirm_placement_pressed)
-func _connect_board_signals() -> void:
+
+func _connect_signals() -> void:
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
-
+	
+	confirm_selection_btn.pressed.connect(_on_confirm_selection_pressed)
+	confirm_placement_btn.pressed.connect(_on_confirm_placement_pressed)
+	draft_back_btn.pressed.connect(_on_exit_pressed)
 
 func _start_selection_phase() -> void:
+	split_container.hide()
 	selection_overlay.show()
 	confirm_selection_btn.disabled = true
 	
@@ -57,18 +65,21 @@ func _start_selection_phase() -> void:
 	var card_scene = load("res://scenes/card.tscn")
 	for piece in available_pieces:
 		var card = card_scene.instantiate() as Card
-		
 		selection_grid.add_child(card)
-		
 		card.set_piece_data(piece)
 		card.clicked.connect(_on_card_interacted)
+		
+		var hand = _get_current_hand()
+		if piece in hand:
+			card.select()
+			
 	_update_ui()
 
 func _start_placement_phase() -> void:
 	selection_overlay.hide()
+	split_container.show()
 	selected_card = null
-	confirm_placement_btn.visible = true
-	confirm_placement_btn.disabled = true
+	confirm_placement_btn.visible = false
 	
 	for child in card_flow.get_children():
 		child.queue_free()
@@ -76,9 +87,9 @@ func _start_placement_phase() -> void:
 	var card_scene = load("res://scenes/card.tscn")
 	for piece in _get_current_hand():
 		var card = card_scene.instantiate() as Card
+		card_flow.add_child(card)
 		card.set_piece_data(piece)
 		card.clicked.connect(_on_card_interacted)
-		card_flow.add_child(card)
 	_update_ui()
 
 func _on_card_interacted(card: Card) -> void:
@@ -98,12 +109,13 @@ func _handle_draft_interaction(card: Card) -> void:
 		if existing_of_class:
 			hand.erase(existing_of_class)
 			_deselect_card_by_data(selection_grid, existing_of_class)
+		
 		card.select()
 		hand.append(card.piece_data)
-		
-		
-	confirm_selection_btn.disabled = (hand.size() != MAX_PIECES)
+		AudioManager.play_sfx(SELECT_SFX)
 	
+	confirm_selection_btn.disabled = (hand.size() != MAX_PIECES)
+
 func _handle_placement_interaction(card: Card) -> void:
 	if card.is_selected:
 		card.deselect()
@@ -121,7 +133,7 @@ func _handle_placement_interaction(card: Card) -> void:
 		board.highlight_tiles(get_valid_placement_tiles(current_player))
 
 func _on_confirm_selection_pressed() -> void:
-	AudioManager.play_sfx(preload("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3"))
+	AudioManager.play_sfx(CONFIRM_SFX)
 	if current_step == FlowStep.P1_SELECT:
 		current_step = FlowStep.P2_SELECT
 		current_player = 2
@@ -132,7 +144,7 @@ func _on_confirm_selection_pressed() -> void:
 		_start_placement_phase()
 
 func _on_confirm_placement_pressed() -> void:
-	AudioManager.play_sfx(preload("res://assets/sound/بعد از انتخاب همه ی کارت های یک پلیر.mp3"))
+	AudioManager.play_sfx(CONFIRM_SFX)
 	if current_step == FlowStep.P1_PLACE:
 		current_step = FlowStep.P2_PLACE
 		current_player = 2
@@ -141,6 +153,7 @@ func _on_confirm_placement_pressed() -> void:
 		GameState.player_1_pieces = player1_placed
 		GameState.player_2_pieces = player2_placed
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	if current_step < FlowStep.P1_PLACE: return
 	var tile = board.get_tile_at(grid_pos)
@@ -150,50 +163,26 @@ func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	elif selected_tile != null:
 		_handle_repositioning(tile)
 	elif selected_card != null and _is_valid_placement_row(grid_pos.y):
-		_place_new_piece(grid_pos, selected_card.piece_data)
+		_place_new_piece(grid_pos)
 
-func _place_new_piece(grid_pos: Vector2i, piece: PieceData) -> void:
+func _place_new_piece(grid_pos: Vector2i) -> void:
 	if board.place_piece(selected_card.piece_data, grid_pos.x, grid_pos.y, current_player):
-		AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
-		_get_current_placed_dict()[grid_pos] = piece
+		AudioManager.play_sfx(MOVE_SFX)
+		_get_current_placed_dict()[grid_pos] = selected_card.piece_data
 		selected_card.hide()
 		selected_card.deselect()
 		selected_card = null
 		board.clear_all_highlights()
 		_update_ui()
-		confirm_placement_btn.disabled = (_get_current_placed_dict().size() != MAX_PIECES)
+		_validate_placement_completion()
 
-func _get_current_hand(): return player1_hand if current_player == 1 else player2_hand
-func _get_current_placed_dict(): return player1_placed if current_player == 1 else player2_placed
-func _is_valid_placement_row(y): return y == (0 if current_player == 1 else board.GRID_SIZE - 1)
-
-func get_valid_placement_tiles(player: int):
-	var tiles: Array[Tile] = []
-	var y = 0 if player == 1 else board.GRID_SIZE - 1
-	for x in range(board.GRID_SIZE):
-		var t = board.get_tile_at(Vector2i(x, y))
-		if t and t.occupant.piece_data == null: tiles.append(t)
-	return tiles
-
-func _update_ui() -> void:
-	if current_step == FlowStep.P1_SELECT or current_step == FlowStep.P2_SELECT:
-		draft_turn_label.text = tr("draft_label") % current_player
-		draft_count_label.text = tr("pieces_picked") % [_get_current_hand().size(), MAX_PIECES]
-		
-		placement_turn_label.text = "" 
-		placement_count_label.text = ""
-	
-	else:
-		placement_turn_label.text = tr("player_deploying") % current_player
-		placement_count_label.text = tr("pieces_placed") % [_get_current_placed_dict().size(), MAX_PIECES]
-
-func _set_remove_btn_status(v):
-	remove_button.visible = v
-	remove_button.disabled = !v
+func _validate_placement_completion() -> void:
+	var is_complete = _get_current_placed_dict().size() == MAX_PIECES
+	confirm_placement_btn.visible = is_complete
+	confirm_placement_btn.disabled = not is_complete
 
 func _handle_board_piece_click(tile: Tile) -> void:
-	if tile.occupant.player != current_player:
-		return
+	if tile.occupant.player != current_player: return
 	if selected_card: selected_card.deselect()
 	selected_card = null
 	selected_tile = tile
@@ -203,12 +192,18 @@ func _handle_board_piece_click(tile: Tile) -> void:
 	board.highlight_tile(tile, Tile.HighlightColor.SELF)
 
 func _handle_repositioning(target_tile: Tile) -> void:
-	if target_tile != selected_tile and _is_valid_placement_row(target_tile.grid_position.y) and target_tile.occupant.piece_data == null and selected_tile.occupant.player == current_player:
+	var can_reposition = target_tile != selected_tile and \
+						_is_valid_placement_row(target_tile.grid_position.y) and \
+						target_tile.occupant.piece_data == null and \
+						selected_tile.occupant.player == current_player
+						
+	if can_reposition:
 		var dict = _get_current_placed_dict()
 		dict[target_tile.grid_position] = dict[selected_tile.grid_position]
 		dict.erase(selected_tile.grid_position)
 		board._move_occupant(selected_tile, target_tile)
-	AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
+		AudioManager.play_sfx(MOVE_SFX)
+		
 	selected_tile = null
 	_set_remove_btn_status(false)
 	board.clear_all_highlights()
@@ -225,7 +220,34 @@ func _on_remove_button_pressed() -> void:
 		_set_remove_btn_status(false)
 		selected_tile = null
 		_update_ui()
-		confirm_placement_btn.disabled = true
+		_validate_placement_completion()
+
+func _update_ui() -> void:
+	if current_step <= FlowStep.P2_SELECT:
+		draft_turn_label.text = tr("draft_label") % current_player
+		draft_count_label.text = tr("pieces_picked") % [_get_current_hand().size(), MAX_PIECES]
+		placement_turn_label.text = "" 
+		placement_count_label.text = ""
+	else:
+		placement_turn_label.text = tr("player_deploying") % current_player
+		placement_count_label.text = tr("pieces_placed") % [_get_current_placed_dict().size(), MAX_PIECES]
+
+func _get_current_hand() -> Array[PieceData]:
+	return player1_hand if current_player == 1 else player2_hand
+
+func _get_current_placed_dict() -> Dictionary:
+	return player1_placed if current_player == 1 else player2_placed
+
+func _is_valid_placement_row(y: int) -> bool:
+	return y == (0 if current_player == 1 else board.GRID_SIZE - 1)
+
+func get_valid_placement_tiles(p_idx: int) -> Array[Tile]:
+	var tiles: Array[Tile] = []
+	var y = 0 if p_idx == 1 else board.GRID_SIZE - 1
+	for x in range(board.GRID_SIZE):
+		var t = board.get_tile_at(Vector2i(x, y))
+		if t and t.occupant.piece_data == null: tiles.append(t)
+	return tiles
 
 func _get_piece_by_class(hand: Array[PieceData], p_class: PieceData.PieceClass) -> PieceData:
 	for piece in hand:
@@ -237,3 +259,10 @@ func _deselect_card_by_data(container: Control, data: PieceData) -> void:
 		if child is Card and child.piece_data == data:
 			child.deselect()
 			return
+
+func _set_remove_btn_status(v: bool) -> void:
+	remove_button.visible = v
+	remove_button.disabled = !v
+
+func _on_exit_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

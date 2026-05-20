@@ -11,7 +11,10 @@ pieces_picked,Pieces Picked: %d / %d, مهره های انتخاب شده: %d / 
 pieces_placed,Pieces Placed: %d / %d, مهره های قرار گرفته شده: %d / %d
 player_deploying, Player %d: Deploying,بازیکن %d: در حال قرار دادن مهره
 
-choose_lang,Language:,:زبان
+settings,SETTINGS,تنظیمات
+audio,Audio,صدا
+language,Language,زبان
+close,CLOSE,بستن
 Master,Master,صدای کل
 Music,Music,موسیقی
 SFX,SFX,جلوه های صوتی
