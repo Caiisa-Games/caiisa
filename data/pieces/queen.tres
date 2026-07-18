@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceData" load_steps=7 format=3 uid="uid://b6asab88n3akv"]
+[gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://b6asab88n3akv"]
 
 [ext_resource type="Texture2D" uid="uid://bakscc3sa3dcq" path="res://assets/sprites/pieces/cards/queen_card.png" id="1_bo4sf"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_by47r"]

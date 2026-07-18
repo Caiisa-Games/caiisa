@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceData" load_steps=7 format=3 uid="uid://dvlbi4nhupb2m"]
+[gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://dvlbi4nhupb2m"]
 
 [ext_resource type="Texture2D" uid="uid://dvqe8awmn1xrh" path="res://assets/sprites/pieces/black/pawn_black.png" id="1_nhnax"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_s30mb"]
