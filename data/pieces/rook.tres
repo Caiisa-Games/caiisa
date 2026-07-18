@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceData" load_steps=7 format=3 uid="uid://btkjhpj0fm5vg"]
+[gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://btkjhpj0fm5vg"]
 
 [ext_resource type="Texture2D" uid="uid://do5tmp55rf1jm" path="res://assets/sprites/pieces/cards/rook_card.png" id="1_fbp7n"]
 [ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="2_8b4o5"]

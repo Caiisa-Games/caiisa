@@ -197,14 +197,14 @@ custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "replay"
+text = "menu"
 
 [node name="ReplayButton" type="Button" parent="GameOverLayer/Control/Buttons"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "menu"
+text = "replay"
 
 [node name="BattleCamera" type="Camera2D" parent="."]
 limit_left = 0

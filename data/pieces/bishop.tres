@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceData" load_steps=7 format=3 uid="uid://425mbxscserg"]
+[gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://425mbxscserg"]
 
 [ext_resource type="Texture2D" uid="uid://bvneb0kg2q6cw" path="res://assets/sprites/pieces/cards/bishop_card.png" id="1_183yx"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_w1f8c"]

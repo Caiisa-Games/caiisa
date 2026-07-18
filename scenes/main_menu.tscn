@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=4 uid="uid://5lb0il0rj8or"]
+[gd_scene format=4 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://cdnprc84r25rp" path="res://assets/Background.png" id="2_hstxw"]
@@ -112,7 +112,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("22_7u5pb")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 12.5
 }]
@@ -229,7 +229,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6h3lr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 3.0
 }, {
@@ -270,7 +270,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_engjn")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hover",
 "speed": 24.0
 }, {
@@ -311,7 +311,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c6nra")
 }],
-"loop": false,
+"loop": 0,
 "name": &"unhover",
 "speed": 24.0
 }]
@@ -333,6 +333,15 @@ font_style = 1
 font_weight = 700
 subpixel_positioning = 0
 msdf_pixel_range = 8
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 14.0
 cache/0/16/0/descent = 2.0
 cache/0/16/0/underline_position = 5.0
@@ -457,7 +466,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_6h3lr")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -498,7 +507,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("18_eku7s")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hover",
 "speed": 24.0
 }, {
@@ -539,24 +548,24 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3gwh8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"unhover",
 "speed": 24.0
 }]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1367474016]
 auto_translate_mode = 2
-layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+layout_direction = 2
 script = ExtResource("1_bqqt6")
 metadata/_edit_lock_ = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=508097749]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -571,7 +580,7 @@ scale = Vector2(0.7915186, 0.72371197)
 texture = ExtResource("2_hstxw")
 metadata/_edit_lock_ = true
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1834189190]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -584,14 +593,14 @@ grow_vertical = 2
 scale = Vector2(0.76765496, 0.64184445)
 texture = ExtResource("3_ip0br")
 
-[node name="Title" type="AnimatedSprite2D" parent="."]
+[node name="Title" type="AnimatedSprite2D" parent="." unique_id=258432]
 position = Vector2(575, 203.00002)
 scale = Vector2(0.19300002, 0.19299999)
 sprite_frames = SubResource("SpriteFrames_6vcge")
 frame = 18
 frame_progress = 1.0
 
-[node name="ExitButton" type="TextureButton" parent="."]
+[node name="ExitButton" type="TextureButton" parent="." unique_id=297673473]
 layout_mode = 0
 offset_left = 443.00003
 offset_top = 447.00012
@@ -602,7 +611,7 @@ texture_normal = ExtResource("7_8egab")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="StartButton" type="Button" parent="."]
+[node name="StartButton" type="Button" parent="." unique_id=969677684]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.45572916
@@ -619,13 +628,13 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_6vcge")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ip0br")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_xyero")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StartButton"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StartButton" unique_id=93832469]
 scale = Vector2(0.9596992, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
 animation = &"hover"
 offset = Vector2(1000, 500)
 
-[node name="CreditsLabel" type="Label" parent="."]
+[node name="CreditsLabel" type="Label" parent="." unique_id=2132204439]
 auto_translate_mode = 1
 visible = false
 layout_mode = 0
@@ -646,7 +655,7 @@ text = "credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1807352088]
 visible = false
 modulate = Color(0, 0, 0, 0)
 z_index = 2
@@ -657,7 +666,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1291513245]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -669,7 +678,7 @@ offset_bottom = -19.0
 grow_vertical = 0
 theme_override_constants/separation = 20
 
-[node name="CreditsButton" type="TextureButton" parent="HBoxContainer"]
+[node name="CreditsButton" type="TextureButton" parent="HBoxContainer" unique_id=1038277353]
 light_mask = 6
 visibility_layer = 30
 z_index = 1
@@ -679,7 +688,7 @@ texture_normal = ExtResource("5_hstxw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="SettingsButton" type="Button" parent="HBoxContainer"]
+[node name="SettingsButton" type="Button" parent="HBoxContainer" unique_id=117647799]
 custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 theme = SubResource("Theme_6h3lr")
@@ -687,15 +696,15 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_engjn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_6h3lr")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dj67d")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/SettingsButton"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/SettingsButton" unique_id=791661015]
 position = Vector2(40, 40)
 scale = Vector2(0.084974125, 0.084974155)
 sprite_frames = SubResource("SpriteFrames_c6nra")
 
-[node name="SettingsMenu" parent="." instance=ExtResource("31_6h3lr")]
+[node name="SettingsMenu" parent="." unique_id=1611145072 instance=ExtResource("31_6h3lr")]
 visible = false
 
-[node name="Fade" parent="." instance=ExtResource("33_6vcge")]
+[node name="Fade" parent="." unique_id=544376509 instance=ExtResource("33_6vcge")]
 visible = false
 layout_mode = 1
 

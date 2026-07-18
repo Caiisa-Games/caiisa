@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceData" load_steps=6 format=3 uid="uid://dpanvcxhacvsn"]
+[gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://dpanvcxhacvsn"]
 
 [ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="1_sbrky"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_4fvfo"]
