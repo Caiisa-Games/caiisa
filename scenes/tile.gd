@@ -15,6 +15,7 @@ const COLOR_SELF := Color("f8d0007d")
 @export var texture_dark: Texture2D
 
 signal tile_clicked(grid_pos: Vector2i)
+signal tile_hovered(tile: Tile)
 
 var base_container: Node2D
 var base_sprite: Sprite2D
@@ -23,6 +24,7 @@ var height_label: Label
 var occupant: Occupant
 var area_2d: Area2D
 var highlight_sprite: Polygon2D
+var visual_root: Node2D
 var variant: TileVariant = TileVariant.LIGHT
 
 var is_highlighted: bool = false
@@ -30,13 +32,14 @@ var is_hovered: bool = false
 var hover_tween: Tween
 
 func init() -> void:
-	base_container = $BaseContainer
-	base_sprite = $BaseSprite
-	height_sprite = $HeightSprite
-	height_label = $HeightLabel
-	occupant = $Occupant
-	area_2d = $Area2D
-	highlight_sprite = $HighlightSprite
+	base_container = $VisualRoot/BaseContainer
+	base_sprite = $VisualRoot/BaseSprite
+	height_sprite = $VisualRoot/HeightSprite
+	height_label = $VisualRoot/HeightLabel
+	occupant = $VisualRoot/Occupant
+	area_2d = $VisualRoot/Area2D
+	highlight_sprite = $VisualRoot/HighlightSprite
+	visual_root = $VisualRoot
 
 	if highlight_sprite:
 		highlight_sprite.visible = false
@@ -96,47 +99,56 @@ func _update_visuals() -> void:
 	if height_sprite == null or area_2d == null or highlight_sprite == null:
 		return
 
-	var height_offset: int = height_level * 10
-	var lift = -4.0 if is_hovered else 0.0
+	var height_offset := height_level * 10
 
-	height_sprite.position.y = -height_offset + lift
-	highlight_sprite.position.y = -height_offset + lift
-	
-	area_2d.position.y = -height_offset
+	height_sprite.position.y = -height_offset
+	highlight_sprite.position.y = -height_offset
 
 	if occupant:
-		occupant.position.y = -height_offset + lift
+		occupant.position.y = -height_offset
 
 	if height_label:
 		height_label.text = str(height_level)
 		height_label.position.y = -height_offset - 20
+
+	area_2d.position.y = -height_offset
 		
 func _animate_hover(should_hover: bool) -> void:
 	if hover_tween:
 		hover_tween.kill()
+
+	hover_tween = create_tween()
+	hover_tween.set_trans(Tween.TRANS_CUBIC)
+	hover_tween.set_ease(Tween.EASE_OUT)
+
+	var target_lift := -4.0 if should_hover else 0.0
+
+	hover_tween.tween_property(
+		visual_root,
+		"position:y",
+		target_lift,
+		0.15
+	)
+
+	var target_glow := Color(1.2, 1.2, 1.2) if should_hover else Color.WHITE
+	hover_tween.parallel().tween_property(
+		height_sprite,
+		"modulate",
+		target_glow,
+		0.15
+	)
+
+func set_hovered(value: bool) -> void:
+	if is_hovered == value:
+		return
+	is_hovered = value
+	_animate_hover(value)
 	
-	hover_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	
-	var target_lift = -4.0 if should_hover else 0.0
-	var base_y = -height_level * 10.0
-	
-	hover_tween.tween_property(height_sprite, "position:y", base_y + target_lift, 0.15)
-	hover_tween.tween_property(highlight_sprite, "position:y", base_y + target_lift, 0.15)
-	hover_tween.tween_property(occupant, "position:y", base_y + target_lift, 0.15)
-
-	var target_glow = Color(1.2, 1.2, 1.2) if should_hover else Color.WHITE
-	hover_tween.tween_property(height_sprite, "modulate", target_glow, 0.15)
-
-func _on_mouse_entered() -> void:
-	is_hovered = true
-	_animate_hover(true)
-
-func _on_mouse_exited() -> void:
-	is_hovered = false
-	_animate_hover(false)
-
-func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			get_viewport().set_input_as_handled() 
-			tile_clicked.emit(grid_position)
+func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		get_viewport().set_input_as_handled()
+		tile_clicked.emit(grid_position)
+		
+	elif event is InputEventMouseMotion:
+		get_viewport().set_input_as_handled()
+		tile_hovered.emit(self)

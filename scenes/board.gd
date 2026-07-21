@@ -14,6 +14,7 @@ const GRID_SIZE := 7
 var tiles: Dictionary = {}  # Vector2i(x,y) -> Tile
 var occupants: Dictionary = {}  # occupant_node -> Vector2i(grid_pos)
 var selected_tile: Tile = null
+var hovered_tile: Tile = null
 var current_state: State = State.IDLE
 var current_mode: Mode = Mode.BATTLE
 
@@ -71,7 +72,7 @@ func generate() -> void:
 	
 	for y in range(GRID_SIZE):
 		for x in range(GRID_SIZE):
-			var tile = tile_scene.instantiate()
+			var tile: Tile = tile_scene.instantiate()
 			tile.name = "Tile_%d_%d" % [x, y]
 			tile.position = _get_iso_pos(x, y)
 			
@@ -82,6 +83,9 @@ func generate() -> void:
 			tile.init()
 			tile.grid_position = Vector2i(x, y)
 			tile.set_height(height)
+			tile.z_index = (x + y) * 10 + height
+			
+			tile.tile_hovered.connect(_on_tile_hovered)
 			
 			var is_light = (x + y) % 2 == 0
 			if is_light:
@@ -157,6 +161,16 @@ func should_promote(occupant: Occupant, row: int, player: int) -> bool:
 
 func is_within_bounds(x: int, y: int) -> bool:
 	return x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE
+	
+func _on_tile_hovered(tile: Tile) -> void:
+	if tile == hovered_tile:
+		return
+
+	if hovered_tile:
+		hovered_tile.set_hovered(false)
+
+	hovered_tile = tile
+	tile.set_hovered(true)
 
 func _ready() -> void:
 	if not show_base:

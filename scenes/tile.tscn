@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://5aapoewew0nq"]
+[gd_scene format=3 uid="uid://5aapoewew0nq"]
 
 [ext_resource type="Script" uid="uid://3onjfc1bkjh4" path="res://scenes/tile.gd" id="1_ywnoi"]
 [ext_resource type="Texture2D" uid="uid://dkj2jp6eh0cns" path="res://assets/isometric.png" id="2_ywnoi"]
@@ -66,7 +66,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("13_jqqca")
 }],
-"loop": true,
+"loop": 1,
 "name": &"level0",
 "speed": 8.0
 }, {
@@ -95,7 +95,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("21_5hc4i")
 }],
-"loop": true,
+"loop": 1,
 "name": &"level1",
 "speed": 8.0
 }, {
@@ -124,7 +124,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("29_we2py")
 }],
-"loop": true,
+"loop": 1,
 "name": &"level2",
 "speed": 8.0
 }, {
@@ -153,47 +153,49 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("37_lxn0c")
 }],
-"loop": true,
+"loop": 1,
 "name": &"level3",
 "speed": 8.0
 }]
 
-[node name="Tile" type="Node2D"]
+[node name="Tile" type="Node2D" unique_id=1982819410]
 script = ExtResource("1_ywnoi")
 texture_light = ExtResource("2_ywnoi")
 texture_dark = ExtResource("3_6p3j2")
 
-[node name="BaseSprite" type="Sprite2D" parent="."]
+[node name="VisualRoot" type="Node2D" parent="." unique_id=1687400572]
+
+[node name="BaseSprite" type="Sprite2D" parent="VisualRoot" unique_id=1731333596]
 position = Vector2(0, 14)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_jy7pm")
 
-[node name="HeightSprite" type="Sprite2D" parent="."]
+[node name="HeightSprite" type="Sprite2D" parent="VisualRoot" unique_id=1107426984]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ywnoi")
 
-[node name="BaseContainer" type="Node2D" parent="."]
+[node name="BaseContainer" type="Node2D" parent="VisualRoot" unique_id=2014422912]
 position = Vector2(0, -4)
 
-[node name="HighlightSprite" type="Polygon2D" parent="."]
+[node name="HighlightSprite" type="Polygon2D" parent="VisualRoot" unique_id=1640409154]
 visible = false
 polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
 
-[node name="Occupant" type="Node2D" parent="."]
+[node name="Occupant" type="Node2D" parent="VisualRoot" unique_id=1964845390]
 position = Vector2(0, -5)
 script = ExtResource("4_q7utx")
 
-[node name="Sprite2D" type="Sprite2D" parent="Occupant"]
+[node name="Sprite2D" type="Sprite2D" parent="VisualRoot/Occupant" unique_id=741376735]
 position = Vector2(0, -50)
 scale = Vector2(0.45, 0.45)
 
-[node name="Orb" type="AnimatedSprite2D" parent="Occupant"]
+[node name="Orb" type="AnimatedSprite2D" parent="VisualRoot/Occupant" unique_id=498825070]
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_av4pt")
 animation = &"level0"
 frame_progress = 0.59799284
 
-[node name="HealthLabel" type="Label" parent="Occupant"]
+[node name="HealthLabel" type="Label" parent="VisualRoot/Occupant" unique_id=320755303]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -211,18 +213,24 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="HeightLabel" type="Label" parent="."]
+[node name="HeightLabel" type="Label" parent="VisualRoot" unique_id=609647202]
 visible = false
 offset_right = 57.0
 offset_bottom = 51.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="VisualRoot" unique_id=64239915]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisualRoot/Area2D" unique_id=259702633]
 polygon = PackedVector2Array(0, -32, 64, -3, 0, 26, -64, -3)
 
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_exited"]
+[node name="GroundSprite" type="Sprite2D" parent="." unique_id=1338094556]
+position = Vector2(0, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_jy7pm")
+
+[connection signal="input_event" from="VisualRoot/Area2D" to="." method="_on_area_input_event"]
+[connection signal="mouse_entered" from="VisualRoot/Area2D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VisualRoot/Area2D" to="." method="_on_mouse_exited"]
