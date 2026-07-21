@@ -86,6 +86,7 @@ func generate() -> void:
 			tile.z_index = (x + y) * 10 + height
 			
 			tile.tile_hovered.connect(_on_tile_hovered)
+			tile.tile_exited.connect(_on_tile_unhovered)
 			
 			var is_light = (x + y) % 2 == 0
 			if is_light:
@@ -171,6 +172,11 @@ func _on_tile_hovered(tile: Tile) -> void:
 
 	hovered_tile = tile
 	tile.set_hovered(true)
+
+func _on_tile_unhovered(tile: Tile) -> void:
+	if tile == hovered_tile:
+		hovered_tile.set_hovered(false)
+		hovered_tile = null
 
 func _ready() -> void:
 	if not show_base:
