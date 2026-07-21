@@ -106,7 +106,7 @@ func _on_credits_button_pressed() -> void:
 func _on_texture_button_mouse_entered() -> void:
 	_play_anim(start_button, "hover")
 
-func _on_texture_button_mouse_exited() -> void:
+func _on_texture_button_mouse_exited() -> void:	
 	_play_anim(start_button, "unhover")
 
 func _on_settings_hover() -> void:

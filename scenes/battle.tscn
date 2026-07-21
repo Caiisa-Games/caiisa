@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bgofvr4laaigd"]
+[gd_scene format=3 uid="uid://bgofvr4laaigd"]
 
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="1_dn72j"]
 [ext_resource type="Script" uid="uid://b16iclnu8so80" path="res://scenes/battle_manager.gd" id="1_th188"]
@@ -32,15 +32,14 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="BattleField" type="Node2D"]
+[node name="BattleField" type="Node2D" unique_id=1953362881]
 auto_translate_mode = 1
 script = ExtResource("1_th188")
 mini_queen_data = ExtResource("2_6vh42")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1385510363]
 
-[node name="Background" type="TextureRect" parent="UI"]
-layout_direction = 2
+[node name="Background" type="TextureRect" parent="UI" unique_id=722531351]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -49,11 +48,11 @@ offset_bottom = 280.57135
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
+layout_direction = 2
 texture = ExtResource("3_66ngm")
 metadata/_edit_use_anchors_ = true
 
-[node name="TopBar" type="Panel" parent="UI"]
-layout_direction = 2
+[node name="TopBar" type="Panel" parent="UI" unique_id=1325913622]
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 20.0
@@ -63,15 +62,16 @@ offset_bottom = 59.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+layout_direction = 2
 theme = ExtResource("3_lpir7")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_4k1nj")
 
-[node name="RoundLabel" type="Label" parent="UI/TopBar"]
+[node name="RoundLabel" type="Label" parent="UI/TopBar" unique_id=1380439732]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="MenuButton" type="Button" parent="UI/TopBar"]
+[node name="MenuButton" type="Button" parent="UI/TopBar" unique_id=1603027392]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -81,8 +81,7 @@ offset_bottom = 8.0
 grow_horizontal = 0
 text = "menu"
 
-[node name="BottomPanel" type="Panel" parent="UI"]
-layout_direction = 2
+[node name="BottomPanel" type="Panel" parent="UI" unique_id=315608576]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -92,9 +91,10 @@ offset_right = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
+layout_direction = 2
 theme = ExtResource("3_lpir7")
 
-[node name="EndTurnButton" type="Button" parent="UI/BottomPanel"]
+[node name="EndTurnButton" type="Button" parent="UI/BottomPanel" unique_id=657789155]
 z_index = 1
 layout_mode = 1
 anchors_preset = 3
@@ -110,20 +110,20 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "end_turn"
 
-[node name="Sprite2D" type="Sprite2D" parent="UI"]
+[node name="Sprite2D" type="Sprite2D" parent="UI" unique_id=622607023]
 position = Vector2(-400, 116.5)
 scale = Vector2(0.06, 0.06)
 script = ExtResource("6_6vh42")
 images = Array[Texture]([ExtResource("6_66ngm"), ExtResource("7_03edq"), ExtResource("8_22uqi"), ExtResource("9_6ni85")])
 
-[node name="BoardLayer" type="CanvasLayer" parent="."]
+[node name="BoardLayer" type="CanvasLayer" parent="." unique_id=562889155]
 
-[node name="Board" parent="BoardLayer" instance=ExtResource("1_dn72j")]
+[node name="Board" parent="BoardLayer" unique_id=955969388 instance=ExtResource("1_dn72j")]
 position = Vector2(576, 207)
 
-[node name="GameOverLayer" type="CanvasLayer" parent="."]
+[node name="GameOverLayer" type="CanvasLayer" parent="." unique_id=1002773741]
 
-[node name="Control" type="Control" parent="GameOverLayer"]
+[node name="Control" type="Control" parent="GameOverLayer" unique_id=1779069239]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -132,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_lpir7")
 
-[node name="ColorRect" type="ColorRect" parent="GameOverLayer/Control"]
+[node name="ColorRect" type="ColorRect" parent="GameOverLayer/Control" unique_id=251032702]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,7 +141,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.47058824)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverLayer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverLayer/Control" unique_id=529987483]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -155,7 +155,7 @@ offset_bottom = 124.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WinnerLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer"]
+[node name="WinnerLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer" unique_id=563727699]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -166,7 +166,7 @@ theme_override_fonts/font = ExtResource("3_p1qf1")
 theme_override_font_sizes/font_size = 48
 text = "Player 1 Won"
 
-[node name="RoundLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer"]
+[node name="RoundLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer" unique_id=1105897175]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -177,7 +177,7 @@ theme_override_constants/shadow_offset_y = 7
 theme_override_font_sizes/font_size = 32
 text = "Round 1"
 
-[node name="Buttons" type="HBoxContainer" parent="GameOverLayer/Control"]
+[node name="Buttons" type="HBoxContainer" parent="GameOverLayer/Control" unique_id=1000569561]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -192,27 +192,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="MenuButton" type="Button" parent="GameOverLayer/Control/Buttons"]
+[node name="MenuButton" type="Button" parent="GameOverLayer/Control/Buttons" unique_id=573983082]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "menu"
 
-[node name="ReplayButton" type="Button" parent="GameOverLayer/Control/Buttons"]
+[node name="ReplayButton" type="Button" parent="GameOverLayer/Control/Buttons" unique_id=1983625228]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "replay"
 
-[node name="BattleCamera" type="Camera2D" parent="."]
+[node name="BattleCamera" type="Camera2D" parent="." unique_id=119673700]
 limit_left = 0
 limit_top = 0
 limit_right = 1152
 limit_bottom = 648
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1008487188]
 visible = false
 offset_left = 452.0
 offset_top = 356.0
@@ -222,14 +222,13 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6vh42")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4k1nj")
 show_percentage = false
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_direction = 2
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1656910863]
 offset_right = 1152.0
 offset_bottom = 648.0
+layout_direction = 2
 texture = ExtResource("33_e50ek")
 
-[node name="Label" type="Label" parent="."]
-layout_direction = 2
+[node name="Label" type="Label" parent="." unique_id=1812800350]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -242,6 +241,7 @@ offset_bottom = 595.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
+layout_direction = 2
 theme = ExtResource("3_lpir7")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -252,15 +252,15 @@ horizontal_alignment = 1
 vertical_alignment = 2
 autowrap_mode = 3
 
-[node name="SpinningC" parent="." instance=ExtResource("34_mpb26")]
+[node name="SpinningC" parent="." unique_id=1467597672 instance=ExtResource("34_mpb26")]
 position = Vector2(1090.9999, 569)
 scale = Vector2(0.15, 0.15)
 
-[node name="ColorRectr" type="ColorRect" parent="."]
+[node name="ColorRectr" type="ColorRect" parent="." unique_id=2068934977]
 visible = false
-layout_direction = 2
 offset_right = 1152.0
 offset_bottom = 650.0
+layout_direction = 2
 color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="UI/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
