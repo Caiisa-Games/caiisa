@@ -16,6 +16,7 @@ const COLOR_SELF := Color("f8d0007d")
 
 signal tile_clicked(grid_pos: Vector2i)
 signal tile_hovered(tile: Tile)
+signal tile_exited(tile: Tile)
 
 var base_container: Node2D
 var base_sprite: Sprite2D
@@ -152,3 +153,6 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 	elif event is InputEventMouseMotion:
 		get_viewport().set_input_as_handled()
 		tile_hovered.emit(self)
+
+func _on_mouse_exited() -> void:
+	tile_exited.emit(self)
