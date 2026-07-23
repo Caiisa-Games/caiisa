@@ -2,7 +2,18 @@
 
 [ext_resource type="Script" uid="uid://okylwii1cp6s" path="res://scenes/board.gd" id="1_bw3vb"]
 [ext_resource type="PackedScene" uid="uid://5aapoewew0nq" path="res://scenes/tile.tscn" id="2_tx6nw"]
+[ext_resource type="Texture2D" uid="uid://djbxh1ff7n5mr" path="res://assets/ambient/fog.png" id="4_dxjtj"]
 [ext_resource type="Texture2D" uid="uid://j8o3jaaw8q51" path="res://assets/BoardBase.png" id="4_fv4ni"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fog"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(400, 60, 1)
+spread = 5.0
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.39999998
 
 [node name="Board" type="Node2D" unique_id=477674386]
 script = ExtResource("1_bw3vb")
@@ -14,3 +25,14 @@ scale = Vector2(0.29, 0.29)
 texture = ExtResource("4_fv4ni")
 
 [node name="TileContainer" type="Node2D" parent="." unique_id=1802124030]
+
+[node name="Ambient" type="Node2D" parent="." unique_id=9952697]
+
+[node name="LowFog" type="GPUParticles2D" parent="Ambient" unique_id=1204101238]
+position = Vector2(0, 500)
+amount = 60
+texture = ExtResource("4_dxjtj")
+lifetime = 10.0
+preprocess = 8.0
+randomness = 0.4
+process_material = SubResource("ParticleProcessMaterial_fog")

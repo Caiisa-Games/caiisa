@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kovxmeios3jx"]
+[gd_scene format=3 uid="uid://kovxmeios3jx"]
 
 [ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://by3wq4qweay0" path="res://assets/icons/Class1.png" id="2_berserker"]
@@ -67,7 +67,7 @@ bg_color = Color(0, 0.470588, 1, 1)
 border_width_right = 1
 border_color = Color(0, 0, 0, 1)
 
-[node name="Card" type="Control"]
+[node name="Card" type="Control" unique_id=55364012]
 custom_minimum_size = Vector2(171, 240)
 layout_mode = 3
 anchors_preset = 8
@@ -90,7 +90,7 @@ hp_icon = ExtResource("5_1yd6c")
 atk_icon = ExtResource("6_we8pq")
 kb_icon = ExtResource("7_4wvaf")
 
-[node name="SelectionGlow" type="Panel" parent="."]
+[node name="SelectionGlow" type="Panel" parent="." unique_id=988252965]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -101,7 +101,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_glow")
 
-[node name="BlankCard" type="TextureRect" parent="."]
+[node name="BlankCard" type="TextureRect" parent="." unique_id=176313912]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,7 +111,7 @@ grow_vertical = 2
 texture = ExtResource("5_bg")
 expand_mode = 1
 
-[node name="Margin" type="MarginContainer" parent="BlankCard"]
+[node name="Margin" type="MarginContainer" parent="BlankCard" unique_id=1402468365]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,19 +124,19 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 20
 
-[node name="Content" type="VBoxContainer" parent="BlankCard/Margin"]
+[node name="Content" type="VBoxContainer" parent="BlankCard/Margin" unique_id=1405552560]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="ClassIcon" type="TextureRect" parent="BlankCard/Margin/Content"]
+[node name="ClassIcon" type="TextureRect" parent="BlankCard/Margin/Content" unique_id=1118494321]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NameLabel" type="Label" parent="BlankCard/Margin/Content"]
+[node name="NameLabel" type="Label" parent="BlankCard/Margin/Content" unique_id=914755790]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_font")
 theme_override_font_sizes/font_size = 18
@@ -144,29 +144,29 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_header")
 text = "NAME"
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="BlankCard/Margin/Content"]
+[node name="Spacer" type="Control" parent="BlankCard/Margin/Content" unique_id=370296597]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="StatsGrid" type="VBoxContainer" parent="BlankCard/Margin/Content"]
+[node name="StatsGrid" type="VBoxContainer" parent="BlankCard/Margin/Content" unique_id=1489593945]
 layout_mode = 2
 size_flags_vertical = 10
 theme = SubResource("Theme_1yd6c")
 theme_override_constants/separation = 10
 
-[node name="HP_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid"]
+[node name="HP_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=728003592]
 layout_mode = 2
 tooltip_text = "Health"
 
-[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/HP_Row"]
+[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/HP_Row" unique_id=282706284]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/HP_Row"]
+[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/HP_Row" unique_id=1600121672]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -177,18 +177,18 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_hp")
 value = 5.0
 show_percentage = false
 
-[node name="ATK_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid"]
+[node name="ATK_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=954527633]
 layout_mode = 2
 tooltip_text = "Attack"
 
-[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row"]
+[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row" unique_id=515471693]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row"]
+[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row" unique_id=1341726883]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -200,18 +200,18 @@ max_value = 20.0
 value = 5.0
 show_percentage = false
 
-[node name="KB_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid"]
+[node name="KB_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=243004573]
 layout_mode = 2
 tooltip_text = "Knockback"
 
-[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/KB_Row"]
+[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/KB_Row" unique_id=1174967212]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/KB_Row"]
+[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/KB_Row" unique_id=1887560263]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -223,7 +223,7 @@ max_value = 5.0
 value = 5.0
 show_percentage = false
 
-[node name="CardTexture" type="TextureRect" parent="."]
+[node name="CardTexture" type="TextureRect" parent="." unique_id=692454501]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

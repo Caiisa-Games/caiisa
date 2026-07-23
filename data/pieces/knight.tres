@@ -23,5 +23,5 @@ knockback = 2
 power = 13
 defense = 60
 movement = SubResource("Resource_dusvo")
-piece_class = 1
+piece_class = 2
 metadata/_custom_type_script = "uid://divct8m8b0k67"
