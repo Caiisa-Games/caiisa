@@ -10,14 +10,46 @@ var max_hp: int = 0
 var player: int = 0
 
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var health_bar: Label = $HealthLabel
+@onready var health_ui: Node2D = $HealthUI
+@onready var health_bar: ProgressBar = $HealthUI/HealthBar
+@onready var hp_label: Label = $HealthUI/HPLabel
 @onready var orb: AnimatedSprite2D = $Orb
 
+var _hovered := false
+var _selected := false
+var _label_timer := 0.0
+
 func _ready() -> void:
-	if health_bar:
-		health_bar.visible = false
 	if orb:
 		orb.hide()
+	
+	if health_ui:
+		health_ui.visible = false
+	
+func _process(delta: float) -> void:
+	if _label_timer > 0:
+		_label_timer -= delta
+
+		if _label_timer <= 0:
+			_update_label_visibility()
+			
+func show_hp_label(duration := 1.5):
+	hp_label.visible = true
+	_label_timer = duration
+
+
+func set_selected(value: bool):
+	_selected = value
+	_update_label_visibility()
+
+
+func set_hovered(value: bool):
+	_hovered = value
+	_update_label_visibility()
+
+
+func _update_label_visibility():
+	hp_label.visible = _hovered or _selected
 
 func set_data(data: PieceData, _player: int, _current_hp: int, show_health = true) -> void:
 	if not data:
@@ -31,7 +63,8 @@ func set_data(data: PieceData, _player: int, _current_hp: int, show_health = tru
 	elif player == 2:
 		sprite.texture = data.texture_black
 
-	health_bar.visible = show_health
+	health_ui.visible = show_health
+	_update_label_visibility()
 	
 	_update_stats()
 
@@ -42,8 +75,8 @@ func clear_data() -> void:
 	current_hp = 0
 	max_hp = 0
 
-	health_bar.visible = false
-	health_bar.text = ""
+	health_ui.visible = false
+	hp_label.text = ""
 	
 	orb.hide()
 
@@ -51,8 +84,8 @@ func clear_data() -> void:
 
 func show_orb() -> void:
 	var tile_h = 0
-	if get_parent() is Tile:
-		tile_h = get_parent().height_level
+	if get_parent().get_parent() is Tile:
+		tile_h = get_parent().get_parent().height_level
 	orb.play("level" + str(tile_h)) 
 	orb.show()
 	
@@ -69,6 +102,7 @@ func take_damage(amount: int) -> bool:
 
 	current_hp = max(current_hp - amount, 0)
 	_update_hp()
+	show_hp_label()
 
 	_flash_damage()
 
@@ -106,37 +140,56 @@ func _update_stats() -> void:
 	max_hp = piece_data.defense
 
 	if sprite.texture:
-		var sprite_height: float = sprite.texture.get_height() * sprite.scale.y
-		var tile_height: int = get_parent().height_level if get_parent() is Tile else 0
-		if orb.visible:
-			orb.position.y = -sprite_height - tile_height * 10.0
-			health_bar.position.y = -47 - sprite_height - tile_height * 9.0
-		else:
-			health_bar.position.y = -15.0 - sprite_height - tile_height * 10.0
+		var tile := get_parent().get_parent() as Tile
+
+		var iso_depth := (tile.grid_position.x + tile.grid_position.y)
+		
+		var sprite_height := sprite.texture.get_height() * sprite.scale.y
+
+		var tile_height := tile.height_level
+		var base_y := -sprite_height - (tile_height * 5.0)-  iso_depth * 2.0
+		
+		orb.position.y = base_y - 15
+		health_ui.position.y = base_y
 
 	_update_hp()
 
 func _update_hp() -> void:
-	if max_hp <= 0: return
-	
-	health_bar.text = "%d/%d" % [current_hp, max_hp]
+	if max_hp <= 0:
+		return
 
 	var pct := float(current_hp) / max_hp
+	
+	hp_label.text = "%d/%d" % [current_hp, max_hp]
 
-	var color_healthy = Color("#00ff73") # Green
-	var color_warning = Color("#ffe600") # Yellow
-	var color_danger  = Color("#ff3b3b") # Red
+	var tween := create_tween()
 
-	var target_color: Color
+	tween.tween_property(
+		health_bar,
+		"value",
+		pct * 100.0,
+		0.18
+	).set_trans(Tween.TRANS_CUBIC)\
+	 .set_ease(Tween.EASE_OUT)
+
+	var healthy = Color("#00ff73")
+	var warning = Color("#ffe600")
+	var danger  = Color("#ff3b3b")
+
+	var color: Color
+
 	if pct > 0.5:
-		target_color = color_warning.lerp(color_healthy, (pct - 0.5) * 2.0)
+		color = warning.lerp(
+			healthy,
+			(pct - 0.5) * 2.0
+		)
 	else:
-		target_color = color_danger.lerp(color_warning, pct * 2.0)
+		color = danger.lerp(
+			warning,
+			pct * 2.0
+		)
 
-	var tween = create_tween()
-	tween.tween_property(health_bar, "modulate", target_color, 0.4)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_OUT)
+	health_bar.modulate = color
 
 	hp_changed.emit(current_hp, max_hp)
 

@@ -152,7 +152,9 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		
 	elif event is InputEventMouseMotion:
 		get_viewport().set_input_as_handled()
+		occupant.set_hovered(true)
 		tile_hovered.emit(self)
 
 func _on_mouse_exited() -> void:
+	occupant.set_hovered(false)
 	tile_exited.emit(self)
