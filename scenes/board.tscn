@@ -29,7 +29,7 @@ texture = ExtResource("4_fv4ni")
 [node name="Ambient" type="Node2D" parent="." unique_id=9952697]
 
 [node name="LowFog" type="GPUParticles2D" parent="Ambient" unique_id=1204101238]
-position = Vector2(0, 500)
+position = Vector2(0, 425)
 amount = 60
 texture = ExtResource("4_dxjtj")
 lifetime = 10.0

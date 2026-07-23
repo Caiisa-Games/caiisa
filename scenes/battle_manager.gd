@@ -103,6 +103,7 @@ func _handle_selection(tile: Tile, p_idx: int) -> void:
 		return
 	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 	selected_piece = tile
+	tile.occupant.set_selected(true)
 	current_phase = Phase.MOVE
 	_update_valid_moves()
 	board.highlight_tile(tile, Tile.HighlightColor.SELF)
@@ -215,6 +216,8 @@ func _end_turn() -> void:
 	_clear_selection()
 
 func _clear_selection() -> void:
+	if selected_piece:
+		selected_piece.occupant.set_selected(false)
 	selected_piece = null
 	current_phase = Phase.SELECT
 	valid_moves.clear()
