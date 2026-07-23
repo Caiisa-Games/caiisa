@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://diuehx3alvhg8"]
+
+[ext_resource type="Script" uid="uid://du0yx7xcf2fmh" path="res://scenes/occupant.gd" id="1_vnol5"]
+[ext_resource type="Texture2D" uid="uid://b5uec3cj4bgg5" path="res://assets/sprites/orbs/level0/Vine-Orb-Level1.png" id="2_m3lwx"]
+[ext_resource type="Texture2D" uid="uid://5nyyfokg53on" path="res://assets/sprites/orbs/level0/Vine-Orb-Level2.png" id="3_tutl3"]
+[ext_resource type="Texture2D" uid="uid://caut33xe1rsmp" path="res://assets/sprites/orbs/level0/Vine-Orb-Level3.png" id="4_pllna"]
+[ext_resource type="Texture2D" uid="uid://dkc88lymmvuce" path="res://assets/sprites/orbs/level0/Vine-Orb-Level4.png" id="5_qbxg4"]
+[ext_resource type="Texture2D" uid="uid://br2uxreq7ii3i" path="res://assets/sprites/orbs/level0/Vine-Orb-Level5.png" id="6_y06w2"]
+[ext_resource type="Texture2D" uid="uid://dooscnrrl3n60" path="res://assets/sprites/orbs/level0/Vine-Orb-Level6.png" id="7_o2wmi"]
+[ext_resource type="Texture2D" uid="uid://dtfgn05h6qufv" path="res://assets/sprites/orbs/level0/Vine-Orb-Level7.png" id="8_gv8qq"]
+[ext_resource type="Texture2D" uid="uid://ins225q22ap4" path="res://assets/sprites/orbs/level0/Vine-Orb-Level8.png" id="9_n5v6m"]
+[ext_resource type="Texture2D" uid="uid://crn1xgasro4kl" path="res://assets/sprites/orbs/level1/Vine-Orb-Level1.png" id="10_lai7p"]
+[ext_resource type="Texture2D" uid="uid://c05fsdw6rtrbh" path="res://assets/sprites/orbs/level1/Vine-Orb-Level2.png" id="11_nioyl"]
+[ext_resource type="Texture2D" uid="uid://btejlc1rashvq" path="res://assets/sprites/orbs/level1/Vine-Orb-Level3.png" id="12_tbrfg"]
+[ext_resource type="Texture2D" uid="uid://bcxm80j0uxj6v" path="res://assets/sprites/orbs/level1/Vine-Orb-Level4.png" id="13_fwdof"]
+[ext_resource type="Texture2D" uid="uid://vnu4kyt8o7qd" path="res://assets/sprites/orbs/level1/Vine-Orb-Level5.png" id="14_pjhgb"]
+[ext_resource type="Texture2D" uid="uid://dj23nsfmhnuae" path="res://assets/sprites/orbs/level1/Vine-Orb-Level6.png" id="15_uu6e5"]
+[ext_resource type="Texture2D" uid="uid://bt7bd2uwh8cb3" path="res://assets/sprites/orbs/level1/Vine-Orb-Level7.png" id="16_7y5ai"]
+[ext_resource type="Texture2D" uid="uid://g7f5lv6saef2" path="res://assets/sprites/orbs/level1/Vine-Orb-Level8.png" id="17_cdaq1"]
+[ext_resource type="Texture2D" uid="uid://djikgmepa0dah" path="res://assets/sprites/orbs/level2/Vine-Orb-Level1.png" id="18_wn7ac"]
+[ext_resource type="Texture2D" uid="uid://mb8soahpfl0g" path="res://assets/sprites/orbs/level2/Vine-Orb-Level2.png" id="19_ia5hi"]
+[ext_resource type="Texture2D" uid="uid://54bgkh3o54dy" path="res://assets/sprites/orbs/level2/Vine-Orb-Level3.png" id="20_6vb2i"]
+[ext_resource type="Texture2D" uid="uid://doawmo2846x70" path="res://assets/sprites/orbs/level2/Vine-Orb-Level4.png" id="21_nuwi2"]
+[ext_resource type="Texture2D" uid="uid://b8vt6augu0tc6" path="res://assets/sprites/orbs/level2/Vine-Orb-Level5.png" id="22_y4q6a"]
+[ext_resource type="Texture2D" uid="uid://cscer63s3iqib" path="res://assets/sprites/orbs/level2/Vine-Orb-Level6.png" id="23_ktd6w"]
+[ext_resource type="Texture2D" uid="uid://bi3y77ntlkjyv" path="res://assets/sprites/orbs/level2/Vine-Orb-Level7.png" id="24_73dkt"]
+[ext_resource type="Texture2D" uid="uid://dlr7rjpecxgp1" path="res://assets/sprites/orbs/level2/Vine-Orb-Level8.png" id="25_ckoko"]
+[ext_resource type="Texture2D" uid="uid://cxtypwddkbn35" path="res://assets/sprites/orbs/level3/Vine-Orb1.png" id="26_4lk6a"]
+[ext_resource type="Texture2D" uid="uid://8yu0v13nnpye" path="res://assets/sprites/orbs/level3/Vine-Orb2.png" id="27_lccud"]
+[ext_resource type="Texture2D" uid="uid://d256bfuhxqrir" path="res://assets/sprites/orbs/level3/Vine-Orb3.png" id="28_ky6m7"]
+[ext_resource type="Texture2D" uid="uid://b8af40a47qm5d" path="res://assets/sprites/orbs/level3/Vine-Orb4.png" id="29_hnnjn"]
+[ext_resource type="Texture2D" uid="uid://sj7apk7hiwkm" path="res://assets/sprites/orbs/level3/Vine-Orb5.png" id="30_wf4ie"]
+[ext_resource type="Texture2D" uid="uid://dp721qbaf5gra" path="res://assets/sprites/orbs/level3/Vine-Orb6.png" id="31_78jcq"]
+[ext_resource type="Texture2D" uid="uid://1mv1urr325to" path="res://assets/sprites/orbs/level3/Vine-Orb7.png" id="32_ivoht"]
+[ext_resource type="Texture2D" uid="uid://dxcex43cx330q" path="res://assets/sprites/orbs/level3/Vine-Orb8.png" id="33_j6e36"]
+[ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="34_wrvwr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4h02p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m3lwx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tutl3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pllna")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qbxg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y06w2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_o2wmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gv8qq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_n5v6m")
+}],
+"loop": 1,
+"name": &"level0",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_lai7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_nioyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_tbrfg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_fwdof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pjhgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_uu6e5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_7y5ai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_cdaq1")
+}],
+"loop": 1,
+"name": &"level1",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_wn7ac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ia5hi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_6vb2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_nuwi2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_y4q6a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ktd6w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_73dkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_ckoko")
+}],
+"loop": 1,
+"name": &"level2",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_4lk6a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lccud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ky6m7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_hnnjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_wf4ie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_78jcq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_ivoht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_j6e36")
+}],
+"loop": 1,
+"name": &"level3",
+"speed": 8.0
+}]
+
+[node name="Occupant" type="Node2D" unique_id=653996879]
+script = ExtResource("1_vnol5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=458856131]
+position = Vector2(0, -50)
+scale = Vector2(0.45, 0.45)
+
+[node name="Orb" type="AnimatedSprite2D" parent="." unique_id=430376974]
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_4h02p")
+animation = &"level0"
+
+[node name="HealthLabel" type="Label" parent="." unique_id=904794825]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -15.0
+offset_right = 57.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("34_wrvwr")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
