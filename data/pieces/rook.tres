@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="2_8b4o5"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_by47r"]
 [ext_resource type="Texture2D" uid="uid://k13a1mwvijpy" path="res://assets/sprites/pieces/black/rook_black.png" id="3_kroi7"]
-[ext_resource type="Texture2D" uid="uid://cjyv7ax0hwwul" path="res://assets/sprites/pieces/white/rook_white.png" id="4_47oeh"]
+[ext_resource type="Texture2D" uid="uid://vs0x50hqnvw" path="res://assets/sprites/pieces/white/Rook(White).png" id="5_8b4o5"]
 
 [sub_resource type="Resource" id="Resource_jdp0r"]
 script = ExtResource("2_8b4o5")
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://yiknnlycdli6"
 script = ExtResource("2_by47r")
 name = "rook"
 description = "A strong, iron fortress against attacks"
-texture_white = ExtResource("4_47oeh")
+texture_white = ExtResource("5_8b4o5")
 texture_black = ExtResource("3_kroi7")
 card_texture = ExtResource("1_fbp7n")
 knockback = 3
