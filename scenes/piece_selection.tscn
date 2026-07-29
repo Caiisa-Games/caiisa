@@ -4,24 +4,16 @@
 [ext_resource type="Script" uid="uid://cwbah32ksyhk2" path="res://scenes/piece_selection.gd" id="1_34mbo"]
 [ext_resource type="Script" uid="uid://dx7eqwrwq2vjk" path="res://scripts/board_data.gd" id="2_gam43"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="2_j66un"]
-[ext_resource type="Resource" path="res://data/boards/central_peak.tres" id="3_1x4av"]
 [ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="3_mcp5b"]
-[ext_resource type="Resource" path="res://data/boards/defensive_gauntlet.tres" id="4_a7c2n"]
 [ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/king.tres" id="4_king"]
-[ext_resource type="Resource" path="res://data/boards/four_islands.tres" id="5_lie7r"]
 [ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://data/pieces/queen.tres" id="5_queen"]
-[ext_resource type="Resource" path="res://data/boards/great_basin.tres" id="6_67qpn"]
 [ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://data/pieces/knight.tres" id="6_knight"]
 [ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="7_rook"]
-[ext_resource type="Resource" path="res://data/boards/serpant_coil.tres" id="7_rwhnw"]
-[ext_resource type="Resource" path="res://data/boards/shattered_divide.tres" id="8_6wc5k"]
 [ext_resource type="Resource" uid="uid://425mbxscserg" path="res://data/pieces/bishop.tres" id="8_bishop"]
 [ext_resource type="Texture2D" uid="uid://b4sjemnkv52a6" path="res://assets/Battle-Background.png" id="9_6migr"]
-[ext_resource type="Resource" path="res://data/boards/symmetric_canyon.tres" id="9_ob4b6"]
 [ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="9_pawn"]
-[ext_resource type="Resource" path="res://data/boards/throne_room.tres" id="10_5ay3w"]
 [ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="10_6migr"]
-[ext_resource type="Resource" path="res://data/boards/twin_bastions.tres" id="11_mlgkm"]
+[ext_resource type="Resource" uid="uid://bmheprnba1onh" path="res://data/boards/x_cross.tres" id="11_mlgkm"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="11_svpf0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]
@@ -42,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_34mbo")
-available_boards = Array[ExtResource("2_gam43")]([ExtResource("3_1x4av"), ExtResource("4_a7c2n"), ExtResource("5_lie7r"), ExtResource("6_67qpn"), ExtResource("7_rwhnw"), ExtResource("8_6wc5k"), ExtResource("9_ob4b6"), ExtResource("10_5ay3w"), ExtResource("11_mlgkm")])
+available_boards = Array[ExtResource("2_gam43")]([ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm")])
 available_pieces = Array[ExtResource("2_j66un")]([ExtResource("4_king"), ExtResource("5_queen"), ExtResource("6_knight"), ExtResource("7_rook"), ExtResource("8_bishop"), ExtResource("9_pawn")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1537771509]
@@ -56,7 +48,8 @@ texture = ExtResource("9_6migr")
 expand_mode = 1
 
 [node name="Board" parent="." unique_id=442776398 instance=ExtResource("3_mcp5b")]
-position = Vector2(675, 206)
+position = Vector2(675, 215)
+scale = Vector2(0.75, 0.75)
 
 [node name="UICanvas" type="CanvasLayer" parent="." unique_id=1329404225]
 layer = 2

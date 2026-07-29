@@ -60,13 +60,14 @@ script = ExtResource("1_bw3vb")
 tile_scene = ExtResource("2_tx6nw")
 
 [node name="BoardBase" type="Sprite2D" parent="." unique_id=1747385552]
-position = Vector2(0, 298)
-scale = Vector2(0.29, 0.29)
+position = Vector2(0, 335)
+scale = Vector2(0.32, 0.32)
 texture = ExtResource("4_fv4ni")
 
 [node name="TileContainer" type="Node2D" parent="." unique_id=1802124030]
 
 [node name="Ambient" type="Node2D" parent="." unique_id=9952697]
+z_index = 4096
 
 [node name="LowFog" type="GPUParticles2D" parent="Ambient" unique_id=1204101238]
 position = Vector2(0, 425)

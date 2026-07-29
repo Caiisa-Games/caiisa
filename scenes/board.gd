@@ -4,7 +4,7 @@ extends Node2D
 enum Mode { PREVIEW, BATTLE }
 enum State { IDLE, SELECTED }
 
-const GRID_SIZE := 7
+const GRID_SIZE := 8
 
 @export var tile_scene: PackedScene
 @export var board_data: BoardData
