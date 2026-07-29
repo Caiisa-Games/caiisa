@@ -16,6 +16,36 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4k1nj"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gam43"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vceff"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22uqi"]
+bg_color = Color(0.26786566, 0.6048218, 0.99999994, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ni85"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vh42"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 4
@@ -51,6 +81,12 @@ scale = Vector2(0.7, 0.7)
 layout_direction = 2
 texture = ExtResource("3_66ngm")
 metadata/_edit_use_anchors_ = true
+
+[node name="Clouds" type="Sprite2D" parent="UI" unique_id=622607023]
+position = Vector2(-400, 116.5)
+scale = Vector2(0.06, 0.06)
+script = ExtResource("6_6vh42")
+images = Array[Texture]([ExtResource("6_66ngm"), ExtResource("7_03edq"), ExtResource("8_22uqi"), ExtResource("9_6ni85")])
 
 [node name="TopBar" type="Panel" parent="UI" unique_id=1325913622]
 anchors_preset = 10
@@ -102,19 +138,50 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = -17.0
+offset_left = 20.0
+offset_top = -250.0
+offset_right = -22.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
 layout_direction = 2
 theme = ExtResource("3_lpir7")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gam43")
 
-[node name="Sprite2D" type="Sprite2D" parent="UI" unique_id=622607023]
-position = Vector2(-400, 116.5)
-scale = Vector2(0.06, 0.06)
-script = ExtResource("6_6vh42")
-images = Array[Texture]([ExtResource("6_66ngm"), ExtResource("7_03edq"), ExtResource("8_22uqi"), ExtResource("9_6ni85")])
+[node name="Player2Energy" type="ProgressBar" parent="UI/BottomPanel" unique_id=1375992409]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_right = 200.0
+offset_bottom = 46.0
+grow_vertical = 0
+rotation = -1.5707964
+theme_override_styles/background = SubResource("StyleBoxFlat_vceff")
+theme_override_styles/fill = SubResource("StyleBoxFlat_22uqi")
+value = 50.0
+show_percentage = false
+
+[node name="Player1Energy" type="ProgressBar" parent="UI/BottomPanel" unique_id=1516234563]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -4.0
+offset_right = 152.0
+offset_bottom = 46.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = -1.5707964
+theme_override_styles/background = SubResource("StyleBoxFlat_6ni85")
+theme_override_styles/fill = SubResource("StyleBoxFlat_22uqi")
+value = 50.0
+show_percentage = false
 
 [node name="BoardLayer" type="CanvasLayer" parent="." unique_id=562889155]
 

@@ -2,21 +2,17 @@ class_name Occupant
 extends Node2D
 
 signal hp_changed(current_hp: int, max_hp: int)
-signal energy_changed(current_energy: int, max_energy: int)
 signal died
 
 @export var piece_data: PieceData = null
-@export var max_energy: int = 10
 var current_hp: int = 0
 var max_hp: int = 0
 var player: int = 0
-var current_energy: int = 3
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var health_ui: Node2D = $HealthUI
 @onready var health_bar: ProgressBar = $HealthUI/HealthBar
 @onready var hp_label: Label = $HealthUI/HPLabel
-@onready var energy_bar: ProgressBar = $HealthUI/EnergyBar
 @onready var orb: AnimatedSprite2D = $Orb
 
 var _hovered := false
@@ -53,7 +49,6 @@ func set_hovered(value: bool):
 
 func _update_label_visibility():
 	hp_label.visible = _hovered or _selected
-	energy_bar.visible = _hovered or _selected
 
 func set_data(data: PieceData, _player: int, _current_hp: int, show_health = true) -> void:
 	if not data:
@@ -157,7 +152,6 @@ func _update_stats() -> void:
 		health_ui.position.y = base_y
 
 	_update_hp()
-	_update_energy()
 
 func _update_hp() -> void:
 	if max_hp <= 0:
@@ -198,62 +192,8 @@ func _update_hp() -> void:
 
 	hp_changed.emit(current_hp, max_hp)
 
-func _update_energy() -> void:
-	if max_energy <= 0:
-		return
-
-	var pct := float(current_energy) / max_energy
-	print(pct)
-	
-	#hp_label.text = "%d/%d" % [current_energy, max_energy]
-
-	var tween := create_tween()
-
-	tween.tween_property(
-		energy_bar,
-		"value",
-		pct * 100.0,
-		0.18
-	).set_trans(Tween.TRANS_CUBIC)\
-	 .set_ease(Tween.EASE_OUT)
-	
-	energy_bar.modulate = Color(0.158, 0.391, 1.0, 1.0)
-#
-	#var healthy = Color("#00ff73")
-	#var warning = Color("#ffe600")
-	#var danger  = Color("#ff3b3b")
-#
-	#var color: Color
-#
-	#if pct > 0.5:
-		#color = warning.lerp(
-			#healthy,
-			#(pct - 0.5) * 2.0
-		#)
-	#else:
-		#color = danger.lerp(
-			#warning,
-			#pct * 2.0
-		#)
-#
-	#health_bar.modulate = color
-
 func _flash_damage() -> void:
 	modulate = Color.RED
 	var tween := create_tween()
 	tween.tween_interval(0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.0)
-
-func gain_energy(amount: int):
-	var new_energy = clamp(amount + current_energy, 0, max_energy)
-	
-	current_energy += new_energy
-	energy_changed.emit(current_energy, max_energy)
-
-func spend_energy(amount: int) -> bool:
-	if amount > current_energy:
-		return false
-	
-	current_energy -= amount
-	energy_changed.emit(current_energy, max_energy)
-	return true
