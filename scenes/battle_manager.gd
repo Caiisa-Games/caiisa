@@ -18,11 +18,11 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
 @onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
 
-@onready var player_1_energybar: ProgressBar = $UI/BottomPanel/Player1Energy
-@onready var player_2_energybar: ProgressBar = $UI/BottomPanel/Player2Energy
-
 @onready var top_bar: Panel = $UI/TopBar
 @onready var bottom_panel: Panel = $UI/BottomPanel
+@onready var end_turn_btn: Button = $UI/TopBar/EndTurnButton
+@onready var player_1_energybar: ProgressBar = $UI/BottomPanel/Player1Energy
+@onready var player_2_energybar: ProgressBar = $UI/BottomPanel/Player2Energy
 
 const FADE_IN_DURATION := 3.0
 const LOADING_DURATION := 5.0
@@ -217,6 +217,9 @@ func _update_valid_moves() -> void:
 			target.set_highlight_color(Tile.HighlightColor.MOVE)
 
 func _end_turn() -> void:
+	if player_energy[current_turn] < 2:
+		return
+	player_energy[current_turn] -= 2
 	if current_turn == Turn.PLAYER_1:
 		current_turn = Turn.PLAYER_2
 	else:
@@ -237,6 +240,7 @@ func _update_ui() -> void:
 	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
 	player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
 	player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
+	end_turn_btn.disabled = player_energy[current_turn] < 2
 	for t in board.tiles.values():
 		if t.occupant.piece_data:
 			if t.occupant.player == p_idx: t.occupant.show_orb()
