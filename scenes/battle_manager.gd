@@ -18,6 +18,9 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
 @onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
 
+@onready var player_1_energybar: ProgressBar = $UI/BottomPanel/Player1Energy
+@onready var player_2_energybar: ProgressBar = $UI/BottomPanel/Player2Energy
+
 @onready var top_bar: Panel = $UI/TopBar
 @onready var bottom_panel: Panel = $UI/BottomPanel
 
@@ -33,6 +36,10 @@ var selected_piece: Tile = null
 var valid_moves: Array[Tile] = []
 var round_number: int = 1
 var winner: int = 0
+
+const MAX_ENERGY := 10
+var player_energy := { Turn.PLAYER_1: 0, Turn.PLAYER_2: 0 }
+signal energy_changed(player: int, current: int, max: int)
 
 func _ready() -> void:
 	_prepare_scene()
@@ -133,10 +140,12 @@ func _handle_attack(tile: Tile) -> void:
 	)
 	var died = await target_occupant.take_damage(damage)
 	AudioManager.play_sfx(preload("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3"))
+	gain_energy(current_turn, 1)
 	if died:
 		_handle_died(tile)
 		_execute_dictionary_move(attacker_tile, tile)
 		board._move_occupant(attacker_tile, tile)
+		gain_energy(current_turn, 2)
 		await _check_promotion(tile)
 	else:
 		await _apply_knockback(attacker_tile, tile)
@@ -226,6 +235,8 @@ func _clear_selection() -> void:
 
 func _update_ui() -> void:
 	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
+	player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
+	player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
 	for t in board.tiles.values():
 		if t.occupant.piece_data:
 			if t.occupant.player == p_idx: t.occupant.show_orb()
@@ -240,6 +251,18 @@ func _handle_game_over() -> void:
 	
 	top_bar.hide()
 	bottom_panel.hide()
+	
+func gain_energy(player: int, amount: int) -> void:
+	player_energy[player] = clamp(player_energy[player] + amount, 0, MAX_ENERGY)
+	energy_changed.emit(player, player_energy[player], MAX_ENERGY)
+	
+func spend_energy(player: int, amount: int) -> bool:
+	if player_energy[player] < amount:
+		return false
+	
+	player_energy[player] -= amount
+	energy_changed.emit(player, player_energy[player], MAX_ENERGY)
+	return true
 
 func _on_end_turn_button_pressed() -> void:
 	_end_turn()

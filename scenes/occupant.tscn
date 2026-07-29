@@ -194,11 +194,3 @@ offset_right = 24.0
 offset_bottom = 8.0
 value = 100.0
 show_percentage = false
-
-[node name="EnergyBar" type="ProgressBar" parent="HealthUI" unique_id=368229487]
-offset_left = -24.0
-offset_top = 10.0
-offset_right = 24.0
-offset_bottom = 18.0
-value = 100.0
-show_percentage = false
