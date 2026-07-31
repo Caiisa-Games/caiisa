@@ -159,7 +159,10 @@ func _on_confirm_placement_pressed() -> void:
 	else:
 		GameState.player_1_pieces = player1_placed
 		GameState.player_2_pieces = player2_placed
-		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+		var loading = preload("res://scenes/loading_screen.tscn").instantiate() as LoadingScreen
+		loading.target_scene = "res://scenes/battle.tscn"
+		get_tree().root.add_child(loading)
+		queue_free()
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	if current_step < FlowStep.P1_PLACE: return
