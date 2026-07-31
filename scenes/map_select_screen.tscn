@@ -97,12 +97,60 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6ymlp")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBoxContainer/BottomButtons" unique_id=1161475754]
+[node name="Margin" type="MarginContainer" parent="Margin/VBoxContainer/BottomButtons" unique_id=1294074388]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBoxContainer/BottomButtons/Margin" unique_id=1161475754]
+layout_mode = 2
 theme_override_constants/separation = 20
-alignment = 1
+
+[node name="LeftGroup" type="HBoxContainer" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer" unique_id=491665414]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="RandomButton" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/LeftGroup" unique_id=1535190451]
+custom_minimum_size = Vector2(44, 44)
+custom_maximum_size = Vector2(44, 44)
+layout_mode = 2
+text = "R"
+
+[node name="Button" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/LeftGroup" unique_id=584820044]
+custom_minimum_size = Vector2(120, 44)
+custom_maximum_size = Vector2(120, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "generate"
+
+[node name="Spacer" type="Control" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer" unique_id=2093488443]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightGroup" type="HBoxContainer" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer" unique_id=578858846]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="ModeSelect" type="OptionButton" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1829520821]
+visible = false
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1672065303]
+custom_minimum_size = Vector2(100, 44)
+layout_mode = 2
+text = "back"
+
+[node name="PlayButton" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1590373513]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+text = "play"

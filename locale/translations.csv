@@ -19,6 +19,7 @@ close,CLOSE,بستن
 Master,Master,صدای کل
 Music,Music,موسیقی
 SFX,SFX,جلوه های صوتی
+play,Play,شروع
 back,Back,بازگشت
 reset,Reset,بازنشانی
 apply,Apply,اعمال
@@ -45,3 +46,4 @@ tip5,"The Queen's diverse set of moves and stamina should be enough justness for
 tip6,"The Rook is a strong and stable fortress against attacks, but it is not her ability to strike that amazes you, it is her endurance that can confuse the opponent","قلعه ای محکم و استوار در برابر حملات است اما توان او در ضربه زدن شما را متحیر نمیکند بلکه استقامت اوست که میتواند حریف را کلافه کند"
 
 map_select_title,Select Your Board,صفحه بازی خود را انتخاب کنید
+generate,Generate,تولید
