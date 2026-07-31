@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://cv3dexuawbi0y" path="res://data/boards/twin_bastions.tres" id="12_7hhq3"]
 [ext_resource type="Resource" uid="uid://df22irnj3fy3k" path="res://data/boards/x_cross.tres" id="13_2urgw"]
 [ext_resource type="Resource" uid="uid://ceu01b8w2ng85" path="res://data/boards/serpant_coil.tres" id="13_mh7ps"]
+[ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="15_f51cf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xar1i"]
 
@@ -129,6 +130,7 @@ custom_minimum_size = Vector2(120, 44)
 custom_maximum_size = Vector2(120, 44)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
+disabled = true
 text = "generate"
 
 [node name="Spacer" type="Control" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer" unique_id=2093488443]
@@ -145,12 +147,22 @@ visible = false
 custom_minimum_size = Vector2(140, 44)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1672065303]
-custom_minimum_size = Vector2(100, 44)
+[node name="BackButton" type="TextureButton" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1047316697]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
-text = "back"
+texture_normal = ExtResource("15_f51cf")
+texture_pressed = ExtResource("15_f51cf")
+texture_hover = ExtResource("15_f51cf")
+texture_disabled = ExtResource("15_f51cf")
+texture_focused = ExtResource("15_f51cf")
+stretch_mode = 0
 
 [node name="PlayButton" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1590373513]
 custom_minimum_size = Vector2(140, 44)
 layout_mode = 2
 text = "play"
+
+[connection signal="pressed" from="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/LeftGroup/RandomButton" to="." method="_on_random_button_pressed"]
+[connection signal="pressed" from="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup/PlayButton" to="." method="_on_play_button_pressed"]

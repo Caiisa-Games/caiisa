@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b4sjemnkv52a6" path="res://assets/Battle-Background.png" id="9_6migr"]
 [ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="9_pawn"]
 [ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="10_6migr"]
-[ext_resource type="Resource" uid="uid://bmheprnba1onh" path="res://data/boards/x_cross.tres" id="11_mlgkm"]
+[ext_resource type="Resource" uid="uid://df22irnj3fy3k" path="res://data/boards/x_cross.tres" id="11_mlgkm"]
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="11_svpf0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8ih6"]

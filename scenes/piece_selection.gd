@@ -43,12 +43,10 @@ func _ready() -> void:
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	board.set_mode(BoardManager.Mode.PREVIEW)
 	
-	if available_boards.size() == 0:
-		push_error("No boards")
+	if not GameState.board:
+		push_error("No board")
 		return
-	var chosen_board = available_boards.pick_random()
-	board.board_data = chosen_board
-	GameState.board = chosen_board
+	board.board_data = GameState.board
 	
 	board.generate()
 	_connect_signals()
