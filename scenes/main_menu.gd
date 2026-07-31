@@ -1,7 +1,7 @@
 class_name MainMenu
 extends Control
 
-const PIECE_SELECTION_SCENE = "res://scenes/piece_selection.tscn"
+const MAP_SELECTION_SCENE = "res://scenes/map_select_screen.tscn"
 const SETTINGS_SCENE = preload("res://scenes/settings_menu.tscn")
 const CLICK_SFX = preload("res://assets/sound/فشردن دکمه های سنگی.mp3")
 const TRANSITION_MUSIC = preload("res://assets/sound/music_transition.ogg")
@@ -80,7 +80,7 @@ func _on_texture_button_pressed() -> void:
 	color_fade.show()
 	var tween = create_tween()
 	tween.tween_property(color_fade, "modulate:a", 1.0, FADE_DURATION)
-	tween.finished.connect(func(): get_tree().change_scene_to_file(PIECE_SELECTION_SCENE))
+	tween.finished.connect(func(): get_tree().change_scene_to_file(MAP_SELECTION_SCENE))
 
 func _on_settings_button_pressed() -> void:
 	if settings_menu.visible: return
