@@ -1,0 +1,15 @@
+name: Godot Check
+
+on: [push, pull_request]
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: chickensoft-games/setup-godot@v2
+              with:
+                  version: 4.3
+
+            - run: godot --headless --import
