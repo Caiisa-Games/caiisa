@@ -11,8 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://btd6irgtnxmki" path="res://assets/Cloud2.png" id="7_03edq"]
 [ext_resource type="Texture2D" uid="uid://cqvv4ob3thr00" path="res://assets/Cloud3.png" id="8_22uqi"]
 [ext_resource type="Texture2D" uid="uid://bml7od6can3qo" path="res://assets/Cloud4.png" id="9_6ni85"]
-[ext_resource type="Texture2D" uid="uid://cc56a0o5y31bw" path="res://assets/Background-2.png" id="33_e50ek"]
-[ext_resource type="PackedScene" uid="uid://0otu1vei661g" path="res://scenes/spinning_c.tscn" id="34_mpb26"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4k1nj"]
 
@@ -41,22 +39,6 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vh42"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4k1nj"]
-bg_color = Color(0, 0.56078434, 0.5921569, 1)
-border_width_bottom = 1
-border_color = Color(0.18039216, 0.05490196, 0.18039216, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -279,57 +261,6 @@ limit_left = 0
 limit_top = 0
 limit_right = 1152
 limit_bottom = 648
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1008487188]
-visible = false
-offset_left = 452.0
-offset_top = 356.0
-offset_right = 694.0
-offset_bottom = 383.0
-theme_override_styles/background = SubResource("StyleBoxFlat_6vh42")
-theme_override_styles/fill = SubResource("StyleBoxFlat_4k1nj")
-show_percentage = false
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1656910863]
-offset_right = 1152.0
-offset_bottom = 648.0
-layout_direction = 2
-texture = ExtResource("33_e50ek")
-
-[node name="Label" type="Label" parent="." unique_id=1812800350]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 259.0
-offset_top = 532.0
-offset_right = 891.0
-offset_bottom = 595.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-layout_direction = 2
-theme = ExtResource("3_lpir7")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 1
-theme_override_constants/paragraph_spacing = 1
-theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 2
-autowrap_mode = 3
-
-[node name="SpinningC" parent="." unique_id=1467597672 instance=ExtResource("34_mpb26")]
-position = Vector2(1090.9999, 569)
-scale = Vector2(0.15, 0.15)
-
-[node name="ColorRectr" type="ColorRect" parent="." unique_id=2068934977]
-visible = false
-offset_right = 1152.0
-offset_bottom = 650.0
-layout_direction = 2
-color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="UI/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="UI/TopBar/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
