@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://nwnp102iuwa3"]
+
+[ext_resource type="Script" uid="uid://hyupccm21asq" path="res://scenes/singleplayer/stage.gd" id="1_cngqf"]
+[ext_resource type="Script" uid="uid://dx7eqwrwq2vjk" path="res://scripts/board_data.gd" id="2_xl3lm"]
+[ext_resource type="Resource" uid="uid://cxxqwatboudch" path="res://data/boards/central_peak.tres" id="3_w32v7"]
+[ext_resource type="Resource" uid="uid://dg2y788a8dytt" path="res://data/boards/defensive_gauntlet.tres" id="4_h3ull"]
+[ext_resource type="Resource" uid="uid://bxmnupf1e68l" path="res://data/boards/four_islands.tres" id="5_btdv0"]
+[ext_resource type="Resource" uid="uid://bbn65uk1kj7kg" path="res://data/boards/great_basin.tres" id="6_fbghl"]
+[ext_resource type="Resource" uid="uid://ceu01b8w2ng85" path="res://data/boards/serpant_coil.tres" id="7_qcpci"]
+[ext_resource type="Resource" uid="uid://bp8n03wctmx3e" path="res://data/boards/shattered_divide.tres" id="8_u3pwn"]
+[ext_resource type="Resource" uid="uid://d00vtsj4j0nx4" path="res://data/boards/symmetric_canyon.tres" id="9_5wivg"]
+[ext_resource type="Resource" uid="uid://cjlaiw0q3dxdb" path="res://data/boards/throne_room.tres" id="10_g5mai"]
+[ext_resource type="Resource" uid="uid://cv3dexuawbi0y" path="res://data/boards/twin_bastions.tres" id="11_b6chv"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="12_7x8bm"]
+[ext_resource type="Resource" uid="uid://dhey5alqj4klo" path="res://data/pieces/knight.tres" id="13_wcrmf"]
+[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="14_gwdrs"]
+[ext_resource type="Resource" uid="uid://425mbxscserg" path="res://data/pieces/bishop.tres" id="15_3l3bg"]
+[ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="16_3f51o"]
+[ext_resource type="Resource" uid="uid://bk06pb3x532an" path="res://data/pieces/king.tres" id="17_y1smw"]
+[ext_resource type="Resource" uid="uid://b6asab88n3akv" path="res://data/pieces/queen.tres" id="18_84a4j"]
+[ext_resource type="Texture2D" uid="uid://b4sjemnkv52a6" path="res://assets/Battle-Background.png" id="19_s4h3i"]
+[ext_resource type="PackedScene" uid="uid://b6yyr6n4ljotv" path="res://scenes/board.tscn" id="20_u0v1u"]
+[ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="21_bvqst"]
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="22_agpf5"]
+[ext_resource type="Texture2D" uid="uid://dyrktggnqs1af" path="res://assets/Exit.png" id="23_53c82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpvpx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_27aad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs5le"]
+bg_color = Color(0, 0, 0, 0.588235)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xndd8"]
+
+[node name="Stage" type="Control" unique_id=503862942]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cngqf")
+available_boards = Array[ExtResource("2_xl3lm")]([ExtResource("3_w32v7"), ExtResource("4_h3ull"), ExtResource("5_btdv0"), ExtResource("6_fbghl"), ExtResource("7_qcpci"), ExtResource("8_u3pwn"), ExtResource("9_5wivg"), ExtResource("10_g5mai"), ExtResource("11_b6chv")])
+available_pieces = Array[ExtResource("12_7x8bm")]([ExtResource("13_wcrmf"), ExtResource("14_gwdrs"), ExtResource("15_3l3bg"), ExtResource("16_3f51o"), ExtResource("17_y1smw"), ExtResource("18_84a4j")])
+
+[node name="Background" type="TextureRect" parent="." unique_id=1290763661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_s4h3i")
+expand_mode = 1
+
+[node name="Board" parent="." unique_id=477674386 instance=ExtResource("20_u0v1u")]
+position = Vector2(675, 206)
+
+[node name="UICanvas" type="CanvasLayer" parent="." unique_id=1071622994]
+layer = 2
+
+[node name="MainUI" type="Control" parent="UICanvas" unique_id=1660700831]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+layout_direction = 2
+mouse_filter = 1
+theme = ExtResource("21_bvqst")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="UICanvas/MainUI" unique_id=1682535236]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+dragger_visibility = 2
+
+[node name="LeftPanel" type="PanelContainer" parent="UICanvas/MainUI/HSplitContainer" unique_id=613924210]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mpvpx")
+
+[node name="MarginContainer" type="MarginContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel" unique_id=1475742321]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer" unique_id=1940182798]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="TopBar" type="VBoxContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer" unique_id=987922625]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PlayerTurnLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar" unique_id=17686841]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("22_agpf5")
+theme_override_font_sizes/font_size = 20
+text = "PLAYER 1"
+horizontal_alignment = 1
+
+[node name="SelectedCountLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar" unique_id=2013356846]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("22_agpf5")
+theme_override_font_sizes/font_size = 20
+text = "PLACED: 0/3"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer" unique_id=5181048]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="CardFlow" type="HFlowContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1777104842]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 15
+alignment = 1
+
+[node name="StartButton" type="Button" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer" unique_id=1272064485]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "confirm"
+
+[node name="RightPanel" type="PanelContainer" parent="UICanvas/MainUI/HSplitContainer" unique_id=29163377]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_27aad")
+
+[node name="MarginContainer" type="MarginContainer" parent="UICanvas/MainUI/HSplitContainer/RightPanel" unique_id=574161681]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ExitButton" type="TextureButton" parent="UICanvas/MainUI/HSplitContainer/RightPanel/MarginContainer" unique_id=1372731279]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("23_53c82")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SelectionOverlay" type="PanelContainer" parent="UICanvas/MainUI" unique_id=1776993328]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vs5le")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/MainUI/SelectionOverlay" unique_id=1693416141]
+layout_mode = 2
+
+[node name="Sidebar" type="PanelContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer" unique_id=53420197]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xndd8")
+
+[node name="Margin" type="MarginContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar" unique_id=1505818076]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 85
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin" unique_id=202568472]
+layout_mode = 2
+
+[node name="DraftLabels" type="VBoxContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer" unique_id=765616811]
+layout_mode = 2
+layout_direction = 1
+theme_override_constants/separation = 5
+
+[node name="DraftTurnLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels" unique_id=511024417]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 39
+text = "PLAYER 1"
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels" unique_id=1229935096]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "choose_pieces_label"
+
+[node name="DraftCountLabel" type="Label" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels" unique_id=1879169099]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "PIECES PICKED: 0/2"
+
+[node name="Spacer" type="Control" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer" unique_id=1437061688]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ConfirmBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer" unique_id=1159488212]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "confirm"
+
+[node name="BackBtn" type="Button" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer" unique_id=790652814]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "back"
+
+[node name="GridArea" type="CenterContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer" unique_id=1017590805]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectionGrid" type="GridContainer" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/GridArea" unique_id=711123745]
+layout_mode = 2
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+columns = 3
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1539723056]
+offset = Vector2(576, 324)
+
+[connection signal="pressed" from="UICanvas/MainUI/HSplitContainer/RightPanel/MarginContainer/ExitButton" to="." method="_on_exit_button_pressed"]

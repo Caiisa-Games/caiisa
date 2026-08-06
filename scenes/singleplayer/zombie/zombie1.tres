@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://bl731hvf07ucw"]
+
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_nlc43"]
+[ext_resource type="Texture2D" uid="uid://c2qtq864fb0pt" path="res://assets/sprites/pieces/black/bishop_black.png" id="1_rv0da"]
+[ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="2_mgl1e"]
+
+[sub_resource type="Resource" id="Resource_4r8xv"]
+script = ExtResource("2_mgl1e")
+metadata/_custom_type_script = "uid://yiknnlycdli6"
+
+[resource]
+script = ExtResource("1_nlc43")
+name = "zombie"
+texture_white = ExtResource("1_rv0da")
+texture_black = ExtResource("1_rv0da")
+card_texture = ExtResource("1_rv0da")
+knockback = 0
+power = 5
+defense = 50
+movement = SubResource("Resource_4r8xv")
+metadata/_custom_type_script = "uid://divct8m8b0k67"
