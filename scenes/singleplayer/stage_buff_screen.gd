@@ -13,21 +13,10 @@ func _ready() -> void:
 
 func _setup_buttons() -> void:
 	current_stage = GameState.current_stage
-	if current_stage >= 15:
-		option1_btn.text = "افزایش ۶ تایی سقف انتخاب مهره"
-		option2_text_or_btn(option2_btn, "افزایش ۱۵ واحدی قدرت حمله تمام مهره‌ها")
-	elif current_stage == 11:
-		option1_btn.text = "افزایش ۳۰ واحدی جان (HP) تمام مهره‌ها"
-		option2_btn.text = "کاهش ۱۰ درصدی روحیه دشمن"
-	elif current_stage == 6:
-		option1_btn.text = "افزایش ۵ درصدی قدرت حمله مهره‌ها"
-		option2_btn.text = "کاهش ۱۰ درصدی روحیه دشمن"
-	else:
-		option1_btn.text = "افزایش ۱۰ واحدی جان (HP) تمام مهره‌ها"
-		option2_btn.text = "کاهش ۵ درصدی قدرت حمله دشمن"
-
-func option2_text_or_btn(btn: Button, text_val: String) -> void:
-	btn.text = text_val
+	if current_stage not in [15,11,6]:
+		return
+	option1_btn.text = tr("option1_stage_%d" % current_stage)
+	option2_btn.text = tr("option2_stage_%d" % current_stage)
 
 func _on_option1_pressed() -> void:
 	_save_choice(1)

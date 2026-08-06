@@ -457,15 +457,15 @@ func _handle_game_over() -> void:
 
 	if is_win:
 		AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
-		winner_label.text = tr("YOU WIN!")
+		winner_label.text = tr("win")
 
 		if _is_singleplayer():
-			replay_button.text = tr("Next Stage")
+			replay_button.text = tr("next_stage")
 	else:
-		winner_label.text = tr("YOU LOSE!")
-		replay_button.text = tr("Replay")
+		winner_label.text = tr("lose")
+		replay_button.text = tr("replay")
 
-	round_label_gm.text = tr("Round: %d") % round_number
+	round_label_gm.text = tr("current_round") % round_number
 
 func _on_replay_button_pressed() -> void:
 	if not _is_singleplayer():
