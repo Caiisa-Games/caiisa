@@ -32,6 +32,6 @@ func _ready() -> void:
 				btn.disabled = true
 
 func _on_stage_pressed(stage_num: int) -> void:
-	GameState.current_stage = stage_num
+	GameState.set_current_stage(stage_num)
 	GameState.game_mode = GameState.GameMode.SINGLEPLAYER
 	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")

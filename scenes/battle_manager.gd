@@ -56,7 +56,7 @@ const MAX_MOVES_PER_TURN := 1
 func _ready() -> void:
 	if _is_singleplayer():
 		if GameState.current_stage <= 0:
-			GameState.current_stage = 1
+			GameState.set_current_stage(1)
 
 		var idx = GameState.current_stage - 1
 		if idx >= 0 and idx < stages.size():
@@ -477,7 +477,7 @@ func _on_replay_button_pressed() -> void:
 		get_tree().reload_current_scene()
 		return
 
-	GameState.current_stage += 1
+	GameState.set_current_stage(GameState.current_stage + 1)
 
 	if GameState.current_stage > stages.size():
 		get_tree().change_scene_to_file("res://scenes/singleplayer/.tscn")

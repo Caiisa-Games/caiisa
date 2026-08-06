@@ -29,7 +29,13 @@ func unlock_stage(stage: int) -> void:
 		highest_unlocked_level = stage
 		SaveManager.data.highest_unlocked_level = highest_unlocked_level
 		SaveManager.save()
-
+		
+func set_current_stage(value: int) -> bool:
+	var highest_unlocked_level = SaveManager.data.highest_unlocked_level
+	if value > highest_unlocked_level:
+		return false
+	current_stage = value
+	return true
 
 func get_pieces_for_player(player: int) -> Dictionary:
 	match player:
