@@ -39,3 +39,4 @@ func change_scene():
 	if ResourceLoader.load_threaded_get_status(target_scene) == ResourceLoader.THREAD_LOAD_LOADED:
 		var packed = ResourceLoader.load_threaded_get(target_scene)
 		get_tree().change_scene_to_packed(packed)
+		queue_free()

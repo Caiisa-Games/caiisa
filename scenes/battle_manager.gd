@@ -473,21 +473,19 @@ func _on_replay_button_pressed() -> void:
 		return
 
 	if winner != 1:
-		GameState.reset_battle_data()
 		get_tree().reload_current_scene()
 		return
 
 	GameState.set_current_stage(GameState.current_stage + 1)
 
 	if GameState.current_stage > stages.size():
-		get_tree().change_scene_to_file("res://scenes/singleplayer/.tscn")
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
 	elif _check_needs_upgrade():
-		print("UPGRADE")
-		pass # TODO
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
 
 func _check_needs_upgrade() -> bool:
 	var current_stg := GameState.current_stage
 
-	return current_stg in [5,10]
+	return current_stg in [6,11]

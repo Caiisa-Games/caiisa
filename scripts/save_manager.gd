@@ -5,6 +5,10 @@ const SAVE_PATH := "user://save.json"
 var data := {
 	"last_completed_level": 0,
 	"highest_unlocked_level": 1,
+	"chosen_buffs": {
+		"level5": 0,
+		"level10": 0
+	}
 }
 
 func load_save():

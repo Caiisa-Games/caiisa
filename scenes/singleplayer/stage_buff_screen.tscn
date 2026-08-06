@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://crrqbwe0cvhfh"]
 
-[ext_resource type="Script" uid="uid://drs7jmwq5t1db" path="res://scenes/stage_buff_popup.gd" id="1_yklil"]
+[ext_resource type="Script" uid="uid://drs7jmwq5t1db" path="res://scenes/singleplayer/stage_buff_screen.gd" id="1_yklil"]
 
 [node name="StageBuffPopup" type="Control" unique_id=1863109357]
 z_index = 40
@@ -11,7 +11,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yklil")
-metadata/_edit_lock_ = true
+
+[node name="Background" type="TextureRect" parent="." unique_id=312724488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Option1Btn" type="Button" parent="." unique_id=1760130470]
 layout_mode = 1
@@ -37,3 +44,6 @@ offset_right = 200.0
 offset_bottom = 74.0
 grow_vertical = 2
 text = "کاهش 10% نیروی دشمن"
+
+[connection signal="pressed" from="Option1Btn" to="." method="_on_option1_pressed"]
+[connection signal="pressed" from="Option2Btn" to="." method="_on_option2_pressed"]
