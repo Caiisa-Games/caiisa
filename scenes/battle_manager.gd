@@ -480,25 +480,14 @@ func _on_replay_button_pressed() -> void:
 	GameState.current_stage += 1
 
 	if GameState.current_stage > stages.size():
-		get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
-	elif _check_needs_merge():
+		get_tree().change_scene_to_file("res://scenes/singleplayer/.tscn")
+	elif _check_needs_upgrade():
+		print("UPGRADE")
 		pass # TODO
 	else:
-		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+		get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
 
-func _check_needs_merge() -> bool:
+func _check_needs_upgrade() -> bool:
 	var current_stg := GameState.current_stage
-	var next_stg := current_stg + 1
 
-	if current_stg == 5:
-		return true
-	if current_stg == 10:
-		return true
-
-	if next_stg in [1, 3, 6, 9, 12, 15]:
-		return true
-
-	if next_stg in [1, 5, 8, 10, 12, 15]:
-		return true
-
-	return false
+	return current_stg in [5,10]
