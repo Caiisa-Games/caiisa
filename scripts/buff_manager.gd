@@ -19,18 +19,12 @@ func mark_popup_shown(stage: int) -> void:
 
 func apply_stage_buff(stage: int, choice: int) -> void:
 	match stage:
-		1:
-			if choice == 1: player_hp_bonus += 10
-			elif choice == 2: enemy_atk_debuff += 0.05
 		5:
 			if choice == 1: player_atk_bonus += 0.05
 			elif choice == 2: enemy_morale_debuff += 0.10
 		10:
 			if choice == 1: player_hp_bonus += 30
 			elif choice == 2: enemy_morale_debuff += 0.10
-		15:
-			if choice == 1: extra_pieces_limit = 6
-			elif choice == 2: player_atk_flat_bonus += 15
 
 func get_calculated_hp(piece_data: PieceData, player_owner: int) -> int:
 	if not piece_data: return 0

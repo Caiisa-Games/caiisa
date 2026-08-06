@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="StageData" format=3 uid="uid://4ge7ya0q374o"]
 
-[ext_resource type="Script" uid="uid://cny50vln1wqld" path="res://scenes/singleplayer/StageData.gd" id="1_0a5cp"]
-[ext_resource type="Script" uid="uid://xwf6c7g6kkff" path="res://scenes/singleplayer/WaveData.gd" id="2_350uo"]
+[ext_resource type="Script" uid="uid://cny50vln1wqld" path="res://scripts/stage_data.gd" id="1_0a5cp"]
+[ext_resource type="Script" uid="uid://xwf6c7g6kkff" path="res://scripts/wave_data.gd" id="2_6ma3t"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="3_u426i"]
 [ext_resource type="Resource" uid="uid://btkjhpj0fm5vg" path="res://data/pieces/rook.tres" id="4_350uo"]
 [ext_resource type="Resource" uid="uid://425mbxscserg" path="res://data/pieces/bishop.tres" id="5_u426i"]
 
 [sub_resource type="Resource" id="Resource_2ey5x"]
-script = ExtResource("2_350uo")
+script = ExtResource("2_6ma3t")
 zombies = Array[ExtResource("3_u426i")]([ExtResource("4_350uo"), ExtResource("4_350uo"), ExtResource("5_u426i")])
 metadata/_custom_type_script = "uid://xwf6c7g6kkff"
 
 [resource]
 script = ExtResource("1_0a5cp")
-waves = Array[ExtResource("2_350uo")]([SubResource("Resource_2ey5x")])
+waves = Array[ExtResource("2_6ma3t")]([SubResource("Resource_2ey5x")])
 metadata/_custom_type_script = "uid://cny50vln1wqld"

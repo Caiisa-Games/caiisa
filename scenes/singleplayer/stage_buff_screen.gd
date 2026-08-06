@@ -9,20 +9,17 @@ signal buff_selected
 var current_stage: int = 1
 
 func _ready() -> void:
-	current_stage = GameState.current_stage
 	_setup_buttons()
-	
-	option1_btn.pressed.connect(_on_option1_pressed)
-	option2_btn.pressed.connect(_on_option2_pressed)
 
 func _setup_buttons() -> void:
+	current_stage = GameState.current_stage
 	if current_stage >= 15:
 		option1_btn.text = "افزایش ۶ تایی سقف انتخاب مهره"
 		option2_text_or_btn(option2_btn, "افزایش ۱۵ واحدی قدرت حمله تمام مهره‌ها")
-	elif current_stage >= 10:
+	elif current_stage == 11:
 		option1_btn.text = "افزایش ۳۰ واحدی جان (HP) تمام مهره‌ها"
 		option2_btn.text = "کاهش ۱۰ درصدی روحیه دشمن"
-	elif current_stage >= 5:
+	elif current_stage == 6:
 		option1_btn.text = "افزایش ۵ درصدی قدرت حمله مهره‌ها"
 		option2_btn.text = "کاهش ۱۰ درصدی روحیه دشمن"
 	else:
@@ -34,34 +31,26 @@ func option2_text_or_btn(btn: Button, text_val: String) -> void:
 
 func _on_option1_pressed() -> void:
 	_save_choice(1)
-	_mark_popup_shown()
 	buff_selected.emit()
-	queue_free()
+	_redirect()
 
 func _on_option2_pressed() -> void:
 	_save_choice(2)
-	_mark_popup_shown()
 	buff_selected.emit()
-	queue_free()
+	_redirect()
 
 func _save_choice(choice: int) -> void:
-	if current_stage >= 15:
-		GameState.stage_15_buff = choice
-	elif current_stage >= 10:
-		GameState.stage_10_buff = choice
-	elif current_stage >= 5:
-		GameState.stage_5_buff = choice
-	else:
-		GameState.stage_1_buff = choice
-		
-	GameState.recalculate_buffs()
-
-func _mark_popup_shown() -> void:
-	if current_stage >= 15:
-		GameState.popup_shown_15 = true
-	elif current_stage >= 10:
-		GameState.popup_shown_10 = true
-	elif current_stage >= 5:
-		GameState.popup_shown_5 = true
-	else:
-		GameState.popup_shown_1 = true
+	current_stage = GameState.current_stage
+	if current_stage == 11:
+		SaveManager.data.chosen_buffs.level10 = choice
+	elif current_stage == 6:
+		SaveManager.data.chosen_buffs.level5 = choice
+	
+	SaveManager.save()
+	BuffManager.apply_stage_buff(current_stage, choice)
+	
+func _redirect() -> void:
+	current_stage = GameState.current_stage
+	GameState.game_mode = GameState.GameMode.SINGLEPLAYER
+	
+	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
