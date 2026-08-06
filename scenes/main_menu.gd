@@ -2,6 +2,7 @@ class_name MainMenu
 extends Control
 
 const MAP_SELECTION_SCENE = "res://scenes/map_select_screen.tscn"
+const LEVEL_SELECTION_SCENE = "res://scenes/singleplayer/stage_selection.tscn"
 const SETTINGS_SCENE = preload("res://scenes/settings_menu.tscn")
 const CLICK_SFX = preload("res://assets/sound/فشردن دکمه های سنگی.mp3")
 const TRANSITION_MUSIC = preload("res://assets/sound/music_transition.ogg")
@@ -23,6 +24,8 @@ const FADE_DURATION = 0.7
 @onready var loading_bar: ProgressBar = $Fade/ProgressBar
 
 func _ready() -> void:
+	GameState.game_mode = null
+	SaveManager.load_save()
 	if not GameState.intro_played:
 		_prepare_ui_for_intro()
 		_run_intro_sequence()
@@ -77,6 +80,8 @@ func _on_texture_button_pressed() -> void:
 	_set_input_enabled(false)
 	AudioManager.play_music(TRANSITION_MUSIC, "Music", false)
 	
+	GameState.game_mode = GameState.GameMode.MULTIPLAYER
+	
 	color_fade.show()
 	var tween = create_tween()
 	tween.tween_property(color_fade, "modulate:a", 1.0, FADE_DURATION)
@@ -129,3 +134,15 @@ func _set_input_enabled(state: bool) -> void:
 	start_button.mouse_filter = mode
 	exit_button.mouse_filter = mode
 	settings_button.mouse_filter = mode
+
+
+func _on_singleplayer_button_pressed() -> void:
+	_set_input_enabled(false)
+	AudioManager.play_music(TRANSITION_MUSIC, "Music", false)
+	
+	GameState.game_mode = GameState.GameMode.SINGLEPLAYER
+	
+	color_fade.show()
+	var tween = create_tween()
+	tween.tween_property(color_fade, "modulate:a", 1.0, FADE_DURATION)
+	tween.finished.connect(func(): get_tree().change_scene_to_file(LEVEL_SELECTION_SCENE))

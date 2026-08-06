@@ -28,6 +28,8 @@ GameState="*res://scripts/game_state.gd"
 SettingsManager="*res://scripts/settings_manager.gd"
 LocaleManager="*res://scripts/locale_manager.gd"
 AudioManager="*res://scripts/audio.gd"
+SaveManager="*uid://ck2wxube2xpsg"
+BuffManager="*uid://relwlrcc2scd"
 
 [display]
 

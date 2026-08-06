@@ -56,6 +56,7 @@ func _get_class_icon() -> Texture2D:
 	return null
 
 func select() -> void:
+	if is_disabled: return
 	is_selected = true
 	glow.show()
 	create_tween().tween_property(self, "scale", original_scale * 1.05, 0.1)
@@ -74,6 +75,13 @@ func _on_mouse_exited() -> void:
 	if is_disabled: return
 	card_texture.show()
 	blank_card.hide()
+
+func set_disabled(disabled: bool) -> void:
+	is_disabled = disabled
+	if is_disabled:
+		modulate = Color(0.3, 0.3, 0.3, 0.7)
+	else:
+		modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 func _gui_input(event: InputEvent) -> void:
 	if is_disabled: return

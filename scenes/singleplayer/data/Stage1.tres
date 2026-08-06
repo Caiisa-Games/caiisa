@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StageData" format=3 uid="uid://dls0np7q1o588"]
+
+[ext_resource type="Script" uid="uid://cny50vln1wqld" path="res://scenes/singleplayer/StageData.gd" id="1_nv6j3"]
+[ext_resource type="Script" uid="uid://xwf6c7g6kkff" path="res://scenes/singleplayer/WaveData.gd" id="2_5q1k5"]
+[ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="3_71xpy"]
+[ext_resource type="Resource" uid="uid://dvlbi4nhupb2m" path="res://data/pieces/pawn.tres" id="4_gx5ry"]
+
+[sub_resource type="Resource" id="Resource_tyfk4"]
+script = ExtResource("2_5q1k5")
+zombies = Array[ExtResource("3_71xpy")]([ExtResource("4_gx5ry")])
+metadata/_custom_type_script = "uid://xwf6c7g6kkff"
+
+[resource]
+script = ExtResource("1_nv6j3")
+waves = Array[ExtResource("2_5q1k5")]([SubResource("Resource_tyfk4")])
+level = 1
+metadata/_custom_type_script = "uid://cny50vln1wqld"

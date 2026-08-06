@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://5lb0il0rj8or"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="1_ybca7"]
 [ext_resource type="Texture2D" uid="uid://cdnprc84r25rp" path="res://assets/Background.png" id="2_hstxw"]
 [ext_resource type="Texture2D" uid="uid://ce4fo7mirli5u" path="res://assets/Background-3.png" id="3_ip0br"]
 [ext_resource type="Texture2D" uid="uid://omcuhewvr44a" path="res://assets/sprites/caiisa_logo/Caissa-3.png" id="4_ybca7"]
@@ -562,6 +563,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 layout_direction = 2
+theme = ExtResource("1_ybca7")
 script = ExtResource("1_bqqt6")
 metadata/_edit_lock_ = true
 
@@ -615,12 +617,12 @@ stretch_mode = 0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.45572916
-anchor_top = 0.5046297
-anchor_right = 0.6197917
-anchor_bottom = 0.6589507
-offset_top = 112.0
-offset_right = 1707.1045
-offset_bottom = 1091.8049
+anchor_top = 0.67700005
+anchor_right = 0.62
+anchor_bottom = 0.832
+offset_top = 0.3039856
+offset_right = 1706.9441
+offset_bottom = 979.66907
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.09967807, 0.09260933)
@@ -633,6 +635,21 @@ scale = Vector2(0.9596992, 1.094027)
 sprite_frames = SubResource("SpriteFrames_6h3lr")
 animation = &"hover"
 offset = Vector2(1000, 500)
+
+[node name="SingleplayerButton" type="Button" parent="." unique_id=649129876]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45700002
+anchor_top = 0.841
+anchor_right = 0.61800003
+anchor_bottom = 0.90400004
+offset_left = 0.53601074
+offset_top = 0.031982422
+offset_right = 0.063964844
+offset_bottom = 0.20794678
+grow_horizontal = 2
+grow_vertical = 2
+text = "Singleplayer"
 
 [node name="CreditsLabel" type="Label" parent="." unique_id=2132204439]
 auto_translate_mode = 1
@@ -712,6 +729,7 @@ layout_mode = 1
 [connection signal="mouse_entered" from="StartButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="StartButton" to="." method="_on_texture_button_mouse_exited"]
 [connection signal="pressed" from="StartButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="mouse_entered" from="HBoxContainer/SettingsButton" to="." method="_on_settings_hover"]
 [connection signal="mouse_exited" from="HBoxContainer/SettingsButton" to="." method="_on_settings_exit"]

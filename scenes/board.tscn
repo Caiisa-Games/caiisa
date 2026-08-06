@@ -67,6 +67,7 @@ texture = ExtResource("4_fv4ni")
 [node name="TileContainer" type="Node2D" parent="." unique_id=1802124030]
 
 [node name="Ambient" type="Node2D" parent="." unique_id=9952697]
+visible = false
 z_index = 4096
 
 [node name="LowFog" type="GPUParticles2D" parent="Ambient" unique_id=1204101238]

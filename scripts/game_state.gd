@@ -1,5 +1,12 @@
 extends Node
 
+enum GameMode {
+	MULTIPLAYER,
+	SINGLEPLAYER
+}
+
+var game_mode = null
+
 var board: BoardData
 
 var player_1_pieces: Dictionary = {}
@@ -9,10 +16,19 @@ var winner: int = 0
 
 var intro_played: bool = false
 
+var current_stage := 0
+
 func reset() -> void:
 	player_1_pieces.clear()
 	player_2_pieces.clear()
 	winner = 0
+	
+func unlock_stage(stage: int) -> void:
+	var highest_unlocked_level = SaveManager.data.highest_unlocked_level
+	if current_stage == highest_unlocked_level:
+		highest_unlocked_level = stage
+		SaveManager.data.highest_unlocked_level = highest_unlocked_level
+		SaveManager.save()
 
 
 func get_pieces_for_player(player: int) -> Dictionary:

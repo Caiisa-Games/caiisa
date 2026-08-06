@@ -35,7 +35,7 @@ func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> boo
 		return false
 	
 	if current_mode == Mode.PREVIEW:
-		var valid_row = 0 if player == 1 else GRID_SIZE - 1
+		var valid_row = 0 if player == 2 else GRID_SIZE - 1
 		if grid_y != valid_row:
 			return false
 	var show_health = current_mode == Mode.BATTLE
@@ -68,6 +68,8 @@ func clear_all_highlights() -> void:
 		tile.set_highlight_color(Tile.HighlightColor.NONE)
 
 func generate() -> void:
+	if not board_data:
+		return
 	var container = $TileContainer
 	
 	for y in range(GRID_SIZE):
@@ -153,9 +155,9 @@ func _animate_occupant(occupant: Occupant, target_tile: Tile) -> void:
 func should_promote(occupant: Occupant, row: int, player: int) -> bool:
 	if occupant.piece_data.name != "pawn":
 		return false
-	if player == 1 and row == GRID_SIZE - 1:
+	if player == 1 and row == 0:
 		return true
-	if player == 2 and row == 0:
+	if player == 2 and row == GRID_SIZE - 1:
 		return true
 		
 	return false
