@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://kovxmeios3jx"]
+
+[ext_resource type="Script" uid="uid://budpflnlrxs10" path="res://scenes/card.gd" id="1_d81rb"]
+[ext_resource type="Texture2D" uid="uid://by3wq4qweay0" path="res://assets/icons/Class1.png" id="2_berserker"]
+[ext_resource type="Texture2D" uid="uid://cktbsrq3xfbxd" path="res://assets/icons/Class2.png" id="3_tank"]
+[ext_resource type="Texture2D" uid="uid://mapgvg1ktc8k" path="res://assets/icons/Class3-2.png" id="4_util"]
+[ext_resource type="Texture2D" uid="uid://dojaswrfwmofe" path="res://assets/icons/Heart-Icon.png" id="5_1yd6c"]
+[ext_resource type="Texture2D" uid="uid://cvpe2wmkq2go2" path="res://assets/sprites/pieces/cards/blank_card.png" id="5_bg"]
+[ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="6_font"]
+[ext_resource type="Texture2D" uid="uid://yumenwffyoul" path="res://assets/icons/Attack.png" id="6_we8pq"]
+[ext_resource type="Texture2D" uid="uid://crvxo5qa1eln2" path="res://assets/icons/Knockback.png" id="7_4wvaf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glow"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.831373, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0.501961, 1, 0.392157)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+bg_color = Color(0, 0, 0, 0.588235)
+border_width_bottom = 2
+border_color = Color(0, 0.831373, 1, 0.470588)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="Theme" id="Theme_1yd6c"]
+TooltipLabel/font_sizes/font_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp"]
+bg_color = Color(0.8509804, 0, 0.1882353, 1)
+border_width_right = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atk"]
+bg_color = Color(0.8509804, 0.8901961, 0.1882353, 1)
+border_width_right = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kb"]
+bg_color = Color(0, 0.470588, 1, 1)
+border_width_right = 1
+border_color = Color(0, 0, 0, 1)
+
+[node name="Card" type="Control" unique_id=55364012]
+custom_minimum_size = Vector2(170, 240)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -120.0
+offset_right = 84.5
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(85.5, 120)
+script = ExtResource("1_d81rb")
+tank_icon = ExtResource("3_tank")
+berserker_icon = ExtResource("2_berserker")
+util_icon = ExtResource("4_util")
+hp_icon = ExtResource("5_1yd6c")
+atk_icon = ExtResource("6_we8pq")
+kb_icon = ExtResource("7_4wvaf")
+
+[node name="SelectionGlow" type="Panel" parent="." unique_id=988252965]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_glow")
+
+[node name="BlankCard" type="TextureRect" parent="." unique_id=176313912]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_bg")
+expand_mode = 1
+
+[node name="Margin" type="MarginContainer" parent="BlankCard" unique_id=1402468365]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="VBoxContainer" parent="BlankCard/Margin" unique_id=1405552560]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="ClassIcon" type="TextureRect" parent="BlankCard/Margin/Content" unique_id=1118494321]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="BlankCard/Margin/Content" unique_id=914755790]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_header")
+text = "NAME"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="BlankCard/Margin/Content" unique_id=370296597]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="StatsGrid" type="VBoxContainer" parent="BlankCard/Margin/Content" unique_id=1489593945]
+layout_mode = 2
+size_flags_vertical = 10
+theme = SubResource("Theme_1yd6c")
+theme_override_constants/separation = 10
+
+[node name="HP_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=728003592]
+layout_mode = 2
+tooltip_text = "Health"
+
+[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/HP_Row" unique_id=282706284]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/HP_Row" unique_id=1600121672]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp")
+value = 5.0
+show_percentage = false
+
+[node name="ATK_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=954527633]
+layout_mode = 2
+tooltip_text = "Attack"
+
+[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row" unique_id=515471693]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row" unique_id=1341726883]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_atk")
+max_value = 20.0
+value = 5.0
+show_percentage = false
+
+[node name="KB_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=243004573]
+layout_mode = 2
+tooltip_text = "Knockback"
+
+[node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/KB_Row" unique_id=1174967212]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bar" type="ProgressBar" parent="BlankCard/Margin/Content/StatsGrid/KB_Row" unique_id=1887560263]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kb")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="CardTexture" type="TextureRect" parent="." unique_id=692454501]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

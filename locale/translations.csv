@@ -1,0 +1,62 @@
+keys,en,fa
+end_turn,End Turn,پایان نوبت
+menu,Menu, صفحه اصلی
+replay,Replay,بازی مجدد
+confirm,Confirm, تایید
+game_over,GAME OVER,پایان بازی
+player_won,Player %d Won,بازیکن %d برنده شد.
+player_turn,Player %d's Turn,نوبت بازیکن %d
+current_round,Round %d,نوبت %d
+choose_pieces_label,Draft Your Squad,مهره هاتو انتخاب کن
+pieces_picked,Picked: %d / %d,انتخاب شده: %d / %d
+pieces_placed,Placed: %d / %d,قرار گرفته: %d / %d
+player_label,Player %d,بازیکن %d
+
+settings,SETTINGS,تنظیمات
+audio,Audio,صدا
+language,Language,زبان
+close,CLOSE,بستن
+Master,Master,صدای کل
+Music,Music,موسیقی
+SFX,SFX,جلوه های صوتی
+play,Play,شروع
+back,Back,بازگشت
+reset,Reset,بازنشانی
+apply,Apply,اعمال
+volume,Volume,صدا
+remove,Remove,حذف مهره
+credits,Designer:\nArya Ashouri\n\nArtist:\nSadra Mousavi\n\nProgrammers:\nArio Shakeri\nEsmail Afrang\n\nMade with ❤,طراح:\nآریا آشوری\n\nآرتیست:\nمحمد صدرا موسوی\n\nبرنامه نویسان:\nآریو نجف شاکری\nاسماعیل افرنگ\n\nساخته شده با ❤
+
+pawn,Pawn,سرباز
+queen,Queen,وزیر
+king,King,شاه
+bishop,Bishop,فیل
+rook,Rook,رخ
+knight,Knight,اسب
+
+health,HEALTH,سلامت
+power,POWER,قدرت
+knockback,KNOCKBACK,کوبندگی
+
+tip1,"The king is powerful and quite vigorous, but the hack of his sword will send you back squares, may the odds be in your favor to ascend to higher levels...","شاه قدرتمند است و جان زیادی برای هدر دادن دارد اما قدرت شمشیر او شما را به خانه ها عقب تر برمیگرداند، اگر شانس بیاورید به پله ای بالاتر منتقل شوید..."
+tip2,"The Knight is a swift ride and more importantly a courageous cavalier to lead it, it can deliver deadly blows but when the ride is gone there is not much left to offer","اسبی تندرو و از آن مهمتر سواری شجاع که آن را هدایت میکند میتواند ضربات مهلکی را برای حریف به همراه داشته باشد اما اگر اسب برود چیز زیادی برای ارائه نمیماند"
+tip3,"The Pawn has a long way to be a warrior, a path in which at least six steps are demanded, hoping one survives this path.","سربازی است که راهی طولانی برای جنگنده شدن دارد، راهی که حداقل شش حرکت رو به مستقیم میطلبد، البته اگر در این مسیر زنده بماند"
+tip4,"The Bishop represents befitting offense and robustness, but their limited mobility wears them down","فیل نمادی از تعادل میان ضرباتی درخور و جانی مطلوب میباشد اما احرکات محدود او نقطه ای از نقاط ضعف او میباشد"
+tip5,"The Queen's diverse set of moves and stamina should be enough justness for her condignity, or is there need of more lethality?","حرکات متوع وزیر در کنار جان بیشتر او نسبت به هم ردیفش میتواند دلیل کافی برای انتخاب او باشد یا نیاز به ضرباتی مهلک تر دارید؟"
+tip6,"The Rook is a strong and stable fortress against attacks, but it is not her ability to strike that amazes you, it is her endurance that can confuse the opponent","قلعه ای محکم و استوار در برابر حملات است اما توان او در ضربه زدن شما را متحیر نمیکند بلکه استقامت اوست که میتواند حریف را کلافه کند"
+
+map_select_title,Select Your Board,صفحه بازی خود را انتخاب کنید
+generate,Generate,تولید
+
+win,YOU WIN!,بردی!
+lose,YOU LOSE!,باختی!
+next_stage,Next Stage,مرحله بعد
+replay,Replay,بازی دوباره
+option1_stage_15,Increase maximum piece selection limit by 6,افزایش ۶ تایی سقف انتخاب مهره
+option2_stage_15,Increase attack power of all pieces by 15,افزایش ۱۵ واحدی قدرت حمله تمام مهره‌ها
+option1_stage_11,Increase HP of all pieces by 30,افزایش ۳۰ واحدی جان (HP) تمام مهره‌ها
+option2_stage_11,Reduce enemy morale by 10 percent,کاهش ۱۰ درصدی روحیه دشمن
+option1_stage_6,Increase piece attack power by 5 percent,افزایش ۵ درصدی قدرت حمله مهره‌ها
+option2_stage_6,Reduce enemy morale by 10 percent,کاهش ۱۰ درصدی روحیه دشمن
+option1_default,Increase HP of all pieces by 10,افزایش ۱۰ واحدی جان (HP) تمام مهره‌ها
+option2_default,Reduce enemy attack power by 5 percent,کاهش ۵ درصدی قدرت حمله دشمن

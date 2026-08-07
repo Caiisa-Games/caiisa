@@ -1,0 +1,491 @@
+class_name BattleManager
+extends Node2D
+
+enum Phase { SELECT, MOVE }
+enum Turn { PLAYER_1, PLAYER_2 }
+
+@export var mini_queen_data: PieceData
+
+@onready var fade_overlay: ColorRect = $ColorRectr
+@onready var loading_bar: ProgressBar = $ProgressBar
+@onready var tip_label: Label = $Label
+@onready var ui_layer: CanvasLayer = $UI
+@onready var board_layer: CanvasLayer = $BoardLayer
+@onready var game_over_layer: CanvasLayer = $GameOverLayer
+@onready var board: BoardManager = $BoardLayer/Board
+@onready var round_label: Label = $UI/TopBar/RoundLabel
+
+@onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
+@onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
+
+@onready var top_bar: Panel = $UI/TopBar
+@onready var bottom_panel: Panel = $UI/BottomPanel
+@onready var end_turn_btn: Button = $UI/TopBar/EndTurnButton
+@onready var player_1_energybar: ProgressBar = $UI/BottomPanel/Player1Energy
+@onready var player_2_energybar: ProgressBar = $UI/BottomPanel/Player2Energy
+
+@onready var replay_button: Button = $GameOverLayer/Control/Buttons/ReplayButton
+
+const MAX_ENERGY := 10
+const STARTING_ENERGY := 5
+const END_TURN_ENERGY_COST := 2
+const ENERGY_REWARD_ATTACK := 1
+const ENERGY_REWARD_KILL := 2
+
+var player_energy := { Turn.PLAYER_1: STARTING_ENERGY, Turn.PLAYER_2: STARTING_ENERGY }
+signal energy_changed(player: Turn, current: int, max: int)
+
+var player_1_pieces: Dictionary = {}
+var player_2_pieces: Dictionary = {}
+var current_turn: Turn = Turn.PLAYER_1
+var current_phase: Phase = Phase.SELECT
+var selected_piece: Tile = null
+var valid_moves: Array[Tile] = []
+var round_number: int = 1
+var winner: int = 0
+
+var current_wave: int = 0
+@export var stage: StageData
+@export var stages: Array[StageData]
+var enemy_ai: EnemyAI
+var turn_locked := false
+
+var moves_made_this_turn: int = 0
+const MAX_MOVES_PER_TURN := 1
+
+func _ready() -> void:
+	if _is_singleplayer():
+		if GameState.current_stage <= 0:
+			GameState.set_current_stage(1)
+
+		var idx = GameState.current_stage - 1
+		if idx >= 0 and idx < stages.size():
+			stage = stages[idx]
+		else:
+			push_warning("Stage index %d out of bounds! stages.size() = %d" % [idx, stages.size()])
+
+	enemy_ai = EnemyAI.new()
+	add_child(enemy_ai)
+
+	_initialize_game_logic()
+
+func _is_singleplayer() -> bool:
+	return GameState.game_mode == GameState.GameMode.SINGLEPLAYER
+
+func _is_game_active() -> bool:
+	return winner == 0 and not turn_locked
+
+func start_stage() -> void:
+	current_wave = 0
+	if stage and stage.waves.size() > 0:
+		spawn_wave(current_wave)
+	else:
+		push_error("No stage assigned or stage has no waves! Check 'stages' array in Inspector.")
+
+func start_multiplayer() -> void:
+	pass
+
+func spawn_wave(index: int) -> void:
+	if not stage or index >= stage.waves.size():
+		return
+
+	var available_columns: Array[int] = []
+	for x in range(board.GRID_SIZE):
+		available_columns.append(x)
+	available_columns.shuffle()
+
+	var zombies_list = stage.waves[index].zombies
+	for i in range(min(zombies_list.size(), available_columns.size())):
+		var col = available_columns[i]
+		var spawn_pos = Vector2i(col, 0)
+		var z = zombies_list[i]
+
+		if board.place_piece(z, spawn_pos.x, spawn_pos.y, 2):
+			player_2_pieces[spawn_pos] = z
+
+func _initialize_game_logic() -> void:
+	ui_layer.show()
+	board_layer.show()
+
+	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
+
+	player_1_pieces = GameState.player_1_pieces.duplicate()
+	player_2_pieces = GameState.player_2_pieces.duplicate()
+
+	_setup_board()
+
+	if _is_singleplayer():
+		start_stage()
+	else:
+		start_multiplayer()
+
+	_connect_board_signals()
+	_update_ui()
+
+func _setup_board() -> void:
+	board.board_data = GameState.board
+	if not board.board_data:
+		push_error("No board data in GameState!")
+		return
+	board.generate()
+	board.set_mode(BoardManager.Mode.BATTLE)
+
+	for pos in player_1_pieces:
+		board.place_piece(player_1_pieces[pos], pos.x, pos.y, 1)
+	for pos in player_2_pieces:
+		board.place_piece(player_2_pieces[pos], pos.x, pos.y, 2)
+
+func _connect_board_signals() -> void:
+	for tile in board.tiles.values():
+		tile.tile_clicked.connect(_on_tile_clicked)
+
+func _on_tile_clicked(grid_pos: Vector2i) -> void:
+	if not _is_game_active():
+		return
+
+	var tile: Tile = board.get_tile_at(grid_pos)
+	if tile == null:
+		return
+
+	var p_idx := 1 if current_turn == Turn.PLAYER_1 else 2
+
+	match current_phase:
+		Phase.SELECT:
+			_handle_selection(tile, p_idx)
+		Phase.MOVE:
+			_handle_move(tile)
+
+func _handle_selection(tile: Tile, p_idx: int) -> void:
+	if not tile.occupant.piece_data or tile.occupant.player != p_idx:
+		_clear_selection()
+		return
+	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
+	selected_piece = tile
+	tile.occupant.set_selected(true)
+	current_phase = Phase.MOVE
+	_update_valid_moves()
+	board.highlight_tile(tile, Tile.HighlightColor.SELF)
+
+func _handle_move(tile: Tile) -> void:
+	if not _is_game_active():
+		return
+
+	if selected_piece == null or selected_piece.occupant == null or selected_piece.occupant.piece_data == null:
+		return
+
+	turn_locked = true
+	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
+
+	if tile in valid_moves:
+		board.clear_all_highlights()
+
+		if tile.occupant.piece_data and tile.occupant.player != p_idx:
+			await _handle_attack(tile)
+		else:
+			AudioManager.play_sfx(preload("res://assets/sound/فرود اومدن مهره بعد از حرکت.mp3"))
+			_execute_dictionary_move(selected_piece, tile)
+			board._move_occupant(selected_piece, tile)
+			await _check_promotion(tile)
+			moves_made_this_turn += 1
+			_end_turn()
+			turn_locked = false
+	else:
+		_clear_selection()
+		turn_locked = false
+
+func _handle_attack(tile: Tile) -> void:
+	if selected_piece == null or selected_piece.occupant == null or selected_piece.occupant.piece_data == null:
+		return
+
+	var attacker_tile = selected_piece
+	var target_occupant = tile.occupant
+
+	var attacker_power = BuffManager.get_calculated_atk(attacker_tile.occupant.piece_data, attacker_tile.occupant.player)
+	var damage = CombatRules.calculate_damage(
+		attacker_power,
+		attacker_tile.height_level - tile.height_level,
+		false
+	)
+
+	var died = await target_occupant.take_damage(damage)
+	AudioManager.play_sfx(preload("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3"))
+
+	gain_energy(current_turn, ENERGY_REWARD_ATTACK)
+
+	if died:
+		_handle_died(tile)
+		if winner == 0:
+			_execute_dictionary_move(attacker_tile, tile)
+			board._move_occupant(attacker_tile, tile)
+			gain_energy(current_turn, ENERGY_REWARD_KILL)
+			await _check_promotion(tile)
+	else:
+		await _apply_knockback(attacker_tile, tile)
+
+	moves_made_this_turn += 1
+
+	if winner != 0:
+		GameState.winner = winner
+		_handle_game_over()
+	else:
+		_end_turn()
+
+func _apply_knockback(attacker_tile: Tile, target_tile: Tile) -> void:
+	var knock_power = attacker_tile.occupant.piece_data.knockback
+	if knock_power <= 0:
+		return
+
+	var diff = target_tile.grid_position - attacker_tile.grid_position
+	var dir = Vector2i(sign(diff.x), sign(diff.y))
+	var end_pos = target_tile.grid_position
+
+	for i in range(knock_power):
+		var next = end_pos + dir
+		if not board.is_within_bounds(next.x, next.y) or board.get_tile_at(next).occupant.piece_data:
+			break
+		end_pos = next
+
+	if end_pos != target_tile.grid_position:
+		var end_tile = board.get_tile_at(end_pos)
+		_execute_dictionary_move(target_tile, end_tile)
+		board._move_occupant(target_tile, end_tile)
+		_execute_dictionary_move(attacker_tile, target_tile)
+		board._move_occupant(attacker_tile, target_tile)
+		await _check_promotion(target_tile)
+
+func _execute_dictionary_move(from: Tile, to: Tile) -> void:
+	if from == null or to == null or from.occupant == null or from.occupant.piece_data == null:
+		return
+	var dict := player_1_pieces if from.occupant.player == 1 else player_2_pieces
+	if not dict.has(from.grid_position):
+		return
+	var piece = dict[from.grid_position]
+	dict.erase(from.grid_position)
+	dict[to.grid_position] = piece
+
+func _check_promotion(tile: Tile) -> void:
+	var occupant = tile.occupant
+	if occupant == null or occupant.piece_data == null or mini_queen_data == null:
+		return
+
+	var piece_name = occupant.piece_data.name.to_lower() if occupant.piece_data.name else ""
+	var is_pawn = piece_name.contains("pawn") or piece_name.contains("soldier") or piece_name.contains("سرباز")
+	if not is_pawn:
+		return
+
+	var player = occupant.player
+	var y_pos = tile.grid_position.y
+
+	var should_promote = (player == 1 and y_pos == 0) or (player == 2 and y_pos == board.GRID_SIZE - 1)
+	if not should_promote:
+		return
+
+	occupant.piece_data = mini_queen_data
+	if player == 1:
+		player_1_pieces[tile.grid_position] = mini_queen_data
+	else:
+		player_2_pieces[tile.grid_position] = mini_queen_data
+
+	if occupant.has_method("promote_to"):
+		await occupant.promote_to(mini_queen_data)
+
+func _handle_died(target_tile: Tile) -> void:
+	var target = target_tile.occupant
+	var dict = player_1_pieces if target.player == 1 else player_2_pieces
+	dict.erase(target_tile.grid_position)
+	target.clear_data()
+
+	if _is_singleplayer():
+		if player_1_pieces.is_empty():
+			winner = 2
+			GameState.winner = winner
+			_handle_game_over()
+			return
+
+		var any_enemy_alive := board.tiles.values().any(
+			func(t): return t.occupant.piece_data != null and t.occupant.player == 2
+		)
+
+		if not any_enemy_alive:
+			current_wave += 1
+			if stage and current_wave < stage.waves.size():
+				await get_tree().create_timer(1.0).timeout
+				spawn_wave(current_wave)
+			else:
+				winner = 1
+				GameState.winner = winner
+				GameState.unlock_stage(GameState.current_stage + 1)
+				_handle_game_over()
+		return
+
+	if player_1_pieces.is_empty():
+		winner = 2
+		GameState.winner = winner
+		_handle_game_over()
+	elif player_2_pieces.is_empty():
+		winner = 1
+		GameState.winner = winner
+		_handle_game_over()
+
+func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
+	var moves: Array[Tile] = []
+	if not from_tile or not from_tile.occupant or not from_tile.occupant.piece_data:
+		return moves
+
+	var piece = from_tile.occupant.piece_data
+	var move_data = piece.movement if piece.movement else board.default_movement
+	var dirs: Array = []
+
+	match move_data.movement_type:
+		MovementData.MovementType.ORTHOGONAL:
+			dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
+		MovementData.MovementType.DIAGONAL:
+			dirs = [Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+		MovementData.MovementType.BOTH:
+			dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT,
+					Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+
+	for d in dirs:
+		for r in range(1, move_data.move_range + 1):
+			var tp = from_tile.grid_position + (d * r)
+			if not board.is_within_bounds(tp.x, tp.y):
+				break
+			var target = board.get_tile_at(tp)
+			if target.occupant.piece_data:
+				if target.occupant.player != from_tile.occupant.player:
+					moves.append(target)
+				break
+			moves.append(target)
+
+	return moves
+
+func _update_valid_moves() -> void:
+	valid_moves.clear()
+	board.clear_all_highlights()
+	if not selected_piece:
+		return
+
+	valid_moves = get_valid_moves_for_tile(selected_piece)
+
+	for target in valid_moves:
+		if target.occupant.piece_data and target.occupant.player != selected_piece.occupant.player:
+			target.set_highlight_color(Tile.HighlightColor.ATTACK)
+		else:
+			target.set_highlight_color(Tile.HighlightColor.MOVE)
+
+func _end_turn() -> void:
+	if winner != 0:
+		return
+
+	moves_made_this_turn = 0
+	_clear_selection()
+
+	if _is_singleplayer():
+		current_turn = Turn.PLAYER_2
+		_update_ui()
+		await enemy_ai.take_turn(board)
+		current_turn = Turn.PLAYER_1
+		round_number += 1
+	else:
+		if current_turn == Turn.PLAYER_1:
+			current_turn = Turn.PLAYER_2
+		else:
+			current_turn = Turn.PLAYER_1
+			round_number += 1
+
+func _clear_selection() -> void:
+	if selected_piece and selected_piece.occupant:
+		selected_piece.occupant.set_selected(false)
+
+	selected_piece = null
+	current_phase = Phase.SELECT
+	valid_moves.clear()
+	board.clear_all_highlights()
+	turn_locked = false
+	_update_ui()
+
+func _update_ui() -> void:
+	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
+
+	player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
+	player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
+
+	if _is_singleplayer():
+		end_turn_btn.visible = false
+	else:
+		end_turn_btn.visible = true
+		end_turn_btn.disabled = player_energy[current_turn] < END_TURN_ENERGY_COST
+
+	for t in board.tiles.values():
+		if t.occupant.piece_data:
+			if t.occupant.player == p_idx:
+				t.occupant.show_orb()
+			else:
+				t.occupant.hide_orb()
+
+	round_label.text = tr("current_round") % round_number
+
+func gain_energy(player: Turn, amount: int) -> void:
+	player_energy[player] = clamp(player_energy[player] + amount, 0, MAX_ENERGY)
+	energy_changed.emit(player, player_energy[player], MAX_ENERGY)
+	_update_ui()
+
+func spend_energy(player: Turn, amount: int) -> bool:
+	if player_energy[player] < amount:
+		return false
+	player_energy[player] -= amount
+	energy_changed.emit(player, player_energy[player], MAX_ENERGY)
+	_update_ui()
+	return true
+
+func _on_end_turn_button_pressed() -> void:
+	if not _is_singleplayer() and not turn_locked:
+		if player_energy[current_turn] >= END_TURN_ENERGY_COST:
+			player_energy[current_turn] -= END_TURN_ENERGY_COST
+			_end_turn()
+
+func _on_menu_button_pressed() -> void:
+	GameState.reset()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _handle_game_over() -> void:
+	game_over_layer.show()
+	top_bar.hide()
+	bottom_panel.hide()
+
+	var is_win = winner == 1
+
+	if is_win:
+		AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
+		winner_label.text = tr("win")
+
+		if _is_singleplayer():
+			replay_button.text = tr("next_stage")
+	else:
+		winner_label.text = tr("lose")
+		replay_button.text = tr("replay")
+
+	round_label_gm.text = tr("current_round") % round_number
+
+func _on_replay_button_pressed() -> void:
+	if not _is_singleplayer():
+		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+		return
+
+	if winner != 1:
+		get_tree().reload_current_scene()
+		return
+
+	GameState.set_current_stage(GameState.current_stage + 1)
+
+	if GameState.current_stage > stages.size():
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
+	elif _check_needs_upgrade():
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
+
+func _check_needs_upgrade() -> bool:
+	var current_stg := GameState.current_stage
+
+	return current_stg in [6,11]
