@@ -6,25 +6,28 @@ enum Turn { PLAYER_1, PLAYER_2 }
 
 @export var mini_queen_data: PieceData
 
-@onready var fade_overlay: ColorRect = $ColorRectr
-@onready var loading_bar: ProgressBar = $ProgressBar
-@onready var tip_label: Label = $Label
+# --- UI References ---
+@onready var stage_ground_color: ColorRect = $UI/ColorRect
 @onready var ui_layer: CanvasLayer = $UI
 @onready var board_layer: CanvasLayer = $BoardLayer
 @onready var game_over_layer: CanvasLayer = $GameOverLayer
 @onready var board: BoardManager = $BoardLayer/Board
 @onready var round_label: Label = $UI/TopBar/RoundLabel
 
-@onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
-@onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
-
 @onready var top_bar: Panel = $UI/TopBar
 @onready var bottom_panel: Panel = $UI/BottomPanel
 @onready var end_turn_btn: Button = $UI/TopBar/EndTurnButton
+@onready var top_menu_btn: Button = $UI/TopBar/MenuButton
 @onready var player_1_energybar: ProgressBar = $UI/BottomPanel/Player1Energy
 @onready var player_2_energybar: ProgressBar = $UI/BottomPanel/Player2Energy
 
+@onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
+@onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
 @onready var replay_button: Button = $GameOverLayer/Control/Buttons/ReplayButton
+@onready var gm_menu_button: Button = $GameOverLayer/Control/Buttons/MenuButton
+
+@onready var bg_background: CanvasItem = $UI/Background
+@onready var bg_clouds: CanvasItem = $UI/Clouds
 
 const MAX_ENERGY := 10
 const STARTING_ENERGY := 5
@@ -51,7 +54,6 @@ var enemy_ai: EnemyAI
 var turn_locked := false
 
 var moves_made_this_turn: int = 0
-const MAX_MOVES_PER_TURN := 1
 
 func _ready() -> void:
 	if _is_singleplayer():
@@ -61,16 +63,65 @@ func _ready() -> void:
 		var idx = GameState.current_stage - 1
 		if idx >= 0 and idx < stages.size():
 			stage = stages[idx]
-		else:
-			push_warning("Stage index %d out of bounds! stages.size() = %d" % [idx, stages.size()])
+
+	_setup_background()
+	_prepare_scene()
+	_connect_button_signals()
+	_start_intro_sequence()
 
 	enemy_ai = EnemyAI.new()
 	add_child(enemy_ai)
 
+func _connect_button_signals() -> void:
+	if end_turn_btn and not end_turn_btn.pressed.is_connected(_on_end_turn_button_pressed):
+		end_turn_btn.pressed.connect(_on_end_turn_button_pressed)
+		
+	if top_menu_btn and not top_menu_btn.pressed.is_connected(_on_menu_button_pressed):
+		top_menu_btn.pressed.connect(_on_menu_button_pressed)
+		
+	if gm_menu_button and not gm_menu_button.pressed.is_connected(_on_menu_button_pressed):
+		gm_menu_button.pressed.connect(_on_menu_button_pressed)
+		
+	if replay_button and not replay_button.pressed.is_connected(_on_replay_button_pressed):
+		replay_button.pressed.connect(_on_replay_button_pressed)
+
+func _setup_background() -> void:
+	# ابرها همواره در پس‌زمینه نمایش داده شده و انیمیشن حرکت خود را اجرا می‌کنند
+	if bg_clouds:
+		bg_clouds.show()
+
+	if _is_singleplayer():
+		if bg_background: bg_background.hide()
+		
+		# تنظیم رنگ ثابت پس‌زمینه اصلی بر اساس شماره مرحله
+		if stage_ground_color:
+			stage_ground_color.show()
+			stage_ground_color.modulate.a = 1.0
+			
+			var stg = GameState.current_stage
+			if stg >= 1 and stg <= 5:
+				stage_ground_color.color = Color(0.1, 0.6, 0.2, 1.0) # سبز
+			elif stg > 5 and stg <= 10:
+				stage_ground_color.color = Color(0.7, 0.1, 0.1, 1.0) # قرمز
+			elif stg > 10 and stg <= 15:
+				stage_ground_color.color = Color(0.4, 0.1, 0.6, 1.0) # بنفش
+			else:
+				stage_ground_color.color = Color(0.1, 0.6, 0.2, 1.0)
+	else:
+		if bg_background: bg_background.show()
+
+func _prepare_scene() -> void:
+	if ui_layer: ui_layer.show()
+	if board_layer: board_layer.hide()
+	if game_over_layer: game_over_layer.hide()
+
+func _start_intro_sequence() -> void:
+	# چون لودینگ در صحنه loading_screen انجام شده، مستقیماً منطق بازی و صفحه شروع می‌شود
+	if board_layer: board_layer.show()
 	_initialize_game_logic()
 
 func _is_singleplayer() -> bool:
-	return GameState.game_mode == GameState.GameMode.SINGLEPLAYER
+	return GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player
 
 func _is_game_active() -> bool:
 	return winner == 0 and not turn_locked
@@ -79,14 +130,12 @@ func start_stage() -> void:
 	current_wave = 0
 	if stage and stage.waves.size() > 0:
 		spawn_wave(current_wave)
-	else:
-		push_error("No stage assigned or stage has no waves! Check 'stages' array in Inspector.")
 
 func start_multiplayer() -> void:
 	pass
 
 func spawn_wave(index: int) -> void:
-	if not stage or index >= stage.waves.size():
+	if not board or not stage or index >= stage.waves.size():
 		return
 
 	var available_columns: Array[int] = []
@@ -104,8 +153,8 @@ func spawn_wave(index: int) -> void:
 			player_2_pieces[spawn_pos] = z
 
 func _initialize_game_logic() -> void:
-	ui_layer.show()
-	board_layer.show()
+	if ui_layer: ui_layer.show()
+	if board_layer: board_layer.show()
 
 	AudioManager.play_music(preload("res://assets/sound/music_game.ogg"))
 
@@ -123,9 +172,9 @@ func _initialize_game_logic() -> void:
 	_update_ui()
 
 func _setup_board() -> void:
+	if not board: return
 	board.board_data = GameState.board
 	if not board.board_data:
-		push_error("No board data in GameState!")
 		return
 	board.generate()
 	board.set_mode(BoardManager.Mode.BATTLE)
@@ -136,11 +185,12 @@ func _setup_board() -> void:
 		board.place_piece(player_2_pieces[pos], pos.x, pos.y, 2)
 
 func _connect_board_signals() -> void:
+	if not board: return
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
-	if not _is_game_active():
+	if not _is_game_active() or not board:
 		return
 
 	var tile: Tile = board.get_tile_at(grid_pos)
@@ -200,7 +250,7 @@ func _handle_attack(tile: Tile) -> void:
 	var attacker_tile = selected_piece
 	var target_occupant = tile.occupant
 
-	var attacker_power = BuffManager.get_calculated_atk(attacker_tile.occupant.piece_data, attacker_tile.occupant.player)
+	var attacker_power = attacker_tile.occupant.piece_data.attack
 	var damage = CombatRules.calculate_damage(
 		attacker_power,
 		attacker_tile.height_level - tile.height_level,
@@ -314,7 +364,7 @@ func _handle_died(target_tile: Tile) -> void:
 			else:
 				winner = 1
 				GameState.winner = winner
-				GameState.unlock_stage(GameState.current_stage + 1)
+				GameState.unlock_next_stage()
 				_handle_game_over()
 		return
 
@@ -361,7 +411,7 @@ func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
 
 func _update_valid_moves() -> void:
 	valid_moves.clear()
-	board.clear_all_highlights()
+	if board: board.clear_all_highlights()
 	if not selected_piece:
 		return
 
@@ -400,30 +450,32 @@ func _clear_selection() -> void:
 	selected_piece = null
 	current_phase = Phase.SELECT
 	valid_moves.clear()
-	board.clear_all_highlights()
+	if board: board.clear_all_highlights()
 	turn_locked = false
 	_update_ui()
 
 func _update_ui() -> void:
 	var p_idx = 1 if current_turn == Turn.PLAYER_1 else 2
 
-	player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
-	player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
+	if player_1_energybar: player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
+	if player_2_energybar: player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
 
 	if _is_singleplayer():
-		end_turn_btn.visible = false
+		if end_turn_btn: end_turn_btn.visible = false
 	else:
-		end_turn_btn.visible = true
-		end_turn_btn.disabled = player_energy[current_turn] < END_TURN_ENERGY_COST
+		if end_turn_btn:
+			end_turn_btn.visible = true
+			end_turn_btn.disabled = player_energy[current_turn] < END_TURN_ENERGY_COST
 
-	for t in board.tiles.values():
-		if t.occupant.piece_data:
-			if t.occupant.player == p_idx:
-				t.occupant.show_orb()
-			else:
-				t.occupant.hide_orb()
+	if board:
+		for t in board.tiles.values():
+			if t.occupant.piece_data:
+				if t.occupant.player == p_idx:
+					t.occupant.show_orb()
+				else:
+					t.occupant.hide_orb()
 
-	round_label.text = tr("current_round") % round_number
+	if round_label: round_label.text = tr("current_round") % round_number
 
 func gain_energy(player: Turn, amount: int) -> void:
 	player_energy[player] = clamp(player_energy[player] + amount, 0, MAX_ENERGY)
@@ -449,23 +501,23 @@ func _on_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _handle_game_over() -> void:
-	game_over_layer.show()
-	top_bar.hide()
-	bottom_panel.hide()
+	if game_over_layer: game_over_layer.show()
+	if top_bar: top_bar.hide()
+	if bottom_panel: bottom_panel.hide()
 
 	var is_win = winner == 1
 
 	if is_win:
 		AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
-		winner_label.text = tr("win")
+		if winner_label: winner_label.text = "YOU WIN!"
 
-		if _is_singleplayer():
-			replay_button.text = tr("next_stage")
+		if _is_singleplayer() and replay_button:
+			replay_button.text = "Next Stage"
 	else:
-		winner_label.text = tr("lose")
-		replay_button.text = tr("replay")
+		if winner_label: winner_label.text = "YOU LOSE!"
+		if replay_button: replay_button.text = "Replay"
 
-	round_label_gm.text = tr("current_round") % round_number
+	if round_label_gm: round_label_gm.text = "Round: %d" % round_number
 
 func _on_replay_button_pressed() -> void:
 	if not _is_singleplayer():
@@ -479,13 +531,6 @@ func _on_replay_button_pressed() -> void:
 	GameState.set_current_stage(GameState.current_stage + 1)
 
 	if GameState.current_stage > stages.size():
-		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
-	elif _check_needs_upgrade():
-		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
+		get_tree().change_scene_to_file("res://Stage/StageSelection.tscn")
 	else:
-		get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
-
-func _check_needs_upgrade() -> bool:
-	var current_stg := GameState.current_stage
-
-	return current_stg in [6,11]
+		get_tree().change_scene_to_file("res://scenes/battle.tscn")
