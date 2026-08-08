@@ -36,7 +36,6 @@ mouse_filter = 2
 script = ExtResource("1_34mbo")
 available_boards = Array[ExtResource("2_gam43")]([ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm"), ExtResource("11_mlgkm")])
 available_pieces = Array[ExtResource("2_j66un")]([ExtResource("4_king"), ExtResource("5_queen"), ExtResource("6_knight"), ExtResource("7_rook"), ExtResource("8_bishop"), ExtResource("9_pawn")])
-game_mode = null
 
 [node name="Background" type="TextureRect" parent="." unique_id=1537771509]
 layout_mode = 1
@@ -47,6 +46,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_6migr")
 expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1544100555]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Board" parent="." unique_id=442776398 instance=ExtResource("3_mcp5b")]
 position = Vector2(675, 215)

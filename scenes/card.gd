@@ -15,7 +15,7 @@ signal clicked(card: Card)
 
 @onready var blank_card = $BlankCard
 @onready var card_texture = $CardTexture
-@onready var glow = $SelectionGlow
+#@onready var glow = $SelectionGlow
 
 var piece_data: PieceData
 var is_selected: bool = false
@@ -25,7 +25,7 @@ var original_scale: Vector2
 func _ready() -> void:
 	original_scale = scale
 	blank_card.hide()
-	glow.hide()
+	#glow.hide()
 
 func set_piece_data(data: PieceData) -> void:
 	piece_data = data
@@ -58,12 +58,12 @@ func _get_class_icon() -> Texture2D:
 func select() -> void:
 	if is_disabled: return
 	is_selected = true
-	glow.show()
+	#glow.show()
 	create_tween().tween_property(self, "scale", original_scale * 1.05, 0.1)
 
 func deselect() -> void:
 	is_selected = false
-	glow.hide()
+	#glow.hide()
 	create_tween().tween_property(self, "scale", original_scale, 0.1)
 
 func _on_mouse_entered() -> void:

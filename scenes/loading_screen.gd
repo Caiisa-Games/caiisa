@@ -11,6 +11,7 @@ const FADE_IN_DURATION := 3.0
 const LOADING_DURATION := 5.0
 const FADE_OUT_DURATION := 1.0
 
+
 func _ready() -> void:
 	assert(target_scene != "", "ERROR: Target scene is null!");
 	ResourceLoader.load_threaded_request(target_scene)
