@@ -2,10 +2,12 @@ extends Node
 
 enum GameMode {
 	MULTIPLAYER,
-	SINGLEPLAYER
+	SINGLEPLAYER,
+	STAGE
 }
 
-var game_mode = null
+var game_mode: GameMode = GameMode.SINGLEPLAYER
+var single_player: bool = false
 
 var board: BoardData
 
@@ -13,27 +15,33 @@ var player_1_pieces: Dictionary = {}
 var player_2_pieces: Dictionary = {}
 
 var winner: int = 0
-
 var intro_played: bool = false
 
-var current_stage := 0
+var current_stage: int = 1
+var highest_unlocked_stage: int = 1
+
+var saved_extra_pieces_limit: int = 0
+var popup_shown_5: bool = false
+var popup_shown_10: bool = false
+var popup_shown_15: bool = false
 
 func reset() -> void:
 	player_1_pieces.clear()
 	player_2_pieces.clear()
 	winner = 0
-	
+
+func unlock_next_stage() -> void:
+	unlock_stage(current_stage + 1)
+
 func unlock_stage(stage: int) -> void:
-	var highest_unlocked_level = SaveManager.data.highest_unlocked_level
-	if current_stage == highest_unlocked_level:
-		highest_unlocked_level = stage
-		SaveManager.data.highest_unlocked_level = highest_unlocked_level
-		SaveManager.save()
-		
+	if stage > highest_unlocked_stage:
+		highest_unlocked_stage = stage
+		if SaveManager and "data" in SaveManager:
+			SaveManager.data.highest_unlocked_level = highest_unlocked_stage
+			if SaveManager.has_method("save"):
+				SaveManager.save()
+
 func set_current_stage(value: int) -> bool:
-	var highest_unlocked_level = SaveManager.data.highest_unlocked_level
-	if value > highest_unlocked_level:
-		return false
 	current_stage = value
 	return true
 
@@ -42,7 +50,7 @@ func get_pieces_for_player(player: int) -> Dictionary:
 		1: return player_1_pieces
 		2: return player_2_pieces
 	return {}
-	
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_F11:
@@ -50,7 +58,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func toggle_fullscreen() -> void:
 	var current_mode := DisplayServer.window_get_mode()
-	
 	if current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	else:

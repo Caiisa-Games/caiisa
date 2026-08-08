@@ -9,20 +9,8 @@
 [ext_resource type="FontFile" uid="uid://bdc0kuo02kiop" path="res://assets/fonts/Thin Sans.ttf" id="6_font"]
 [ext_resource type="Texture2D" uid="uid://yumenwffyoul" path="res://assets/icons/Attack.png" id="6_we8pq"]
 [ext_resource type="Texture2D" uid="uid://crvxo5qa1eln2" path="res://assets/icons/Knockback.png" id="7_4wvaf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glow"]
-draw_center = false
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0.831373, 1, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0.501961, 1, 0.392157)
-shadow_size = 15
+[ext_resource type="Script" uid="uid://dssvastxdmai6" path="res://scenes/blank_card.gd" id="9_we8pq"]
+[ext_resource type="Script" uid="uid://be4k04rds6i3e" path="res://scenes/card_texture.gd" id="11_4wvaf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
 bg_color = Color(0, 0, 0, 0.588235)
@@ -99,7 +87,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_glow")
 
 [node name="BlankCard" type="TextureRect" parent="." unique_id=176313912]
 layout_mode = 1
@@ -110,6 +97,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_bg")
 expand_mode = 1
+script = ExtResource("9_we8pq")
 
 [node name="Margin" type="MarginContainer" parent="BlankCard" unique_id=1402468365]
 layout_mode = 1
@@ -232,6 +220,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 expand_mode = 1
+script = ExtResource("11_4wvaf")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

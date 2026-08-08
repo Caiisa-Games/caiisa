@@ -24,7 +24,9 @@ const FADE_DURATION = 0.7
 @onready var loading_bar: ProgressBar = $Fade/ProgressBar
 
 func _ready() -> void:
-	GameState.game_mode = null
+	#GameState.game_mode = null
+	# ✅ روش درست
+	GameState.game_mode = GameState.GameMode.SINGLEPLAYER
 	SaveManager.load_save()
 	if not GameState.intro_played:
 		_prepare_ui_for_intro()
