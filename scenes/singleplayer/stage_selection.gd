@@ -21,7 +21,6 @@ extends Control
 
 @onready var safe_btn_5: Button = get_node_or_null("SafeButton5")
 @onready var safe_btn_10: Button = get_node_or_null("SafeButton10")
-@onready var safe_btn_15: Button = get_node_or_null("SafeButton15")
 
 const BUFF_POPUP_SCENE = preload("res://scenes/singleplayer/stage_buff_screen.tscn")
 
@@ -45,7 +44,6 @@ func _update_safe_buttons() -> void:
 	var unlocked = GameState.highest_unlocked_stage
 	_setup_single_safe(safe_btn_5, 5, unlocked == 6)
 	_setup_single_safe(safe_btn_10, 10, unlocked == 11)
-	_setup_single_safe(safe_btn_15, 15, unlocked == 16)
 
 func _setup_single_safe(btn: Button, stage_num: int, is_active: bool) -> void:
 	if not btn: return
