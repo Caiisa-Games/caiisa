@@ -3,7 +3,7 @@ extends Control
 @onready var card_container = $Margin/VBoxContainer/CenterContainer/GridContainer
 @onready var details = $Margin/VBoxContainer/MapDetailsPanel
 
-@onready var play_button: Button = $Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup/Control/PlayButton      
+@onready var play_button: Button = $Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup/PlayButton      
 
 @export var maps: Array[BoardData] = []
 var selected: BoardData
@@ -35,6 +35,7 @@ func _on_play_button_pressed() -> void:
 	if not selected:
 		return
 	GameState.board = selected
+	GameState.game_mode = GameState.GameMode.MULTIPLAYER
 	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
 
 

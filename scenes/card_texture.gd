@@ -9,7 +9,6 @@ var base_position : Vector2
 
 func _ready() -> void:
 	base_position = position
-	# تولید یک زمان اولیه تصادفی برای خروج از حالت منظم
 	time_passed = randf_range(0.0, 100.0)
 
 func _process(delta: float) -> void:

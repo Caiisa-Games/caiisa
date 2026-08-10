@@ -6,8 +6,6 @@ enum Turn { PLAYER_1, PLAYER_2 }
 
 @export var mini_queen_data: PieceData
 
-# --- UI References ---
-@onready var stage_ground_color: ColorRect = $UI/ColorRect
 @onready var ui_layer: CanvasLayer = $UI
 @onready var board_layer: CanvasLayer = $BoardLayer
 @onready var game_over_layer: CanvasLayer = $GameOverLayer
@@ -64,7 +62,6 @@ func _ready() -> void:
 		if idx >= 0 and idx < stages.size():
 			stage = stages[idx]
 
-	_setup_background()
 	_prepare_scene()
 	_connect_button_signals()
 	_start_intro_sequence()
@@ -85,43 +82,17 @@ func _connect_button_signals() -> void:
 	if replay_button and not replay_button.pressed.is_connected(_on_replay_button_pressed):
 		replay_button.pressed.connect(_on_replay_button_pressed)
 
-func _setup_background() -> void:
-	# ابرها همواره در پس‌زمینه نمایش داده شده و انیمیشن حرکت خود را اجرا می‌کنند
-	if bg_clouds:
-		bg_clouds.show()
-
-	if _is_singleplayer():
-		if bg_background: bg_background.hide()
-		
-		# تنظیم رنگ ثابت پس‌زمینه اصلی بر اساس شماره مرحله
-		if stage_ground_color:
-			stage_ground_color.show()
-			stage_ground_color.modulate.a = 1.0
-			
-			var stg = GameState.current_stage
-			if stg >= 1 and stg <= 5:
-				stage_ground_color.color = Color(0.1, 0.6, 0.2, 1.0) # سبز
-			elif stg > 5 and stg <= 10:
-				stage_ground_color.color = Color(0.7, 0.1, 0.1, 1.0) # قرمز
-			elif stg > 10 and stg <= 15:
-				stage_ground_color.color = Color(0.4, 0.1, 0.6, 1.0) # بنفش
-			else:
-				stage_ground_color.color = Color(0.1, 0.6, 0.2, 1.0)
-	else:
-		if bg_background: bg_background.show()
-
 func _prepare_scene() -> void:
 	if ui_layer: ui_layer.show()
 	if board_layer: board_layer.hide()
 	if game_over_layer: game_over_layer.hide()
 
 func _start_intro_sequence() -> void:
-	# چون لودینگ در صحنه loading_screen انجام شده، مستقیماً منطق بازی و صفحه شروع می‌شود
 	if board_layer: board_layer.show()
 	_initialize_game_logic()
 
 func _is_singleplayer() -> bool:
-	return GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player
+	return GameState.game_mode == GameState.GameMode.SINGLEPLAYER
 
 func _is_game_active() -> bool:
 	return winner == 0 and not turn_locked
@@ -250,7 +221,7 @@ func _handle_attack(tile: Tile) -> void:
 	var attacker_tile = selected_piece
 	var target_occupant = tile.occupant
 
-	var attacker_power = attacker_tile.occupant.piece_data.attack
+	var attacker_power = attacker_tile.occupant.piece_data.power
 	var damage = CombatRules.calculate_damage(
 		attacker_power,
 		attacker_tile.height_level - tile.height_level,
