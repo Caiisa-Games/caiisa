@@ -43,9 +43,9 @@ func _update_stage_buttons() -> void:
 
 func _update_safe_buttons() -> void:
 	var unlocked = GameState.highest_unlocked_stage
-	_setup_single_safe(safe_btn_5, 5, unlocked > 5 and not GameState.popup_shown_5)
-	_setup_single_safe(safe_btn_10, 10, unlocked > 10 and not GameState.popup_shown_10)
-	_setup_single_safe(safe_btn_15, 15, unlocked > 15 and not GameState.popup_shown_15)
+	_setup_single_safe(safe_btn_5, 5, unlocked == 6)
+	_setup_single_safe(safe_btn_10, 10, unlocked == 11)
+	_setup_single_safe(safe_btn_15, 15, unlocked == 16)
 
 func _setup_single_safe(btn: Button, stage_num: int, is_active: bool) -> void:
 	if not btn: return
