@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://du0yx7xcf2fmh" path="res://scenes/occupant.gd" id="1_vnol5"]
 [ext_resource type="Texture2D" uid="uid://b5uec3cj4bgg5" path="res://assets/sprites/orbs/level0/Vine-Orb-Level1.png" id="2_m3lwx"]
+[ext_resource type="Shader" uid="uid://7g0x24k6v1at" path="res://shader/die/shader_3.gdshader" id="2_tutl3"]
 [ext_resource type="Texture2D" uid="uid://5nyyfokg53on" path="res://assets/sprites/orbs/level0/Vine-Orb-Level2.png" id="3_tutl3"]
 [ext_resource type="Texture2D" uid="uid://caut33xe1rsmp" path="res://assets/sprites/orbs/level0/Vine-Orb-Level3.png" id="4_pllna"]
 [ext_resource type="Texture2D" uid="uid://dkc88lymmvuce" path="res://assets/sprites/orbs/level0/Vine-Orb-Level4.png" id="5_qbxg4"]
@@ -34,6 +35,16 @@
 [ext_resource type="Texture2D" uid="uid://1mv1urr325to" path="res://assets/sprites/orbs/level3/Vine-Orb7.png" id="32_ivoht"]
 [ext_resource type="Texture2D" uid="uid://dxcex43cx330q" path="res://assets/sprites/orbs/level3/Vine-Orb8.png" id="33_j6e36"]
 [ext_resource type="Theme" uid="uid://dax6cc1pkfyti" path="res://themes/master.tres" id="34_wrvwr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qbxg4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pllna"]
+resource_local_to_scene = true
+shader = ExtResource("2_tutl3")
+shader_parameter/t = 0.0
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_qbxg4")
+shader_parameter/noise_scale = 1.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4h02p"]
 animations = [{
@@ -158,6 +169,7 @@ animations = [{
 script = ExtResource("1_vnol5")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=458856131]
+material = SubResource("ShaderMaterial_pllna")
 position = Vector2(0, -50)
 scale = Vector2(0.45, 0.45)
 
