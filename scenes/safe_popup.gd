@@ -49,14 +49,11 @@ func _on_claim_pressed() -> void:
 
 	match current_stage_target:
 		5:
-			GameState.stage_5_buff = selected_option
-			GameState.popup_shown_5 = true
+			SaveManager.data.chosen_buffs.level5 = selected_option
 		10:
-			GameState.stage_10_buff = selected_option
-			GameState.popup_shown_10 = true
+			SaveManager.data.chosen_buffs.level10 = selected_option
 		15:
 			GameState.stage_15_buff = selected_option
-			GameState.popup_shown_15 = true
 
 	GameState.recalculate_buffs()
 	reward_claimed.emit()

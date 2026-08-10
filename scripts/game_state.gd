@@ -20,9 +20,6 @@ var current_stage: int = 1
 var highest_unlocked_stage: int = 1
 
 var saved_extra_pieces_limit: int = 0
-var popup_shown_5: bool = false
-var popup_shown_10: bool = false
-var popup_shown_15: bool = false
 
 func reset() -> void:
 	player_1_pieces.clear()

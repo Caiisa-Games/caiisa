@@ -14,8 +14,7 @@ signal clicked(card: Card)
 @export var kb_icon: Texture2D
 
 @onready var blank_card = $BlankCard
-@onready var card_texture = $CardTexture
-#@onready var glow = $SelectionGlow
+@onready var card_texture: TextureRect = $CardTexture
 
 var piece_data: PieceData
 var is_selected: bool = false
@@ -25,7 +24,12 @@ var original_scale: Vector2
 func _ready() -> void:
 	original_scale = scale
 	blank_card.hide()
-	#glow.hide()
+	card_texture.show()
+	
+	if not mouse_entered.is_connected(_on_mouse_entered):
+		mouse_entered.connect(_on_mouse_entered)
+	if not mouse_exited.is_connected(_on_mouse_exited):
+		mouse_exited.connect(_on_mouse_exited)
 
 func set_piece_data(data: PieceData) -> void:
 	piece_data = data
@@ -58,30 +62,34 @@ func _get_class_icon() -> Texture2D:
 func select() -> void:
 	if is_disabled: return
 	is_selected = true
-	#glow.show()
 	create_tween().tween_property(self, "scale", original_scale * 1.05, 0.1)
 
 func deselect() -> void:
 	is_selected = false
-	#glow.hide()
 	create_tween().tween_property(self, "scale", original_scale, 0.1)
 
 func _on_mouse_entered() -> void:
 	if is_disabled: return
 	card_texture.hide()
 	blank_card.show()
+	if blank_card.has_method("start_hover"):
+		blank_card.start_hover()
 
 func _on_mouse_exited() -> void:
 	if is_disabled: return
-	card_texture.show()
 	blank_card.hide()
+	card_texture.show()
+	if card_texture.has_method("play_exit_shader"):
+		card_texture.play_exit_shader()
 
 func set_disabled(disabled: bool) -> void:
 	is_disabled = disabled
 	if is_disabled:
 		modulate = Color(0.3, 0.3, 0.3, 0.7)
+		mouse_filter = MOUSE_FILTER_IGNORE
 	else:
 		modulate = Color(1.0, 1.0, 1.0, 1.0)
+		mouse_filter = MOUSE_FILTER_STOP
 
 func _gui_input(event: InputEvent) -> void:
 	if is_disabled: return
