@@ -26,7 +26,10 @@ enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 @onready var placement_count_label: Label = $UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar/SelectedCountLabel
 
 @export var available_boards: Array[BoardData]
-@export var available_pieces: Array[PieceData] = []
+
+@export_group("Card Pools")
+@export var singleplayer_pieces: Array[PieceData] = []
+@export var multiplayer_pieces: Array[PieceData] = []
 
 var current_step: FlowStep = FlowStep.P1_SELECT
 var current_player: int = 1
@@ -136,8 +139,10 @@ func _start_selection_phase() -> void:
 	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
 	var current_stage = GameState.current_stage if is_single else 999
 	
-	for i in range(available_pieces.size()):
-		var piece = available_pieces[i]
+	var active_pieces: Array[PieceData] = singleplayer_pieces if is_single else multiplayer_pieces
+	
+	for i in range(active_pieces.size()):
+		var piece = active_pieces[i]
 		var card = card_scene.instantiate() as Card
 		selection_grid.add_child(card)
 		card.set_piece_data(piece)
@@ -190,15 +195,17 @@ func _on_card_interacted(card: Card) -> void:
 func _handle_draft_interaction(card: Card) -> void:
 	var hand = _get_current_hand()
 	var max_pieces = _get_current_max_pieces()
+	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
 	
 	if card.is_selected:
 		card.deselect()
 		hand.erase(card.piece_data)
 	else:
-		var existing_of_class = _get_piece_by_class(hand, card.piece_data.piece_class)
-		if existing_of_class:
-			hand.erase(existing_of_class)
-			_deselect_card_by_data(selection_grid, existing_of_class)
+		if not is_single:
+			var existing_of_class = _get_piece_by_class(hand, card.piece_data.piece_class)
+			if existing_of_class:
+				hand.erase(existing_of_class)
+				_deselect_card_by_data(selection_grid, existing_of_class)
 
 		if hand.size() < max_pieces:
 			card.select()
@@ -257,7 +264,6 @@ func _on_confirm_placement_pressed() -> void:
 			GameState.player_2_pieces = player2_placed
 			_go_to_battle_with_loading()
 
-# این تابع جدید را هم دقیقاً زیر تابع بالا اضافه کنید:
 func _go_to_battle_with_loading() -> void:
 	var loading_scene = load("res://scenes/loading_screen.tscn").instantiate() as LoadingScreen
 	loading_scene.target_scene = "res://scenes/battle.tscn"
