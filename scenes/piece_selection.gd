@@ -41,7 +41,7 @@ var player2_placed: Dictionary = {}
 var selected_card: Card = null
 var selected_tile: Tile = null
 
-const UNLOCK_STAGES = [1, 3, 6, 9, 12, 15]
+const UNLOCK_STAGES = [1, 3, 6, 9, 11, 14]
 var max_pieces_p1 := 3
 var max_pieces_p2 := 3
 

@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func _setup_buttons() -> void:
 	current_stage = GameState.current_stage
-	if current_stage not in [15,11,6]:
+	if current_stage not in [11,6]:
 		return
 	option1_btn.text = tr("option1_stage_%d" % current_stage)
 	option2_btn.text = tr("option2_stage_%d" % current_stage)

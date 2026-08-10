@@ -28,10 +28,6 @@ func setup_safe(stage_num: int) -> void:
 			title_label.text = "پاداش گاوصندوق مرحله ۱۰ (اهداء زمین)"
 			option_1_btn.text = "افزایش ۳۰ واحد جان"
 			option_2_btn.text = "کاهش ۱۰٪ روحیه دشمن"
-		15:
-			title_label.text = "پاداش گاوصندوق مرحله ۱۵ (بک‌گراند ویژه)"
-			option_1_btn.text = "افزایش ظرفیت مهره‌ها به ۶"
-			option_2_btn.text = "افزایش ۱۵ واحد قدرت حمله ثابت"
 
 func _select_option(option_index: int) -> void:
 	selected_option = option_index
@@ -52,8 +48,6 @@ func _on_claim_pressed() -> void:
 			SaveManager.data.chosen_buffs.level5 = selected_option
 		10:
 			SaveManager.data.chosen_buffs.level10 = selected_option
-		15:
-			GameState.stage_15_buff = selected_option
 
 	GameState.recalculate_buffs()
 	reward_claimed.emit()
