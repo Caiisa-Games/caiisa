@@ -67,5 +67,5 @@ func _open_safe_popup(stage_num: int) -> void:
 
 func _on_stage_pressed(stage_num: int) -> void:
 	GameState.current_stage = stage_num
-	GameState.game_mode = GameState.GameMode.STAGE
+	GameState.game_mode = GameState.GameMode.SINGLEPLAYER
 	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")

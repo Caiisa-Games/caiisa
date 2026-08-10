@@ -3,11 +3,10 @@ extends Node
 enum GameMode {
 	MULTIPLAYER,
 	SINGLEPLAYER,
-	STAGE
+	NONE
 }
 
-var game_mode: GameMode = GameMode.SINGLEPLAYER
-var single_player: bool = false
+var game_mode: GameMode = GameMode.NONE
 
 var board: BoardData
 

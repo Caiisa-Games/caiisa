@@ -46,31 +46,17 @@ var max_pieces_p1 := 3
 var max_pieces_p2 := 3
 
 @onready var background_texture: TextureRect = $Background
-@onready var background_color: ColorRect = $ColorRect
-
-func _update_background() -> void:
-	if background_texture:
-		background_texture.hide()
-		
-	if background_color:
-		background_color.show()
-		var stg = GameState.current_stage
-		
-		if stg >= 1 and stg <= 5:
-			background_color.color = Color.GREEN
-		elif stg > 5 and stg <= 10:
-			background_color.color = Color.RED
-		elif stg > 10 and stg <= 15:
-			background_color.color = Color(0.3, 0.0, 0.5)
 
 func _ready() -> void:
+	if GameState.game_mode == GameState.GameMode.NONE:
+		push_error("Invalid gamemode")
+		return
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	
-	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player:
+	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
 		if available_boards.size() > 0:
 			GameState.board = available_boards.pick_random()
 		_setup_singleplayer()
-		_update_background()
 	else:
 		_setup_multiplayer()
 		
@@ -136,7 +122,7 @@ func _start_selection_phase() -> void:
 		child.queue_free()
 	
 	var card_scene = load("res://scenes/card.tscn")
-	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	var is_single = GameState.game_mode == GameState.GameMode.SINGLEPLAYER
 	var current_stage = GameState.current_stage if is_single else 999
 	
 	var active_pieces: Array[PieceData] = singleplayer_pieces if is_single else multiplayer_pieces
@@ -195,7 +181,7 @@ func _on_card_interacted(card: Card) -> void:
 func _handle_draft_interaction(card: Card) -> void:
 	var hand = _get_current_hand()
 	var max_pieces = _get_current_max_pieces()
-	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	var is_single = GameState.game_mode == GameState.GameMode.SINGLEPLAYER
 	
 	if card.is_selected:
 		card.deselect()
@@ -232,7 +218,7 @@ func _handle_placement_interaction(card: Card) -> void:
 func _on_confirm_selection_pressed() -> void:
 	AudioManager.play_sfx(CONFIRM_SFX)
 	
-	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	var is_single = GameState.game_mode == GameState.GameMode.SINGLEPLAYER
 	if is_single:
 		current_step = FlowStep.P1_PLACE
 		current_player = 1
@@ -250,10 +236,10 @@ func _on_confirm_selection_pressed() -> void:
 func _on_confirm_placement_pressed() -> void:
 	AudioManager.play_sfx(CONFIRM_SFX)
 	
-	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	var is_single = GameState.game_mode == GameState.GameMode.SINGLEPLAYER
 	if is_single:
 		GameState.player_1_pieces = player1_placed
-		_go_to_battle_with_loading()
+		_go_to_battle()
 	else:
 		if current_step == FlowStep.P1_PLACE:
 			current_step = FlowStep.P2_PLACE
@@ -262,9 +248,9 @@ func _on_confirm_placement_pressed() -> void:
 		else:
 			GameState.player_1_pieces = player1_placed
 			GameState.player_2_pieces = player2_placed
-			_go_to_battle_with_loading()
+			_go_to_battle()
 
-func _go_to_battle_with_loading() -> void:
+func _go_to_battle() -> void:
 	var loading_scene = load("res://scenes/loading_screen.tscn").instantiate() as LoadingScreen
 	loading_scene.target_scene = "res://scenes/battle.tscn"
 	get_tree().root.add_child(loading_scene)
@@ -326,14 +312,13 @@ func _handle_repositioning(target_tile: Tile) -> void:
 
 func _update_ui() -> void:
 	if current_step <= FlowStep.P2_SELECT:
-		draft_turn_label.text = "Player %d" % current_player
-		draft_count_label.text = "%d / %d Selected" % [_get_current_hand().size(), _get_current_max_pieces()]
+		draft_turn_label.text = tr("player_label") % current_player
+		draft_count_label.text = tr("pieces_picked") % [_get_current_hand().size(), _get_current_max_pieces()]
 		placement_turn_label.text = "" 
 		placement_count_label.text = ""
 	else:
-		placement_turn_label.text = "Player %d" % current_player
-		placement_count_label.text = "%d / %d Placed" % [_get_current_placed_dict().size(), _get_current_max_pieces()]
-
+		placement_turn_label.text = tr("player_label") % current_player
+		placement_count_label.text = tr("pieces_placed") % [_get_current_placed_dict().size(), _get_current_max_pieces()]
 func _get_current_hand() -> Array[PieceData]:
 	return player1_hand if current_player == 1 else player2_hand
 
