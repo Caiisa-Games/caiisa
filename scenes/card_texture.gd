@@ -1,7 +1,7 @@
 extends TextureRect
 
 @export var move_speed : float = 2.0        
-@export var max_rotation_deg : float = 2.5 
+@export var max_rotation_deg : float = 1.0 
 
 var time_passed : float = 0.0
 var random_offset : float = 0.0
