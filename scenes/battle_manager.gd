@@ -250,7 +250,7 @@ func _handle_attack(tile: Tile) -> void:
 	var attacker_tile = selected_piece
 	var target_occupant = tile.occupant
 
-	var attacker_power = attacker_tile.occupant.piece_data.attack
+	var attacker_power = attacker_tile.occupant.piece_data.power
 	var damage = CombatRules.calculate_damage(
 		attacker_power,
 		attacker_tile.height_level - tile.height_level,
