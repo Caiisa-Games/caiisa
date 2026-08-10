@@ -26,7 +26,10 @@ enum FlowStep { P1_SELECT, P2_SELECT, P1_PLACE, P2_PLACE }
 @onready var placement_count_label: Label = $UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar/SelectedCountLabel
 
 @export var available_boards: Array[BoardData]
-@export var available_pieces: Array[PieceData] = []
+
+@export_group("Card Pools")
+@export var singleplayer_pieces: Array[PieceData] = []
+@export var multiplayer_pieces: Array[PieceData] = []
 
 var current_step: FlowStep = FlowStep.P1_SELECT
 var current_player: int = 1
@@ -42,28 +45,45 @@ const UNLOCK_STAGES = [1, 3, 6, 9, 12, 15]
 var max_pieces_p1 := 3
 var max_pieces_p2 := 3
 
+@onready var background_texture: TextureRect = $Background
+@onready var background_color: ColorRect = $ColorRect
+
+func _update_background() -> void:
+	if background_texture:
+		background_texture.hide()
+		
+	if background_color:
+		background_color.show()
+		var stg = GameState.current_stage
+		
+		if stg >= 1 and stg <= 5:
+			background_color.color = Color.GREEN
+		elif stg > 5 and stg <= 10:
+			background_color.color = Color.RED
+		elif stg > 10 and stg <= 15:
+			background_color.color = Color(0.3, 0.0, 0.5)
+
 func _ready() -> void:
 	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	
-	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
-		GameState.board = available_boards.pick_random()
+	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player:
+		if available_boards.size() > 0:
+			GameState.board = available_boards.pick_random()
 		_setup_singleplayer()
+		_update_background()
 	else:
 		_setup_multiplayer()
 		
 	if not GameState.board:
-		push_error("No board")
-		return
+		if available_boards.size() > 0:
+			GameState.board = available_boards.pick_random()
+		else:
+			return
 	
 	board.set_mode(BoardManager.Mode.PREVIEW)
-
 	board.board_data = GameState.board
-	
 	board.generate()
 	_connect_signals()
-	
-	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER and _should_show_buff_popup(GameState.current_stage):
-		await _show_buff_choice_popup()
 	
 	_start_selection_phase()
 
@@ -85,7 +105,10 @@ func _setup_singleplayer() -> void:
 		if current_stage >= req:
 			unlocked_count += 1
 
-	max_pieces_p1 = min(allowed_picks, unlocked_count)
+	var base_limit = min(allowed_picks, unlocked_count)
+	var extra_buff = GameState.saved_extra_pieces_limit
+	
+	max_pieces_p1 = min(base_limit + extra_buff, 6)
 	max_pieces_p1 = clamp(max_pieces_p1, 1, 6)
 	max_pieces_p2 = 0
 
@@ -104,19 +127,6 @@ func _connect_signals() -> void:
 	if not draft_back_btn.pressed.is_connected(_on_exit_pressed):
 		draft_back_btn.pressed.connect(_on_exit_pressed)
 
-func _should_show_buff_popup(stage: int) -> bool:
-	return stage == 5 or stage == 10 or stage == 15
-
-func _show_buff_choice_popup() -> void:
-	var popup_scene = load("res://scenes/StageBuffPopup.tscn")
-	if popup_scene == null:
-		return
-
-	var popup = popup_scene.instantiate() as StageBuffPopup
-	$UICanvas.add_child(popup)
-	
-	await popup.buff_selected
-
 func _start_selection_phase() -> void:
 	split_container.hide()
 	selection_overlay.show()
@@ -126,15 +136,18 @@ func _start_selection_phase() -> void:
 		child.queue_free()
 	
 	var card_scene = load("res://scenes/card.tscn")
-	var current_stage = GameState.current_stage if GameState.game_mode == GameState.GameMode.SINGLEPLAYER else 999
+	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	var current_stage = GameState.current_stage if is_single else 999
 	
-	for i in range(available_pieces.size()):
-		var piece = available_pieces[i]
+	var active_pieces: Array[PieceData] = singleplayer_pieces if is_single else multiplayer_pieces
+	
+	for i in range(active_pieces.size()):
+		var piece = active_pieces[i]
 		var card = card_scene.instantiate() as Card
 		selection_grid.add_child(card)
 		card.set_piece_data(piece)
 		
-		if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
+		if is_single:
 			var req_stage = 999
 			if i < UNLOCK_STAGES.size():
 				req_stage = UNLOCK_STAGES[i]
@@ -182,17 +195,22 @@ func _on_card_interacted(card: Card) -> void:
 func _handle_draft_interaction(card: Card) -> void:
 	var hand = _get_current_hand()
 	var max_pieces = _get_current_max_pieces()
+	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
 	
 	if card.is_selected:
 		card.deselect()
 		hand.erase(card.piece_data)
 	else:
-		if hand.size() >= max_pieces:
-			return
-			
-		card.select()
-		hand.append(card.piece_data)
-		AudioManager.play_sfx(SELECT_SFX)
+		if not is_single:
+			var existing_of_class = _get_piece_by_class(hand, card.piece_data.piece_class)
+			if existing_of_class:
+				hand.erase(existing_of_class)
+				_deselect_card_by_data(selection_grid, existing_of_class)
+
+		if hand.size() < max_pieces:
+			card.select()
+			hand.append(card.piece_data)
+			AudioManager.play_sfx(SELECT_SFX)
 
 	confirm_selection_btn.disabled = (hand.size() != max_pieces)
 
@@ -214,7 +232,8 @@ func _handle_placement_interaction(card: Card) -> void:
 func _on_confirm_selection_pressed() -> void:
 	AudioManager.play_sfx(CONFIRM_SFX)
 	
-	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
+	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	if is_single:
 		current_step = FlowStep.P1_PLACE
 		current_player = 1
 		_start_placement_phase()
@@ -231,12 +250,10 @@ func _on_confirm_selection_pressed() -> void:
 func _on_confirm_placement_pressed() -> void:
 	AudioManager.play_sfx(CONFIRM_SFX)
 	
-	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
+	var is_single = (GameState.game_mode == GameState.GameMode.SINGLEPLAYER or GameState.game_mode == GameState.GameMode.STAGE or GameState.single_player)
+	if is_single:
 		GameState.player_1_pieces = player1_placed
-		var loading = preload("res://scenes/loading_screen.tscn").instantiate() as LoadingScreen
-		loading.target_scene = "res://scenes/battle.tscn"
-		get_tree().root.add_child(loading)
-		queue_free()
+		_go_to_battle_with_loading()
 	else:
 		if current_step == FlowStep.P1_PLACE:
 			current_step = FlowStep.P2_PLACE
@@ -245,10 +262,14 @@ func _on_confirm_placement_pressed() -> void:
 		else:
 			GameState.player_1_pieces = player1_placed
 			GameState.player_2_pieces = player2_placed
-			var loading = preload("res://scenes/loading_screen.tscn").instantiate() as LoadingScreen
-			loading.target_scene = "res://scenes/battle.tscn"
-			get_tree().root.add_child(loading)
-			queue_free()
+			_go_to_battle_with_loading()
+
+func _go_to_battle_with_loading() -> void:
+	var loading_scene = load("res://scenes/loading_screen.tscn").instantiate() as LoadingScreen
+	loading_scene.target_scene = "res://scenes/battle.tscn"
+	get_tree().root.add_child(loading_scene)
+	get_tree().current_scene = loading_scene
+	queue_free()
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	if current_step < FlowStep.P1_PLACE: return
@@ -305,13 +326,13 @@ func _handle_repositioning(target_tile: Tile) -> void:
 
 func _update_ui() -> void:
 	if current_step <= FlowStep.P2_SELECT:
-		draft_turn_label.text = tr("player_label") % current_player
-		draft_count_label.text = tr("pieces_picked") % [_get_current_hand().size(), _get_current_max_pieces()]
+		draft_turn_label.text = "Player %d" % current_player
+		draft_count_label.text = "%d / %d Selected" % [_get_current_hand().size(), _get_current_max_pieces()]
 		placement_turn_label.text = "" 
 		placement_count_label.text = ""
 	else:
-		placement_turn_label.text = tr("player_label") % current_player
-		placement_count_label.text = tr("pieces_placed") % [_get_current_placed_dict().size(), _get_current_max_pieces()]
+		placement_turn_label.text = "Player %d" % current_player
+		placement_count_label.text = "%d / %d Placed" % [_get_current_placed_dict().size(), _get_current_max_pieces()]
 
 func _get_current_hand() -> Array[PieceData]:
 	return player1_hand if current_player == 1 else player2_hand
@@ -332,6 +353,17 @@ func get_valid_placement_tiles(p_idx: int) -> Array[Tile]:
 		var t = board.get_tile_at(Vector2i(x, y))
 		if t and t.occupant.piece_data == null: tiles.append(t)
 	return tiles
+
+func _get_piece_by_class(hand: Array[PieceData], p_class: PieceData.PieceClass) -> PieceData:
+	for piece in hand:
+		if piece.piece_class == p_class: return piece
+	return null
+
+func _deselect_card_by_data(container: Control, data: PieceData) -> void:
+	for child in container.get_children():
+		if child is Card and child.piece_data == data:
+			child.deselect()
+			return
 
 func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
