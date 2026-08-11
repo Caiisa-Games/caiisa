@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityResource" format=3 uid="uid://4lv6yoiex2ko"]
+
+[ext_resource type="Script" uid="uid://cc3f7klb6j3p" path="res://scripts/ability_resource.gd" id="1_os0oa"]
+[ext_resource type="Script" uid="uid://bi0ojoifhlq26" path="res://scripts/abilities/royal_slam.gd" id="2_f2dlh"]
+
+[resource]
+script = ExtResource("1_os0oa")
+id = "royal_slam"
+name = "Royal Slam"
+energy_cost = 4
+target_type = 4
+script_effect = ExtResource("2_f2dlh")
+metadata/_custom_type_script = "uid://cc3f7klb6j3p"
