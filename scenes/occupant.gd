@@ -212,6 +212,7 @@ func cast_active_ability(board: BoardManager, target_pos: Vector2i) -> bool:
 		return false
 	var effect = piece_data.active_ability.create_effect_instance()
 	if effect:
-		effect.execute(self.get_parent(), target_pos, board)
+		var tile = self.get_parent().get_parent()
+		effect.execute(tile, target_pos, board)
 		return true
 	return false

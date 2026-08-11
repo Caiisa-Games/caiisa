@@ -54,8 +54,6 @@ var current_wave: int = 0
 var enemy_ai: EnemyAI
 var turn_locked := false
 
-var moves_made_this_turn: int = 0
-
 func _ready() -> void:
 	if _is_singleplayer():
 		if GameState.current_stage <= 0:
@@ -66,24 +64,10 @@ func _ready() -> void:
 			stage = stages[idx]
 
 	_prepare_scene()
-	_connect_button_signals()
 	_start_intro_sequence()
 
 	enemy_ai = EnemyAI.new()
 	add_child(enemy_ai)
-
-func _connect_button_signals() -> void:
-	if end_turn_btn and not end_turn_btn.pressed.is_connected(_on_end_turn_button_pressed):
-		end_turn_btn.pressed.connect(_on_end_turn_button_pressed)
-		
-	if top_menu_btn and not top_menu_btn.pressed.is_connected(_on_menu_button_pressed):
-		top_menu_btn.pressed.connect(_on_menu_button_pressed)
-		
-	if gm_menu_button and not gm_menu_button.pressed.is_connected(_on_menu_button_pressed):
-		gm_menu_button.pressed.connect(_on_menu_button_pressed)
-		
-	if replay_button and not replay_button.pressed.is_connected(_on_replay_button_pressed):
-		replay_button.pressed.connect(_on_replay_button_pressed)
 
 func _prepare_scene() -> void:
 	if ui_layer: ui_layer.show()
@@ -210,7 +194,6 @@ func _handle_move(tile: Tile) -> void:
 			_execute_dictionary_move(selected_piece, tile)
 			board._move_occupant(selected_piece, tile)
 			await _check_promotion(tile)
-			moves_made_this_turn += 1
 			_end_turn()
 			turn_locked = false
 	else:
@@ -245,8 +228,6 @@ func _handle_attack(tile: Tile) -> void:
 			await _check_promotion(tile)
 	else:
 		await _apply_knockback(attacker_tile, tile)
-
-	moves_made_this_turn += 1
 
 	if winner != 0:
 		GameState.winner = winner
@@ -400,23 +381,21 @@ func _update_valid_moves() -> void:
 func _end_turn() -> void:
 	if winner != 0:
 		return
-
-	moves_made_this_turn = 0
 	_clear_selection()
 
 	if _is_singleplayer():
 		current_turn = Turn.PLAYER_2
-		_update_ui()
 		await enemy_ai.take_turn(board)
 		current_turn = Turn.PLAYER_1
 		round_number += 1
-		
 	else:
 		if current_turn == Turn.PLAYER_1:
 			current_turn = Turn.PLAYER_2
 		else:
 			current_turn = Turn.PLAYER_1
 			round_number += 1
+	
+	_update_ui()
 
 func _clear_selection() -> void:
 	if selected_piece and selected_piece.occupant:
@@ -435,8 +414,8 @@ func _update_ui() -> void:
 	if player_1_energybar: player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
 	if player_2_energybar: player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
 	
-	player_1_ability_btn.disabled = p_idx == 1
-	player_2_ability_btn.disabled = p_idx == 2
+	player_2_ability_btn.disabled = p_idx == 1
+	player_1_ability_btn.disabled = p_idx == 2
 
 	if _is_singleplayer():
 		if end_turn_btn: end_turn_btn.visible = false
@@ -515,7 +494,16 @@ func _on_replay_button_pressed() -> void:
 
 
 func _on_p2_ability_pressed() -> void:
-	print("P2 Ability")
+	if not (selected_piece and current_turn == Turn.PLAYER_2):
+		return
+	var occupant = selected_piece.occupant
+	if not occupant.can_cast_active_ability(player_energy[Turn.PLAYER_2]): return
+	occupant.cast_active_ability(board, Vector2i.ZERO) # TODO: Add target tile support
 
 func _on_p1_ability_pressed() -> void:
-	print("P1 Ability")
+	print(current_turn)
+	if not (selected_piece and current_turn == Turn.PLAYER_1) :
+		return
+	var occupant = selected_piece.occupant
+	if not occupant.can_cast_active_ability(player_energy[Turn.PLAYER_1]): return
+	occupant.cast_active_ability(board, Vector2i.ZERO) 
