@@ -34,12 +34,11 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gam43"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vceff"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ni85"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -52,11 +51,12 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ni85"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vceff"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -149,51 +149,71 @@ grow_vertical = 2
 text = "end_turn"
 
 [node name="BottomPanel" type="Panel" parent="UI" unique_id=315608576]
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -263.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 size_flags_vertical = 8
 layout_direction = 2
 mouse_filter = 1
 theme = ExtResource("3_lpir7")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_gam43")
 
-[node name="Player2Energy" type="ProgressBar" parent="UI/BottomPanel" unique_id=1375992409]
+[node name="P1Box" type="HBoxContainer" parent="UI/BottomPanel" unique_id=1218417975]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 1062.0
-offset_top = -4.0
-offset_right = 1262.0
-offset_bottom = 46.0
+offset_top = -8.0
+offset_right = 218.0
+offset_bottom = 56.137634
 grow_vertical = 0
 rotation = -1.5707964
-theme_override_styles/background = SubResource("StyleBoxFlat_vceff")
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/BottomPanel/P1Box" unique_id=1516234563]
+custom_minimum_size = Vector2(200, 50)
+custom_maximum_size = Vector2(-1, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_6ni85")
 theme_override_styles/fill = SubResource("StyleBoxFlat_22uqi")
 value = 50.0
 show_percentage = false
 
-[node name="Player1Energy" type="ProgressBar" parent="UI/BottomPanel" unique_id=1516234563]
+[node name="AbilityBtn" type="Button" parent="UI/BottomPanel/P1Box" unique_id=946036721]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="P2Box" type="HBoxContainer" parent="UI/BottomPanel" unique_id=1789328657]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1110.0
-offset_top = -4.0
-offset_right = -910.0
-offset_bottom = 46.0
+offset_left = -62.68799
+offset_top = -8.0
+offset_right = 191.31201
+offset_bottom = 54.690186
 grow_horizontal = 0
 grow_vertical = 0
 rotation = -1.5707964
-theme_override_styles/background = SubResource("StyleBoxFlat_6ni85")
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/BottomPanel/P2Box" unique_id=1375992409]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_vceff")
 theme_override_styles/fill = SubResource("StyleBoxFlat_22uqi")
 value = 50.0
 show_percentage = false
+
+[node name="AbilityBtn" type="Button" parent="UI/BottomPanel/P2Box" unique_id=778240681]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 
 [node name="BoardLayer" type="CanvasLayer" parent="." unique_id=562889155]
 
@@ -304,5 +324,7 @@ limit_bottom = 648
 
 [connection signal="pressed" from="UI/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="UI/TopBar/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="UI/BottomPanel/P1Box/AbilityBtn" to="." method="_on_p1_ability_pressed"]
+[connection signal="pressed" from="UI/BottomPanel/P2Box/AbilityBtn" to="." method="_on_p2_ability_pressed"]
 [connection signal="pressed" from="GameOverLayer/Control/Buttons/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverLayer/Control/Buttons/ReplayButton" to="." method="_on_replay_button_pressed"]
