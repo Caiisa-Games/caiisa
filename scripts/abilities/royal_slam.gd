@@ -1,24 +1,26 @@
 extends AbilityEffect
 
-func execute(caster: Node2D, target_cell: Vector2i, grid_manager: Node) -> bool:
+func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
+	if not caster.occupant.piece_data:
+		return false
 	var center: Vector2i = caster.grid_position
-	var adjacent_cells: Array[Vector2i] = grid_manager.get_surrounding_cells(center, 1)
+	var adjacent_cells: Array[Vector2i] = board.get_surrounding_cells(center, 1)
 	
 	for cell in adjacent_cells:
-		var unit = grid_manager.get_unit_at(cell)
-		if unit and unit.team != caster.team:
-			var dmg = int(unit.max_health * 0.10)
-			unit.take_damage(dmg, caster)
+		var unit = board.get_tile_at(cell).occupant as Occupant
+		if unit and unit.player != caster.occupant.player:
+			var dmg = int(unit.current_hp * 0.10)
+			unit.take_damage(dmg)
 			
 			var dir: Vector2i = cell - center
 			var push_target: Vector2i = cell + dir
 			
-			if grid_manager.is_cell_empty(push_target):
-				grid_manager.move_unit_silent(unit, push_target)
+			if board.is_cell_empty(push_target):
+				board._move_occupant(unit, board.tiles.get(push_target))
 			else:
-				var blocking_unit = grid_manager.get_unit_at(push_target)
+				var blocking_unit = board.get_tile_at(cell).occupant as Occupant
 				if blocking_unit:
-					blocking_unit.take_damage(caster.base_damage, caster)
-				unit.take_damage(caster.base_damage, caster)
+					blocking_unit.take_damage(caster.base_damage)
+				unit.take_damage(caster.occupant.piece_data.power)
 				
 	return true
