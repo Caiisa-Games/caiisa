@@ -201,3 +201,17 @@ func _flash_damage() -> void:
 	var tween := create_tween()
 	tween.tween_interval(0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.0)
+	
+func can_cast_active_ability(energy: int) -> bool:
+	if piece_data and piece_data.active_ability:
+		return energy >= piece_data.active_ability.energy_cost
+	return false
+	
+func cast_active_ability(board: BoardManager, target_pos: Vector2i) -> bool:
+	if not piece_data and piece_data.active_ability:
+		return false
+	var effect = piece_data.active_ability.create_effect_instance()
+	if effect:
+		effect.execute(self.get_parent(), target_pos, board)
+		return true
+	return false

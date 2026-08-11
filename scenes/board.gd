@@ -164,7 +164,27 @@ func should_promote(occupant: Occupant, row: int, player: int) -> bool:
 
 func is_within_bounds(x: int, y: int) -> bool:
 	return x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE
+
+func is_cell_empty(grid_pos: Vector2i):
+	var tile = tiles[grid_pos] as Tile
+	if tile:
+		return tile.occupant.piece_data == null
+	return false
 	
+func get_surrounding_cells(grid_pos: Vector2i, cell_range: int) -> Array[Vector2i]:
+	var results: Array[Vector2i] = []
+	for x in range(-cell_range, cell_range + 1):
+		for y in range(-cell_range, cell_range + 1):
+			var offset = Vector2i(x,y)
+			
+			if offset == Vector2i.ZERO:
+				continue
+			
+			var pos = grid_pos + offset
+			if pos in tiles:
+				results.append(pos)
+	return results
+
 func _on_tile_hovered(tile: Tile) -> void:
 	if tile == hovered_tile:
 		return
