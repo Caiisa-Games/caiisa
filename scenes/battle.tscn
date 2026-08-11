@@ -186,6 +186,7 @@ show_percentage = false
 [node name="AbilityBtn" type="Button" parent="UI/BottomPanel/P1Box" unique_id=946036721]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+text = "E"
 
 [node name="P2Box" type="HBoxContainer" parent="UI/BottomPanel" unique_id=1789328657]
 layout_mode = 1
@@ -214,6 +215,7 @@ show_percentage = false
 [node name="AbilityBtn" type="Button" parent="UI/BottomPanel/P2Box" unique_id=778240681]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+text = "E"
 
 [node name="BoardLayer" type="CanvasLayer" parent="." unique_id=562889155]
 
