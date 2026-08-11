@@ -498,12 +498,16 @@ func _on_p2_ability_pressed() -> void:
 		return
 	var occupant = selected_piece.occupant
 	if not occupant.can_cast_active_ability(player_energy[Turn.PLAYER_2]): return
-	occupant.cast_active_ability(board, Vector2i.ZERO) # TODO: Add target tile support
+	var success = occupant.cast_active_ability(board, Vector2i.ZERO) # TODO: Add target tile support
+	if success:
+		spend_energy(Turn.PLAYER_2, occupant.piece_data.active_ability.energy_cost)
+	
 
 func _on_p1_ability_pressed() -> void:
-	print(current_turn)
 	if not (selected_piece and current_turn == Turn.PLAYER_1) :
 		return
 	var occupant = selected_piece.occupant
 	if not occupant.can_cast_active_ability(player_energy[Turn.PLAYER_1]): return
-	occupant.cast_active_ability(board, Vector2i.ZERO) 
+	var success = occupant.cast_active_ability(board, Vector2i.ZERO) # TODO: Add target tile support
+	if success:
+		spend_energy(Turn.PLAYER_1, occupant.piece_data.active_ability.energy_cost)
