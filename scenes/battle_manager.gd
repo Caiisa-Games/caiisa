@@ -16,8 +16,11 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var bottom_panel: Panel = $UI/BottomPanel
 @onready var end_turn_btn: Button = $UI/TopBar/EndTurnButton
 @onready var top_menu_btn: Button = $UI/TopBar/MenuButton
-@onready var player_1_energybar: ProgressBar = $UI/BottomPanel/Player1Energy
-@onready var player_2_energybar: ProgressBar = $UI/BottomPanel/Player2Energy
+
+@onready var player_1_energybar: ProgressBar = $UI/BottomPanel/P1Box/EnergyBar
+@onready var player_2_energybar: ProgressBar = $UI/BottomPanel/P2Box/EnergyBar
+@onready var player_1_ability_btn: Button = $UI/BottomPanel/P1Box/AbilityBtn
+@onready var player_2_ability_btn: Button = $UI/BottomPanel/P2Box/AbilityBtn
 
 @onready var round_label_gm: Label = $GameOverLayer/Control/VBoxContainer/RoundLabel
 @onready var winner_label: Label = $GameOverLayer/Control/VBoxContainer/WinnerLabel
@@ -407,6 +410,7 @@ func _end_turn() -> void:
 		await enemy_ai.take_turn(board)
 		current_turn = Turn.PLAYER_1
 		round_number += 1
+		
 	else:
 		if current_turn == Turn.PLAYER_1:
 			current_turn = Turn.PLAYER_2
@@ -430,6 +434,9 @@ func _update_ui() -> void:
 
 	if player_1_energybar: player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
 	if player_2_energybar: player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
+	
+	player_1_ability_btn.disabled = p_idx == 1
+	player_2_ability_btn.disabled = p_idx == 2
 
 	if _is_singleplayer():
 		if end_turn_btn: end_turn_btn.visible = false
@@ -505,3 +512,10 @@ func _on_replay_button_pressed() -> void:
 		get_tree().change_scene_to_file("res://Stage/StageSelection.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+
+
+func _on_p2_ability_pressed() -> void:
+	print("P2 Ability")
+
+func _on_p1_ability_pressed() -> void:
+	print("P1 Ability")

@@ -46,6 +46,14 @@ func set_hovered(value: bool):
 
 func _update_label_visibility():
 	hp_label.visible = _hovered or _selected
+	
+func _align_sprite() -> void:
+	if sprite == null or sprite.texture == null:
+		return
+	
+	var tex_height := sprite.texture.get_height()
+	var tex_width := sprite.texture.get_width()
+	sprite.offset = Vector2(-tex_width / 2.0, -tex_height)
 
 func set_data(data: PieceData, _player: int, _current_hp: int, show_health = true) -> void:
 	if not data:
@@ -53,7 +61,7 @@ func set_data(data: PieceData, _player: int, _current_hp: int, show_health = tru
 	piece_data = data
 	player = _player
 	current_hp = _current_hp
-
+	
 	if sprite.material is ShaderMaterial:
 		(sprite.material as ShaderMaterial).set_shader_parameter("t", 0.0)
 
@@ -61,8 +69,9 @@ func set_data(data: PieceData, _player: int, _current_hp: int, show_health = tru
 		sprite.texture = data.texture_white
 	elif player == 2:
 		sprite.texture = data.texture_black
-
+		
 	health_ui.visible = show_health
+	_align_sprite()
 	_update_label_visibility()
 	_update_stats()
 
@@ -145,6 +154,7 @@ func _update_stats() -> void:
 		return
 
 	max_hp = piece_data.defense
+	
 
 	if sprite.texture:
 		var tile := get_parent().get_parent() as Tile
