@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="PieceData" format=3 uid="uid://425mbxscserg"]
 
+[ext_resource type="Resource" uid="uid://bh8m6iw1q0yub" path="res://data/abilities/divine_light.tres" id="1_0w8ds"]
 [ext_resource type="Texture2D" uid="uid://bvneb0kg2q6cw" path="res://assets/sprites/pieces/cards/bishop_card.png" id="1_183yx"]
 [ext_resource type="Script" uid="uid://divct8m8b0k67" path="res://scripts/piece_data.gd" id="1_w1f8c"]
 [ext_resource type="Script" uid="uid://yiknnlycdli6" path="res://scripts/movement_data.gd" id="2_r6wyx"]
@@ -24,4 +25,5 @@ power = 13
 defense = 75
 movement = SubResource("Resource_0w8ds")
 piece_class = 2
+active_ability = ExtResource("1_0w8ds")
 metadata/_custom_type_script = "uid://divct8m8b0k67"
