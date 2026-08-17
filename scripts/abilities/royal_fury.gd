@@ -21,7 +21,13 @@ func execute(caster: Tile, target_cell: Vector2i, board: BoardManager) -> bool:
 
 	var total_damage: int = base_power + execute_bonus + height_bonus
 
-	var died = await target_unit.take_damage(total_damage)
+	var died = await CombatRules.apply_combat_damage(
+		caster.occupant,
+		target_unit.occupant,
+		total_damage, 
+		board, 
+		board.battle_manager
+	)
 	
 	if died:
 		board.battle_manager.handle_ability_kill(target_tile)
