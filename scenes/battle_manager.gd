@@ -172,6 +172,11 @@ func _handle_selection(tile: Tile, p_idx: int) -> void:
 	if not tile.occupant.piece_data or tile.occupant.player != p_idx:
 		_clear_selection()
 		return
+	if tile.occupant.has_status("stunned"):
+		# TODO: Play "stunned" SFX/VFX feedback here
+		_clear_selection()
+		return
+
 	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 	selected_piece = tile
 	tile.occupant.set_selected(true)
@@ -490,7 +495,10 @@ func _end_turn() -> void:
 	if winner != 0:
 		return
 	_clear_selection()
-
+	for tile in board.tiles.values():
+		if tile.occupant and tile.occupant.player == current_turn:
+			tile.occupant.tick_statuses()
+	
 	if _is_singleplayer():
 		current_turn = Turn.PLAYER_2
 		await enemy_ai.take_turn(board)
