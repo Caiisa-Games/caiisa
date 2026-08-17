@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityResource" format=3 uid="uid://bh8m6iw1q0yub"]
+
+[ext_resource type="Script" uid="uid://cc3f7klb6j3p" path="res://scripts/ability_resource.gd" id="1_pje4u"]
+[ext_resource type="Script" uid="uid://c1c7coij8a3yq" path="res://scripts/abilities/divine_light.gd" id="2_l2f25"]
+
+[resource]
+script = ExtResource("1_pje4u")
+id = "divine_light"
+name = "Divine Light"
+energy_cost = 4
+target_type = 3
+range = 2
+script_effect = ExtResource("2_l2f25")
+metadata/_custom_type_script = "uid://cc3f7klb6j3p"
