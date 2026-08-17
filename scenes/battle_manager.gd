@@ -55,6 +55,8 @@ var current_wave: int = 0
 var enemy_ai: EnemyAI
 var turn_locked := false
 
+var extra_turn_pending := false
+
 func _ready() -> void:
 	if _is_singleplayer():
 		if GameState.current_stage <= 0:
@@ -472,7 +474,10 @@ func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
 			if target.occupant.piece_data:
 				if target.occupant.player != from_tile.occupant.player:
 					moves.append(target)
-				break
+				if not KnightPassive.allows_jump_over(piece):
+					break
+				else:
+					continue
 			moves.append(target)
 
 	return moves
@@ -498,6 +503,11 @@ func _end_turn() -> void:
 	for tile in board.tiles.values():
 		if tile.occupant and tile.occupant.player == current_turn:
 			tile.occupant.tick_statuses()
+			
+	if extra_turn_pending:
+		extra_turn_pending = false
+		_update_ui()
+		return
 	
 	if _is_singleplayer():
 		current_turn = Turn.PLAYER_2
@@ -618,6 +628,9 @@ func handle_ability_kill(tile: Tile) -> void:
 	if winner != 0:
 		GameState.winner = winner
 		_handle_game_over()
+
+func grant_extra_turn() -> void:
+	extra_turn_pending = true
 
 func _on_p1_ability_pressed() -> void:
 	if turn_locked or current_turn != Turn.PLAYER_1:
