@@ -12,7 +12,13 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 		
 		if unit.piece_data and unit.player != caster.occupant.player:
 			var dmg = int(unit.current_hp * 0.10)
-			var died = await unit.take_damage(dmg)
+			var died = await CombatRules.apply_combat_damage(
+				caster.occupant,
+				unit.occupant,
+				dmg, 
+				board, 
+				board.battle_manager
+			)
 			
 			if died:
 				board.battle_manager.handle_ability_kill(cell_tile)
@@ -28,11 +34,23 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 			else:
 				var blocking_unit = board.get_tile_at(push_target).occupant as Occupant
 				if blocking_unit and blocking_unit.piece_data:
-					var blocker_died = await blocking_unit.take_damage(caster.occupant.piece_data.power)
+					var blocker_died = await CombatRules.apply_combat_damage(
+						caster.occupant,
+						blocking_unit.occupant,
+						caster.occupant.piece_data.power, 
+						board, 
+						board.battle_manager
+					)
 					if blocker_died:
 						board.battle_manager.handle_ability_kill(board.get_tile_at(push_target))
 						
-				var unit_died_from_collision = await unit.take_damage(caster.occupant.piece_data.power)
+				var unit_died_from_collision = await CombatRules.apply_combat_damage(
+					caster.occupant,
+					unit.occupant,
+					caster.occupant.piece_data.power, 
+					board, 
+					board.battle_manager
+				)
 				if unit_died_from_collision:
 					board.battle_manager.handle_ability_kill(cell_tile)
 				

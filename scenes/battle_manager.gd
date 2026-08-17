@@ -213,13 +213,20 @@ func _handle_attack(tile: Tile) -> void:
 	var target_occupant = tile.occupant
 
 	var attacker_power = attacker_tile.occupant.piece_data.power
-	var damage = CombatRules.calculate_damage(
+	var base_damage = CombatRules.calculate_damage(
 		attacker_power,
 		attacker_tile.height_level - tile.height_level,
 		false
 	)
 
-	var died = await target_occupant.take_damage(damage)
+	var died = await CombatRules.apply_combat_damage(
+		attacker_tile.occupant, 
+		target_occupant, 
+		base_damage, 
+		board, 
+		self
+	)
+	
 	AudioManager.play_sfx(preload("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3"))
 
 	gain_energy(current_turn, ENERGY_REWARD_ATTACK)
