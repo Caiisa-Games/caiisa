@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityResource" format=3 uid="uid://ft5ohpao4hs3"]
+
+[ext_resource type="Script" uid="uid://cc3f7klb6j3p" path="res://scripts/ability_resource.gd" id="1_cki5o"]
+[ext_resource type="Script" uid="uid://bv0dxsb18x0cu" path="res://scripts/abilities/swarm.gd" id="2_5k21q"]
+
+[resource]
+script = ExtResource("1_cki5o")
+id = "swarm"
+name = "Swarm"
+energy_cost = 3
+target_type = 1
+script_effect = ExtResource("2_5k21q")
+metadata/_custom_type_script = "uid://cc3f7klb6j3p"
