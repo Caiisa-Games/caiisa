@@ -15,6 +15,8 @@ var player: int = 0
 @onready var hp_label: Label = $HealthUI/HPLabel
 @onready var orb: AnimatedSprite2D = $Orb
 
+var statuses: Dictionary = {} # "stunned" / "guarded"
+
 var _hovered := false
 var _selected := false
 var _label_timer := 0.0
@@ -148,6 +150,28 @@ func promote_to(new_data: PieceData) -> void:
 	burst.tween_property(self, "modulate", Color.WHITE, 0.5)
 	
 	_update_hp()
+	
+func apply_status(status_name: String, duration: int, data: Dictionary = {}) -> void:
+	statuses[status_name] = {"duration": duration, "data": data}
+
+func has_status(status_name: String) -> bool:
+	return statuses.has(status_name)
+
+func get_status_data(status_name: String) -> Dictionary:
+	return statuses.get(status_name, {}).get("data", {})
+
+func clear_status(status_name: String) -> void:
+	statuses.erase(status_name)
+	
+func tick_statuses() -> void:
+	for key in statuses.keys().duplicate():
+		statuses[key].duration -= 1
+		if statuses[key].duration <= 0:
+			statuses.erase(key)
+
+func consume_status_on_hit(status_name: String) -> void:
+	if statuses.has(status_name):
+		statuses.erase(status_name)
 
 func _update_stats() -> void:
 	if piece_data == null:
