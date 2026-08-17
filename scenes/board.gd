@@ -11,6 +11,8 @@ const GRID_SIZE := 8
 @export var show_base: bool = true
 #@export var piece_data: PieceData
 
+var battle_manager: BattleManager
+
 var tiles: Dictionary = {}  # Vector2i(x,y) -> Tile
 var occupants: Dictionary = {}  # occupant_node -> Vector2i(grid_pos)
 var selected_tile: Tile = null

@@ -134,6 +134,7 @@ func _initialize_game_logic() -> void:
 func _setup_board() -> void:
 	if not board: return
 	board.board_data = GameState.board
+	board.battle_manager = self
 	if not board.board_data:
 		return
 	board.generate()
@@ -358,7 +359,7 @@ func _trigger_ability_mode(turn: Turn) -> void:
 	if ability.target_type == AbilityResource.TargetType.SELF \
 	or ability.target_type == AbilityResource.TargetType.AOE_RADIUS \
 	or ability.target_type == AbilityResource.TargetType.AOE_CROSS:
-		_execute_ability_on_target(selected_piece.grid_position)
+		_execute_ability_on_target(selected_piece)
 	else:
 		current_phase = Phase.ABILITY
 		_highlight_ability_targets()
@@ -396,11 +397,11 @@ func _get_valid_ability_targets(caster_tile: Tile, ability: AbilityResource) -> 
 	return targets
 
 
-func _execute_ability_on_target(target_tile: Vector2i) -> void:
+func _execute_ability_on_target(target_tile: Tile) -> void:
 	var occupant = selected_piece.occupant
 	var ability: AbilityResource = occupant.piece_data.active_ability
 
-	var success = occupant.execute_active_ability(target_tile, board)
+	var success = await occupant.execute_active_ability(target_tile, board)
 
 	if success:
 		spend_energy(current_turn, ability.energy_cost)
@@ -428,7 +429,7 @@ func _highlight_ability_targets() -> void:
 
 func _handle_ability_target(tile: Tile) -> void:
 	if tile in valid_ability_targets:
-		_execute_ability_on_target(tile.grid_position)
+		_execute_ability_on_target(tile)
 	else:
 		_cancel_ability_targeting()
 
@@ -592,6 +593,16 @@ func _on_replay_button_pressed() -> void:
 	else:
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
 
+func handle_ability_kill(tile: Tile) -> void:
+	if tile == null or tile.occupant == null or tile.occupant.piece_data == null:
+		return
+
+	gain_energy(current_turn, ENERGY_REWARD_KILL)
+	_handle_died(tile)
+
+	if winner != 0:
+		GameState.winner = winner
+		_handle_game_over()
 
 func _on_p1_ability_pressed() -> void:
 	if turn_locked or current_turn != Turn.PLAYER_1:
