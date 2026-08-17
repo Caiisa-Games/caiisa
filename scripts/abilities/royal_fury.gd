@@ -14,14 +14,16 @@ func execute(caster: Tile, target_cell: Vector2i, board: BoardManager) -> bool:
 		return false
 
 	var base_power: int = caster.occupant.piece_data.power
-
 	var missing_hp: int = max(0, target_unit.max_hp - target_unit.current_hp)
 	var execute_bonus: int = int(missing_hp * 0.20)
-
 	var height_diff: int = caster.height_level - target_tile.height_level
+	var height_bonus: int = max(0, height_diff * 2)
 
-	var total_damage: int = CombatRules.calculate_damage(base_power, height_diff) + execute_bonus
+	var total_damage: int = base_power + execute_bonus + height_bonus
 
-	target_unit.take_damage(total_damage)
+	var died = await target_unit.take_damage(total_damage)
+	
+	if died:
+		board.battle_manager.handle_ability_kill(target_tile)
 
 	return true

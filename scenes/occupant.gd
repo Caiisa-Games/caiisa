@@ -207,12 +207,12 @@ func can_cast_active_ability(player_energy: int) -> bool:
 		return player_energy >= piece_data.active_ability.energy_cost
 	return false
 
-func execute_active_ability(target_pos: Vector2i, board: BoardManager) -> bool:
-	if not piece_data and piece_data.active_ability:
+func execute_active_ability(target_tile: Tile, board: BoardManager) -> bool:
+	if not piece_data or not piece_data.active_ability:
 		return false
+		
 	var effect = piece_data.active_ability.create_effect_instance()
 	if effect:
-		var tile = self.get_parent().get_parent()
-		effect.execute(tile, target_pos, board)
-		return true
+		return await effect.execute(get_parent().get_parent() as Tile, target_tile.grid_position, board)
+		
 	return false
