@@ -7,6 +7,7 @@
 script = ExtResource("1_pje4u")
 id = "divine_light"
 name = "Divine Light"
+description = "Heal allied units in the divine cross for 35% of their maximum health."
 energy_cost = 4
 target_type = 3
 range = 2

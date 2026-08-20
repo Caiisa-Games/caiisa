@@ -23,7 +23,7 @@ func execute(caster: Tile, target_cell: Vector2i, board: BoardManager) -> bool:
 
 	var died = await CombatRules.apply_combat_damage(
 		caster.occupant,
-		target_unit.occupant,
+		target_unit,
 		total_damage, 
 		board, 
 		board.battle_manager

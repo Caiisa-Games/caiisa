@@ -8,6 +8,7 @@
 script = ExtResource("1_ey6yd")
 id = "guardian_wall"
 name = "Guardian Wall"
+description = "Grant an ally Guarded, reducing the next incoming hit by 35%."
 energy_cost = 3
 target_type = 2
 range = 6

@@ -56,6 +56,7 @@ var enemy_ai: EnemyAI
 var turn_locked := false
 
 var extra_turn_pending := false
+var ability_feedback_token := 0
 
 func _ready() -> void:
 	if _is_singleplayer():
@@ -175,8 +176,8 @@ func _handle_selection(tile: Tile, p_idx: int) -> void:
 		_clear_selection()
 		return
 	if tile.occupant.has_status("stunned"):
-		# TODO: Play "stunned" SFX/VFX feedback here
 		_clear_selection()
+		_show_ability_feedback("This piece is stunned.")
 		return
 
 	AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
@@ -422,14 +423,21 @@ func _execute_ability_on_target(target_tile: Tile) -> void:
 
 	var occupant = selected_piece.occupant
 	var ability: AbilityResource = occupant.piece_data.active_ability
+	turn_locked = true
 
 	var success = await occupant.execute_active_ability(target_tile, board)
 
+	var feedback_message := ""
 	if success:
 		spend_energy(current_turn, ability.energy_cost)
 		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
+	else:
+		feedback_message = "Ability could not be used."
 
 	_cancel_ability_targeting()
+	turn_locked = false
+	if not feedback_message.is_empty():
+		_show_ability_feedback(feedback_message)
 
 
 func _cancel_ability_targeting() -> void:
@@ -608,15 +616,39 @@ func _update_ability_button(button: Button, turn: Turn) -> void:
 		return
 
 	button.disabled = player_energy[turn] < ability.energy_cost
-	button.tooltip_text = "%s (%d)" % [ability.name, ability.energy_cost]
+	button.tooltip_text = _get_ability_tooltip(ability)
 	if button.disabled:
 		button.tooltip_text = tr("not_enough_energy") % [ability.energy_cost, player_energy[turn]]
 
+func _get_ability_tooltip(ability: AbilityResource) -> String:
+	var target_text := "Self"
+	match ability.target_type:
+		AbilityResource.TargetType.SINGLE_ENEMY:
+			target_text = "Enemy"
+		AbilityResource.TargetType.SINGLE_ALLY:
+			target_text = "Ally"
+		AbilityResource.TargetType.AOE_CROSS:
+			target_text = "Cross area"
+		AbilityResource.TargetType.AOE_RADIUS:
+			target_text = "Radius area"
+
+	var range_text := "Unlimited" if ability.range <= 0 else "Range %d" % ability.range
+	var details := ability.description.strip_edges()
+	if details.is_empty():
+		details = "No description available."
+	return "%s\n%s\n%d energy · %s · %s" % [ability.name, details, ability.energy_cost, target_text, range_text]
+
 func _show_ability_feedback(message: String) -> void:
-	# Keep feedback lightweight until the dedicated battle UI is added.
 	if round_label:
 		round_label.text = message
+	ability_feedback_token += 1
+	_restore_round_label_after_feedback(ability_feedback_token)
 	push_warning(message)
+
+func _restore_round_label_after_feedback(token: int) -> void:
+	await get_tree().create_timer(1.8).timeout
+	if token == ability_feedback_token and winner == 0:
+		_update_ui()
 
 func gain_energy(player: Turn, amount: int) -> void:
 	player_energy[player] = clamp(player_energy[player] + amount, 0, MAX_ENERGY)
