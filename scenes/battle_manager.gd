@@ -414,6 +414,12 @@ func _get_valid_ability_targets(caster_tile: Tile, ability: AbilityResource) -> 
 
 
 func _execute_ability_on_target(target_tile: Tile) -> void:
+	# Target clicks can arrive after targeting has been cancelled or a unit has
+	# left the board. Validate again here because this is the point at which
+	# energy is charged.
+	if not _is_valid_ability_target(target_tile):
+		return
+
 	var occupant = selected_piece.occupant
 	var ability: AbilityResource = occupant.piece_data.active_ability
 
@@ -444,10 +450,31 @@ func _highlight_ability_targets() -> void:
 
 
 func _handle_ability_target(tile: Tile) -> void:
-	if tile in valid_ability_targets:
+	if _is_valid_ability_target(tile):
 		_execute_ability_on_target(tile)
 	else:
-		_cancel_ability_targeting()
+		_show_ability_feedback(tr("no_ability_targets"))
+
+
+func _is_valid_ability_target(tile: Tile) -> bool:
+	if tile == null or selected_piece == null or selected_piece.occupant == null:
+		return false
+	if selected_piece.occupant.piece_data == null or not tile in valid_ability_targets:
+		return false
+
+	var ability: AbilityResource = selected_piece.occupant.piece_data.active_ability
+	if ability == null:
+		return false
+
+	match ability.target_type:
+		AbilityResource.TargetType.SINGLE_ENEMY:
+			return tile.occupant != null and tile.occupant.piece_data != null \
+				and tile.occupant.player != selected_piece.occupant.player
+		AbilityResource.TargetType.SINGLE_ALLY:
+			return tile.occupant != null and tile.occupant.piece_data != null \
+				and tile.occupant.player == selected_piece.occupant.player
+		_:
+			return tile == selected_piece
 
 func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
 	var moves: Array[Tile] = []
