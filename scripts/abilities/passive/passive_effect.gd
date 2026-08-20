@@ -12,3 +12,6 @@ func on_damage_dealt(owner: Occupant, damage_dealt: int, target: Occupant, board
 
 func on_kill(owner: Occupant, board: BoardManager, battle_manager: BattleManager) -> void:
 	pass
+
+func allows_jump_over() -> bool:
+	return false
