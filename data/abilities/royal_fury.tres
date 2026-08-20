@@ -7,6 +7,7 @@
 script = ExtResource("1_0qurt")
 id = "royal_fury"
 name = "Royal Fury"
+description = "Strike any enemy. Damage increases with the target's missing health."
 energy_cost = 6
 target_type = 1
 range = -1

@@ -5,6 +5,7 @@ enum TargetType { SELF, SINGLE_ENEMY, SINGLE_ALLY, AOE_CROSS, AOE_RADIUS }
 
 @export var id: String
 @export var name: String
+@export_multiline var description: String
 @export var energy_cost: int
 @export var target_type: TargetType
 @export var range: int = 1
