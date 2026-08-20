@@ -483,6 +483,10 @@ func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
 
 	var piece = from_tile.occupant.piece_data
 	var move_data = piece.movement if piece.movement else board.default_movement
+	var passive = piece.passive_ability.create_effect_instance() if piece.passive_ability else null
+	var can_jump_over := false
+	if passive:
+		can_jump_over = passive.allows_jump_over()
 	var dirs: Array = []
 
 	match move_data.movement_type:
@@ -503,7 +507,7 @@ func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
 			if target.occupant.piece_data:
 				if target.occupant.player != from_tile.occupant.player:
 					moves.append(target)
-				if not KnightPassive.allows_jump_over(piece):
+				if not can_jump_over:
 					break
 				else:
 					continue
