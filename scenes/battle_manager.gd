@@ -184,6 +184,7 @@ func _handle_selection(tile: Tile, p_idx: int) -> void:
 	tile.occupant.set_selected(true)
 	current_phase = Phase.MOVE
 	_update_valid_moves()
+	_update_ui()
 	board.highlight_tile(tile, Tile.HighlightColor.SELF)
 
 func _handle_move(tile: Tile) -> void:

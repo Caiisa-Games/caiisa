@@ -4,7 +4,14 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 	if not caster.occupant.piece_data:
 		return false
 	var center: Vector2i = caster.grid_position
+	var ability = caster.occupant.piece_data.active_ability
 	var adjacent_cells: Array[Vector2i] = board.get_surrounding_cells(center, 1)
+	
+	caster.occupant.play_aseprite_ability(ability)
+	
+	await caster.occupant.cast_impact_reached
+	
+	AudioManager.play_sfx(preload("res://assets/sound/دمیج دادن به مهره ی مقابل.mp3"))	
 
 	for cell in adjacent_cells:
 		var cell_tile = board.get_tile_at(cell)
@@ -14,7 +21,7 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 			var dmg = int(unit.current_hp * 0.10)
 			var died = await CombatRules.apply_combat_damage(
 				caster.occupant,
-				unit.occupant,
+				unit,
 				dmg, 
 				board, 
 				board.battle_manager
