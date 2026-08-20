@@ -363,11 +363,12 @@ func _trigger_ability_mode(turn: Turn) -> void:
 	var ability: AbilityResource = piece_data.active_ability
 
 	if player_energy[turn] < ability.energy_cost:
-		push_warning("Not enough energy") # TODO: Add UI display
+		_show_ability_feedback(tr("not_enough_energy") % [ability.energy_cost, player_energy[turn]])
 		return
 
 	valid_ability_targets = _get_valid_ability_targets(selected_piece, ability)
 	if valid_ability_targets.is_empty():
+		_show_ability_feedback(tr("no_ability_targets"))
 		return
 
 	if ability.target_type == AbilityResource.TargetType.SELF \
@@ -540,8 +541,8 @@ func _update_ui() -> void:
 	if player_1_energybar: player_1_energybar.value = player_energy[Turn.PLAYER_1] * 10
 	if player_2_energybar: player_2_energybar.value = player_energy[Turn.PLAYER_2] * 10
 	
-	player_2_ability_btn.disabled = p_idx == 1
-	player_1_ability_btn.disabled = p_idx == 2
+	_update_ability_button(player_1_ability_btn, Turn.PLAYER_1)
+	_update_ability_button(player_2_ability_btn, Turn.PLAYER_2)
 
 	if _is_singleplayer():
 		if end_turn_btn: end_turn_btn.visible = false
@@ -559,6 +560,31 @@ func _update_ui() -> void:
 					t.occupant.hide_orb()
 
 	if round_label: round_label.text = tr("current_round") % round_number
+
+func _update_ability_button(button: Button, turn: Turn) -> void:
+	if not button:
+		return
+
+	var can_act := current_turn == turn and selected_piece != null and selected_piece.occupant != null
+	var ability: AbilityResource = null
+	if can_act and selected_piece.occupant.piece_data:
+		ability = selected_piece.occupant.piece_data.active_ability
+
+	if ability == null:
+		button.disabled = true
+		button.tooltip_text = tr("select_piece_for_ability")
+		return
+
+	button.disabled = player_energy[turn] < ability.energy_cost
+	button.tooltip_text = "%s (%d)" % [ability.name, ability.energy_cost]
+	if button.disabled:
+		button.tooltip_text = tr("not_enough_energy") % [ability.energy_cost, player_energy[turn]]
+
+func _show_ability_feedback(message: String) -> void:
+	# Keep feedback lightweight until the dedicated battle UI is added.
+	if round_label:
+		round_label.text = message
+	push_warning(message)
 
 func gain_energy(player: Turn, amount: int) -> void:
 	player_energy[player] = clamp(player_energy[player] + amount, 0, MAX_ENERGY)
@@ -592,15 +618,15 @@ func _handle_game_over() -> void:
 
 	if is_win:
 		AudioManager.play_sfx(preload("res://assets/sound/صفحه ی ویکتوری و برد.mp3"))
-		if winner_label: winner_label.text = "YOU WIN!"
+		if winner_label: winner_label.text = tr("win")
 
 		if _is_singleplayer() and replay_button:
-			replay_button.text = "Next Stage"
+			replay_button.text = tr("next_stage")
 	else:
-		if winner_label: winner_label.text = "YOU LOSE!"
-		if replay_button: replay_button.text = "Replay"
+		if winner_label: winner_label.text = tr("lose")
+		if replay_button: replay_button.text = tr("replay")
 
-	if round_label_gm: round_label_gm.text = "Round: %d" % round_number
+	if round_label_gm: round_label_gm.text = tr("current_round") % round_number
 
 func _on_replay_button_pressed() -> void:
 	if not _is_singleplayer():
@@ -614,7 +640,7 @@ func _on_replay_button_pressed() -> void:
 	GameState.set_current_stage(GameState.current_stage + 1)
 
 	if GameState.current_stage > stages.size():
-		get_tree().change_scene_to_file("res://Stage/StageSelection.tscn")
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/battle.tscn")
 
@@ -641,3 +667,14 @@ func _on_p2_ability_pressed() -> void:
 	if turn_locked or current_turn != Turn.PLAYER_2:
 		return
 	_trigger_ability_mode(Turn.PLAYER_2)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event.is_pressed() or event.is_echo() or winner != 0:
+		return
+
+	if event.keycode == KEY_ESCAPE and current_phase != Phase.SELECT:
+		_clear_selection()
+		get_viewport().set_input_as_handled()
+	elif event.keycode == KEY_E:
+		_trigger_ability_mode(current_turn)
+		get_viewport().set_input_as_handled()
