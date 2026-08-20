@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://dq4mb7xbb4lmq"]
 
 [ext_resource type="Script" uid="uid://bm1spy1inn1rl" path="res://scenes/singleplayer/stage_selection.gd" id="1_4r8xv"]
-[ext_resource type="Texture2D" uid="uid://b4sjemnkv52a6" path="res://assets/Battle-Background.png" id="2_v5yhs"]
+[ext_resource type="Texture2D" uid="uid://bwiedseq7ixvb" path="res://assets/everything/1.png" id="2_xw1dw"]
+[ext_resource type="Texture2D" uid="uid://cxb2gt246qvd1" path="res://assets/everything/2.png" id="3_du3q0"]
+[ext_resource type="Texture2D" uid="uid://yn8a6h1kn5ve" path="res://assets/everything/3.png" id="4_25w30"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yhwb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_io58t"]
 
 [node name="StageSelection" type="Control" unique_id=10854817]
 layout_mode = 3
@@ -13,119 +19,188 @@ grow_vertical = 2
 script = ExtResource("1_4r8xv")
 metadata/_edit_lock_ = true
 
-[node name="Background" type="TextureRect" parent="." unique_id=1731686621]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2083170569]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_v5yhs")
+texture = ExtResource("2_xw1dw")
 expand_mode = 1
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=727351037]
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=905018036]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1152.0
+offset_right = 1152.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_du3q0")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=319759001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2304.0
+offset_right = 2304.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_25w30")
+expand_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=701008610]
+position = Vector2(576, 324)
+
+[node name="Button1" type="Button" parent="." unique_id=1943920734]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 65.0
+offset_top = 163.0
+offset_right = 261.0
+offset_bottom = 462.0
+
+[node name="Button2" type="Button" parent="." unique_id=1012102485]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 270.0
+offset_top = 163.0
+offset_right = 466.0
+offset_bottom = 462.0
+
+[node name="Button3" type="Button" parent="." unique_id=1817649619]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 476.0
+offset_top = 163.0
+offset_right = 673.0
+offset_bottom = 462.0
+
+[node name="Button4" type="Button" parent="." unique_id=1958843570]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 683.0
+offset_top = 163.0
+offset_right = 880.0
+offset_bottom = 462.0
+
+[node name="Button5" type="Button" parent="." unique_id=1539004351]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 889.0
+offset_top = 163.0
+offset_right = 1086.0
+offset_bottom = 462.0
+
+[node name="Button6" type="Button" parent="." unique_id=1087673705]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 1194.0
+offset_top = 157.0
+offset_right = 1395.0
+offset_bottom = 442.0
+
+[node name="Button7" type="Button" parent="." unique_id=1947619984]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 1411.0
+offset_top = 157.0
+offset_right = 1612.0
+offset_bottom = 442.0
+
+[node name="Button8" type="Button" parent="." unique_id=2035837133]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 1628.0
+offset_top = 157.0
+offset_right = 1829.0
+offset_bottom = 442.0
+
+[node name="Button9" type="Button" parent="." unique_id=1546227115]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 1845.0
+offset_top = 157.0
+offset_right = 2046.0
+offset_bottom = 442.0
+
+[node name="Button10" type="Button" parent="." unique_id=1068183069]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 2061.0
+offset_top = 157.0
+offset_right = 2262.0
+offset_bottom = 442.0
+
+[node name="Button11" type="Button" parent="." unique_id=1418257374]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 2346.0
+offset_top = 141.0
+offset_right = 2541.0
+offset_bottom = 411.0
+
+[node name="Button12" type="Button" parent="." unique_id=169846952]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 2562.0
+offset_top = 141.0
+offset_right = 2757.0
+offset_bottom = 411.0
+
+[node name="Button13" type="Button" parent="." unique_id=2104788214]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 2779.0
+offset_top = 141.0
+offset_right = 2975.0
+offset_bottom = 411.0
+
+[node name="Button14" type="Button" parent="." unique_id=482289371]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 2995.0
+offset_top = 141.0
+offset_right = 3190.0
+offset_bottom = 411.0
+
+[node name="Button15" type="Button" parent="." unique_id=1393200412]
+modulate = Color(1, 1, 1, 0.50980395)
+layout_mode = 0
+offset_left = 3211.0
+offset_top = 141.0
+offset_right = 3403.0
+offset_bottom = 411.0
+
+[node name="GridContainer2" type="GridContainer" parent="." unique_id=1463144367]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -485.0
-offset_top = -275.0
-offset_right = 485.0
-offset_bottom = 275.0
+offset_left = -576.0
+offset_top = -15.0
+offset_right = 576.0
+offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 80
-theme_override_constants/v_separation = 80
-columns = 5
+theme_override_constants/h_separation = 1092
+columns = 2
 
-[node name="Button1" type="Button" parent="GridContainer" unique_id=1681347680]
-custom_minimum_size = Vector2(130, 130)
+[node name="Button" type="Button" parent="GridContainer2" unique_id=168972297]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "1"
+theme_override_styles/normal = SubResource("StyleBoxFlat_4yhwb")
 
-[node name="Button2" type="Button" parent="GridContainer" unique_id=1124828004]
-custom_minimum_size = Vector2(130, 130)
+[node name="Button2" type="Button" parent="GridContainer2" unique_id=2014367355]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "2"
+theme_override_styles/normal = SubResource("StyleBoxFlat_io58t")
 
-[node name="Button3" type="Button" parent="GridContainer" unique_id=1846058227]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "3"
-
-[node name="Button4" type="Button" parent="GridContainer" unique_id=296261732]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "4"
-
-[node name="Button5" type="Button" parent="GridContainer" unique_id=1235616196]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "5"
-
-[node name="Button6" type="Button" parent="GridContainer" unique_id=930548812]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "6"
-
-[node name="Button7" type="Button" parent="GridContainer" unique_id=2090108900]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "7"
-
-[node name="Button8" type="Button" parent="GridContainer" unique_id=569873915]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "8"
-
-[node name="Button9" type="Button" parent="GridContainer" unique_id=473224885]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "9"
-
-[node name="Button10" type="Button" parent="GridContainer" unique_id=1246952015]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "10"
-
-[node name="Button11" type="Button" parent="GridContainer" unique_id=1057353147]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "11"
-
-[node name="Button12" type="Button" parent="GridContainer" unique_id=868636793]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "12"
-
-[node name="Button13" type="Button" parent="GridContainer" unique_id=143050521]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "13"
-
-[node name="Button14" type="Button" parent="GridContainer" unique_id=2050982729]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "14"
-
-[node name="Button15" type="Button" parent="GridContainer" unique_id=476195563]
-custom_minimum_size = Vector2(130, 130)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "15"
+[connection signal="pressed" from="GridContainer2/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GridContainer2/Button2" to="." method="_on_button_2_pressed"]

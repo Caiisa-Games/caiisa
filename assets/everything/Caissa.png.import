@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://le2jakl58g0b"
-path="res://.godot/imported/Cloud1.png-4dc2d46fd5db74ad82e44ab21d052b22.ctex"
+uid="uid://bn6hnfsc5dhtq"
+path="res://.godot/imported/Caissa.png-cb9492b24888956b76a12f9f40c65916.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Cloud1.png"
-dest_files=["res://.godot/imported/Cloud1.png-4dc2d46fd5db74ad82e44ab21d052b22.ctex"]
+source_file="res://assets/everything/Caissa.png"
+dest_files=["res://.godot/imported/Caissa.png-cb9492b24888956b76a12f9f40c65916.ctex"]
 
 [params]
 

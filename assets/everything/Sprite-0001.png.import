@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4sjemnkv52a6"
-path="res://.godot/imported/Battle-Background.png-5ebb005be0b01ae633639afee9a68d00.ctex"
+uid="uid://cw11h6w4t6bmp"
+path="res://.godot/imported/Sprite-0001.png-5663a065f9d3780d1ac4074dd30da97c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Battle-Background.png"
-dest_files=["res://.godot/imported/Battle-Background.png-5ebb005be0b01ae633639afee9a68d00.ctex"]
+source_file="res://assets/everything/Sprite-0001.png"
+dest_files=["res://.godot/imported/Sprite-0001.png-5663a065f9d3780d1ac4074dd30da97c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn6hnfsc5dhtq"
-path="res://.godot/imported/Caissa.png-3b0ac1c1d2b1c0dfcd86a8f6dc3713f8.ctex"
+uid="uid://3xjebivvk0sc"
+path="res://.godot/imported/isometric_dark.png-3afa2751cb046b24c06f9946e3af6add.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Caissa.png"
-dest_files=["res://.godot/imported/Caissa.png-3b0ac1c1d2b1c0dfcd86a8f6dc3713f8.ctex"]
+source_file="res://assets/everything/isometric_dark.png"
+dest_files=["res://.godot/imported/isometric_dark.png-3afa2751cb046b24c06f9946e3af6add.ctex"]
 
 [params]
 
