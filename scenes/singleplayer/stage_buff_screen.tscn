@@ -37,5 +37,33 @@ offset_bottom = 74.0
 grow_vertical = 2
 text = "کاهش 10% نیروی دشمن"
 
+[node name="SubmitBtn" type="Button" parent="." unique_id=1859740032]
+layout_mode = 0
+offset_left = 463.0
+offset_top = 407.0
+offset_right = 623.0
+offset_bottom = 572.0
+
+[node name="ColorRect1" type="ColorRect" parent="." unique_id=474047809]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 14.0
+offset_right = 640.0
+offset_bottom = 133.0
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1632597222]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 6.0
+offset_right = 385.0
+offset_bottom = 125.0
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=1413663620]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 146.0
+offset_right = 625.0
+offset_bottom = 265.0
+
 [connection signal="pressed" from="Option1Btn" to="." method="_on_option1_pressed"]
 [connection signal="pressed" from="Option2Btn" to="." method="_on_option2_pressed"]
