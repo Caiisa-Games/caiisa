@@ -1,185 +1,74 @@
 class_name StageSelection
 extends Control
 
-@onready var buttons = {
-	1: get_node_or_null("Button1"),
-	2: get_node_or_null("Button2"),
-	3: get_node_or_null("Button3"),
-	4: get_node_or_null("Button4"),
-	5: get_node_or_null("Button5"),
-	6: get_node_or_null("Button6"),
-	7: get_node_or_null("Button7"),
-	8: get_node_or_null("Button8"),
-	9: get_node_or_null("Button9"),
-	10: get_node_or_null("Button10"),
-	11: get_node_or_null("Button11"),
-	12: get_node_or_null("Button12"),
-	13: get_node_or_null("Button13"),
-	14: get_node_or_null("Button14"),
-	15: get_node_or_null("Button15"),
-	16: get_node_or_null("Button16"),
-	17: get_node_or_null("Button17"),
-	18: get_node_or_null("Button18"),
-	19: get_node_or_null("Button19"),
-	20: get_node_or_null("Button20")
+const PAGE_WIDTH := 1152.0
+const PAGE_CENTERS := [576.0, 1728.0, 2880.0, 4032.0]
+const PAGE_SLIDE_DURATION := 0.22
+const PIECE_SELECTION_SCENE := "res://scenes/piece_selection.tscn"
+const MAIN_MENU_SCENE := "res://scenes/main_menu.tscn"
+
+@onready var buttons: Dictionary[int, Button] = {
+	1: $PageContent/Button1, 2: $PageContent/Button2, 3: $PageContent/Button3, 4: $PageContent/Button4, 5: $PageContent/Button5,
+	6: $PageContent/Button6, 7: $PageContent/Button7, 8: $PageContent/Button8, 9: $PageContent/Button9, 10: $PageContent/Button10,
+	11: $PageContent/Button11, 12: $PageContent/Button12, 13: $PageContent/Button13, 14: $PageContent/Button14, 15: $PageContent/Button15,
+	16: $PageContent/Button16, 17: $PageContent/Button17, 18: $PageContent/Button18, 19: $PageContent/Button19, 20: $PageContent/Button20,
 }
+@onready var previous_button: TextureButton = $HUD/Navigation/PreviousButton
+@onready var next_button: TextureButton = $HUD/Navigation/NextButton
 
-@onready var safe_btn_5: Button = get_node_or_null("SafeButton5")
-@onready var safe_btn_10: Button = get_node_or_null("SafeButton10")
-@onready var button_1_a: Button = $GridContainer2/Button2
-@onready var button_2_b: Button = $GridContainer2/Button
-
-const BUFF_POPUP_SCENE = preload("res://scenes/singleplayer/stage_buff_screen.tscn")
-
-var check = 0
-var pos = 1152
-var pos_camera = 1152.0
-var is_moving = false
+var current_page := 0
+var is_moving := false
 
 func _ready() -> void:
-	if button_1_a and not button_1_a.pressed.is_connected(_on_button_pressed):
-		button_1_a.pressed.connect(_on_button_pressed)
-		
-	if button_2_b and not button_2_b.pressed.is_connected(_on_button_2_pressed):
-		button_2_b.pressed.connect(_on_button_2_pressed)
-
 	_update_stage_buttons()
-	_update_safe_buttons()
-	update_navigation_buttons()
-
-func update_navigation_buttons() -> void:
-	var camera_x = $Camera2D.position.x
-	
-	if camera_x <= 576.0:
-		button_1_a.modulate.a = 0.0
-		button_1_a.disabled = true
-		print(2)
-	else:
-		button_1_a.modulate.a = 1.0
-		button_1_a.disabled = false
-		print(3)
-	
-	if camera_x >= 4032.0:
-		button_2_b.modulate.a = 0.0
-		button_2_b.disabled = true
-		print(8)
-	else:
-		button_2_b.modulate.a = 1.0
-		button_2_b.disabled = false
-		print(9)
-
+	current_page = clampi((GameState.highest_unlocked_stage - 1) / 5, 0, PAGE_CENTERS.size() - 1)
+	_set_page(current_page, false)
 
 func _update_stage_buttons() -> void:
-	var unlocked_stage = GameState.highest_unlocked_stage
-	for stage_num in buttons:
-		var btn = buttons[stage_num]
-		#if btn:
-			#if stage_num <= unlocked_stage:
-				#btn.disabled = false
-				#if not btn.pressed.is_connected(_on_stage_pressed):
-		btn.pressed.connect(_on_stage_pressed.bind(stage_num))
-			#else:
-				#btn.disabled = true
-	camera()
-
-
-func camera():
-	if GameState.highest_unlocked_stage <= 5:
-		$Camera2D.position.x = 576.0
-		$GridContainer2.position.x = 0
-	elif GameState.highest_unlocked_stage <= 10:
-		$Camera2D.position.x = 1728.0
-		$GridContainer2.position.x = 1152
-	elif GameState.highest_unlocked_stage <= 15:
-		$Camera2D.position.x = 2880
-		$GridContainer2.position.x = 2304
-	else:
-		$Camera2D.position.x = 4032    
-		$GridContainer2.position.x = 3456
-
-func _update_safe_buttons() -> void:
-	var unlocked = GameState.highest_unlocked_stage
-	_setup_single_safe(safe_btn_5, 5, unlocked == 6)
-	_setup_single_safe(safe_btn_10, 10, unlocked == 11)
-
-func _setup_single_safe(btn: Button, stage_num: int, is_active: bool) -> void:
-	if not btn: return
-	
-	btn.disabled = not is_active
-	if is_active:
-		btn.modulate = Color.GOLD 
-		if not btn.pressed.is_connected(_open_safe_popup):
-			btn.pressed.connect(_open_safe_popup.bind(stage_num))
-	else:
-		btn.modulate = Color.DARK_GRAY
-
-func _open_safe_popup(stage_num: int) -> void:
-	GameState.current_stage = stage_num
-	if BUFF_POPUP_SCENE:
-		var popup = BUFF_POPUP_SCENE.instantiate() #as StageBuffPopup
-		add_child(popup)
-		popup.buff_selected.connect(_update_safe_buttons)
+	for stage_num: int in buttons:
+		var button := buttons[stage_num]
+		var is_unlocked := GameState.is_stage_unlocked(stage_num)
+		button.disabled = not is_unlocked
+		button.tooltip_text = "Stage %d" % stage_num if is_unlocked else "Complete earlier stages to unlock"
+		if is_unlocked and not button.pressed.is_connected(_on_stage_pressed):
+			button.pressed.connect(_on_stage_pressed.bind(stage_num))
 
 func _on_stage_pressed(stage_num: int) -> void:
+	if not GameState.is_stage_unlocked(stage_num):
+		return
 	GameState.current_stage = stage_num
 	GameState.game_mode = GameState.GameMode.SINGLEPLAYER
-	get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
+	get_tree().change_scene_to_file(PIECE_SELECTION_SCENE)
 
-func _on_button_pressed() -> void:
-	print("--- LEFT BUTTON CLICKED ---")
-	var current_x = $Camera2D.position.x
-	var target_camera_x = 576.0
-	var target_grid_x = 0.0
-	
-	if current_x >= 4032.0:
-		target_camera_x = 2880.0
-		target_grid_x = 2304.0 
-	elif current_x >= 2880.0:
-		target_camera_x = 1728.0
-		target_grid_x = 1152.0
-	elif current_x >= 1728.0:
-		target_camera_x = 576.0
-		target_grid_x = 0.0
+func _go_to_previous_page() -> void:
+	_set_page(current_page - 1)
+
+func _go_to_next_page() -> void:
+	_set_page(current_page + 1)
+
+func _set_page(page: int, animate := true) -> void:
+	if is_moving:
+		return
+	var target_page := clampi(page, 0, PAGE_CENTERS.size() - 1)
+	if target_page == current_page and animate:
+		_update_navigation_buttons()
+		return
+	current_page = target_page
+	var target_x: float = PAGE_CENTERS[current_page]
+	if animate:
+		is_moving = true
+		_update_navigation_buttons()
+		var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property($Camera2D, "position:x", target_x, PAGE_SLIDE_DURATION)
+		await tween.finished
+		is_moving = false
 	else:
-		target_camera_x = 576.0
-		target_grid_x = 0.0
+		$Camera2D.position.x = target_x
+	_update_navigation_buttons()
 
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property($Camera2D, "position:x", target_camera_x, 0.4)
-	tween.tween_property($GridContainer2, "position:x", target_grid_x, 0.4)
-	
-	await tween.finished
-	update_navigation_buttons()
+func _update_navigation_buttons() -> void:
+	previous_button.disabled = current_page == 0 or is_moving
+	next_button.disabled = current_page == PAGE_CENTERS.size() - 1 or is_moving
 
-
-func _on_button_2_pressed() -> void:
-	print("---RIGHT BUTTON CLICKED ---")
-	var current_x = $Camera2D.position.x
-	var target_camera_x = 4032.0
-	var target_grid_x = 3456.0
-	
-	if current_x <= 576.0:
-		target_camera_x = 1728.0
-		target_grid_x = 1152.0
-	elif current_x <= 1728.0:
-		target_camera_x = 2880.0
-		target_grid_x = 2304.0
-	elif current_x <= 2880.0:
-		target_camera_x = 4032.0
-		target_grid_x = 3456.0
-	else:
-		target_camera_x = 4032.0
-		target_grid_x = 3456.0
-
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property($Camera2D, "position:x", target_camera_x, 0.4)
-	tween.tween_property($GridContainer2, "position:x", target_grid_x, 0.4)
-	
-	await tween.finished
-	update_navigation_buttons()
-
-
-func _on_buttonexit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE)

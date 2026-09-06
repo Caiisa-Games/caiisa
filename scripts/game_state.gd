@@ -38,18 +38,24 @@ func reset() -> void:
 	player_2_pieces.clear()
 	winner = 0
 
-func unlock_next_stage() -> void:
-	unlock_stage(current_stage + 1)
+func unlock_next_stage() -> bool:
+	return unlock_stage(current_stage + 1)
 
-func unlock_stage(stage: int) -> void:
+func unlock_stage(stage: int) -> bool:
 	if stage > highest_unlocked_stage:
 		highest_unlocked_stage = stage
 		if SaveManager and "data" in SaveManager:
 			SaveManager.data.highest_unlocked_level = highest_unlocked_stage
 			if SaveManager.has_method("save"):
 				SaveManager.save()
+		return true
+	return false
+
+func is_stage_unlocked(stage: int) -> bool:
+	return stage >= 1 and stage <= highest_unlocked_stage
 
 func apply_saved_preferences(save_data: Dictionary) -> void:
+	highest_unlocked_stage = max(1, int(save_data.get("highest_unlocked_level", 1)))
 	refresh_background_unlocks(save_data)
 	var saved_background := clampi(int(save_data.get("selected_background_id", 1)), 1, background.size())
 	back = saved_background if is_background_unlocked(saved_background) else 1

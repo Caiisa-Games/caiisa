@@ -36,11 +36,14 @@ const STARTING_ENERGY := 1
 const END_TURN_ENERGY_COST := 2
 const ENERGY_REWARD_ATTACK := 1
 const ENERGY_REWARD_KILL := 2
-const BATTLE_SIDE_CLEARANCE := 72.0
-const TILE_FOOTPRINT_WIDTH := 128.0
-const BOARD_ENTRY_FOCUS_LOCAL := Vector2(0.0, 205.0)
-const BOARD_ENTRY_DURATION_FULL := 0.45
-const BOARD_ENTRY_DURATION_REDUCED := 0.25
+const BATTLE_SIDE := 72.0
+const TILE_WIDTH := 128.0
+const BOARD_FOCUS_LOCAL := Vector2(0.0, 205.0)
+const BOARD_DURATION_FULL := 0.45
+const BOARD_DURATION_REDUCED := 0.25
+const BUFF_STAGES := [5, 10, 15]
+const PIECE_SELECTION_SCENE := "res://scenes/piece_selection.tscn"
+const STAGE_SELECTION_SCENE := "res://scenes/singleplayer/stage_selection.tscn"
 
 var player_energy := { Turn.PLAYER_1: STARTING_ENERGY, Turn.PLAYER_2: STARTING_ENERGY }
 signal energy_changed(player: Turn, current: int, max: int)
@@ -65,6 +68,7 @@ var extra_turn_pending := false
 var ability_feedback_token := 0
 var ability_failure_message := ""
 var _board_entry_tween: Tween
+var next_stage_was_newly_unlocked := false
 
 func _ready() -> void:
 	$UI/Background.texture = GameState.background[GameState.back]
@@ -104,13 +108,13 @@ func _play_board_entry() -> void:
 	var final_position := board.position
 	var zoom_factor := 0.90 if SettingsManager.data.camera_effects_mode == SettingsData.CameraEffectsMode.FULL else 0.96
 	var start_scale := final_scale * zoom_factor
-	var start_position := final_position + (final_scale - start_scale) * BOARD_ENTRY_FOCUS_LOCAL
+	var start_position := final_position + (final_scale - start_scale) * BOARD_FOCUS_LOCAL
 
 	board.scale = start_scale
 	board.position = start_position
 	board.modulate.a = 0.94
 
-	var duration := BOARD_ENTRY_DURATION_FULL if SettingsManager.data.camera_effects_mode == SettingsData.CameraEffectsMode.FULL else BOARD_ENTRY_DURATION_REDUCED
+	var duration := BOARD_DURATION_FULL if SettingsManager.data.camera_effects_mode == SettingsData.CameraEffectsMode.FULL else BOARD_DURATION_REDUCED
 	_board_entry_tween = create_tween().set_parallel()
 	_board_entry_tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_board_entry_tween.tween_property(board, "scale", final_scale, duration)
@@ -188,8 +192,8 @@ func _fit_board() -> void:
 	if board.grid_size.x <= BoardManager.DEFAULT_GRID_SIZE:
 		return
 
-	var available_width := get_viewport_rect().size.x - BATTLE_SIDE_CLEARANCE * 2.0
-	var board_width := TILE_FOOTPRINT_WIDTH * board.grid_size.x
+	var available_width := get_viewport_rect().size.x - BATTLE_SIDE * 2.0
+	var board_width := TILE_WIDTH * board.grid_size.x
 	var fit_scale := minf(1.0, available_width / board_width)
 	board.scale = Vector2.ONE * fit_scale
 
@@ -403,7 +407,7 @@ func _handle_died(target_tile: Tile) -> void:
 			else:
 				winner = 1
 				GameState.winner = winner
-				GameState.unlock_next_stage()
+				next_stage_was_newly_unlocked = GameState.current_stage < stages.size() and GameState.unlock_next_stage()
 				_handle_game_over()
 		return
 
@@ -792,6 +796,12 @@ func _on_end_turn_button_pressed() -> void:
 			_end_turn()
 
 func _handle_game_over() -> void:
+	if winner == 1 and _is_singleplayer() and next_stage_was_newly_unlocked \
+	and GameState.current_stage in BUFF_STAGES:
+		GameState.post_buff_destination = "next_stage"
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
+		return
+
 	if game_over_layer: game_over_layer.show()
 	if top_bar: top_bar.hide()
 	if bottom_panel: bottom_panel.hide()
@@ -819,29 +829,23 @@ func _on_replay_button_pressed() -> void:
 		get_tree().reload_current_scene()
 		return
 
-	if GameState.current_stage in [5, 10, 15] and not BuffManager.has_shown_popup(GameState.current_stage):
-		GameState.post_buff_destination = "next_stage"
-		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
-		return
-
-	GameState.set_current_stage(GameState.current_stage + 1)
-
-	if GameState.current_stage > stages.size():
-		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
-	else:
-		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+	_to_piece_select()
 
 func _on_menu_button_pressed() -> void:
-	if _is_singleplayer() and winner == 1 and GameState.current_stage in [5, 10, 15] and not BuffManager.has_shown_popup(GameState.current_stage):
-		GameState.post_buff_destination = "menu"
-		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
-		return
-
 	GameState.reset()
 	if _is_singleplayer():
-		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
+		get_tree().change_scene_to_file(STAGE_SELECTION_SCENE)
 	else:
 		get_tree().change_scene_to_file("res://scenes/map_select_screen.tscn") 
+
+func _to_piece_select() -> void:
+	var next_stage := GameState.current_stage + 1
+	if next_stage > stages.size() or not GameState.is_stage_unlocked(next_stage):
+		get_tree().change_scene_to_file(STAGE_SELECTION_SCENE)
+		return
+
+	GameState.set_current_stage(next_stage)
+	get_tree().change_scene_to_file(PIECE_SELECTION_SCENE)
 
 func handle_ability_kill(tile: Tile) -> void:
 	if tile == null or tile.occupant == null or tile.occupant.piece_data == null:
