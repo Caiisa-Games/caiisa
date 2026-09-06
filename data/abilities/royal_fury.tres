@@ -162,35 +162,87 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y8xon"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(0, 0, 84, 213)
+region = Rect2(0, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2xkr1"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(84, 0, 84, 213)
+region = Rect2(147, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txdx7"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(168, 0, 84, 213)
+region = Rect2(294, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dw1au"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(0, 213, 84, 213)
+region = Rect2(441, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycwui"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(84, 213, 84, 213)
+region = Rect2(588, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vovx"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(168, 213, 84, 213)
+region = Rect2(735, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqkr3"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(0, 426, 84, 213)
+region = Rect2(882, 0, 147, 372)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h21rc"]
 atlas = ExtResource("1_h3y5t")
-region = Rect2(84, 426, 84, 213)
+region = Rect2(1029, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjpi3"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(1176, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27guc"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(1323, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmdor"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(1470, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfydm"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(1617, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r2cv"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(1764, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64x5j"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(1911, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qfqn"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2058, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rlhu"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2205, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrjqx"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2352, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw8s4"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2499, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qobct"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2646, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7wjb"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2793, 0, 147, 372)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcva5"]
+atlas = ExtResource("1_h3y5t")
+region = Rect2(2940, 0, 147, 372)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ub4kc"]
 animations = [{
@@ -218,10 +270,49 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h21rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjpi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27guc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmdor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfydm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r2cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64x5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qfqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rlhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrjqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hw8s4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qobct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7wjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcva5")
 }],
 "loop": 0,
 "name": &"cast",
-"speed": 10.0
+"speed": 21.0
 }]
 
 [resource]
