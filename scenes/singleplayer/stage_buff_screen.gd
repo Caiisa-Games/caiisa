@@ -3,194 +3,134 @@ extends Control
 
 signal buff_selected
 
-@onready var option1_btn: Button = $Option1Btn
-@onready var option2_btn: Button = $Option2Btn
-@onready var confirm_btn: Button = $ConfirmBtn
-@onready var texture_rect: TextureRect = $TextureRect
+const POWER_BUFF_ICON := preload("res://assets/sprites/buffs/Powerbuff.png")
+const HP_BUFF_ICON := preload("res://assets/sprites/buffs/HpBuff.png")
+const DECAY_BUFF_ICON := preload("res://assets/sprites/buffs/Decay.png")
+const STALKERS_MARK_ICON := preload("res://assets/sprites/buffs/STALKER'S-MARK.png")
 
-var current_stage: int = 1
-var selected_choice: int = 0
-var is_animating: bool = false
-var confirm_click_count: int = 0
-var is_first_confirm: bool = true
-var shutter_count: int = 0
-
-var option1_original_y: float = 0.0
-var option2_original_y: float = 0.0
-var confirm_hidden_y: float = 0.0
-var confirm_original_y: float = 0.0
-
-
-var stage_images_first: Dictionary = {
+const STAGE_IMAGES := {
 	5: preload("res://assets/Misc/Background/lvlbackground.png"),
 	10: preload("res://assets/Misc/Background/Greek Architecture.png"),
 	15: preload("res://assets/Misc/Background/Renaissance.png"),
 }
 
-func _ready() -> void:
-	_setup_buttons()
-	
-	option1_original_y = option1_btn.position.y
-	option2_original_y = option2_btn.position.y
-	confirm_original_y = confirm_btn.position.y
-	
-	confirm_hidden_y = confirm_original_y + 200.0 
-	confirm_btn.position.y = confirm_hidden_y
-	confirm_btn.disabled = true
-	confirm_btn.text = tr("confirm")
-	confirm_btn.visible = false
-	
-	texture_rect.visible = false
-	
-	option1_btn.position.y = option1_original_y - 30.0
-	option2_btn.position.y = option2_original_y - 30.0
-	
-	_animate_options_entrance_with_delay()
+const REWARDS := {
+	5: [
+		{"key": "buff_stage5_option1", "icon": DECAY_BUFF_ICON},
+		{"key": "buff_stage5_option2", "icon": HP_BUFF_ICON},
+	],
+	10: [
+		{"key": "buff_stage10_option1", "icon": POWER_BUFF_ICON},
+		{"key": "buff_stage10_option2", "icon": DECAY_BUFF_ICON},
+	],
+	15: [
+		{"key": "buff_stage15_option1", "icon": STALKERS_MARK_ICON},
+		{"key": "buff_stage15_option2", "icon": HP_BUFF_ICON},
+	],
+}
 
-func _animate_options_entrance_with_delay() -> void:
-	is_animating = true
-	await get_tree().create_timer(1.0).timeout
-	
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(option1_btn, "position:y", option1_original_y, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(option2_btn, "position:y", option2_original_y, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	
-	await tween.finished
-	is_animating = false
-func _setup_buttons() -> void:
+@onready var stage_label: Label = $RewardPanel/StageLabel
+@onready var title_label: Label = $RewardPanel/TitleLabel
+@onready var options_row: HBoxContainer = $RewardPanel/OptionsRow
+@onready var option1_btn: Button = $RewardPanel/OptionsRow/Option1Btn
+@onready var option2_btn: Button = $RewardPanel/OptionsRow/Option2Btn
+@onready var option1_label: Label = $RewardPanel/OptionsRow/Option1Btn/BenefitLabel
+@onready var option2_label: Label = $RewardPanel/OptionsRow/Option2Btn/BenefitLabel
+@onready var option1_icon: TextureRect = $RewardPanel/OptionsRow/Option1Btn/Icon
+@onready var option2_icon: TextureRect = $RewardPanel/OptionsRow/Option2Btn/Icon
+@onready var option1_selected: Label = $RewardPanel/OptionsRow/Option1Btn/SelectedLabel
+@onready var option2_selected: Label = $RewardPanel/OptionsRow/Option2Btn/SelectedLabel
+@onready var action_button: Button = $RewardPanel/ActionButton
+@onready var reveal: Control = $RewardPanel/RewardReveal
+@onready var reveal_image: TextureRect = $RewardPanel/RewardReveal/RevealImage
+@onready var reveal_title: Label = $RewardPanel/RewardReveal/RevealTitle
+@onready var reveal_body: Label = $RewardPanel/RewardReveal/RevealBody
+
+var current_stage := 1
+var selected_choice := 0
+var reward_confirmed := false
+
+func _ready() -> void:
 	current_stage = GameState.current_stage
-	
-	match current_stage:
-		5:
-			option1_btn.text = "10% کاهش نیروی دشمن"
-			option2_btn.text = "10 اضافه کردن جون نیروی خودی"
-		10:
-			option1_btn.text = "3 واحد اضافه کردن قدرت نیروی خودی"
-			option2_btn.text = "10% کاهش نیروی دشمن"
-		15:
-			option1_btn.text = "15% کاهش نیروی دشمن"
-			option2_btn.text = "15 اضافه کردن جون نیروی خودی"
-		_:
-			option1_btn.text = ""
-			option2_btn.text = ""
+	_setup_localized_content()
+	reveal.hide()
+	action_button.disabled = true
+	action_button.text = tr("stage_reward_confirm")
+	option1_selected.hide()
+	option2_selected.hide()
+	options_row.modulate.a = 0.0
+	var entrance := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	entrance.tween_property(options_row, "modulate:a", 1.0, 0.25)
+
+func _setup_localized_content() -> void:
+	stage_label.text = tr("stage_reward_for") % current_stage
+	title_label.text = tr("stage_reward_title")
+	var rewards: Array = REWARDS.get(current_stage, [])
+	if rewards.size() != 2:
+		push_error("Missing reward data for stage %d" % current_stage)
+		return
+	option1_label.text = tr(rewards[0].key)
+	option2_label.text = tr(rewards[1].key)
+	option1_icon.texture = rewards[0].icon
+	option2_icon.texture = rewards[1].icon
+	option1_selected.text = tr("stage_reward_selected")
+	option2_selected.text = tr("stage_reward_selected")
+	reveal_title.text = tr("stage_reward_unlocked")
+	reveal_body.text = tr("stage_reward_unlocked_stage") % (current_stage + 1)
+	if STAGE_IMAGES.has(current_stage):
+		reveal_image.texture = STAGE_IMAGES[current_stage]
 
 func _on_option1_pressed() -> void:
-	if is_animating or not option1_btn.visible: 
-		return
 	_select_choice(1)
 
 func _on_option2_pressed() -> void:
-	if is_animating or not option2_btn.visible: 
-		return
 	_select_choice(2)
 
 func _select_choice(choice: int) -> void:
-	if selected_choice == choice:
-		option1_btn.modulate = Color.WHITE
-		option2_btn.modulate = Color.WHITE
-		selected_choice = 0
-		if is_first_confirm:
-			confirm_btn.disabled = true
-			_slide_out_confirm()
+	if reward_confirmed:
 		return
+	selected_choice = 0 if selected_choice == choice else choice
+	option1_selected.visible = selected_choice == 1
+	option2_selected.visible = selected_choice == 2
+	action_button.disabled = selected_choice == 0
 
-	option1_btn.modulate = Color.WHITE
-	option2_btn.modulate = Color.WHITE
+func _on_action_button_pressed() -> void:
+	if not reward_confirmed:
+		if selected_choice == 0:
+			return
+		_save_choice(selected_choice)
+		reward_confirmed = true
+		_show_reward_reveal()
+		return
+	_redirect()
 
-	selected_choice = choice
-
-	match choice:
-		1:
-			option1_btn.modulate = Color.GREEN
-		2:
-			option2_btn.modulate = Color.GREEN
-
-	confirm_btn.disabled = false
-	
-	if is_first_confirm:
-		_slide_in_confirm()
-
-func _slide_in_confirm() -> void:
-	confirm_btn.visible = true
-	var tween = create_tween()
-	tween.tween_property(confirm_btn, "position:y", confirm_original_y, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
-
-func _slide_out_confirm() -> void:
-	var tween = create_tween()
-	tween.tween_property(confirm_btn, "position:y", confirm_hidden_y, 0.4).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT)
-	await tween.finished
-	confirm_btn.visible = false
-
-func _show_texture_rect() -> void:
-	texture_rect.visible = true
-	texture_rect.modulate.a = 0.0
-	
-	if confirm_click_count == 1:
-		if stage_images_first.has(current_stage):
-			texture_rect.texture = stage_images_first[current_stage]
-		else:
-			texture_rect.texture = load("res://assets/icons/Attack.png")
-
-	var tween = create_tween()
-	tween.tween_property(texture_rect, "modulate:a", 1.0, 0.5).set_ease(Tween.EASE_OUT)
+func _show_reward_reveal() -> void:
+	options_row.hide()
+	reveal.show()
+	reveal.modulate.a = 0.0
+	action_button.text = tr("stage_reward_continue")
+	action_button.disabled = false
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(reveal, "modulate:a", 1.0, 0.3)
 
 func _save_choice(choice: int) -> void:
-	current_stage = GameState.current_stage
-
-	if current_stage == 5:
-		SaveManager.data.chosen_buffs.level5 = choice
-		if not GameState.back_disable.has(5):
-			GameState.back_disable.append(5)
-	elif current_stage == 10:
-		SaveManager.data.chosen_buffs.level10 = choice
-		if not GameState.back_disable.has(10):
-			GameState.back_disable.append(10)
-	elif current_stage == 15:
-		SaveManager.data.chosen_buffs.level15 = choice 
-		if not GameState.back_disable.has(15):
-			GameState.back_disable.append(15)
-
+	match current_stage:
+		5:
+			SaveManager.data.chosen_buffs.level5 = choice
+		10:
+			SaveManager.data.chosen_buffs.level10 = choice
+		15:
+			SaveManager.data.chosen_buffs.level15 = choice
 	SaveManager.save()
 	GameState.refresh_background_unlocks(SaveManager.data)
 	BuffManager.apply_stage_buff(current_stage, choice)
+	buff_selected.emit()
 
 func _redirect() -> void:
 	if GameState.post_buff_destination == "next_stage":
-		var next_stage := GameState.current_stage + 1
+		var next_stage := current_stage + 1
 		if GameState.is_stage_unlocked(next_stage):
 			GameState.set_current_stage(next_stage)
 			get_tree().change_scene_to_file("res://scenes/piece_selection.tscn")
-		else:
-			get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
-	else:
-		GameState.reset()
-		if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
-			get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
-		else:
-			get_tree().change_scene_to_file("res://scenes/map_select_screen.tscn")
-
-func _on_confirm_btn_pressed() -> void:
-	if is_first_confirm and selected_choice == 0:
-		return
-	if is_animating:
-		return
-
-	confirm_click_count += 1
-
-	if confirm_click_count == 1:
-		if selected_choice != 0:
-			_save_choice(selected_choice)
-		
-		option1_btn.visible = false
-		option2_btn.visible = false
-		is_first_confirm = false
-		
-		_show_texture_rect()
-		confirm_btn.disabled = false
-		
-	elif confirm_click_count == 2:
-		_redirect()
-		
-	elif confirm_click_count >= 3:
-		_redirect()
+			return
+	get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")

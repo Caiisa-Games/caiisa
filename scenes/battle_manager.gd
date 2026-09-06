@@ -796,8 +796,7 @@ func _on_end_turn_button_pressed() -> void:
 			_end_turn()
 
 func _handle_game_over() -> void:
-	if winner == 1 and _is_singleplayer() and next_stage_was_newly_unlocked \
-	and GameState.current_stage in BUFF_STAGES:
+	if winner == 1 and _is_singleplayer() and next_stage_was_newly_unlocked and GameState.current_stage in BUFF_STAGES:
 		GameState.post_buff_destination = "next_stage"
 		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_buff_screen.tscn")
 		return
