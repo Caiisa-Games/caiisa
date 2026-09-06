@@ -4,6 +4,7 @@ const CROSS_OFFSETS: Array[Vector2i] = [
 	Vector2i(-1, 0),
 	#Vector2i.ZERO,
 	Vector2i(1, 0),
+	Vector2i(0, -1),
 	Vector2i(0, 1),
 	Vector2i(0, 2),
 ]
@@ -24,6 +25,7 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 		var tile: Tile = board.get_tile_at(target_pos)
 		if tile == null:
 			continue
+		_play_tile_divine_effect(tile)
 
 		var ability = caster.occupant.piece_data.active_ability
 		caster.occupant.play_aseprite_ability(ability)
@@ -36,6 +38,8 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 			unit.show_hp_label()
 
 			_play_unit_heal_effect(unit)
+
+	await board.get_tree().create_timer(0.5).timeout
 
 	return true
 

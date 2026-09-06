@@ -326,4 +326,5 @@ range = -1
 script_effect = ExtResource("2_0sf4q")
 anim_frames_white = SubResource("SpriteFrames_ub4kc")
 anim_frames_black = SubResource("SpriteFrames_i507f")
+hold_frame = true
 metadata/_custom_type_script = "uid://cc3f7klb6j3p"

@@ -15,6 +15,7 @@ enum TargetType { SELF, SINGLE_ENEMY, SINGLE_ALLY, AOE_CROSS, AOE_RADIUS }
 @export var anim_frames_white: SpriteFrames
 @export var anim_frames_black: SpriteFrames
 @export var impact_frame_index: int = 2
+@export var hold_frame: bool = false
 
 func create_effect_instance() -> AbilityEffect:
 	if script_effect and script_effect.can_instantiate():

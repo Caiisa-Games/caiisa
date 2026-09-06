@@ -26,6 +26,7 @@ var _hovered := false
 var _selected := false
 var _label_timer := 0.0
 var _combat_number_sequence := 0
+var _holding_ability_animation := false
 
 func _ready() -> void:
 	if orb:
@@ -192,6 +193,7 @@ func promote_to(new_data: PieceData) -> void:
 	
 func apply_status(status_name: String, duration: int, data: Dictionary = {}) -> void:
 	statuses[status_name] = {"duration": duration, "data": data}
+	_update_hp()
 
 func has_status(status_name: String) -> bool:
 	return statuses.has(status_name)
@@ -201,16 +203,19 @@ func get_status_data(status_name: String) -> Dictionary:
 
 func clear_status(status_name: String) -> void:
 	statuses.erase(status_name)
+	_update_hp()
 	
 func tick_statuses() -> void:
 	for key in statuses.keys().duplicate():
 		statuses[key].duration -= 1
 		if statuses[key].duration <= 0:
 			statuses.erase(key)
+	_update_hp()
 
 func consume_status_on_hit(status_name: String) -> void:
 	if statuses.has(status_name):
 		statuses.erase(status_name)
+		_update_hp()
 
 func _update_stats() -> void:
 	if piece_data == null:
@@ -251,7 +256,9 @@ func _update_hp() -> void:
 	var danger  = Color("#ff3b3b")
 
 	var color: Color
-	if pct > 0.5:
+	if has_status("guarded"):
+		color = Color("#ffb000")
+	elif pct > 0.5:
 		color = warning.lerp(healthy, (pct - 0.5) * 2.0)
 	else:
 		color = danger.lerp(warning, pct * 2.0)
@@ -281,35 +288,9 @@ func execute_active_ability(target_tile: Tile, board: BoardManager) -> bool:
 	return false
 
 func play_aseprite_ability(ability: AbilityResource) -> void:
-	if not ability or ability_sprite == null:
+	if not _setup_aseprite_ability(ability):
 		_emit_cast_impact_deferred()
 		return
-
-	var frames: SpriteFrames = ability.anim_frames_white if player == 1 else ability.anim_frames_black
-	if frames == null:
-		print_debug("NO FRAME ", player)
-		frames = ability.anim_frames_white if ability.anim_frames_white else ability.anim_frames_black
-
-	if frames == null or not frames.has_animation("cast"):
-		_emit_cast_impact_deferred()
-		return
-
-	ability_sprite.sprite_frames = frames
-	
-	var first_tex = frames.get_frame_texture("cast", 0)
-	var tex_height := first_tex.get_height()
-	var tex_width := first_tex.get_width()
-	if first_tex:
-		ability_sprite.offset = Vector2(-tex_width / 2.0, -tex_height)
-
-	sprite.hide()
-	ability_sprite.show()
-	ability_sprite.speed_scale = 1.0
-	ability_sprite.frame = 0
-	ability_sprite.scale = Vector2(0.45, 0.45)
-	
-	if ability.id == "royal_slam":
-		ability_sprite.scale *= 0.85
 
 	var impact_emitted := false
 	var target_frame := ability.impact_frame_index
@@ -330,6 +311,61 @@ func play_aseprite_ability(ability: AbilityResource) -> void:
 	if not impact_emitted:
 		cast_impact_reached.emit()
 
+	_restore_aseprite_ability_sprite()
+
+func begin_aseprite_ability_hold(ability: AbilityResource) -> bool:
+	if _holding_ability_animation or not _setup_aseprite_ability(ability):
+		return false
+
+	ability_sprite.play("cast")
+	await ability_sprite.animation_finished
+
+	var last_frame := ability_sprite.sprite_frames.get_frame_count("cast") - 1
+	ability_sprite.pause()
+	ability_sprite.frame = last_frame
+	_holding_ability_animation = true
+	return true
+
+func release_aseprite_ability_hold() -> void:
+	if not _holding_ability_animation:
+		return
+
+	_holding_ability_animation = false
+	ability_sprite.play_backwards("cast")
+	await ability_sprite.animation_finished
+	_restore_aseprite_ability_sprite()
+
+func is_holding_aseprite_ability() -> bool:
+	return _holding_ability_animation
+
+func _setup_aseprite_ability(ability: AbilityResource) -> bool:
+	if not ability or ability_sprite == null:
+		return false
+
+	var frames: SpriteFrames = ability.anim_frames_white if player == 1 else ability.anim_frames_black
+	if frames == null:
+		print_debug("NO FRAME ", player)
+		frames = ability.anim_frames_white if ability.anim_frames_white else ability.anim_frames_black
+
+	if frames == null or not frames.has_animation("cast"):
+		return false
+
+	ability_sprite.sprite_frames = frames
+	var first_tex = frames.get_frame_texture("cast", 0)
+	if first_tex:
+		ability_sprite.offset = Vector2(-first_tex.get_width() / 2.0, -first_tex.get_height())
+
+	sprite.hide()
+	ability_sprite.show()
+	ability_sprite.speed_scale = 1.0
+	ability_sprite.frame = 0
+	ability_sprite.scale = Vector2(0.45, 0.45)
+	if ability.id == "royal_slam":
+		ability_sprite.scale *= 0.85
+	return true
+
+func _restore_aseprite_ability_sprite() -> void:
+	ability_sprite.stop()
 	ability_sprite.hide()
 	sprite.show()
 

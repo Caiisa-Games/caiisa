@@ -354,4 +354,7 @@ func get_valid_placement_tiles(p_idx: int) -> Array[Tile]:
 	return tiles
 
 func _on_exit_pressed() -> void:
+	if GameState.game_mode == GameState.GameMode.SINGLEPLAYER:
+		get_tree().change_scene_to_file("res://scenes/singleplayer/stage_selection.tscn")
+		return
 	get_tree().change_scene_to_file("res://scenes/map_select_screen.tscn")

@@ -14,4 +14,5 @@ target_type = 2
 range = 6
 script_effect = ExtResource("2_rlc5n")
 anim_frames_white = ExtResource("1_pd501")
+hold_frame = true
 metadata/_custom_type_script = "uid://cc3f7klb6j3p"
