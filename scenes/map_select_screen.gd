@@ -19,6 +19,7 @@ var displayed_maps: Array[BoardData] = []
 var selected_size := BoardManager.DEFAULT_GRID_SIZE
 
 func _ready() -> void:
+	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	play_button.disabled = true
 	_setup_size_selector()
 	load_maps()

@@ -51,6 +51,7 @@ var selected_choice := 0
 var reward_confirmed := false
 
 func _ready() -> void:
+	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	current_stage = GameState.current_stage
 	_setup_localized_content()
 	reveal.hide()
