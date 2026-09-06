@@ -32,7 +32,7 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var bg_clouds: CanvasItem = $UI/Clouds
 
 const MAX_ENERGY := 10
-const STARTING_ENERGY := 5
+const STARTING_ENERGY := 10
 const END_TURN_ENERGY_COST := 2
 const ENERGY_REWARD_ATTACK := 1
 const ENERGY_REWARD_KILL := 2
@@ -498,7 +498,7 @@ func _execute_ability_on_target(target_tile: Tile) -> void:
 
 	var feedback_message := ""
 	if success:
-		spend_energy(current_turn, ability.energy_cost)
+		#spend_energy(current_turn, ability.energy_cost)
 		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 		_cancel_ability_targeting()
 		await _end_turn()

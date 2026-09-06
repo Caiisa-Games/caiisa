@@ -306,6 +306,10 @@ func play_aseprite_ability(ability: AbilityResource) -> void:
 	ability_sprite.show()
 	ability_sprite.speed_scale = 1.0
 	ability_sprite.frame = 0
+	ability_sprite.scale = Vector2(0.45, 0.45)
+	
+	if ability.id == "royal_slam":
+		ability_sprite.scale *= 0.85
 
 	var impact_emitted := false
 	var target_frame := ability.impact_frame_index
