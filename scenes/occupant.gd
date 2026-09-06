@@ -71,7 +71,8 @@ func set_data(data: PieceData, _player: int, _current_hp: int, show_health = tru
 		return
 	piece_data = data
 	player = _player
-	current_hp = _current_hp
+	max_hp = BuffManager.get_calculated_hp(data, player)
+	current_hp = clampi(_current_hp, 0, max_hp)
 	
 	if sprite.material is ShaderMaterial:
 		(sprite.material as ShaderMaterial).set_shader_parameter("t", 0.0)
@@ -94,6 +95,7 @@ func clear_data() -> void:
 	player = 0
 	current_hp = 0
 	max_hp = 0
+	statuses.clear()
 
 	if sprite.material is ShaderMaterial:
 		(sprite.material as ShaderMaterial).set_shader_parameter("t", 0.0)
@@ -221,7 +223,7 @@ func _update_stats() -> void:
 	if piece_data == null:
 		return
 
-	max_hp = piece_data.defense
+	max_hp = BuffManager.get_calculated_hp(piece_data, player)
 	
 
 	if sprite.texture:

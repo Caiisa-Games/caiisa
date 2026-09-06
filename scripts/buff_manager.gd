@@ -23,6 +23,18 @@ func apply_stage_buff(stage: int, choice: int) -> void:
 	if has_shown_popup(stage):
 		return
 
+	_apply_buff_effect(stage, choice)
+	mark_popup_shown(stage)
+
+func load_saved_buffs(chosen_buffs: Dictionary) -> void:
+	reset_buffs()
+	for stage in [5, 10, 15]:
+		var choice := int(chosen_buffs.get("level%d" % stage, 0))
+		if choice > 0:
+			_apply_buff_effect(stage, choice)
+			mark_popup_shown(stage)
+
+func _apply_buff_effect(stage: int, choice: int) -> void:
 	match stage:
 		5:
 			if choice == 1:
@@ -39,8 +51,6 @@ func apply_stage_buff(stage: int, choice: int) -> void:
 				enemy_atk_debuff += 0.15
 			elif choice == 2:
 				player_hp_bonus += 15
-
-	mark_popup_shown(stage)
 
 func get_calculated_hp(piece_data: PieceData, player_owner: int) -> int:
 	if not piece_data: return 0

@@ -45,7 +45,7 @@ func place_piece(piece: PieceData, grid_x: int, grid_y: int, player: int) -> boo
 		if grid_y != valid_row:
 			return false
 	var show_health = current_mode == Mode.BATTLE
-	tile.occupant.set_data(piece, player, piece.defense, show_health)
+	tile.occupant.set_data(piece, player, BuffManager.get_calculated_hp(piece, player), show_health)
 	return true
 
 
@@ -129,9 +129,12 @@ func _move_occupant(from_tile: Tile, to_tile: Tile) -> bool:
 	
 	var player = from_tile.occupant.player
 	var hp = from_tile.occupant.current_hp
+	var statuses = from_tile.occupant.statuses.duplicate(true)
 	
 	from_tile.occupant.clear_data()
 	to_tile.occupant.set_data(occupant, player, hp, show_health)
+	to_tile.occupant.statuses = statuses
+	to_tile.occupant._update_hp()
 	
 	return true
 

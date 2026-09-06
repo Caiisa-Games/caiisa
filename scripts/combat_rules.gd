@@ -1,5 +1,10 @@
 class_name CombatRules
 
+static func get_attack_power(attacker: Occupant) -> int:
+	if attacker == null or attacker.piece_data == null:
+		return 0
+	return BuffManager.get_calculated_atk(attacker.piece_data, attacker.player)
+
 static func calculate_damage(
 	attacker_power: int, 
 	height_delta: int, 

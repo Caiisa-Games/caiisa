@@ -32,7 +32,7 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var bg_clouds: CanvasItem = $UI/Clouds
 
 const MAX_ENERGY := 10
-const STARTING_ENERGY := 1
+const STARTING_ENERGY := 10
 const END_TURN_ENERGY_COST := 2
 const ENERGY_REWARD_ATTACK := 1
 const ENERGY_REWARD_KILL := 2
@@ -65,6 +65,7 @@ var enemy_ai: EnemyAI
 var turn_locked := false
 
 var extra_turn_pending := false
+var queen_extra_turn_chain_count := 0
 var ability_feedback_token := 0
 var ability_failure_message := ""
 var _board_entry_tween: Tween
@@ -201,6 +202,7 @@ func _connect_board_signals() -> void:
 	if not board: return
 	for tile in board.tiles.values():
 		tile.tile_clicked.connect(_on_tile_clicked)
+		tile.tile_hovered.connect(_on_battle_tile_hovered)
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
 	if turn_locked or not _is_game_active() or not board:
@@ -270,7 +272,7 @@ func _handle_attack(tile: Tile) -> void:
 	var attacker_tile = selected_piece
 	var target_occupant = tile.occupant
 
-	var attacker_power = attacker_tile.occupant.piece_data.power
+	var attacker_power = CombatRules.get_attack_power(attacker_tile.occupant)
 	var base_damage = CombatRules.calculate_damage(
 		attacker_power,
 		attacker_tile.height_level - tile.height_level,
@@ -514,7 +516,7 @@ func _execute_ability_on_target(target_tile: Tile) -> void:
 
 	var feedback_message := ""
 	if success:
-		spend_energy(current_turn, ability.energy_cost)
+		#spend_energy(current_turn, ability.energy_cost)
 		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 		_cancel_ability_targeting()
 		await _end_turn()
@@ -635,6 +637,23 @@ func _update_valid_moves() -> void:
 		else:
 			target.set_highlight_color(Tile.HighlightColor.MOVE)
 
+func _on_battle_tile_hovered(tile: Tile) -> void:
+	if selected_piece == null or selected_piece.occupant == null or not round_label:
+		return
+	var height_delta := selected_piece.height_level - tile.height_level
+	var damage_percent := height_delta * 25
+	var modifier := "+%d%% damage" % damage_percent if damage_percent >= 0 else "%d%% damage" % damage_percent
+	round_label.text = "Height %d vs %d · %s" % [selected_piece.height_level, tile.height_level, modifier]
+
+func show_enemy_intent(source: Tile, target: Tile, is_attack: bool) -> void:
+	if board == null or source == null or target == null:
+		return
+	board.clear_all_highlights()
+	source.set_highlight_color(Tile.HighlightColor.SELF)
+	target.set_highlight_color(Tile.HighlightColor.INTENT)
+	if round_label:
+		round_label.text = "Enemy intent: %s" % ("attack" if is_attack else "move")
+
 func _end_turn() -> void:
 	if winner != 0:
 		return
@@ -648,6 +667,8 @@ func _end_turn() -> void:
 		extra_turn_pending = false
 		_update_ui()
 		return
+
+	queen_extra_turn_chain_count = 0
 	
 	if _is_singleplayer():
 		turn_locked = true
@@ -858,6 +879,9 @@ func handle_ability_kill(tile: Tile) -> void:
 		_handle_game_over()
 
 func grant_extra_turn() -> void:
+	if queen_extra_turn_chain_count >= 1:
+		return
+	queen_extra_turn_chain_count += 1
 	extra_turn_pending = true
 
 func _on_p1_ability_pressed() -> void:

@@ -59,6 +59,8 @@ func apply_saved_preferences(save_data: Dictionary) -> void:
 	refresh_background_unlocks(save_data)
 	var saved_background := clampi(int(save_data.get("selected_background_id", 1)), 1, background.size())
 	back = saved_background if is_background_unlocked(saved_background) else 1
+	var saved_buffs = save_data.get("chosen_buffs", {})
+	BuffManager.load_saved_buffs(saved_buffs if saved_buffs is Dictionary else {})
 
 func refresh_background_unlocks(save_data: Dictionary) -> void:
 	back_disable.clear()
