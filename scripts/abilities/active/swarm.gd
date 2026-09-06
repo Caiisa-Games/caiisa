@@ -88,7 +88,7 @@ func execute(caster: Tile, target_cell: Vector2i, board: BoardManager) -> bool:
 			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	await dash.finished
 
-	var base_power: int = caster.occupant.piece_data.power
+	var base_power: int = CombatRules.get_attack_power(caster.occupant)
 	var target_unit := target_tile.occupant as Occupant
 	var target_died := await CombatRules.apply_combat_damage(
 		caster.occupant, target_unit, base_power, board, board.battle_manager

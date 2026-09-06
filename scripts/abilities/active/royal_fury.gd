@@ -13,7 +13,7 @@ func execute(caster: Tile, target_cell: Vector2i, board: BoardManager) -> bool:
 	if target_unit.player == caster.occupant.player:
 		return false
 
-	var base_power: int = caster.occupant.piece_data.power
+	var base_power: int = CombatRules.get_attack_power(caster.occupant)
 	var missing_hp: int = max(0, target_unit.max_hp - target_unit.current_hp)
 	var execute_bonus: int = int(missing_hp * 0.20)
 	var height_diff: int = caster.height_level - target_tile.height_level

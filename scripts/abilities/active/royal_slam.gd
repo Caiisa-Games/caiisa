@@ -48,7 +48,7 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 					var blocker_died = await CombatRules.apply_combat_damage(
 						caster.occupant,
 						blocking_unit,
-						caster.occupant.piece_data.power, 
+						CombatRules.get_attack_power(caster.occupant),
 						board, 
 						board.battle_manager
 					)
@@ -58,7 +58,7 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 				var unit_died_from_collision = await CombatRules.apply_combat_damage(
 					caster.occupant,
 					unit,
-					caster.occupant.piece_data.power, 
+					CombatRules.get_attack_power(caster.occupant),
 					board, 
 					board.battle_manager
 				)
