@@ -14,6 +14,7 @@ const FADE_OUT_DURATION := 1.0
 
 func _ready() -> void:
 	assert(target_scene != "", "ERROR: Target scene is null!");
+	AudioManager.play_music(preload("res://assets/sound/music_transition.ogg"), "Music", false)
 	ResourceLoader.load_threaded_request(target_scene)
 	fade_overlay.show()
 	fade_overlay.modulate = Color.BLACK

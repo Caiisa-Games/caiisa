@@ -20,6 +20,7 @@ var current_page := 0
 var is_moving := false
 
 func _ready() -> void:
+	AudioManager.play_music(preload("res://assets/sound/music_menu.ogg"))
 	_update_stage_buttons()
 	current_page = clampi((GameState.highest_unlocked_stage - 1) / 5, 0, PAGE_CENTERS.size() - 1)
 	_set_page(current_page, false)
