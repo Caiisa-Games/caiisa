@@ -65,7 +65,7 @@ func update_details() -> void:
 		return
 
 	details_preview.board_data = selected
-	details_name.text = selected.board_name
+	details_name.text = tr(selected.board_name)
 	var max_height := 0
 	for height in selected.cell_heights:
 		max_height = maxi(max_height, height)

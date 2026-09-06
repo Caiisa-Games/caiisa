@@ -44,7 +44,7 @@ func _update_display() -> void:
 	
 	card_texture.texture = piece_data.card_texture
 	
-	$BlankCard/Margin/Content/NameLabel.text = piece_data.name
+	$BlankCard/Margin/Content/NameLabel.text = tr(piece_data.name)
 	$BlankCard/Margin/Content/StatsGrid/HP_Row/Bar.value = BuffManager.get_calculated_hp(piece_data, 1)
 	$BlankCard/Margin/Content/StatsGrid/ATK_Row/Bar.value = BuffManager.get_calculated_atk(piece_data, 1)
 	$BlankCard/Margin/Content/StatsGrid/KB_Row/Bar.value = piece_data.knockback

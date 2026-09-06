@@ -4,9 +4,6 @@ extends Node
 func take_turn(board: BoardManager) -> void:
 	print("--- Enemy Turn Started ---")
 
-	var random_delay = randf_range(0.2, 0.4)
-	await get_tree().create_timer(random_delay).timeout
-
 	var battle_manager: BattleManager = board.battle_manager
 	if not battle_manager:
 		print("--- Enemy Turn Finished (No BattleManager) ---")

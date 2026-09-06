@@ -107,7 +107,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("22_agpf5")
 theme_override_font_sizes/font_size = 20
-text = "PLAYER 1"
+text = "player_label"
 horizontal_alignment = 1
 
 [node name="SelectedCountLabel" type="Label" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer/TopBar" unique_id=2013356846]
@@ -115,7 +115,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("22_agpf5")
 theme_override_font_sizes/font_size = 20
-text = "PLACED: 0/3"
+text = "pieces_placed"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UICanvas/MainUI/HSplitContainer/LeftPanel/MarginContainer/VBoxContainer" unique_id=5181048]
 layout_mode = 2
@@ -192,7 +192,7 @@ theme_override_constants/separation = 5
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 39
-text = "PLAYER 1"
+text = "player_label"
 autowrap_mode = 2
 
 [node name="Label" type="Label" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer/DraftLabels" unique_id=1229935096]
@@ -205,7 +205,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-text = "PIECES PICKED: 0/2"
+text = "pieces_picked"
 
 [node name="Spacer" type="Control" parent="UICanvas/MainUI/SelectionOverlay/HBoxContainer/Sidebar/Margin/VBoxContainer" unique_id=1437061688]
 layout_mode = 2

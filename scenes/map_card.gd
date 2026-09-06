@@ -20,7 +20,7 @@ func setup(data: BoardData) -> void:
 	var preview: MapPreview = $Panel/VBoxContainer/Preview
 	glow = $SelectionGlow
 	
-	name_label.text = board_data.board_name
+	name_label.text = tr(board_data.board_name)
 	_fit_name_font(name_label)
 	preview.board_data = data
 
@@ -32,7 +32,7 @@ func _fit_name_font(name_label: Label) -> void:
 	var available_width := name_label.custom_minimum_size.x
 	var font_size := NAME_FONT_SIZE
 	while font_size > MIN_NAME_FONT_SIZE:
-		var text_width := font.get_string_size(board_data.board_name, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+		var text_width := font.get_string_size(tr(board_data.board_name), HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
 		if text_width <= available_width:
 			break
 		font_size -= 1

@@ -17,9 +17,9 @@ static func calculate_damage(
 	raw_damage *= (1 + height_multiplier)
 	
 	if is_critical:
-		raw_damage = int(raw_damage * 1.5)
-	
-	return max(1, raw_damage)
+		raw_damage = raw_damage * 1.5
+
+	return max(1, int(round(raw_damage)))
 
 static func is_within_range(attacker_pos: Vector2i, target_pos: Vector2i, attack_range: int) -> bool:
 	var dx = abs(attacker_pos.x - target_pos.x)

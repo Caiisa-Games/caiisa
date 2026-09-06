@@ -248,8 +248,8 @@ animations = [{
 [resource]
 script = ExtResource("1_os0oa")
 id = "royal_slam"
-name = "Royal Slam"
-description = "Damage and push adjacent enemies; collisions deal additional damage."
+name = "ability_royal_slam_name"
+description = "ability_royal_slam_description"
 energy_cost = 4
 target_type = 4
 script_effect = ExtResource("2_f2dlh")

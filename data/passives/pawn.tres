@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_resource")
 id = "pawn_last_stand"
-name = "Last Stand"
-description = "Deal 20% more damage while below 30% health."
+name = "passive_last_stand_name"
+description = "passive_last_stand_description"
 script_effect = ExtResource("2_effect")

@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_resource")
 id = "queen_momentum"
-name = "Momentum"
-description = "Gain an extra turn after a kill."
+name = "passive_momentum_name"
+description = "passive_momentum_description"
 script_effect = ExtResource("2_effect")

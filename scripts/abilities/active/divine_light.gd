@@ -16,8 +16,6 @@ func execute(caster: Tile, _target_cell: Vector2i, board: BoardManager) -> bool:
 	var center: Vector2i = caster.grid_position
 	var caster_player: int = caster.occupant.player
 	var ability = caster.occupant.piece_data.active_ability
-	# The offset is intentionally a Christian cross: arms, a short upper stem,
-	# and a longer lower stem. The bishop is its center and is not healed.
 	await caster.occupant.play_aseprite_ability(ability)
 
 	for offset in CROSS_OFFSETS:

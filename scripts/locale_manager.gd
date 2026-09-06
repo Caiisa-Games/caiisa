@@ -1,20 +1,20 @@
 extends Node
 
 const SUPPORTED_LOCALES: Array[Dictionary] = [
-	{ "code": "en", "label": "English"  },
-	{ "code": "fa", "label": "Persian" },
+	{ "code": "en", "label": "locale_english"  },
+	{ "code": "fa", "label": "locale_persian" },
 ]
 
 func get_locale_label(code: String) -> String:
 	for entry in SUPPORTED_LOCALES:
 		if entry["code"] == code:
-			return entry["label"]
+			return tr(entry["label"] as String)
 	return code
 
 func get_all_labels() -> Array[String]:
 	var labels: Array[String] = []
 	for entry in SUPPORTED_LOCALES:
-		labels.append(entry["label"])
+		labels.append(tr(entry["label"] as String))
 	return labels
 
 func get_code_by_index(index: int) -> String:

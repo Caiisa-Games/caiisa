@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_resource")
 id = "bishop_benediction"
-name = "Benediction"
-description = "After dealing damage, heal the ally with the lowest health for 40% of the damage dealt."
+name = "passive_benediction_name"
+description = "passive_benediction_description"
 script_effect = ExtResource("2_effect")
