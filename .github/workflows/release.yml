@@ -1,0 +1,48 @@
+name: Build and release Caiisa
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Download Godot and export templates
+        shell: pwsh
+        run: |
+          $godotVersion = '4.7-stable'
+          $releaseUrl = "https://github.com/godotengine/godot/releases/download/$godotVersion"
+          Invoke-WebRequest "$releaseUrl/Godot_v4.7-stable_win64.exe.zip" -OutFile godot.zip
+          Invoke-WebRequest "$releaseUrl/Godot_v4.7-stable_export_templates.tpz" -OutFile templates.tpz
+          Expand-Archive -LiteralPath godot.zip -DestinationPath godot
+          Expand-Archive -LiteralPath templates.tpz -DestinationPath "$env:APPDATA\Godot\export_templates\4.7.stable"
+
+      - name: Export embedded-PCK Windows build
+        shell: pwsh
+        run: |
+          $preset = Get-Content -LiteralPath export_presets.cfg -Raw
+          $preset = $preset -replace 'binary_format/embed_pck=false', 'binary_format/embed_pck=true'
+          Set-Content -LiteralPath export_presets.cfg -Value $preset -NoNewline
+          New-Item -ItemType Directory -Path build -Force | Out-Null
+          $godot = (Get-ChildItem -LiteralPath godot -Recurse -File -Filter 'Godot_v4.7-stable_win64.exe' | Select-Object -First 1).FullName
+          & $godot --headless --path . --export-release 'Windows Desktop' 'build/Caiisa.exe'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if (-not (Test-Path -LiteralPath 'build/Caiisa.exe')) { throw 'Godot did not produce build/Caiisa.exe.' }
+          if (Test-Path -LiteralPath 'build/Caiisa.pck') { throw 'PCK was not embedded in the executable.' }
+          Compress-Archive -LiteralPath 'build/Caiisa.exe' -DestinationPath 'build/Caiisa-win64.zip'
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$env:GITHUB_REF_NAME" 'build/Caiisa-win64.zip' --title "$env:GITHUB_REF_NAME" --generate-notes
