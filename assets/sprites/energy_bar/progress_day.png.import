@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byx1d6dvrvqr6"
-path="res://.godot/imported/fill.png-27a4e6f7f64509af7f922b634c552778.ctex"
+uid="uid://bpaukyfybc7bu"
+path="res://.godot/imported/progress_day.png-4c0d21b665f357dec2e402c74f05c914.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/energy_bar/fill.png"
-dest_files=["res://.godot/imported/fill.png-27a4e6f7f64509af7f922b634c552778.ctex"]
+source_file="res://assets/sprites/energy_bar/progress_day.png"
+dest_files=["res://.godot/imported/progress_day.png-4c0d21b665f357dec2e402c74f05c914.ctex"]
 
 [params]
 

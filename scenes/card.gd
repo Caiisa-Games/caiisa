@@ -95,6 +95,7 @@ func _cancel_selection_animation() -> void:
 	_selection_animation_token += 1
 	if _selection_tween and _selection_tween.is_valid():
 		_selection_tween.kill()
+	texture_rect.rotation = 0.0
 	is_animating = false
 
 func _on_mouse_entered() -> void:
