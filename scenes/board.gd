@@ -163,7 +163,7 @@ func _animate_occupant(occupant: Occupant, target_tile: Tile) -> void:
 	tween.tween_property(occupant, "global_position", target_pos, 0.3)
 	
 func should_promote(occupant: Occupant, row: int, player: int) -> bool:
-	if occupant.piece_data.name != "pawn":
+	if not occupant.piece_data.is_pawn():
 		return false
 	if player == 1 and row == 0:
 		return true

@@ -140,7 +140,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_font")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_header")
-text = "NAME"
+text = "name"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="BlankCard/Margin/Content" unique_id=370296597]
@@ -156,7 +156,7 @@ theme_override_constants/separation = 10
 
 [node name="HP_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=728003592]
 layout_mode = 2
-tooltip_text = "Health"
+tooltip_text = "health_tooltip"
 
 [node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/HP_Row" unique_id=282706284]
 custom_minimum_size = Vector2(20, 20)
@@ -179,7 +179,7 @@ show_percentage = false
 
 [node name="ATK_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=954527633]
 layout_mode = 2
-tooltip_text = "Attack"
+tooltip_text = "attack_tooltip"
 
 [node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/ATK_Row" unique_id=515471693]
 custom_minimum_size = Vector2(20, 20)
@@ -203,7 +203,7 @@ show_percentage = false
 
 [node name="KB_Row" type="HBoxContainer" parent="BlankCard/Margin/Content/StatsGrid" unique_id=243004573]
 layout_mode = 2
-tooltip_text = "Knockback"
+tooltip_text = "knockback_tooltip"
 
 [node name="Icon" type="TextureRect" parent="BlankCard/Margin/Content/StatsGrid/KB_Row" unique_id=1174967212]
 custom_minimum_size = Vector2(20, 20)

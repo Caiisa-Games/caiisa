@@ -26,3 +26,10 @@ enum PieceClass { TANK, BERSERKER, UTILITY }
 @export_group("Abilities")
 @export var active_ability: AbilityResource
 @export var passive_ability: PassiveAbilityResource
+
+
+func is_pawn() -> bool:
+	return name.to_lower() == "pawn"
+
+func is_king() -> bool:
+	return name.to_lower() == "king"

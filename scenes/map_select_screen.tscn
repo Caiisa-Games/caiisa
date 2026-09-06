@@ -181,7 +181,7 @@ alignment = 1
 [node name="ThemeButton" type="Button" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1602888471]
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
-text = "Theme"
+text = "theme"
 
 [node name="ModeSelect" type="OptionButton" parent="Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup" unique_id=1829520821]
 custom_minimum_size = Vector2(140, 44)

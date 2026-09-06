@@ -263,7 +263,7 @@ theme_override_constants/shadow_offset_x = 7
 theme_override_constants/shadow_offset_y = 7
 theme_override_fonts/font = ExtResource("3_p1qf1")
 theme_override_font_sizes/font_size = 48
-text = "Player 1 Won"
+text = "win"
 
 [node name="RoundLabel" type="Label" parent="GameOverLayer/Control/VBoxContainer" unique_id=1105897175]
 layout_mode = 2
@@ -274,7 +274,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 7
 theme_override_constants/shadow_offset_y = 7
 theme_override_font_sizes/font_size = 32
-text = "Round 1"
+text = "current_round"
 
 [node name="Buttons" type="HBoxContainer" parent="GameOverLayer/Control" unique_id=1000569561]
 layout_mode = 1

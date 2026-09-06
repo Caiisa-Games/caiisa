@@ -97,3 +97,71 @@ buff_stage10_option1,Increase player attack by 3,افزایش ۳ واحدی قد
 buff_stage10_option2,Reduce enemy attack by 10%,کاهش ۱۰ درصدی قدرت حمله دشمن
 buff_stage15_option1,Reduce enemy attack by 15%,کاهش ۱۵ درصدی قدرت حمله دشمن
 buff_stage15_option2,Increase player HP by 15,افزایش ۱۵ واحدی جان مهره‌های خودی
+name,Name,نام
+health_tooltip,Health,سلامت
+attack_tooltip,Attack,قدرت حمله
+knockback_tooltip,Knockback,کوبندگی
+theme,Theme,پوسته
+stage_label,Stage %d,مرحله %d
+previous_stages,Previous stages,مراحل قبلی
+next_stages,Next stages,مراحل بعدی
+return_to_main_menu,Return to main menu,بازگشت به صفحه اصلی
+stage_tooltip,Stage %d,مرحله %d
+stage_locked_tooltip,Complete earlier stages to unlock,برای باز شدن این مرحله، مراحل قبلی را کامل کن
+height_comparison,Height %d vs %d · %s,ارتفاع %d در برابر %d · %s
+damage_bonus,+%d%% damage,+%d%% آسیب
+damage_penalty,%d%% damage,%d%% آسیب
+enemy_intent,Enemy intent: %s,قصد دشمن: %s
+intent_attack,attack,حمله
+intent_move,move,حرکت
+ability_target_self,Self,خود
+ability_target_enemy,Enemy,دشمن
+ability_target_ally,Ally,متحد
+ability_target_cross,Cross area,منطقه صلیبی
+ability_target_radius,Radius area,منطقه شعاعی
+ability_range_unlimited,Unlimited,نامحدود
+ability_range,Range %d,برد %d
+ability_no_description,No description available.,توضیحی در دسترس نیست.
+ability_tooltip,%s\n%s\n%d energy · %s · %s,%s\n%s\n%d انرژی · %s · %s
+ability_swarm_name,Swarm,یورش گروهی
+ability_swarm_description,Strike the enemy directly ahead and swarm its flanks.,به دشمن روبه‌رو ضربه بزن و جناح‌هایش را محاصره کن.
+ability_royal_slam_name,Royal Slam,ضربه سلطنتی
+ability_royal_slam_description,Damage and push adjacent enemies; collisions deal additional damage.,به دشمنان مجاور آسیب بزن و آن‌ها را عقب بران؛ برخوردها آسیب بیشتری وارد می‌کنند.
+ability_royal_fury_name,Royal Fury,خشم سلطنتی
+ability_royal_fury_description,Strike any enemy. Damage increases with the target's missing health.,به هر دشمنی ضربه بزن؛ آسیب با سلامتی ازدست‌رفتهٔ هدف افزایش می‌یابد.
+ability_guardian_wall_name,Guardian Wall,دیوار نگهبان
+ability_guardian_wall_description,"Grant an ally Guarded, reducing the next incoming hit by 35%.",به یک متحد محافظت بده تا ضربهٔ بعدی ۳۵٪ کمتر آسیب بزند.
+ability_divine_light_name,Divine Light,نور الهی
+ability_divine_light_description,Heal allied units in the divine cross for 35% of their maximum health.,واحدهای متحد در صلیب الهی را به اندازهٔ ۳۵٪ از بیشینهٔ سلامتی‌شان درمان کن.
+ability_bash_name,Bash,ضربه سنگین
+ability_bash_description,"Strike an enemy, stun it for one turn, then move into the tile behind it.",به یک دشمن ضربه بزن، او را برای یک نوبت گیج کن و سپس به خانهٔ پشت او برو.
+board_x_cross,The X-Cross,ضربدر
+board_twin_bastions,Twin Bastions,دژهای دوقلو
+board_throne_room,The Throne Room,تالار تخت
+board_symmetric_canyon,Symmetric Canyon,درهٔ متقارن
+board_four_islands,Four Islands,چهار جزیره
+board_shattered_divide,The Shattered Divide,شکاف فروریخته
+board_defensive_gauntlet,Defensive Gauntlet,گذرگاه دفاعی
+board_serpent_coil,The Serpent’s Coil,حلقهٔ مار
+board_central_peak,The Central Peak,قلهٔ مرکزی
+board_great_basin,The Great Basin,حوضهٔ بزرگ
+locale_english,English,انگلیسی
+locale_persian,Persian,فارسی
+passive_fortify_name,Fortify,استحکام
+passive_fortify_description,Take 15% less damage.,۱۵٪ آسیب کمتر دریافت کن.
+passive_momentum_name,Momentum,شتاب
+passive_momentum_description,Gain an extra turn after a kill.,پس از کشتن یک دشمن یک نوبت اضافه بگیر.
+passive_last_stand_name,Last Stand,ایستادگی آخر
+passive_last_stand_description,Deal 20% more damage while below 30% health.,وقتی سلامتی زیر ۳۰٪ است ۲۰٪ آسیب بیشتر وارد کن.
+passive_leap_name,Leap,جهش
+passive_leap_description,Can move past occupied tiles.,می‌تواند از روی خانه‌های اشغال‌شده عبور کند.
+passive_royal_aegis_name,Royal Aegis,سپر سلطنتی
+passive_royal_aegis_description,Allies within two tiles take 15% less damage.,متحدان در فاصلهٔ دو خانه‌ای ۱۵٪ آسیب کمتر می‌گیرند.
+passive_benediction_name,Benediction,برکت
+passive_benediction_description,"After dealing damage, heal the ally with the lowest health for 40% of the damage dealt.",پس از وارد کردن آسیب، متحدی را که کمترین سلامتی دارد به اندازهٔ ۴۰٪ آسیب واردشده درمان کن.
+piece_rook_description,"A strong, iron fortress against attacks",دژی آهنین و مقاوم در برابر حملات
+piece_queen_description,such a wisdom and mindful queen,وزیری خردمند و هوشیار
+piece_mini_queen_description,an upgraded pawn,سربازی ارتقایافته
+piece_knight_description,quick horse with a fighter rider,اسبی تندرو با سواری جنگجو
+piece_bishop_description,a powerful king without war skills,پادشاهی قدرتمند بدون مهارت‌های جنگی
+piece_king_description,a powerful king without war skills,پادشاهی قدرتمند بدون مهارت‌های جنگی

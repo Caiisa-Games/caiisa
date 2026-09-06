@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://yiknnlycdli6"
 [resource]
 script = ExtResource("2_by47r")
 name = "queen"
-description = "such a wisdom and mindful queen"
+description = "piece_queen_description"
 texture_white = ExtResource("4_kroi7")
 texture_black = ExtResource("3_by47r")
 card_texture = ExtResource("1_bo4sf")

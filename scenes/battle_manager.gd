@@ -18,6 +18,7 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var end_turn_btn: Button = $UI/TopBar/EndTurnButton
 @onready var top_menu_btn: Button = $UI/TopBar/MenuButton
 
+@onready var player_2_box: VBoxContainer = $UI/BottomPanel/P2Box
 @onready var player_1_energybar: TextureProgressBar = $UI/BottomPanel/P1Box/EnergyBar
 @onready var player_2_energybar: TextureProgressBar = $UI/BottomPanel/P2Box/EnergyBar
 @onready var player_1_ability_btn: Button = $UI/BottomPanel/P1Box/AbilityBtn
@@ -32,7 +33,7 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var bg_clouds: CanvasItem = $UI/Clouds
 
 const MAX_ENERGY := 10
-const STARTING_ENERGY := 10
+const STARTING_ENERGY := 1
 const END_TURN_ENERGY_COST := 2
 const ENERGY_REWARD_ATTACK := 1
 const ENERGY_REWARD_KILL := 2
@@ -92,6 +93,8 @@ func _prepare_scene() -> void:
 	if ui_layer: ui_layer.show()
 	if board_layer: board_layer.hide()
 	if game_over_layer: game_over_layer.hide()
+	if player_2_box and _is_singleplayer():
+		player_2_box.visible = false
 
 func _start_intro_sequence() -> void:
 	if board_layer: board_layer.show()
@@ -355,9 +358,7 @@ func _check_promotion(tile: Tile) -> void:
 	if occupant == null or occupant.piece_data == null or mini_queen_data == null:
 		return
 
-	var piece_name = occupant.piece_data.name.to_lower() if occupant.piece_data.name else ""
-	var is_pawn = piece_name.contains("pawn") or piece_name.contains("soldier") or piece_name.contains("سرباز")
-	if not is_pawn:
+	if not occupant.piece_data.is_pawn():
 		return
 
 	var player = occupant.player
@@ -516,7 +517,7 @@ func _execute_ability_on_target(target_tile: Tile) -> void:
 
 	var feedback_message := ""
 	if success:
-		#spend_energy(current_turn, ability.energy_cost)
+		spend_energy(current_turn, ability.energy_cost)
 		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 		_cancel_ability_targeting()
 		await _end_turn()
@@ -642,8 +643,8 @@ func _on_battle_tile_hovered(tile: Tile) -> void:
 		return
 	var height_delta := selected_piece.height_level - tile.height_level
 	var damage_percent := height_delta * 25
-	var modifier := "+%d%% damage" % damage_percent if damage_percent >= 0 else "%d%% damage" % damage_percent
-	round_label.text = "Height %d vs %d · %s" % [selected_piece.height_level, tile.height_level, modifier]
+	var modifier := tr("damage_bonus") % damage_percent if damage_percent >= 0 else tr("damage_penalty") % damage_percent
+	round_label.text = tr("height_comparison") % [selected_piece.height_level, tile.height_level, modifier]
 
 func show_enemy_intent(source: Tile, target: Tile, is_attack: bool) -> void:
 	if board == null or source == null or target == null:
@@ -652,7 +653,7 @@ func show_enemy_intent(source: Tile, target: Tile, is_attack: bool) -> void:
 	source.set_highlight_color(Tile.HighlightColor.SELF)
 	target.set_highlight_color(Tile.HighlightColor.INTENT)
 	if round_label:
-		round_label.text = "Enemy intent: %s" % ("attack" if is_attack else "move")
+		round_label.text = tr("enemy_intent") % tr("intent_attack" if is_attack else "intent_move")
 
 func _end_turn() -> void:
 	if winner != 0:
@@ -683,6 +684,11 @@ func _end_turn() -> void:
 		current_turn = Turn.PLAYER_1
 		round_number += 1
 		turn_locked = false
+		if _all_current_turn_pieces_stunned():
+			_update_ui()
+			await get_tree().process_frame
+			await _end_turn()
+			return
 	else:
 		if current_turn == Turn.PLAYER_1:
 			current_turn = Turn.PLAYER_2
@@ -765,22 +771,22 @@ func _update_ability_button(button: Button, turn: Turn) -> void:
 		button.tooltip_text = tr("not_enough_energy") % [ability.energy_cost, player_energy[turn]]
 
 func _get_ability_tooltip(ability: AbilityResource) -> String:
-	var target_text := "Self"
+	var target_text := tr("ability_target_self")
 	match ability.target_type:
 		AbilityResource.TargetType.SINGLE_ENEMY:
-			target_text = "Enemy"
+			target_text = tr("ability_target_enemy")
 		AbilityResource.TargetType.SINGLE_ALLY:
-			target_text = "Ally"
+			target_text = tr("ability_target_ally")
 		AbilityResource.TargetType.AOE_CROSS:
-			target_text = "Cross area"
+			target_text = tr("ability_target_cross")
 		AbilityResource.TargetType.AOE_RADIUS:
-			target_text = "Radius area"
+			target_text = tr("ability_target_radius")
 
-	var range_text := "Unlimited" if ability.range <= 0 else "Range %d" % ability.range
-	var details := ability.description.strip_edges()
+	var range_text := tr("ability_range_unlimited") if ability.range <= 0 else tr("ability_range") % ability.range
+	var details := tr(ability.description).strip_edges()
 	if details.is_empty():
-		details = "No description available."
-	return "%s\n%s\n%d energy · %s · %s" % [ability.name, details, ability.energy_cost, target_text, range_text]
+		details = tr("ability_no_description")
+	return tr("ability_tooltip") % [tr(ability.name), details, ability.energy_cost, target_text, range_text]
 
 func _show_ability_feedback(message: String) -> void:
 	if round_label:

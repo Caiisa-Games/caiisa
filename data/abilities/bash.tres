@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_siyyp")
 id = "bash"
-name = "Bash"
-description = "Strike an enemy, stun it for one turn, then move into the tile behind it."
+name = "ability_bash_name"
+description = "ability_bash_description"
 energy_cost = 5
 target_type = 1
 range = 2

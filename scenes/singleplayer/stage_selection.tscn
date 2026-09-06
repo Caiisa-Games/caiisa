@@ -120,7 +120,7 @@ offset_top = 448.0
 offset_right = 1092.0
 offset_bottom = 578.0
 theme_override_font_sizes/font_size = 44
-text = "STAGE 5"
+text = "stage_label"
 
 [node name="Button6" type="Button" parent="PageContent" unique_id=393540817]
 layout_mode = 0
@@ -165,7 +165,7 @@ offset_top = 448.0
 offset_right = 2244.0
 offset_bottom = 578.0
 theme_override_font_sizes/font_size = 44
-text = "STAGE 10"
+text = "stage_label"
 
 [node name="Button11" type="Button" parent="PageContent" unique_id=895777740]
 layout_mode = 0
@@ -210,7 +210,7 @@ offset_top = 448.0
 offset_right = 3396.0
 offset_bottom = 578.0
 theme_override_font_sizes/font_size = 44
-text = "STAGE 15"
+text = "stage_label"
 
 [node name="Button16" type="Button" parent="PageContent" unique_id=1134736399]
 layout_mode = 0
@@ -255,7 +255,7 @@ offset_top = 448.0
 offset_right = 4548.0
 offset_bottom = 578.0
 theme_override_font_sizes/font_size = 44
-text = "STAGE 20"
+text = "stage_label"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=306503613]
 position = Vector2(576, 324)
@@ -278,7 +278,7 @@ offset_left = -3.0
 offset_top = 310.0
 offset_right = 61.0
 offset_bottom = 374.0
-tooltip_text = "Previous stages"
+tooltip_text = "previous_stages"
 texture_normal = ExtResource("7_fjgse")
 texture_pressed = ExtResource("7_fjgse")
 texture_hover = ExtResource("7_fjgse")
@@ -291,7 +291,7 @@ offset_left = 1090.0
 offset_top = 310.0
 offset_right = 1154.0
 offset_bottom = 374.0
-tooltip_text = "Previous stages"
+tooltip_text = "next_stages"
 texture_normal = ExtResource("7_fjgse")
 texture_pressed = ExtResource("7_fjgse")
 texture_hover = ExtResource("7_fjgse")
@@ -309,7 +309,7 @@ offset_right = 109.0
 offset_bottom = 42.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
-tooltip_text = "Return to main menu"
+tooltip_text = "return_to_main_menu"
 texture_normal = ExtResource("8_gf23c")
 texture_pressed = ExtResource("8_gf23c")
 texture_hover = ExtResource("8_gf23c")

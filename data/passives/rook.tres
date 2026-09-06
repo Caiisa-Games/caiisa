@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_resource")
 id = "rook_fortify"
-name = "Fortify"
-description = "Take 15% less damage."
+name = "passive_fortify_name"
+description = "passive_fortify_description"
 script_effect = ExtResource("2_effect")

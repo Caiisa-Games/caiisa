@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_resource")
 id = "king_aegis"
-name = "Royal Aegis"
-description = "Allies within two tiles take 15% less damage."
+name = "passive_royal_aegis_name"
+description = "passive_royal_aegis_description"
 script_effect = ExtResource("2_effect")

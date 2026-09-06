@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://yiknnlycdli6"
 [resource]
 script = ExtResource("2_4fvfo")
 name = "mini_queen"
-description = "an upgraded pawn"
+description = "piece_mini_queen_description"
 texture_white = ExtResource("3_sbrky")
 texture_black = ExtResource("2_cp0gr")
 knockback = 2

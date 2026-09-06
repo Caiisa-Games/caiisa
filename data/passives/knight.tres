@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_resource")
 id = "knight_leap"
-name = "Leap"
-description = "Can move past occupied tiles."
+name = "passive_leap_name"
+description = "passive_leap_description"
 script_effect = ExtResource("2_effect")

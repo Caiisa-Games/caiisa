@@ -28,8 +28,9 @@ func _update_stage_buttons() -> void:
 	for stage_num: int in buttons:
 		var button := buttons[stage_num]
 		var is_unlocked := GameState.is_stage_unlocked(stage_num)
+		button.text = tr("stage_label") % stage_num
 		button.disabled = not is_unlocked
-		button.tooltip_text = "Stage %d" % stage_num if is_unlocked else "Complete earlier stages to unlock"
+		button.tooltip_text = tr("stage_tooltip") % stage_num if is_unlocked else tr("stage_locked_tooltip")
 		if is_unlocked and not button.pressed.is_connected(_on_stage_pressed):
 			button.pressed.connect(_on_stage_pressed.bind(stage_num))
 

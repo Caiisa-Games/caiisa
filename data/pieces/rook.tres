@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://yiknnlycdli6"
 [resource]
 script = ExtResource("2_by47r")
 name = "rook"
-description = "A strong, iron fortress against attacks"
+description = "piece_rook_description"
 texture_white = ExtResource("5_8b4o5")
 texture_black = ExtResource("3_kroi7")
 card_texture = ExtResource("1_fbp7n")
