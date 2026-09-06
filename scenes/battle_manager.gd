@@ -588,6 +588,17 @@ func get_valid_moves_for_tile(from_tile: Tile) -> Array[Tile]:
 		MovementData.MovementType.BOTH:
 			dirs = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT,
 					Vector2i(-1,-1), Vector2i(1,-1), Vector2i(-1,1), Vector2i(1,1)]
+		MovementData.MovementType.KNIGHT:
+			dirs = [Vector2i(-2, -1), Vector2i(-2, 1), Vector2i(-1, -2), Vector2i(-1, 2),
+					Vector2i(1, -2), Vector2i(1, 2), Vector2i(2, -1), Vector2i(2, 1)]
+			for d in dirs:
+				var target_position: Vector2i = from_tile.grid_position + d
+				if not board.is_within_bounds(target_position.x, target_position.y):
+					continue
+				var target := board.get_tile_at(target_position)
+				if target.occupant.piece_data == null or target.occupant.player != from_tile.occupant.player:
+					moves.append(target)
+			return moves
 
 	for d in dirs:
 		for r in range(1, move_data.move_range + 1):

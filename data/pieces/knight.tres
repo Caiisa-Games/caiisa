@@ -10,8 +10,8 @@
 
 [sub_resource type="Resource" id="Resource_dusvo"]
 script = ExtResource("2_xwehc")
-movement_type = 2
-move_range = 2
+movement_type = 3
+move_range = 1
 metadata/_custom_type_script = "uid://yiknnlycdli6"
 
 [resource]

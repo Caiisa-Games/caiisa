@@ -1,7 +1,7 @@
 class_name MovementData
 extends Resource
 
-enum MovementType { ORTHOGONAL, DIAGONAL, BOTH }
+enum MovementType { ORTHOGONAL, DIAGONAL, BOTH, KNIGHT }
 
 @export var movement_type: MovementType = MovementType.ORTHOGONAL
 @export var move_range: int = 1
