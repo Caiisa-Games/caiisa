@@ -83,3 +83,17 @@ option2_default,Reduce enemy attack power by 5 percent,کاهش ۵ درصدی ق
 
 singleplayer,Singleplayer,تک نفره
 2player,2-Player,دونفره
+stage_reward_for,Stage %d Reward,پاداش مرحله %d
+stage_reward_title,Choose Your Reward,پاداش خود را انتخاب کن
+stage_reward_instruction,Choose one lasting advantage for the battles ahead.,یک مزیت ماندگار برای نبردهای پیش رو انتخاب کن.
+stage_reward_selected,SELECTED,انتخاب شد
+stage_reward_confirm,Confirm Reward,تأیید پاداش
+stage_reward_continue,Continue,ادامه
+stage_reward_unlocked,Reward Unlocked,پاداش دریافت شد
+stage_reward_unlocked_stage,Stage %d is ready.,مرحله %d آماده است.
+buff_stage5_option1,Reduce enemy attack by 10%,کاهش ۱۰ درصدی قدرت حمله دشمن
+buff_stage5_option2,Increase player HP by 10,افزایش ۱۰ واحدی جان مهره‌های خودی
+buff_stage10_option1,Increase player attack by 3,افزایش ۳ واحدی قدرت حمله مهره‌های خودی
+buff_stage10_option2,Reduce enemy attack by 10%,کاهش ۱۰ درصدی قدرت حمله دشمن
+buff_stage15_option1,Reduce enemy attack by 15%,کاهش ۱۵ درصدی قدرت حمله دشمن
+buff_stage15_option2,Increase player HP by 15,افزایش ۱۵ واحدی جان مهره‌های خودی

@@ -13,7 +13,11 @@ var data := {
 	}
 }
 
-func load_save():
+func _ready() -> void:
+	load_save()
+	GameState.apply_saved_preferences(data)
+
+func load_save() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
 		save()
 		return
