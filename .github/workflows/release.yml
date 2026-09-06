@@ -1,0 +1,47 @@
+name: Release Caiisa
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out the tagged source
+        uses: actions/checkout@v4
+
+      - name: Set up Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.1
+          include-templates: true
+
+      - name: Export 64-bit Windows executable with embedded PCK
+        shell: pwsh
+        run: |
+          $presets = Get-Content -LiteralPath export_presets.cfg -Raw
+          $presets = $presets.Replace('binary_format/embed_pck=false', 'binary_format/embed_pck=true')
+          Set-Content -LiteralPath export_presets.cfg -Value $presets -NoNewline
+
+          New-Item -ItemType Directory -Path build -Force | Out-Null
+          godot --headless --path . --export-release 'Windows Desktop' 'build/Caiisa-win64.exe'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          if (-not (Test-Path -LiteralPath 'build/Caiisa-win64.exe')) {
+            throw 'Godot did not create the Windows executable.'
+          }
+          if (Test-Path -LiteralPath 'build/Caiisa-win64.pck') {
+            throw 'The PCK was not embedded in the executable.'
+          }
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: build/Caiisa-win64.exe
