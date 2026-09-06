@@ -32,7 +32,7 @@ enum Turn { PLAYER_1, PLAYER_2 }
 @onready var bg_clouds: CanvasItem = $UI/Clouds
 
 const MAX_ENERGY := 10
-const STARTING_ENERGY := 10
+const STARTING_ENERGY := 1
 const END_TURN_ENERGY_COST := 2
 const ENERGY_REWARD_ATTACK := 1
 const ENERGY_REWARD_KILL := 2
@@ -199,7 +199,7 @@ func _connect_board_signals() -> void:
 		tile.tile_clicked.connect(_on_tile_clicked)
 
 func _on_tile_clicked(grid_pos: Vector2i) -> void:
-	if not _is_game_active() or not board:
+	if turn_locked or not _is_game_active() or not board:
 		return
 
 	var tile: Tile = board.get_tile_at(grid_pos)
@@ -426,6 +426,8 @@ func _trigger_ability_mode(turn: Turn) -> void:
 		return
 
 	var ability: AbilityResource = piece_data.active_ability
+	if occupant.is_holding_aseprite_ability():
+		return
 
 	if player_energy[turn] < ability.energy_cost:
 		_show_ability_feedback(tr("not_enough_energy") % [ability.energy_cost, player_energy[turn]])
@@ -441,6 +443,14 @@ func _trigger_ability_mode(turn: Turn) -> void:
 	or ability.target_type == AbilityResource.TargetType.AOE_CROSS:
 		_execute_ability_on_target(selected_piece)
 	else:
+		if ability.hold_frame:
+			turn_locked = true
+			await occupant.begin_aseprite_ability_hold(ability)
+			turn_locked = false
+			if selected_piece == null or selected_piece.occupant != occupant:
+				if occupant.is_holding_aseprite_ability():
+					occupant.release_aseprite_ability_hold()
+				return
 		current_phase = Phase.ABILITY
 		_highlight_ability_targets()
 
@@ -495,10 +505,12 @@ func _execute_ability_on_target(target_tile: Tile) -> void:
 	ability_failure_message = ""
 
 	var success = await occupant.execute_active_ability(target_tile, board)
+	if ability.hold_frame:
+		await occupant.release_aseprite_ability_hold()
 
 	var feedback_message := ""
 	if success:
-		#spend_energy(current_turn, ability.energy_cost)
+		spend_energy(current_turn, ability.energy_cost)
 		AudioManager.play_sfx(preload("res://assets/sound/سلکت کردن مهره برای قبل از حرکت.mp3"))
 		_cancel_ability_targeting()
 		await _end_turn()
@@ -660,6 +672,8 @@ func _all_current_turn_pieces_stunned() -> bool:
 
 func _clear_selection() -> void:
 	if selected_piece and selected_piece.occupant:
+		if selected_piece.occupant.is_holding_aseprite_ability():
+			selected_piece.occupant.release_aseprite_ability_hold()
 		selected_piece.occupant.set_selected(false)
 
 	selected_piece = null

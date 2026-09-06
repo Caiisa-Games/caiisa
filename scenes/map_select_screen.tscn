@@ -207,6 +207,7 @@ layout_mode = 2
 text = "play"
 
 [node name="ThemePicker" parent="." unique_id=978400824 instance=ExtResource("17_theme_picker")]
+visible = false
 layout_mode = 0
 trigger_path = NodePath("../Margin/VBoxContainer/BottomButtons/Margin/HBoxContainer/RightGroup/ThemeButton")
 background_path = NodePath("../Background")
